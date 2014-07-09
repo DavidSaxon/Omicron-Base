@@ -4,6 +4,7 @@ project(Omicron)
 set(SRCS
 
     src/omicron/system/System.cpp
+    src/override/start_up/StartUp.cpp
 )
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")
