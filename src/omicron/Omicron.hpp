@@ -2,6 +2,7 @@
 #   define OMICRON_OMICRON_H_
 
 #include "src/omicron/settings/DisplaySettings.hpp"
+#include "src/omicron/settings/RenderSettings.hpp"
 
 namespace omi {
 
@@ -11,7 +12,10 @@ namespace omi {
 
 //-----------------------------------SETTINGS-----------------------------------
 
+//the display settings
 extern DisplaySettings displaySettings;
+//the render settings
+extern RenderSettings renderSettings;
 
 } //namespace omi
 

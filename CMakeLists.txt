@@ -1,8 +1,13 @@
 cmake_minimum_required(VERSION 2.6)
-project(Omicron)
+project(TestRun)
 
 set(SRCS
 
+    src/omicron/Omicron.cpp
+    src/omicron/graphics/display/Window.cpp
+    src/omicron/graphics/renderer/Renderer.cpp
+    src/omicron/settings/DisplaySettings.cpp
+    src/omicron/settings/RenderSettings.cpp
     src/omicron/system/System.cpp
     src/override/start_up/StartUp.cpp
 )
@@ -15,9 +20,9 @@ include_directories("${BASEPATH}" ${INCLUDE_DIRECTORIES})
 
 link_directories(${LINK_DIRECTORIES})
 
-add_executable(Omicron ${SRCS})
+add_executable(TestRun ${SRCS})
 
-target_link_libraries(Omicron
+target_link_libraries(TestRun
 
     -lGL
     -lGLU

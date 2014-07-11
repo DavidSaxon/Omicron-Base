@@ -1,6 +1,8 @@
 #ifndef OMICRON_OVERRIDE_STARTUP_STARTUP_H_
 #   define OMICRON_OVERRIDE_STARTUP_STARTUP_H_
 
+#include "src/omicron/Omicron.hpp"
+
 /**************************************************\
 | functions used to initialise settings at launch. |
 \**************************************************/

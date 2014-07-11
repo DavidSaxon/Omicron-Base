@@ -7,5 +7,6 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 DisplaySettings displaySettings;
+RenderSettings renderSettings;
 
 } //namespace omi
