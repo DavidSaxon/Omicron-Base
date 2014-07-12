@@ -14,6 +14,14 @@ namespace omi {
 | An object that contains all settings relating to rendering. |
 \*************************************************************/
 class RenderSettings {
+private:
+
+    //--------------------------------------------------------------------------
+    //                                RESTRICTIONS
+    //--------------------------------------------------------------------------
+
+    DISALLOW_COPY_AND_ASSIGN(RenderSettings);
+
 public:
 
     //--------------------------------------------------------------------------
@@ -72,12 +80,6 @@ private:
     bool m_backFaceCulling;
     //the clear colour
     util::vec::Vector4 m_clearColour;
-
-    //--------------------------------------------------------------------------
-    //                                RESTRICTIONS
-    //--------------------------------------------------------------------------
-
-    DISALLOW_COPY_AND_ASSIGN(RenderSettings);
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

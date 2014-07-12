@@ -7,6 +7,7 @@
 
 #include "src/omicron/graphics/display/Window.hpp"
 #include "src/omicron/graphics/renderer/Renderer.hpp"
+#include "src/omicron/logic/LogicManager.hpp"
 #include "src/override/start_up/StartUp.hpp"
 
 namespace omi {
@@ -21,7 +22,8 @@ namespace {
 std::unique_ptr<Window> window;
 //the renderer
 std::unique_ptr<Renderer> renderer;
-//TODO: the logic manager
+//the logic manager
+std::unique_ptr<LogicManager> logicManager;
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
@@ -33,6 +35,9 @@ void execute() {
 
     //update the window
     window->update();
+
+    //update logic
+    logicManager->execute();
 
     //render
     renderer->render();
@@ -61,9 +66,8 @@ void init() {
     //create the renderer
     renderer = std::unique_ptr<Renderer>(new Renderer());
 
-    //fps manager?
-
-    //logic manager
+    //create the logic manager
+    logicManager = std::unique_ptr<LogicManager>(new LogicManager());
 
     //set the call back function of the glut main loop
     glutDisplayFunc(execute);
