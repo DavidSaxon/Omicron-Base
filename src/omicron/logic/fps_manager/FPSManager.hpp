@@ -1,10 +1,10 @@
 #ifndef OMICRON_LOGIC_FPS_MANAGER_FPSMANAGER_H_
 #   define OMICRON_LOGIC_FPS_MANAGER_FPSMANAGER_H_
 
-#include <boost/date_time/date.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-
 #include "lib/Utilitron/MacroUtil.hpp"
+#include "lib/Utilitron/TimeUtil.hpp"
+
+#include "src/omicron/logic/LogicManager.hpp"
 
 namespace omi {
 
@@ -24,6 +24,12 @@ private:
 public:
 
     //--------------------------------------------------------------------------
+    //                                  FRIENDS
+    //--------------------------------------------------------------------------
+
+    friend class LogicManager;
+
+    //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
@@ -36,6 +42,40 @@ public:
 
     ~FPSManager();
 
+    //--------------------------------------------------------------------------
+    //                          PUBLIC MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /**@return the current time scale*/
+    float getTimeScale() const ;
+
+    /**@return the current fps*/
+    float getFPS();
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    //the current time scale
+    float m_timeScale;
+    //the current fps
+    float m_fps;
+
+    //the last time a logic cycle of the engine ran
+    __int64 m_lastUpdateTime;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /**Updates the FPS manager, recalculating the current time-scale and FPS*/
+    void update();
+
+    /**Zeros the FPS manager to begin recalculating (used to avoid first frame
+    lag after loading)*/
+    void zero();
 };
 
 } //namespace omi

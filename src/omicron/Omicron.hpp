@@ -18,6 +18,9 @@ extern DisplaySettings displaySettings;
 //the render settings
 extern RenderSettings renderSettings;
 
+//the fps manager
+extern FPSManager fpsManager;
+
 } //namespace omi
 
 #endif

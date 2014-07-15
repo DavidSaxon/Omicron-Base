@@ -9,4 +9,6 @@ namespace omi {
 DisplaySettings displaySettings;
 RenderSettings renderSettings;
 
+FPSManager fpsManager;
+
 } //namespace omi

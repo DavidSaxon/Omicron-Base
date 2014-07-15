@@ -3,6 +3,10 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+class FPSManager;
+
+#include "src/omicron/Omicron.hpp"
+
 namespace omi {
 
 /**********************************************************************\

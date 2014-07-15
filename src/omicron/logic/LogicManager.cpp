@@ -1,5 +1,7 @@
 #include  "LogicManager.hpp"
 
+#include <iostream>
+
 namespace omi {
 
 //------------------------------------------------------------------------------
@@ -21,6 +23,11 @@ LogicManager::~LogicManager() {
 //------------------------------------------------------------------------------
 
 void LogicManager::execute() {
+
+    //update the fps manager
+    fpsManager.update();
+
+    std::cout << fpsManager.getTimeScale() << std::endl;
 }
 
 } //namespace omi
