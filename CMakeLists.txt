@@ -6,10 +6,14 @@ set(SRCS
     src/omicron/Omicron.cpp
     src/omicron/graphics/display/Window.cpp
     src/omicron/graphics/renderer/Renderer.cpp
+    src/omicron/logic/LogicManager.cpp
+    src/omicron/logic/fps_manager/FPSManager.cpp
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp
     src/omicron/system/System.cpp
     src/override/start_up/StartUp.cpp
+
+    src/scenes/TestScene.cpp
 )
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")

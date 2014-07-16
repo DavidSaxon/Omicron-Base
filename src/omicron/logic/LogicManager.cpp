@@ -8,7 +8,8 @@ namespace omi {
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-LogicManager::LogicManager() {
+LogicManager::LogicManager(Scene* initScene) :
+    m_scene(initScene) {
 }
 
 //------------------------------------------------------------------------------
@@ -27,7 +28,14 @@ void LogicManager::execute() {
     //update the fps manager
     fpsManager.update();
 
-    std::cout << fpsManager.getTimeScale() << std::endl;
+    //execute the current scene
+    if (m_scene->execute()) {
+
+        //get the next scene
+        m_scene = std::unique_ptr<Scene>(m_scene->nextScene());
+        //zero the fps manager
+        fpsManager.zero();
+    }
 }
 
 } //namespace omi

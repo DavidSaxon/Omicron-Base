@@ -8,6 +8,7 @@
 #include "src/omicron/graphics/display/Window.hpp"
 #include "src/omicron/graphics/renderer/Renderer.hpp"
 #include "src/omicron/logic/LogicManager.hpp"
+#include "src/omicron/logic/scene/Scene.hpp"
 #include "src/override/start_up/StartUp.hpp"
 
 namespace omi {
@@ -56,9 +57,8 @@ void init() {
     char* av[1] = {(char*) "Omicron"};
     glutInit(&ac, av);
 
-    //run the start up script
-    //TODO: get scene from start up
-    start_up::init();
+    //run the start up script and get the first scene from it
+    Scene* initScene = start_up::init();
 
     //create the window
     window = std::unique_ptr<Window>(new Window());
@@ -67,7 +67,7 @@ void init() {
     renderer = std::unique_ptr<Renderer>(new Renderer());
 
     //create the logic manager
-    logicManager = std::unique_ptr<LogicManager>(new LogicManager());
+    logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));
 
     //set the call back function of the glut main loop
     glutDisplayFunc(execute);

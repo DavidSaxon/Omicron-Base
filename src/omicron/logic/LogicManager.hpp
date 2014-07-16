@@ -1,7 +1,11 @@
 #ifndef OMICRON_LOGIC_LOGICMANAGER_H_
 #   define OMICRON_LOGIC_LOGICMANAGER_H_
 
+#include <memory>
+
 #include "lib/Utilitron/MacroUtil.hpp"
+
+#include "src/omicron/logic/scene/Scene.hpp"
 
 class FPSManager;
 
@@ -27,9 +31,10 @@ public:
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
-    
-    /**Creates a new Logic Manager*/
-    LogicManager();
+
+    /**Creates a new Logic Manager
+    @param initScene the initial scene to begin executing*/
+    LogicManager(Scene* initScene);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -43,6 +48,15 @@ public:
 
     /**Perfroms an execution cycle of logic*/
     void execute();
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    //the current scene
+    std::unique_ptr<Scene> m_scene;
 };
 
 } //namespace omi

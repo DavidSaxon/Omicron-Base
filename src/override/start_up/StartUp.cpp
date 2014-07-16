@@ -5,7 +5,7 @@
 
 namespace start_up {
 
-void init() {
+omi::Scene* init() {
 
     //display settings
     omi::displaySettings.setSize(util::vec::Vector2(960, 540));
@@ -18,7 +18,7 @@ void init() {
     omi::renderSettings.setClearColour(
         util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 
-    //return scene here
+    return new TestScene();
 }
 
 } //namespace start_up

@@ -51,7 +51,7 @@ float FPSManager::getFPS() {
 void FPSManager::update() {
 
     //get current time
-    __int64 currentTime = util::time::getCurrentTime();
+    int64_t currentTime = util::time::getCurrentTime();
     //find delta time
     float deltaTime = static_cast<float>(currentTime - m_lastUpdateTime);
     //set the new last update time
