@@ -1,9 +1,11 @@
 #ifndef OMICRON_SCENES_TESTSCENE_H_
 #   define OMICRON_SCENES_TESTSCENE_H_
 
-#include <iostream>
+#include <memory>
 
 #include "src/omicron/logic/scene/Scene.hpp"
+
+#include "src/entities/test/TestEntity.hpp"
 
 /**************************************\
 | Testing scene for the Omicron engine |
@@ -33,6 +35,14 @@ public:
 
     /**#Override*/
     virtual omi::Scene* nextScene() const;
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    std::unique_ptr<omi::Entity> m_test;
 };
 
 #endif

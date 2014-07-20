@@ -1,34 +1,27 @@
-#ifndef OMICRON_LOGIC_SCENE_SCENE_H_
-#   define OMICRON_LOGIC_SCENE_SCENE_H_
+#ifndef OMICRON_LOGIC_ENTITY_ENTITY_H_
+#   define OMICRON_LOGIC_ENTITY_ENTITY_H_
 
 namespace omi {
 
-/*********************************************\
-| Abstract base class that all scenes extend. |
-\*********************************************/
-class Scene {
+/****************************************************\
+| Abstract base class that all entities will extend. |
+\****************************************************/
+class Entity {
 public:
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    virtual ~Scene() {
+    virtual ~Entity() {
     }
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**executes a logic cycle of the scene
-    @return if true the scene has finished execution and next scene should
-    begin execution*/
-    virtual bool execute() = 0;
-
-    /**@return the next scene to be executed*/
-    virtual Scene* nextScene() const = 0;
-
-    //TODO: input
+    /**Updates the entity and computes it's logic*/
+    virtual void update() = 0;
 
 private:
 
@@ -36,13 +29,15 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //TODO: entity list
+    //TODO: components
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    //clean up functions
+    //TODO: component update
+
+    //TODO: clean up
 
 };
 

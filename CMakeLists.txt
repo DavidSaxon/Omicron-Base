@@ -14,6 +14,8 @@ set(SRCS
     src/override/start_up/StartUp.cpp
 
     src/scenes/TestScene.cpp
+
+    src/entities/test/TestEntity.cpp
 )
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")

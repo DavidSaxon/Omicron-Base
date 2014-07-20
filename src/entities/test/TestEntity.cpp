@@ -1,33 +1,24 @@
-#include "TestScene.hpp"
+#include "TestEntity.hpp"
 
 //------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-TestScene::TestScene() :
-    m_test(new TestEntity()) {
+TestEntity::TestEntity() {
 }
 
 //------------------------------------------------------------------------------
 //                                   DESTRUCTOR
 //------------------------------------------------------------------------------
 
-TestScene::~TestScene() {
+TestEntity::~TestEntity() {
 }
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-bool TestScene::execute() {
+void TestEntity::update() {
 
-    m_test->update();
-
-    return false;
-}
-
-omi::Scene* TestScene::nextScene() const {
-
-    //TODO:
-    return 0;
+    std::cout << "test entity" << std::endl;
 }
