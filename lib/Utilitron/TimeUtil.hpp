@@ -1,10 +1,10 @@
 #ifndef UTILITRON_TIMEUTIL_H_
 #   define UTILITRON_TIMEUTIL_H_
 
-#include <inttypes.h>
-
 #include <boost/date_time/date.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+
+#include "lib/Utilitron/TypeUtil.hpp"
 
 namespace util {
 
@@ -31,7 +31,7 @@ inline boost::posix_time::ptime getEpoch() {
 }
 
 /**@return time passed in milliseconds since epoch*/
-inline int64_t getCurrentTime() {
+inline util::int64 getCurrentTime() {
 
     //epoch
     boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));

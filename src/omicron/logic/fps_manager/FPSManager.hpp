@@ -1,10 +1,9 @@
 #ifndef OMICRON_LOGIC_FPS_MANAGER_FPSMANAGER_H_
 #   define OMICRON_LOGIC_FPS_MANAGER_FPSMANAGER_H_
 
-#include <inttypes.h>
-
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/TimeUtil.hpp"
+#include "lib/Utilitron/TypeUtil.hpp"
 
 #include "src/omicron/logic/LogicManager.hpp"
 
@@ -66,7 +65,7 @@ private:
     float m_fps;
 
     //the last time a logic cycle of the engine ran
-    int64_t m_lastUpdateTime;
+    util::int64 m_lastUpdateTime;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
