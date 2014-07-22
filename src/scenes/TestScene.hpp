@@ -31,7 +31,7 @@ public:
     //--------------------------------------------------------------------------
 
     /**#Override*/
-    virtual bool execute();
+    virtual bool update();
 
     /**#Override*/
     virtual omi::Scene* nextScene() const;

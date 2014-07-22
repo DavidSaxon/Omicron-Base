@@ -1,33 +1,38 @@
-#include "TestScene.hpp"
+#include "Scene.hpp"
 
-//------------------------------------------------------------------------------
-//                                  CONSTRUCTOR
-//------------------------------------------------------------------------------
-
-TestScene::TestScene() :
-    m_test(new TestEntity()) {
-}
-
-//------------------------------------------------------------------------------
-//                                   DESTRUCTOR
-//------------------------------------------------------------------------------
-
-TestScene::~TestScene() {
-}
+namespace omi {
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-bool TestScene::update() {
+bool Scene::execute() {
 
-    m_test->update();
-
-    return false;
+    //update all the entities
+    updateEntities();
 }
 
-omi::Scene* TestScene::nextScene() const {
+//------------------------------------------------------------------------------
+//                           PROTECTED MEMBER FUNCTIONS
+//------------------------------------------------------------------------------
 
-    //TODO:
-    return 0;
+void Scene::addEntity(Entity* entity) {
+
+    m_entities.push_back(entityPtr(entity));
 }
+
+bool Scene::removeEntity(Entity* entity) {
+
+    //TODO: implement
+}
+
+//------------------------------------------------------------------------------
+//                            PRIVATE MEMBER FUNCTIONS
+//------------------------------------------------------------------------------
+
+void Scene::updateEntities() {
+
+
+}
+
+} //namespace omi

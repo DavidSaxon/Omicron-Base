@@ -8,6 +8,7 @@ set(SRCS
     src/omicron/graphics/renderer/Renderer.cpp
     src/omicron/logic/LogicManager.cpp
     src/omicron/logic/fps_manager/FPSManager.cpp
+    src/omicron/logic/scene/Scene.cpp
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp
     src/omicron/system/System.cpp
