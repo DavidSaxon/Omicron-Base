@@ -10,7 +10,8 @@ namespace omi {
 
 //-----------------------------------TYPEDEFS-----------------------------------
 
-typedef std::unique_ptr<Entity> entityPtr;
+typedef std::unique_ptr<Entity> EntityPtr;
+typedef std::vector<EntityPtr>  EntityList;
 
 /*********************************************\
 | Abstract base class that all scenes extend. |
@@ -67,7 +68,7 @@ private:
     //--------------------------------------------------------------------------
 
     //the list of entities
-    std::vector<entityPtr> m_entities;
+    EntityList m_entities;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

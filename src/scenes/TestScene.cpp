@@ -6,6 +6,9 @@
 
 TestScene::TestScene() :
     m_test(new TestEntity()) {
+
+    //add the test entity to the scene
+    addEntity(m_test);
 }
 
 //------------------------------------------------------------------------------
@@ -20,8 +23,6 @@ TestScene::~TestScene() {
 //------------------------------------------------------------------------------
 
 bool TestScene::update() {
-
-    m_test->update();
 
     return false;
 }

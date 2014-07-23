@@ -10,6 +10,9 @@ bool Scene::execute() {
 
     //update all the entities
     updateEntities();
+
+    //update this scene
+    return update();
 }
 
 //------------------------------------------------------------------------------
@@ -18,7 +21,7 @@ bool Scene::execute() {
 
 void Scene::addEntity(Entity* entity) {
 
-    m_entities.push_back(entityPtr(entity));
+    m_entities.push_back(EntityPtr(entity));
 }
 
 bool Scene::removeEntity(Entity* entity) {
@@ -32,7 +35,11 @@ bool Scene::removeEntity(Entity* entity) {
 
 void Scene::updateEntities() {
 
+    for (EntityList::iterator it = m_entities.begin();
+         it != m_entities.end(); ++it) {
 
+        (*it)->update();
+    }
 }
 
 } //namespace omi
