@@ -37,8 +37,7 @@ private:
 
     //TODO: component update
 
-    //TODO: clean up
-
+    //TODO: clean up};
 };
 
 } //namespace omi

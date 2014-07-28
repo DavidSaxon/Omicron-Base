@@ -37,11 +37,12 @@ void execute() {
     //update the window
     window->update();
 
-    //update logic
-    logicManager->execute();
-
     //render
     renderer->render();
+
+    //TODO: move this up??
+    //update logic
+    logicManager->execute();
 
     //swap buffers and request call back
     //TODO: renderer should swap buffers??

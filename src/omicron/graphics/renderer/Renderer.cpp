@@ -33,16 +33,9 @@ void Renderer::render() {
 
     glLoadIdentity();
 
-    //TESTING: REMOVE ME
-    glTranslatef(0.0f, 0.0f, -1.0f);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-    glBegin(GL_QUADS);
-    glVertex3f( 1.0f,  1.0f, 0.0);
-    glVertex3f(-1.0f,  1.0f, 0.0);
-    glVertex3f(-1.0f, -1.0f, 0.0);
-    glVertex3f( 1.0f, -1.0f, 0.0);
-    glEnd();
+    //TODO: replace with camera (is a camera a type of entity??)
+    glTranslatef(0.0f, 0.0f, -4.0f);
+    glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
 }
 
 //------------------------------------------------------------------------------
