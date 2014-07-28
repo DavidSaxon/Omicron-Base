@@ -1,10 +1,10 @@
-#ifndef OMICRON_LOGIC_SCENE_SCENE_H_
-#   define OMICRON_LOGIC_SCENE_SCENE_H_
+#ifndef OMICRON_SCENE_SCENE_H_
+#   define OMICRON_SCENE_SCENE_H_
 
 #include <memory>
 #include <vector>
 
-#include "src/omicron/logic/entity/Entity.hpp"
+#include "src/omicron/entity/Entity.hpp"
 
 namespace omi {
 

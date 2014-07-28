@@ -5,7 +5,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
-#include "src/omicron/logic/scene/Scene.hpp"
+#include "src/omicron/scene/Scene.hpp"
 
 class FPSManager;
 

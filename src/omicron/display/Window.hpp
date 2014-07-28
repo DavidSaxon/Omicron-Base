@@ -1,64 +1,63 @@
-#ifndef OMICRON_GRAPHICS_RENDERER_RENDERER_H_
-#   define OMICRON_GRAPHICS_RENDERER_RENDERER_H_
+#ifndef OMICRON_DISPLAY_WINDOW_H_
+#   define OMICRON_DISPLAY_WINDOW_H_
 
 #include <GL/glut.h>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
-class RenderSettings;
+class DisplaySettings;
 
 #include "src/omicron/Omicron.hpp"
 
 namespace omi {
 
-/****************************************************************************\
-| The hub class controlling all rendering in Omicron. Rendering is performed |
-| using OpenGL.                                                              |
-\****************************************************************************/
-class Renderer {
+/**************************************************************************\
+| A display window which Omicron will render to. Currently only one active |
+| window is supported.                                                     |
+\**************************************************************************/
+class Window {
 private:
 
     //--------------------------------------------------------------------------
     //                                RESTRICTIONS
     //--------------------------------------------------------------------------
 
-    DISALLOW_COPY_AND_ASSIGN(Renderer);
+    DISALLOW_COPY_AND_ASSIGN(Window);
 
 public:
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
-
-    /**Creates a new renderer*/
-    Renderer();
+    /**Creates a new window
+    #WARNING: currently only one active window is supported*/
+    Window();
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    ~Renderer();
+    ~Window();
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Performs one frame of rendering*/
-    void render();
+    /**Updates the window
+    #NOTE: any changes to the window should be done through Omicron's display
+    settings. This is a back end class that should only be used by Omicron*/
+    void update();
 
 private:
 
     //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
+    //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    /**Applies settings*/
-    void applySettings();
-
-    /**Initialises the renderer*/
-    void init();
+    //the handle to the glut window
+    GLuint m_window;
 };
 
-} //namespace
+} //namespace omi
 
 #endif

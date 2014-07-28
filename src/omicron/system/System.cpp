@@ -5,10 +5,10 @@
 
 #include "lib/Utilitron/Vector.hpp"
 
-#include "src/omicron/graphics/display/Window.hpp"
-#include "src/omicron/graphics/renderer/Renderer.hpp"
+#include "src/omicron/display/Window.hpp"
 #include "src/omicron/logic/LogicManager.hpp"
-#include "src/omicron/logic/scene/Scene.hpp"
+#include "src/omicron/rendering/Renderer.hpp"
+#include "src/omicron/scene/Scene.hpp"
 #include "src/override/start_up/StartUp.hpp"
 
 namespace omi {

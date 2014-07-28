@@ -1,5 +1,5 @@
-#ifndef OMICRON_LOGIC_ENTITY_ENTITY_H_
-#   define OMICRON_LOGIC_ENTITY_ENTITY_H_
+#ifndef OMICRON_ENTITY_ENTITY_H_
+#   define OMICRON_ENTITY_ENTITY_H_
 
 namespace omi {
 

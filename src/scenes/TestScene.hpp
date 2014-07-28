@@ -1,7 +1,7 @@
 #ifndef OMICRON_SCENES_TESTSCENE_H_
 #   define OMICRON_SCENES_TESTSCENE_H_
 
-#include "src/omicron/logic/scene/Scene.hpp"
+#include "src/omicron/scene/Scene.hpp"
 
 #include "src/entities/test/TestEntity.hpp"
 

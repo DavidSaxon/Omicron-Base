@@ -1,5 +1,5 @@
-#ifndef OMICRON_LOGIC_FPS_MANAGER_FPSMANAGER_H_
-#   define OMICRON_LOGIC_FPS_MANAGER_FPSMANAGER_H_
+#ifndef OMICRON_FPS_MANAGER_FPSMANAGER_H_
+#   define OMICRON_FPS_MANAGER_FPSMANAGER_H_
 
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/TimeUtil.hpp"

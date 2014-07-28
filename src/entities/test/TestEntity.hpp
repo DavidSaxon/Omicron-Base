@@ -3,7 +3,7 @@
 
 #include <GL/glut.h>
 
-#include "src/omicron/logic/entity/Entity.hpp"
+#include "src/omicron/entity/Entity.hpp"
 
 class TestEntity : public omi::Entity {
 public:

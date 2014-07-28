@@ -4,11 +4,11 @@ project(TestRun)
 set(SRCS
 
     src/omicron/Omicron.cpp
-    src/omicron/graphics/display/Window.cpp
-    src/omicron/graphics/renderer/Renderer.cpp
+    src/omicron/display/Window.cpp
+    src/omicron/logic/FPSManager.cpp
     src/omicron/logic/LogicManager.cpp
-    src/omicron/logic/fps_manager/FPSManager.cpp
-    src/omicron/logic/scene/Scene.cpp
+    src/omicron/rendering/Renderer.cpp
+    src/omicron/scene/Scene.cpp
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp
     src/omicron/system/System.cpp

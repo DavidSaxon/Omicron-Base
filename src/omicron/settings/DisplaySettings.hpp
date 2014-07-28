@@ -6,7 +6,7 @@
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/Vector.hpp"
 
-#include "src/omicron/graphics/display/Window.hpp"
+#include "src/omicron/display/Window.hpp"
 
 namespace omi {
 
