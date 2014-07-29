@@ -1,6 +1,11 @@
 #ifndef OMICRON_ENTITY_ENTITY_H_
 #   define OMICRON_ENTITY_ENTITY_H_
 
+#include "src/omicron/entity/component/Component.hpp"
+
+//here we are including all known components so the user doesn't have to
+#include "src/omicron/entity/component/Transform.hpp"
+
 namespace omi {
 
 /****************************************************\

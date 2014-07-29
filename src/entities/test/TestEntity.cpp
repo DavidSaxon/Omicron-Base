@@ -5,6 +5,12 @@
 //------------------------------------------------------------------------------
 
 TestEntity::TestEntity() {
+
+    //create a transform
+    omi::Transform transform("transform",
+                        util::vec::Vector3(),
+                        util::vec::Vector3(),
+                        util::vec::Vector3());
 }
 
 //------------------------------------------------------------------------------

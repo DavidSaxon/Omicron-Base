@@ -9,6 +9,11 @@ construction*/
     void operator=(const TypeName&)
 
 /**Use this macro in the private section of a class to disallow
+the default copy constructor*/
+#define DISALLOW_DEFAULT_COPY(TypeName) \
+    TypeName(const TypeName&)
+
+/**Use this macro in the private section of a class to disallow
 copying and assignment*/
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
