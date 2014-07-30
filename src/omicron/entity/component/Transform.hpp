@@ -10,11 +10,16 @@ namespace omi {
 /**********************************************************************************\
 | The types of axis spaces that can be used to compute the effects of a transform. |
 \**********************************************************************************/
-enum class AxisSpace {
+
+namespace axis_space {
+
+enum AxisSpace {
     LOCAL,
     PARENT,
     GLOBAL
 };
+
+} //namespace axis_space
 
 /***************************************************************************\
 | A transform defines the translation, rotation, and position of an entity. |
@@ -45,11 +50,11 @@ public:
     @param r the initial rotation
     @param s the initial scale
     @param axisSpace the axis space to use for computing the transform*/
-    Transform(const std::string         id,
-              const util::vec::Vector3& t,
-              const util::vec::Vector3& r,
-              const util::vec::Vector3& s,
-              const AxisSpace&          axisSpace = AxisSpace::LOCAL)
+    Transform(const std::string           id,
+              const util::vec::Vector3&   t,
+              const util::vec::Vector3&   r,
+              const util::vec::Vector3&   s,
+                    axis_space::AxisSpace axisSpace = axis_space::LOCAL)
         :
         Component  (id),
         translation(t),
@@ -77,7 +82,7 @@ public:
     //--------------------------------------------------------------------------
 
     /**@return the axis space being used by this transform*/
-    const AxisSpace& getAxisSpace() const {
+    axis_space::AxisSpace getAxisSpace() const {
 
         return m_axisSpace;
     }
@@ -128,7 +133,7 @@ private:
     //--------------------------------------------------------------------------
 
     //the axis space to use
-    AxisSpace m_axisSpace;
+    axis_space::AxisSpace m_axisSpace;
 };
 
 } //namespace omi
