@@ -29,13 +29,14 @@ public:
     /**Updates the entity and computes it's logic*/
     virtual void update() = 0;
 
-private:
+protected:
 
     //--------------------------------------------------------------------------
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //TODO: components
+    //the table of components this entity has
+    ComponentTable m_components;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
@@ -43,7 +44,7 @@ private:
 
     //TODO: component update
 
-    //TODO: clean up};
+    //TODO: clean up
 };
 
 } //namespace omi

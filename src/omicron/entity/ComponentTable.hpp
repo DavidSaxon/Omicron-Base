@@ -18,7 +18,12 @@ namespace omi {
 
 typedef std::map<std::string, std::unique_ptr<Component>> ComponentMap;
 
+/************************************************************************\
+| A component table contains a set of generic components mapped by their |
+| unique identifiers.                                                    |
+\************************************************************************/
 class ComponentTable {
+public:
 
     //--------------------------------------------------------------------------
     //                                RESTRICTIONS
@@ -43,22 +48,26 @@ class ComponentTable {
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@Get the component with the given type and id if it exists within the
-    table. If it doesn't a null pointer will be returned
+    /**Checks if the table contains a component with the given type
+    @param id the identifier of the component to check for
+    @return if the component is contained with the table*/
+    bool contains(const std::string& id);
+
+    /**Get a the component with the given id if it exists within the table.
+    Otherwise return null
     @param id the identifier of the component to get
     @return the component if it was found else null*/
-    template<typename T>
-    T* getCompontent(const std::string& id);
+    Component* get(const std::string& id);
 
     /**Adds a component to the table
     #NOTE: the component table will take ownership of the component pointer
     @param component the pointer to the component*/
-    void addComponent(Component* component);
+    void add(Component* component);
 
     /**Removes the component with the given id from the able
     @param id the identifier of the component to remove
     @return if a component was successfully removed from the table*/
-    bool removeComponent(const std::string& id)
+    bool remove(const std::string& id);
 
 private:
 
