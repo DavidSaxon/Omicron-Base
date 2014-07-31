@@ -41,7 +41,7 @@ public:
     /**@return the next scene to be executed*/
     virtual Scene* nextScene() const = 0;
 
-    //TODO: input
+    // TODO: input
 
 protected:
 
@@ -67,7 +67,7 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the list of entities
+    // the list of entities
     EntityList m_entities;
 
     //--------------------------------------------------------------------------
@@ -79,6 +79,6 @@ private:
 
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

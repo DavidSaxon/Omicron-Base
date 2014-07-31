@@ -8,10 +8,10 @@ namespace omi {
 
 bool Scene::execute() {
 
-    //update all the entities
+    // update all the entities
     updateEntities();
 
-    //update this scene
+    // update this scene
     return update();
 }
 
@@ -26,7 +26,7 @@ void Scene::addEntity(Entity* entity) {
 
 bool Scene::removeEntity(Entity* entity) {
 
-    //TODO: implement
+    // TODO: implement
 }
 
 //------------------------------------------------------------------------------
@@ -42,4 +42,4 @@ void Scene::updateEntities() {
     }
 }
 
-} //namespace omi
+} // namespace omi

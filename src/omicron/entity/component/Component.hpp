@@ -49,10 +49,10 @@ protected:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the identifier of the component which must be unique to the entity
+    // the identifier of the component which must be unique to the entity
     std::string m_id;
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

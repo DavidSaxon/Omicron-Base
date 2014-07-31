@@ -1,18 +1,18 @@
 #include "StartUp.hpp"
 
-//TODO: include settings
+// TODO: include settings
 #include <iostream>
 
 namespace start_up {
 
 omi::Scene* init() {
 
-    //display settings
+    // display settings
     omi::displaySettings.setSize(util::vec::Vector2(960, 540));
     omi::displaySettings.setPos(util::vec::Vector2(100, 100));
     omi::displaySettings.setTitle("Omicron Test");
 
-    //render settings
+    // render settings
     omi::renderSettings.setDepthTest(true);
     omi::renderSettings.setBackFaceCulling(true);
     omi::renderSettings.setClearColour(
@@ -21,4 +21,4 @@ omi::Scene* init() {
     return new TestScene();
 }
 
-} //namespace start_up
+} // namespace start_up

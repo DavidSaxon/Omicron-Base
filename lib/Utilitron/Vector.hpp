@@ -46,23 +46,23 @@ public:
 
     //------------------------POSITION COMPONENT ACCESS-------------------------
 
-    //!x position access component
+    //! x position access component
     float x;
-    //!y position access component
+    //! y position access component
     float y;
 
     //-------------------------COLOUR COMPONENT ACCESS--------------------------
 
-    //!red colour access component (alias of x)
+    //! red colour access component (alias of x)
     float& r;
-    //!green colour access component (alias of y)
+    //! green colour access component (alias of y)
     float& g;
 
     //-----------------------MEASUREMENT COMPONENT ACCESS-----------------------
 
-    //!width measurement access component (alias of x)
+    //! width measurement access component (alias of x)
     float& width;
-    //!height measurement access component (alias of y)
+    //! height measurement access component (alias of y)
     float& height;
 
     //--------------------------------------------------------------------------
@@ -77,7 +77,8 @@ public:
         r(x),
         g(y),
         width(x),
-        height(y) {
+        height(y)
+        {
     }
 
     /**Creates a new two dimensional vector with the given values
@@ -108,7 +109,6 @@ public:
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Destroys this vector*/
     inline ~Vector2() {
     }
 
@@ -150,7 +150,7 @@ public:
     @return the value of the component*/
     inline float& operator [](unsigned index) {
 
-        //check that the index is within bounds
+        // check that the index is within bounds
         if (index > 1) {
 
             util::ex::IndexOutOfBoundsException("index is greater than 1.");
@@ -174,7 +174,7 @@ public:
     @return the value of the component*/
     inline const float& operator [](unsigned index) const {
 
-        //check that the index is within bounds
+        // check that the index is within bounds
         if (index > 1) {
 
             util::ex::IndexOutOfBoundsException("index is greater than 1.");
@@ -398,29 +398,29 @@ public:
 
     //------------------------POSITION COMPONENT ACCESS-------------------------
 
-    //!x position access component
+    //! x position access component
     float x;
-    //!y position access component
+    //! y position access component
     float y;
-    //!z position access component
+    //! z position access component
     float z;
 
     //-------------------------COLOUR COMPONENT ACCESS--------------------------
 
-    //!red colour access component (alias of x)
+    //! red colour access component (alias of x)
     float& r;
-    //!green colour access component (alias of y)
+    //! green colour access component (alias of y)
     float& g;
-    //!blue colour access component (alias of z)
+    //! blue colour access component (alias of z)
     float& b;
 
     //-----------------------MEASUREMENT COMPONENT ACCESS-----------------------
 
-    //!width measurement access component (alias of x)
+    //! width measurement access component (alias of x)
     float& width;
-    //!height measurement access component (alias of x)
+    //! height measurement access component (alias of x)
     float& height;
-    //!depth measurement access component (alias of x)
+    //! depth measurement access component (alias of x)
     float& depth;
 
     //--------------------------------------------------------------------------
@@ -508,7 +508,6 @@ public:
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Destroys this vector*/
     inline ~Vector3() {
     }
 
@@ -551,7 +550,7 @@ public:
     @return the value of the component*/
     inline float& operator [](unsigned index) {
 
-        //check that the index is within bounds
+        // check that the index is within bounds
         if (index > 2) {
 
             util::ex::IndexOutOfBoundsException("index is greater than 2.");
@@ -579,7 +578,7 @@ public:
     @return the value of the component*/
     inline const float& operator [](unsigned index) const {
 
-        //check that the index is within bounds
+        // check that the index is within bounds
         if (index > 2) {
 
             util::ex::IndexOutOfBoundsException("index is greater than 2.");
@@ -878,33 +877,33 @@ public:
 
     //------------------------POSITION COMPONENT ACCESS-------------------------
 
-    //!x position access component
+    //! x position access component
     float x;
-    //!y position access component
+    //! y position access component
     float y;
-    //!z position access component
+    //! z position access component
     float z;
-    //!w position access component
+    //! w position access component
     float w;
 
     //-------------------------COLOUR COMPONENT ACCESS--------------------------
 
-    //!red colour access component (alias of x)
+    //! red colour access component (alias of x)
     float& r;
-    //!green colour access component (alias of y)
+    //! green colour access component (alias of y)
     float& g;
-    //!blue colour access component (alias of z)
+    //! blue colour access component (alias of z)
     float& b;
-    //!alpha colour access component (alias of w)
+    //! alpha colour access component (alias of w)
     float& a;
 
     //-----------------------MEASUREMENT COMPONENT ACCESS-----------------------
 
-    //!width measurement access component (alias of x)
+    //! width measurement access component (alias of x)
     float& width;
-    //!height measurement access component (alias of x)
+    //! height measurement access component (alias of x)
     float& height;
-    //!depth measurement access component (alias of x)
+    //! depth measurement access component (alias of x)
     float& depth;
 
     //--------------------------------------------------------------------------
@@ -1084,7 +1083,6 @@ public:
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Destroys this vector*/
     inline ~Vector4() {
     }
 
@@ -1128,7 +1126,7 @@ public:
     @return the value of the component*/
     inline float& operator [](unsigned index) {
 
-        //check that the index is within bounds
+        // check that the index is within bounds
         if (index > 3) {
 
             util::ex::IndexOutOfBoundsException("index is greater than 3.");
@@ -1160,7 +1158,7 @@ public:
     @return the value of the component*/
     inline const float& operator [](unsigned index) const {
 
-        //check that the index is within bounds
+        // check that the index is within bounds
         if (index > 3) {
 
             util::ex::IndexOutOfBoundsException("index is greater than 3.");
@@ -1758,7 +1756,7 @@ inline float dot(const Vector4& a, const Vector4& b) {
 @return the result of cross product*/
 inline Vector3 cross(const Vector3& a, const Vector3& b) {
 
-    //the cross product values
+    // the cross product values
     float cx = (a.y * b.z) - (a.z * b.y);
     float cy = (a.x * b.z) - (a.z * b.x);
     float cz = (a.x * b.y) - (a.y * b.x);
@@ -1804,6 +1802,8 @@ inline float angleBetween(const Vector2& a, const Vector2& b) {
     return (-1.0f * atan2(a.y - b.y, a.x - b.x));
 }
 
-} } //util //vec
+} // namespace vec
+
+} // namespace util
 
 #endif

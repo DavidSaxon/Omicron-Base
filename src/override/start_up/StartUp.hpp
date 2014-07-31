@@ -16,6 +16,6 @@ initial settings and provided the first scene to run
 @return the first scene to run*/
 omi::Scene* init();
 
-} //namespace startup
+} // namespace startup
 
 #endif

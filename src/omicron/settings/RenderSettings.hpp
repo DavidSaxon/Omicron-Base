@@ -71,14 +71,14 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //if a setting has changed
+    // if a setting has changed
     bool m_change;
 
-    //if depth testing is enabled
+    // if depth testing is enabled
     bool m_depthTest;
-    //if back face culling should be enabled
+    // if back face culling should be enabled
     bool m_backFaceCulling;
-    //the clear colour
+    // the clear colour
     util::vec::Vector4 m_clearColour;
 
     //--------------------------------------------------------------------------
@@ -89,6 +89,6 @@ private:
     bool check();
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

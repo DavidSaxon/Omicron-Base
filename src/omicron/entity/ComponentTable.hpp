@@ -75,10 +75,10 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the map from component ids to components
+    // the map from component ids to components
     ComponentMap m_components;
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

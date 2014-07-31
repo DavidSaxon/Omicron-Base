@@ -55,10 +55,10 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the current scene
+    // the current scene
     std::unique_ptr<Scene> m_scene;
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

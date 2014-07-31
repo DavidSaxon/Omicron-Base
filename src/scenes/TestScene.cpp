@@ -7,7 +7,7 @@
 TestScene::TestScene() :
     m_test(new TestEntity()) {
 
-    //add the test entity to the scene
+    // add the test entity to the scene
     addEntity(m_test);
 }
 
@@ -29,6 +29,6 @@ bool TestScene::update() {
 
 omi::Scene* TestScene::nextScene() const {
 
-    //TODO:
+    // TODO:
     return 0;
 }

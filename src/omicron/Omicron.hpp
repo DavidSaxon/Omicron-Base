@@ -13,14 +13,14 @@ namespace omi {
 
 //-----------------------------------SETTINGS-----------------------------------
 
-//the display settings
+// the display settings
 extern DisplaySettings displaySettings;
-//the render settings
+// the render settings
 extern RenderSettings renderSettings;
 
-//the fps manager
+// the fps manager
 extern FPSManager fpsManager;
 
-} //namespace omi
+} // namespace omi
 
 #endif

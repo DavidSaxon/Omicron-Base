@@ -68,4 +68,4 @@ bool RenderSettings::check() {
     return temp;
 }
 
-} //namespace omi
+} // namespace omi

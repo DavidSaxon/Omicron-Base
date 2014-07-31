@@ -24,7 +24,7 @@ inline std::string concatenate(std::string strings[], unsigned n) {
 
     std::stringstream ss;
 
-    //add the strings
+    // add the strings
     for (unsigned i = 0; i < n; ++i) {
 
         ss << strings[i];
@@ -38,12 +38,12 @@ inline std::string concatenate(std::string strings[], unsigned n) {
 @param b the string to concatenate on to the front of the other string*/
 inline void concatenateFront(std::string& a, const std::string& b) {
 
-    //create a new string stream
+    // create a new string stream
     std::stringstream ss;
-    //add the strings to it
+    // add the strings to it
     ss << b << a;
 
-    //set the new string
+    // set the new string
     a = ss.str();
 }
 
@@ -52,12 +52,12 @@ inline void concatenateFront(std::string& a, const std::string& b) {
 @param b the string to concatenate on to the end of the other string**/
 inline void concatenateBack(std::string& a, const std::string& b) {
 
-    //create a new string stream
+    // create a new string stream
     std::stringstream ss;
-    //add the strings to it
+    // add the strings to it
     ss << a << b;
 
-    //set the new string
+    // set the new string
     a = ss.str();
 }
 
@@ -67,7 +67,7 @@ inline void concatenateBack(std::string& a, const std::string& b) {
 @return the generated string*/
 inline std::string generateRepeat(const std::string& str, unsigned n) {
 
-    //create a new string stream
+    // create a new string stream
     std::stringstream ss;
     for (unsigned i = 0; i < n; ++i) {
 
@@ -93,20 +93,20 @@ inline unsigned centre(std::string& str, unsigned charNum) {
 
     //TODO: check for new lines (windows too)
 
-    //check the length of the string
+    // check the length of the string
     if (str.length() < charNum) {
 
-        //find the number of characters to add
+        // find the number of characters to add
         int addLength = charNum - str.length();
 
-        //generate the spaces to add
+        // generate the spaces to add
         std::string whiteSpace = generateRepeat(" ", addLength / 2);
 
-        //add the white space to the string
+        // add the white space to the string
         concatenateFront(str, whiteSpace);
         concatenateBack(str, whiteSpace);
 
-        //if odd add an extra space to the end
+        // if odd add an extra space to the end
         if (addLength % 2) {
 
             concatenateBack(str, " ");
@@ -119,10 +119,12 @@ inline unsigned centre(std::string& str, unsigned charNum) {
         //TODO:
     }
 
-    //if the string is equal to the number of characters
+    // if the string is equal to the number of characters
     return 1;
 }
 
-} } //util //str
+} // namespace str
+
+} // namespace util
 
 #endif

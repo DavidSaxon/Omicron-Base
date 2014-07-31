@@ -9,7 +9,7 @@ namespace omi {
 DisplaySettings::DisplaySettings() :
     m_change(true),
     m_title("Omicron"),
-    m_size(640, 480), //TODO: check this size
+    m_size(640, 480),
     m_pos(0, 0),
     m_fullscreen(false) {
 }
@@ -80,4 +80,4 @@ bool DisplaySettings::check() {
     return temp;
 }
 
-} //namespace omi
+} // namespace omi

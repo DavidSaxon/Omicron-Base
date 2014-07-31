@@ -6,7 +6,7 @@
 
 TestEntity::TestEntity() {
 
-    //create a transform
+    // create a transform
     m_components.add(
         new omi::Transform(
             "transform",

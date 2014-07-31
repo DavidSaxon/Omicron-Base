@@ -78,16 +78,16 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //if a setting has changed
+    // if a setting has changed
     bool m_change;
 
-    //the title of the window
+    // the title of the window
     std::string m_title;
-    //the size of the window
+    // the size of the window
     util::vec::Vector2 m_size;
-    //the position of the window
+    // the position of the window
     util::vec::Vector2 m_pos;
-    //is true if the window is in fullscreen
+    // is true if the window is in fullscreen
     bool m_fullscreen;
 
     //--------------------------------------------------------------------------
@@ -99,6 +99,6 @@ private:
 };
 
 
-} //namespace omi
+} // namespace omi
 
 #endif

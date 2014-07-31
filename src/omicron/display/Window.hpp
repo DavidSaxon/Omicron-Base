@@ -54,10 +54,10 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the handle to the glut window
+    // the handle to the glut window
     GLuint m_window;
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

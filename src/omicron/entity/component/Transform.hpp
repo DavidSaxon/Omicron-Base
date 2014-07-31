@@ -33,11 +33,11 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //!the translation of the entity
+    //! the translation of the entity
     util::vec::Vector3 translation;
-    //!the rotation of the entity
+    //! the rotation of the entity
     util::vec::Vector3 rotation;
-    //!the scale of the entity
+    //! the scale of the entity
     util::vec::Vector3 scale;
 
     //--------------------------------------------------------------------------
@@ -54,13 +54,12 @@ public:
               const util::vec::Vector3&   t,
               const util::vec::Vector3&   r,
               const util::vec::Vector3&   s,
-                    axis_space::AxisSpace axisSpace = axis_space::LOCAL)
-        :
+                    axis_space::AxisSpace axisSpace = axis_space::LOCAL) :
+
         Component  (id),
         translation(t),
         rotation   (r),
-        scale      (s)
-        {
+        scale      (s) {
     }
 
     /**Creates a new component by copying from another and providing a new
@@ -68,13 +67,19 @@ public:
     @param id the new identifier
     @param other the other component to copy from*/
     Transform(const std::string& id,
-              const Transform&   other)
-        :
+              const Transform&   other) :
+
         Component(id),
         translation(other.translation),
         rotation(other.rotation),
-        scale(other.scale)
-        {
+        scale(other.scale) {
+    }
+
+    //--------------------------------------------------------------------------
+    //                                 DESTRUCTOR
+    //--------------------------------------------------------------------------
+
+    ~Transform() {
     }
 
     //--------------------------------------------------------------------------
@@ -92,7 +97,7 @@ public:
     @return the computed translation*/
     util::vec::Vector3 computeTranslation() {
 
-        //TODO:
+        // TODO:
         util::vec::Vector3 computed(translation);
 
         return computed;
@@ -103,7 +108,7 @@ public:
     @return the computed rotation*/
     util::vec::Vector3 computeRotation() {
 
-        //TODO:
+        // TODO:
         util::vec::Vector3 computed(rotation);
 
         return computed;
@@ -114,7 +119,7 @@ public:
     @return the computed scale*/
     util::vec::Vector3 computeScale() {
 
-        //TODO:
+        // TODO:
         util::vec::Vector3 computed(scale);
 
         return scale;
@@ -132,10 +137,10 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the axis space to use
+    // the axis space to use
     axis_space::AxisSpace m_axisSpace;
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

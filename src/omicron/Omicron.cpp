@@ -11,4 +11,4 @@ RenderSettings renderSettings;
 
 FPSManager fpsManager;
 
-} //namespace omi
+} // namespace omi

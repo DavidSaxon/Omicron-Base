@@ -5,6 +5,7 @@ set(SRCS
 
     src/omicron/Omicron.cpp
     src/omicron/display/Window.cpp
+    src/omicron/entity/ComponentTable.cpp
     src/omicron/logic/FPSManager.cpp
     src/omicron/logic/LogicManager.cpp
     src/omicron/rendering/Renderer.cpp

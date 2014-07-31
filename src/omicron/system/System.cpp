@@ -19,11 +19,11 @@ namespace {
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
-//the window
+// the window
 std::unique_ptr<Window> window;
-//the renderer
+// the renderer
 std::unique_ptr<Renderer> renderer;
-//the logic manager
+// the logic manager
 std::unique_ptr<LogicManager> logicManager;
 
 //------------------------------------------------------------------------------
@@ -34,18 +34,18 @@ std::unique_ptr<LogicManager> logicManager;
 engine*/
 void execute() {
 
-    //update the window
+    // update the window
     window->update();
 
-    //render
+    // render
     renderer->render();
 
-    //TODO: move this up??
-    //update logic
+    // TODO: move this up??
+    // update logic
     logicManager->execute();
 
-    //swap buffers and request call back
-    //TODO: renderer should swap buffers??
+    // swap buffers and request call back
+    // TODO: renderer should swap buffers??
     glutSwapBuffers();
     glutPostRedisplay();
 }
@@ -53,37 +53,37 @@ void execute() {
 /**Sets up Omicron*/
 void init() {
 
-    //initialise glut
+    // initialise glut
     int ac = 1;
     char* av[1] = {(char*) "Omicron"};
     glutInit(&ac, av);
 
-    //run the start up script and get the first scene from it
+    // run the start up script and get the first scene from it
     Scene* initScene = start_up::init();
 
-    //create the window
+    // create the window
     window = std::unique_ptr<Window>(new Window());
 
-    //create the renderer
+    // create the renderer
     renderer = std::unique_ptr<Renderer>(new Renderer());
 
-    //create the logic manager
+    // create the logic manager
     logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));
 
-    //set the call back function of the glut main loop
+    // set the call back function of the glut main loop
     glutDisplayFunc(execute);
 }
 
 /**Begins Omicron*/
 void begin() {
 
-    //start the glut main loop
+    // start the glut main loop
     glutMainLoop();
 }
 
-} //namespace anonymous
+} // namespace anonymous
 
-} //namespace omi
+} // namespace omi
 
 //------------------------------------------------------------------------------
 //                                 MAIN FUNCTION
@@ -91,14 +91,14 @@ void begin() {
 
 int main(int argc, char** argv) {
 
-    //TODO: parse arguments
+    // TODO: parse arguments
 
-    //set up
+    // set up
     omi::init();
 
-    //begin
+    // begin
     omi::begin();
 
-    //will never be reached
+    // will never be reached
     return 0;
 }

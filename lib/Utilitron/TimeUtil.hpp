@@ -17,7 +17,7 @@ namespace time {
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
-//!the number of milliseconds in a second
+//! the number of milliseconds in a second
 static const float MS_IN_SEC = 1000.0f;
 
 //------------------------------------------------------------------------------
@@ -33,21 +33,21 @@ inline boost::posix_time::ptime getEpoch() {
 /**@return time passed in milliseconds since epoch*/
 inline util::int64 getCurrentTime() {
 
-    //epoch
+    // epoch
     boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
 
-    //get the time now
+    // get the time now
     boost::posix_time::ptime now =
         boost::posix_time::microsec_clock::local_time();
-    //get the difference in time since epoch
+    // get the difference in time since epoch
     boost::posix_time::time_duration diff =
         now - epoch;
-    //return the time in milliseconds
+    // return the time in milliseconds
     return diff.total_milliseconds();
 }
 
-} //namespace time
+} // namespace time
 
-} //namespace util
+} // namespace util
 
 #endif

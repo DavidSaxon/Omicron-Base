@@ -3,42 +3,57 @@
 
 #include "Exception.hpp"
 
-namespace util { namespace ex {
+namespace util {
+
+namespace ex {
 
 /***********************************************\
 | Abstract base class for all array exceptions. |
-|                                               |
-| @author David Saxon                           |
 \***********************************************/
 class ArrayException : public Exception {
+public:
+
+    //--------------------------------------------------------------------------
+    //                                CONSTRUCTOR
+    //--------------------------------------------------------------------------
+
+    /**Super constructor for array exceptions
+    @param message the error message of the exception*/
+    ArrayException(const std::string& message) : Exception(message) {
+    }
 };
 
 /********************************************\
 | Warns that a given index is out of bounds. |
-|                                            |
-| @author David Saxon                        |
 \********************************************/
 class IndexOutOfBoundsException : public ArrayException {
 public:
 
-    //CONSTRUCTOR
-    /*!Creates a new index out of bounds exception
-    @message the error message*/
-    IndexOutOfBoundsException(const std::string& message) {
+    //--------------------------------------------------------------------------
+    //                                CONSTRUCTOR
+    //--------------------------------------------------------------------------
 
-        mErrorMessage = message;
+    /**Creates a new index out of bounds exception
+    @param message the error message*/
+    IndexOutOfBoundsException(const std::string& message) :
+        ArrayException(message) {
     }
 
 private:
 
-    //PRIVATE MEMBER FUNCTIONS
-    /*!@override*/
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /**#Override*/
     std::string name() const {
 
         return "INDEX OUT OF BOUNDS EXCEPTION";
     }
 };
 
-} } //util //ex
+} // namespace ex
+
+} // namespace util
 
 #endif

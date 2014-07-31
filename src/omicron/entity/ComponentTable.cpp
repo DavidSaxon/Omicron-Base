@@ -22,14 +22,14 @@ ComponentTable::~ComponentTable() {
 
 bool ComponentTable::contains(const std::string& id) {
 
-    //search for the key in the table
+    // search for the key in the table
     ComponentMap::iterator it = m_components.find(id);
     return it != m_components.end();
 }
 
 Component* ComponentTable::get(const std::string& id) {
 
-    //check if the id is contained within the table
+    // check if the id is contained within the table
     if (contains(id)) {
 
         return m_components[id].get();
@@ -46,7 +46,7 @@ void ComponentTable::add(Component* component) {
 
 bool ComponentTable::remove(const std::string& id) {
 
-    //check if the id is contained within the table
+    // check if the id is contained within the table
     if (contains(id)) {
 
         m_components.erase(m_components.find(id));
@@ -56,4 +56,4 @@ bool ComponentTable::remove(const std::string& id) {
     return false;
 }
 
-} //namespace omi
+} // namespace omi

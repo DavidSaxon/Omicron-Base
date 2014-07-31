@@ -8,10 +8,10 @@ namespace {
 //                                   CONSTANTS
 //------------------------------------------------------------------------------
 
-//the length of a standard frame in milliseconds
+// the length of a standard frame in milliseconds
 static const float STD_FRAME_LENGTH = 16.0f;
 
-} //namespace anonymous
+} // namespace anonymous
 
 //------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
@@ -50,16 +50,16 @@ float FPSManager::getFPS() {
 
 void FPSManager::update() {
 
-    //get current time
+    // get current time
     int64_t currentTime = util::time::getCurrentTime();
-    //find delta time
+    // find delta time
     float deltaTime = static_cast<float>(currentTime - m_lastUpdateTime);
-    //set the new last update time
+    // set the new last update time
     m_lastUpdateTime = currentTime;
 
-    //calculate the time scale
+    // calculate the time scale
     m_timeScale = deltaTime / STD_FRAME_LENGTH;
-    //calculate the fps
+    // calculate the fps
     m_fps = util::time::MS_IN_SEC / deltaTime;
 
 }
@@ -69,4 +69,4 @@ void FPSManager::zero() {
     m_lastUpdateTime = util::time::getCurrentTime();
 }
 
-} //namespace omi
+} // namespace omi

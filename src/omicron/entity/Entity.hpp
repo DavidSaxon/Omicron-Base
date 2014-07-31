@@ -4,7 +4,7 @@
 #include "src/omicron/entity/ComponentTable.hpp"
 #include "src/omicron/entity/component/Component.hpp"
 
-//here we are including all known components so the user doesn't have to
+// here we are including all known components so the user doesn't have to
 #include "src/omicron/entity/component/Transform.hpp"
 
 namespace omi {
@@ -35,18 +35,18 @@ protected:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the table of components this entity has
+    // the table of components this entity has
     ComponentTable m_components;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    //TODO: component update
+    // TODO: component update
 
-    //TODO: clean up
+    // TODO: clean up
 };
 
-} //namespace omi
+} // namespace omi
 
 #endif

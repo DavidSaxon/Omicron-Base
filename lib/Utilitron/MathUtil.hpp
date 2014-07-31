@@ -74,7 +74,7 @@ inline T clampBelow(T v, T threshold) {
 template<typename T>
 inline bool withinDistance(T a, T b, T distance) {
 
-    //return if abs is less than
+    // return if abs is less than
     return abs(a - b) <= distance;
 }
 
@@ -86,7 +86,7 @@ inline bool withinDistance(T a, T b, T distance) {
 template<>
 inline bool withinDistance(float a, float b, float distance) {
 
-    //return if abs is less than
+    // return if abs is less than
     return fabs(a - b) <= distance;
 }
 
@@ -98,10 +98,12 @@ inline bool withinDistance(float a, float b, float distance) {
 template<>
 inline bool withinDistance(double a, double b, double distance) {
 
-    //return if abs is less than
+    // return if abs is less than
     return fabs(a - b) <= distance;
 }
 
-} } //util //math
+} // namespace math
+
+} // namespace util
 
 #endif

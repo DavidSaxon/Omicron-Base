@@ -59,6 +59,6 @@ private:
     void init();
 };
 
-} //namespace
+} // namespace omi
 
 #endif

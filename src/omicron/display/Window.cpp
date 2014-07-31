@@ -8,11 +8,11 @@ namespace omi {
 
 Window::Window() {
 
-    //TODO; stuff like accum and stencil buffer are enabled here?
-    //initialise the windows display mode
+    // TODO; stuff like accum and stencil buffer are enabled here?
+    // initialise the windows display mode
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 
-    //set up the window
+    // set up the window
     glutInitWindowSize(
         displaySettings.getSize().x,
         displaySettings.getSize().y);
@@ -26,7 +26,7 @@ Window::Window() {
         glutFullScreen();
     }
 
-    //create the window
+    // create the window
     m_window = glutCreateWindow(displaySettings.getTitle().c_str());
 }
 
@@ -43,7 +43,7 @@ Window::~Window() {
 
 void Window::update() {
 
-    //check if there has been a change in settings
+    // check if there has been a change in settings
     if (displaySettings.check()) {
 
         glutReshapeWindow(displaySettings.getSize().x,
@@ -52,7 +52,7 @@ void Window::update() {
         glutPositionWindow(displaySettings.getPos().x,
             displaySettings.getPos().y);
 
-        //TODO: how to exit fullscreen
+        // TODO: how to exit fullscreen
         if (displaySettings.getFullscreen()) {
 
             glutFullScreen();
@@ -62,4 +62,4 @@ void Window::update() {
     }
 }
 
-} //namespace omi
+} // namespace omi
