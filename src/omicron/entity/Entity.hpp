@@ -26,7 +26,7 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Updates the entity and computes it's logic*/
+    /** Updates the entity and computes it's logic */
     virtual void update() = 0;
 
 protected:

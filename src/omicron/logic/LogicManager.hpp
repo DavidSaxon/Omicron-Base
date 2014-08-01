@@ -32,8 +32,8 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Creates a new Logic Manager
-    @param initScene the initial scene to begin executing*/
+    /** Creates a new Logic Manager
+    @param initScene the initial scene to begin executing */
     LogicManager(Scene* initScene);
 
     //--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Perfroms an execution cycle of logic*/
+    /** Perfroms an execution cycle of logic */
     void execute();
 
 private:

@@ -30,8 +30,8 @@ std::unique_ptr<LogicManager> logicManager;
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
-/**The main loop function of Omicron, controls callback to the rest of the
-engine*/
+/** The main loop function of Omicron, controls callback to the rest of the
+engine */
 void execute() {
 
     // update the window
@@ -50,7 +50,7 @@ void execute() {
     glutPostRedisplay();
 }
 
-/**Sets up Omicron*/
+/** Sets up Omicron */
 void init() {
 
     // initialise glut
@@ -74,7 +74,7 @@ void init() {
     glutDisplayFunc(execute);
 }
 
-/**Begins Omicron*/
+/** Begins Omicron */
 void begin() {
 
     // start the glut main loop

@@ -34,7 +34,7 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Creates a new FPSManager*/
+    /** Creates a new FPSManager */
     FPSManager();
 
     //--------------------------------------------------------------------------
@@ -47,10 +47,10 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@return the current time scale*/
+    /** @return the current time scale */
     float getTimeScale() const ;
 
-    /**@return the current fps*/
+    /** @return the current fps */
     float getFPS();
 
 private:
@@ -59,9 +59,9 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    //the current time scale
+    // the current time scale
     float m_timeScale;
-    //the current fps
+    // the current fps
     float m_fps;
 
     //the last time a logic cycle of the engine ran
@@ -71,11 +71,11 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Updates the FPS manager, recalculating the current time-scale and FPS*/
+    /** Updates the FPS manager, recalculating the current time-scale and FPS */
     void update();
 
-    /**Zeros the FPS manager to begin recalculating (used to avoid first frame
-    lag after loading)*/
+    /** Zeros the FPS manager to begin recalculating (used to avoid first frame
+    lag after loading) */
     void zero();
 };
 

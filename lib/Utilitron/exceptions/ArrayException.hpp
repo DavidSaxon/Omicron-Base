@@ -17,8 +17,8 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Super constructor for array exceptions
-    @param message the error message of the exception*/
+    /** Super constructor for array exceptions
+    @param message the error message of the exception */
     ArrayException(const std::string& message) : Exception(message) {
     }
 };
@@ -33,8 +33,8 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Creates a new index out of bounds exception
-    @param message the error message*/
+    /** Creates a new index out of bounds exception
+    @param message the error message */
     IndexOutOfBoundsException(const std::string& message) :
         ArrayException(message) {
     }
@@ -45,7 +45,7 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**#Override*/
+    /** #Override */
     std::string name() const {
 
         return "INDEX OUT OF BOUNDS EXCEPTION";

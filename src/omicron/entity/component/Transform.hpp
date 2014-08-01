@@ -44,12 +44,12 @@ public:
     //                                CONSTRUCTORS
     //--------------------------------------------------------------------------
 
-    /**Creates a new transform component
+    /** Creates a new transform component
     @param id the identifier of the component
     @param t the initial translation
     @param r the initial rotation
     @param s the initial scale
-    @param axisSpace the axis space to use for computing the transform*/
+    @param axisSpace the axis space to use for computing the transform */
     Transform(const std::string           id,
               const util::vec::Vector3&   t,
               const util::vec::Vector3&   r,
@@ -62,10 +62,10 @@ public:
         scale      (s) {
     }
 
-    /**Creates a new component by copying from another and providing a new
+    /** Creates a new component by copying from another and providing a new
     identifier
     @param id the new identifier
-    @param other the other component to copy from*/
+    @param other the other component to copy from */
     Transform(const std::string& id,
               const Transform&   other) :
 
@@ -86,15 +86,15 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@return the axis space being used by this transform*/
+    /** @return the axis space being used by this transform */
     axis_space::AxisSpace getAxisSpace() const {
 
         return m_axisSpace;
     }
 
-    /**Compute the translation values to be applied taking into regards the
+    /** Compute the translation values to be applied taking into regards the
     parent transform and the axis space.
-    @return the computed translation*/
+    @return the computed translation */
     util::vec::Vector3 computeTranslation() {
 
         // TODO:
@@ -103,9 +103,9 @@ public:
         return computed;
     }
 
-    /**Compute the rotation values to be applied taking into regards the
+    /** Compute the rotation values to be applied taking into regards the
     parent transform and the axis space.
-    @return the computed rotation*/
+    @return the computed rotation */
     util::vec::Vector3 computeRotation() {
 
         // TODO:
@@ -114,9 +114,9 @@ public:
         return computed;
     }
 
-    /**Compute the scale values to be applied taking into regards the parent
+    /** Compute the scale values to be applied taking into regards the parent
     transform and the axis space.
-    @return the computed scale*/
+    @return the computed scale */
     util::vec::Vector3 computeScale() {
 
         // TODO:

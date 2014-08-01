@@ -14,11 +14,11 @@ namespace math {
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
-/**Clamps a value between two thresholds
+/** Clamps a value between two thresholds
 @param v the value to clamp
 @param lower the lower threshold
 @param upper the upper threshold
-@return the result of the clamping*/
+@return the result of the clamping */
 template<typename T>
 inline T clamp(T v, T lower, T upper) {
 
@@ -34,11 +34,11 @@ inline T clamp(T v, T lower, T upper) {
     return v;
 }
 
-/**Clamps a value above a threshold (so that the value is always equal to or
+/** Clamps a value above a threshold (so that the value is always equal to or
 greater than the threshold)
 @param v the value to clamp
 @param threshold the theshold to clamp above
-@return the result of the clamping*/
+@return the result of the clamping */
 template<typename T>
 inline T clampAbove(T v, T threshold) {
 
@@ -50,11 +50,11 @@ inline T clampAbove(T v, T threshold) {
     return v;
 }
 
-/**Clamps a value below a threshold (so that the value is always equal to
+/** Clamps a value below a threshold (so that the value is always equal to
 or less than the threshold)
 @param v the value to clamp
 @param threshold the threshold to clamp below
-@return the result of the clamping*/
+@return the result of the clamping */
 template<typename T>
 inline T clampBelow(T v, T threshold) {
 
@@ -66,11 +66,11 @@ inline T clampBelow(T v, T threshold) {
     return v;
 }
 
-/**Checks if two values are within a distance of each other
+/** Checks if two values are within a distance of each other
 @param a the first value to compare
 @param b the second value to compare
 @param distance the greatest distance the values can be apart
-@return if the values are within the given distance of each other*/
+@return if the values are within the given distance of each other */
 template<typename T>
 inline bool withinDistance(T a, T b, T distance) {
 
@@ -78,11 +78,11 @@ inline bool withinDistance(T a, T b, T distance) {
     return abs(a - b) <= distance;
 }
 
-/**Checks if two values are within a distance of each other
+/** Checks if two values are within a distance of each other
 @param a the first value to compare
 @param b the second value to compare
 @param distance the greatest distance the values can be apart
-@return if the values are within the given distance of each other*/
+@return if the values are within the given distance of each other */
 template<>
 inline bool withinDistance(float a, float b, float distance) {
 
@@ -90,11 +90,11 @@ inline bool withinDistance(float a, float b, float distance) {
     return fabs(a - b) <= distance;
 }
 
-/**Checks if two values are within a distance of each other
+/** Checks if two values are within a distance of each other
 @param a the first value to compare
 @param b the second value to compare
 @param distance the greatest distance the values can be apart
-@return if the values are within the given distance of each other*/
+@return if the values are within the given distance of each other */
 template<>
 inline bool withinDistance(double a, double b, double distance) {
 

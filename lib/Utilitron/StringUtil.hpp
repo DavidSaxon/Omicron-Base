@@ -16,10 +16,10 @@ namespace str {
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
-/**Concatenates an array of strings into one string
+/** Concatenates an array of strings into one string
 @param strings the array of strings to concatenate
 @param n the number of strings
-@return a new string made from the concatenation*/
+@return a new string made from the concatenation */
 inline std::string concatenate(std::string strings[], unsigned n) {
 
     std::stringstream ss;
@@ -33,9 +33,9 @@ inline std::string concatenate(std::string strings[], unsigned n) {
     return ss.str();
 }
 
-/**Concatenates the second string in front of the first string
+/** Concatenates the second string in front of the first string
 @param a the string to be extended
-@param b the string to concatenate on to the front of the other string*/
+@param b the string to concatenate on to the front of the other string */
 inline void concatenateFront(std::string& a, const std::string& b) {
 
     // create a new string stream
@@ -47,9 +47,9 @@ inline void concatenateFront(std::string& a, const std::string& b) {
     a = ss.str();
 }
 
-/**Concatenates the second string on to the end of the first string
+/** Concatenates the second string on to the end of the first string
 @param a the string to be extended
-@param b the string to concatenate on to the end of the other string**/
+@param b the string to concatenate on to the end of the other string* */
 inline void concatenateBack(std::string& a, const std::string& b) {
 
     // create a new string stream
@@ -61,10 +61,10 @@ inline void concatenateBack(std::string& a, const std::string& b) {
     a = ss.str();
 }
 
-/**Generates a string containing a string repeated a given amount of times
+/** Generates a string containing a string repeated a given amount of times
 @param str the string to repeat
 @param n the number of times to repeat the character
-@return the generated string*/
+@return the generated string */
 inline std::string generateRepeat(const std::string& str, unsigned n) {
 
     // create a new string stream
@@ -78,7 +78,7 @@ inline std::string generateRepeat(const std::string& str, unsigned n) {
 }
 
 //TODO: centre a string on multiple lines
-/**Centres a string so that it occupies a given number of characters. If the
+/** Centres a string so that it occupies a given number of characters. If the
 string is longer than the given number of characters it is split into
 multiple lines
 #WARNING This will not trim white-space from the initial string so any
@@ -88,7 +88,7 @@ to centre.
 string will be centered to occupy the given number of characters.
 @param str the string to centre
 @param charNum the number of characters the string should occupy
-@return the number of lines the string now occupies*/
+@return the number of lines the string now occupies */
 inline unsigned centre(std::string& str, unsigned charNum) {
 
     //TODO: check for new lines (windows too)

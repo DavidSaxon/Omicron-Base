@@ -21,7 +21,7 @@ bool Scene::execute() {
 
 void Scene::addEntity(Entity* entity) {
 
-    m_entities.push_back(EntityPtr(entity));
+    m_entities.push_back(t_EntityPtr(entity));
 }
 
 bool Scene::removeEntity(Entity* entity) {
@@ -35,7 +35,7 @@ bool Scene::removeEntity(Entity* entity) {
 
 void Scene::updateEntities() {
 
-    for (EntityList::iterator it = m_entities.begin();
+    for (t_EntityList::iterator it = m_entities.begin();
          it != m_entities.end(); ++it) {
 
         (*it)->update();

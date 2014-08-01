@@ -24,8 +24,8 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Super constructor for Utilitron exceptions
-    @param message the error message of the exception*/
+    /** Super constructor for Utilitron exceptions
+    @param message the error message of the exception */
     Exception(const std::string& message) : m_errorMessage(message) {
     }
 
@@ -40,7 +40,7 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@return the error message of the exception*/
+    /** @return the error message of the exception */
     const char* what() const throw() {
 
         std::string message = info();
@@ -58,7 +58,7 @@ public:
         return rMessage;
     }
 
-    /**@return the error message of the exception*/
+    /** @return the error message of the exception */
     std::string getMessage() const {
 
         return m_errorMessage;
@@ -70,7 +70,7 @@ protected:
     //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /***@return the name of the exception*/
+    /** @return the name of the exception */
     virtual std::string name() const = 0;
 
 private:
@@ -86,7 +86,7 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@return the exception name joint with the error message*/
+    /** @return the exception name joint with the error message */
     std::string info() const {
 
         std::stringstream ss;

@@ -24,7 +24,7 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@return the identifier of the component*/
+    /** @return the identifier of the component */
     const std::string& getId() const {
 
         return m_id;
@@ -36,8 +36,8 @@ protected:
     //                                CONSTRUCTORS
     //--------------------------------------------------------------------------
 
-    /**Creates a new component
-    @param id the identifier of the component*/
+    /** Creates a new component
+    @param id the identifier of the component */
     Component(const std::string& id) :
         m_id(id) {
     }

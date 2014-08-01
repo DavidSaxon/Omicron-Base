@@ -23,7 +23,7 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Super constructor*/
+    /** Super constructor */
     Renderable()
         :
         visible (true) {
@@ -45,7 +45,7 @@ protected:
     //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Render this component*/
+    /** Render this component */
     virtual void render() = 0;
 };
 

@@ -14,9 +14,9 @@ namespace util {
 #ifdef OS_WINDOWS
     typedef __int64 int64;
 #else
-    typedef int64_t int64; 
+    typedef int64_t int64;
 #endif
 
-}
+} // namespace utill
 
 #endif

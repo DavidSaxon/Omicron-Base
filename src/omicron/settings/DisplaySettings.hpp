@@ -35,7 +35,7 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Creates new window settings initialised with the default values*/
+    /** Creates new window settings initialised with the default values */
     DisplaySettings();
 
     //--------------------------------------------------------------------------
@@ -48,28 +48,28 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@return the title of the window*/
+    /** @return the title of the window */
     const std::string& getTitle() const;
 
-    /**@param title the new title of the window*/
+    /** @param title the new title of the window */
     void setTitle(const std::string& title);
 
-    /**@return the size of the window*/
+    /** @return the size of the window */
     const util::vec::Vector2& getSize() const;
 
-    /**@param size the new size of the window*/
+    /** @param size the new size of the window */
     void setSize(const util::vec::Vector2& size);
 
-    /**@return the position of the window*/
+    /** @return the position of the window */
     const util::vec::Vector2& getPos() const;
 
-    /**@param pos the new position of the window*/
+    /** @param pos the new position of the window */
     void setPos(const util::vec::Vector2& pos);
 
-    /**@return if the window is in fullscreen*/
+    /** @return if the window is in fullscreen */
     bool getFullscreen() const;
 
-    /**@param fullscreen the new fullscreen mode of the window*/
+    /** @param fullscreen the new fullscreen mode of the window */
     void setFullscreen(bool fullscreen);
 
 private:
@@ -94,7 +94,7 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Checks if a change has been made to the settings*/
+    /** Checks if a change has been made to the settings */
     bool check();
 };
 

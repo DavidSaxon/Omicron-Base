@@ -24,13 +24,13 @@ static const float MS_IN_SEC = 1000.0f;
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
-/**@return the time passed since the first of January 1970*/
+/** @return the time passed since the first of January 1970 */
 inline boost::posix_time::ptime getEpoch() {
 
     return boost::posix_time::ptime(boost::gregorian::date(1970, 1, 1));
 }
 
-/**@return time passed in milliseconds since epoch*/
+/** @return time passed in milliseconds since epoch */
 inline util::int64 getCurrentTime() {
 
     // epoch

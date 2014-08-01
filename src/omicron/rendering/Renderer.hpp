@@ -30,7 +30,7 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Creates a new renderer*/
+    /** Creates a new renderer */
     Renderer();
 
     //--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Performs one frame of rendering*/
+    /** Performs one frame of rendering */
     void render();
 
 private:
@@ -52,10 +52,10 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Applies settings*/
+    /** Applies settings */
     void applySettings();
 
-    /**Initialises the renderer*/
+    /** Initialises the renderer */
     void init();
 };
 

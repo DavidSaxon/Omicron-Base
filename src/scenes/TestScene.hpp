@@ -15,7 +15,7 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Creates a new test scene*/
+    /** Creates a new test scene */
     TestScene();
 
     //--------------------------------------------------------------------------
@@ -28,10 +28,10 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**#Override*/
+    /** #Override */
     virtual bool update();
 
-    /**#Override*/
+    /** #Override */
     virtual omi::Scene* nextScene() const;
 
 private:

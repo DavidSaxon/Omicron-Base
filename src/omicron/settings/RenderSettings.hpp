@@ -34,7 +34,7 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /**Creates new render settings initialised with default values*/
+    /** Creates new render settings initialised with default values */
     RenderSettings();
 
     //--------------------------------------------------------------------------
@@ -47,22 +47,22 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**@return if depth testing is enabled*/
+    /** @return if depth testing is enabled */
     bool getDepthTest() const;
 
-    /**@param depthTest whether depth testing should be enabled*/
+    /** @param depthTest whether depth testing should be enabled */
     void setDepthTest(bool depthTest);
 
-    /**@return if back face culling is enabled*/
+    /** @return if back face culling is enabled */
     bool getBackFaceCulling() const;
 
-    /**@param backFaceCulling whether back face culling should be enabled*/
+    /** @param backFaceCulling whether back face culling should be enabled */
     void setBackFaceCulling(bool backFaceCulling);
 
-    /**@return the clear colour*/
+    /** @return the clear colour */
     const util::vec::Vector4& getClearColour() const;
 
-    /**@param clearColour the new clear colour*/
+    /** @param clearColour the new clear colour */
     void setClearColour(const util::vec::Vector4& clearColour);
 
 private:
@@ -85,7 +85,7 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Checks if a change has been made to the settings*/
+    /** Checks if a change has been made to the settings */
     bool check();
 };
 

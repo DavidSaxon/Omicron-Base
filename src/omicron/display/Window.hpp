@@ -29,8 +29,8 @@ public:
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
-    /**Creates a new window
-    #WARNING: currently only one active window is supported*/
+    /** Creates a new window
+    #WARNING: currently only one active window is supported */
     Window();
 
     //--------------------------------------------------------------------------
@@ -43,9 +43,9 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**Updates the window
+    /** Updates the window
     #NOTE: any changes to the window should be done through Omicron's display
-    settings. This is a back end class that should only be used by Omicron*/
+    settings. This is a back end class that should only be used by Omicron */
     void update();
 
 private:

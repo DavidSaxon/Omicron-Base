@@ -25,7 +25,7 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /**#Override*/
+    /** #Override */
     void update();
 
 };
