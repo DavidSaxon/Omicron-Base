@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "exceptions/ArrayException.hpp"
+#include "exceptions/CollectionException.hpp"
 
 namespace util {
 

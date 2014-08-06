@@ -1,11 +1,13 @@
 #ifndef OMICRON_ENTITY_COMPONENTTABLE_H_
 #   define OMICRON_ENTITY_COMPONENTTABLE_H_
 
-#include "lib/Utilitron/MacroUtil.hpp"
-
 #include <map>
 #include <memory>
 #include <string>
+#include <vector>
+
+#include "lib/Utilitron/MacroUtil.hpp"
+#include "lib/Utilitron/exceptions/CollectionException.hpp"
 
 #include "src/omicron/entity/component/Component.hpp"
 #include "src/omicron/entity/component/Transform.hpp"
@@ -30,6 +32,15 @@ public:
     //--------------------------------------------------------------------------
 
     DISALLOW_COPY_AND_ASSIGN(ComponentTable);
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    //! #Hidden
+    //! list of components that have been added that have not been sorted by the
+    //! Logic Manager yet
+    std::vector<Component*> dirty;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR

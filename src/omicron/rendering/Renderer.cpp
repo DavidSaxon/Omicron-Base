@@ -82,6 +82,9 @@ void Renderer::init() {
     // revert to the model view matrix
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    // create the render lists
+    m_renderLists = std::unique_ptr<RenderLists>(new RenderLists());
 }
 
 } // namespace omi

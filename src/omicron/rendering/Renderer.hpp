@@ -2,12 +2,15 @@
 #   define OMICRON_RENDERING_RENDERER_H_
 
 #include <GL/glut.h>
+#include <memory>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+class RenderLists;
 class RenderSettings;
 
 #include "src/omicron/Omicron.hpp"
+#include "src/omicron/rendering/RenderLists.hpp"
 
 namespace omi {
 
@@ -47,6 +50,13 @@ public:
     void render();
 
 private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the render lists containing all things to be rendered
+    std::unique_ptr<RenderLists> m_renderLists;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

@@ -23,9 +23,11 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /** Super constructor */
-    Renderable()
+    /** Super constructor
+    @param id the identifier of the component */
+    Renderable(const std::string& id)
         :
+        Component(id),
         visible (true) {
     }
 
@@ -33,11 +35,8 @@ public:
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    virtual ~Renderable();
-
-    //--------------------------------------------------------------------------
-    //                          PUBLIC MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
+    virtual ~Renderable() {
+    }
 
 protected:
 

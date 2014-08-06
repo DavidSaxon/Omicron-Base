@@ -40,6 +40,15 @@ Component* ComponentTable::get(const std::string& id) {
 
 void ComponentTable::add(Component* component) {
 
+    // check that the id is not already contained within the table
+    if (contains(component->getId())) {
+
+        //throw an exception
+        throw util::ex::ItemAlreadyExistsException(
+            "a component with the identifier \'" + component->getId() +
+            "\' already exists within this entities\' component table");
+    }
+
     m_components.insert(std::make_pair(
         component->getId(), std::unique_ptr<Component>(component)));
 }
