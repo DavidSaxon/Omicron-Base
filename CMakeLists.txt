@@ -6,9 +6,11 @@ set(SRCS
     src/omicron/Omicron.cpp
     src/omicron/display/Window.cpp
     src/omicron/entity/ComponentTable.cpp
+    src/omicron/entity/component/renderable/Mesh.cpp
     src/omicron/logic/FPSManager.cpp
     src/omicron/logic/LogicManager.cpp
     src/omicron/rendering/Renderer.cpp
+    src/omicron/rendering/RenderLists.cpp
     src/omicron/scene/Scene.cpp
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp

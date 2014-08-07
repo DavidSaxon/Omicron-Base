@@ -5,8 +5,6 @@
 #include "lib/Utilitron/TimeUtil.hpp"
 #include "lib/Utilitron/TypeUtil.hpp"
 
-#include "src/omicron/logic/LogicManager.hpp"
-
 namespace omi {
 
 /**************************************************************************\
@@ -25,12 +23,6 @@ private:
 public:
 
     //--------------------------------------------------------------------------
-    //                                  FRIENDS
-    //--------------------------------------------------------------------------
-
-    friend class LogicManager;
-
-    //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
@@ -46,6 +38,15 @@ public:
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    /** #Hidden
+    Updates the FPS manager, recalculating the current time-scale and FPS */
+    void update();
+
+    /** #Hidden
+    Zeros the FPS manager to begin recalculating (used to avoid first frame lag
+    after loading) */
+    void zero();
 
     /** @return the current time scale */
     float getTimeScale() const ;
@@ -66,17 +67,6 @@ private:
 
     //the last time a logic cycle of the engine ran
     util::int64 m_lastUpdateTime;
-
-    //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
-
-    /** Updates the FPS manager, recalculating the current time-scale and FPS */
-    void update();
-
-    /** Zeros the FPS manager to begin recalculating (used to avoid first frame
-    lag after loading) */
-    void zero();
 };
 
 } //namespace omi

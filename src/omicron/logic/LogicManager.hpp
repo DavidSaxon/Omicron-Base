@@ -5,8 +5,6 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
-class FPSManager;
-
 #include "src/omicron/scene/Scene.hpp"
 
 namespace omi {

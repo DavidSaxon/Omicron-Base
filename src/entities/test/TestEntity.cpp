@@ -36,5 +36,5 @@ void TestEntity::update() {
 
 
     m_transform->translation.y = sin(m_sineCounter);
-    m_transform->rotation.x += 0.3f * omi::fpsManager.getTimeScale();
+    m_transform->rotation.x += 1.0f * omi::fpsManager.getTimeScale();
 }

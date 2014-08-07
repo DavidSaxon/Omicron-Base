@@ -34,20 +34,6 @@ FPSManager::~FPSManager() {
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-float FPSManager::getTimeScale() const {
-
-    return m_timeScale;
-}
-
-float FPSManager::getFPS() {
-
-    return m_fps;
-}
-
-//------------------------------------------------------------------------------
-//                            PRIVATE MEMBER FUNCTIONS
-//------------------------------------------------------------------------------
-
 void FPSManager::update() {
 
     // get current time
@@ -67,6 +53,17 @@ void FPSManager::update() {
 void FPSManager::zero() {
 
     m_lastUpdateTime = util::time::getCurrentTime();
+}
+
+
+float FPSManager::getTimeScale() const {
+
+    return m_timeScale;
+}
+
+float FPSManager::getFPS() {
+
+    return m_fps;
 }
 
 } // namespace omi
