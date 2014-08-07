@@ -9,7 +9,7 @@
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/exceptions/CollectionException.hpp"
 
-#include "src/omicron/entity/component/Component.hpp"
+#include "src/omicron/component/Component.hpp"
 
 namespace omi {
 

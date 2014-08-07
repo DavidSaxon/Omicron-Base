@@ -9,7 +9,7 @@
 #include "src/omicron/logic/LogicManager.hpp"
 #include "src/omicron/rendering/Renderer.hpp"
 #include "src/omicron/scene/Scene.hpp"
-#include "src/override/start_up/StartUp.hpp"
+#include "src/override/StartUp.hpp"
 
 namespace omi {
 

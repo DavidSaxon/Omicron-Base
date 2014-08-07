@@ -4,9 +4,9 @@ project(TestRun)
 set(SRCS
 
     src/omicron/Omicron.cpp
+    src/omicron/component/renderable/mesh/Mesh.cpp
     src/omicron/display/Window.cpp
     src/omicron/entity/ComponentTable.cpp
-    src/omicron/entity/component/renderable/Mesh.cpp
     src/omicron/logic/FPSManager.cpp
     src/omicron/logic/LogicManager.cpp
     src/omicron/rendering/Renderer.cpp
@@ -15,7 +15,7 @@ set(SRCS
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp
     src/omicron/system/System.cpp
-    src/override/start_up/StartUp.cpp
+    src/override/StartUp.cpp
 
     src/scenes/TestScene.cpp
 

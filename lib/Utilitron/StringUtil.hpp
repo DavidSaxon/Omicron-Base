@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <sstream>
-
+#include <vector>
 
 namespace util {
 
@@ -59,6 +59,38 @@ inline void concatenateBack(std::string& a, const std::string& b) {
 
     // set the new string
     a = ss.str();
+}
+
+/** Checks if a given string begins with a string
+@param a the string to check if it begin with the other string
+@param b the suffix to check for in the first string */
+inline bool beginsWith(const std::string& a, const std::string& b) {
+
+    return a.compare(0, b.length(), b) == 0;
+}
+
+/** Splits a string into a vector by a given delimiter
+@param str the string to split
+@param delimiter the delimiter to split the string by
+@oaram elements the vector to store the split elements in*/
+inline std::vector<std::string>& split(
+        const std::string&              str,
+              char                      delimiter,
+              std::vector<std::string>& elements) {
+
+    std::stringstream ss(str);
+    std::string item;
+
+    // iterate over the elements split by the delimiter
+    while (std::getline(ss, item, delimiter)) {
+
+        if (item.length() > 0) {
+        
+            elements.push_back(item);
+        }
+    }
+
+    return elements; 
 }
 
 /** Generates a string containing a string repeated a given amount of times

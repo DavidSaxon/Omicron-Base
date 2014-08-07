@@ -3,11 +3,11 @@
 
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/entity/ComponentTable.hpp"
-#include "src/omicron/entity/component/Component.hpp"
+#include "src/omicron/component/Component.hpp"
 
 // here we are including all known components so the user doesn't have to
-#include "src/omicron/entity/component/Transform.hpp"
-#include "src/omicron/entity/component/renderable/Mesh.hpp"
+#include "src/omicron/component/Transform.hpp"
+#include "src/omicron/component/renderable/mesh/Mesh.hpp"
 
 namespace omi {
 

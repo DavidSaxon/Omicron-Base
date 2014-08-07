@@ -5,6 +5,8 @@
 
 #include "src/omicron/entity/Entity.hpp"
 
+#include "src/omicron/resource/loader/GeometryLoader.hpp"
+
 class TestEntity : public omi::Entity {
 public:
 
