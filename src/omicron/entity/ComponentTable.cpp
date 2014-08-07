@@ -49,6 +49,10 @@ void ComponentTable::add(Component* component) {
             "\' already exists within this entities\' component table");
     }
 
+    // add to the list of dirty components
+    dirty.push_back(component);
+
+    // add to the table
     m_components.insert(std::make_pair(
         component->getId(), std::unique_ptr<Component>(component)));
 }

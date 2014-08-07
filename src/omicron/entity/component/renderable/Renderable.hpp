@@ -1,6 +1,8 @@
 #ifndef OMICRON_ENTITY_COMPONENT_RENDERABLE_RENDERABLE_H_
 #   define OMICRON_ENTITY_COMPONENT_RENDERABLE_RENDERABLE_H_
 
+#include <GL/glut.h>
+
 #include "src/omicron/entity/component/Component.hpp"
 
 namespace omi {
@@ -36,6 +38,16 @@ public:
     //--------------------------------------------------------------------------
 
     virtual ~Renderable() {
+    }
+
+    //--------------------------------------------------------------------------
+    //                          PUBLIC MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** #Override */
+    virtual component::Type getType() const {
+
+        return component::RENDERABLE;
     }
 
 protected:

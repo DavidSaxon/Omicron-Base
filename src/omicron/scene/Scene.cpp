@@ -8,11 +8,16 @@ namespace omi {
 
 bool Scene::execute() {
 
+    // update this scene and store whether it's complete
+    bool complete = update();
+
     // update all the entities
     updateEntities();
 
-    // update this scene
-    return update();
+    // find all dirty components
+    findDirty();
+
+    return complete;
 }
 
 //------------------------------------------------------------------------------
@@ -39,6 +44,23 @@ void Scene::updateEntities() {
          it != m_entities.end(); ++it) {
 
         (*it)->update();
+    }
+}
+
+void Scene::findDirty() {
+
+    for (t_EntityList::iterator it = m_entities.begin();
+         it != m_entities.end(); ++it) {
+
+        for (std::vector<Component*>::iterator itc =
+            (*it)->getComponents().dirty.begin();
+            itc != (*it)->getComponents().dirty.end(); ++itc) {
+
+            dirtyComponents.insert(*itc);
+        }
+
+        // clear the dirty components on the entity
+        (*it)->getComponents().dirty.clear();
     }
 }
 

@@ -49,6 +49,9 @@ public:
     /** Perfroms an execution cycle of logic */
     void execute();
 
+    /** @return the dirty components from the scene */
+    std::set<Component*>& getDirtyComponents();
+
 private:
 
     //--------------------------------------------------------------------------

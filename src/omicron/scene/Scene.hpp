@@ -2,6 +2,7 @@
 #   define OMICRON_SCENE_SCENE_H_
 
 #include <memory>
+#include <set>
 #include <vector>
 
 #include "src/omicron/entity/Entity.hpp"
@@ -18,6 +19,13 @@ typedef std::vector<t_EntityPtr>  t_EntityList;
 \*********************************************/
 class Scene {
 public:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the set of dirty components
+    std::set<Component*> dirtyComponents;
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -76,6 +84,10 @@ private:
 
     /** Updates all entities in the entity list */
     void updateEntities();
+
+    /** Find all dirty components that entities have created this update
+    cycle */
+    void findDirty();
 
 };
 

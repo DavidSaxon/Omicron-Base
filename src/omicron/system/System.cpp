@@ -30,6 +30,42 @@ std::unique_ptr<LogicManager> logicManager;
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
+/** Sorts components that have been created this execution cycle and reference
+them to their appropriate managers */
+void sortComponents() {
+
+    //iterate over the new components
+    for (std::set<Component*>::iterator it =
+        logicManager->getDirtyComponents().begin();
+        it != logicManager->getDirtyComponents().end(); ++it) {
+
+        // sort the component based on its type
+        switch ((*it)->getType()) {
+
+            case component::UPDATEABLE: {
+
+                // TODO:
+                std::cout << "UPDATEABLE" << std::endl;
+                break;
+            }
+            case component::RENDERABLE: {
+
+                // pass on to the renderer
+                // TODO
+                break;
+            }
+            default: {
+
+                // do nothing with simple components
+                break;
+            }
+        }
+    }
+
+    // clear the dirty components
+    logicManager->getDirtyComponents().clear();
+}
+
 /** The main loop function of Omicron, controls callback to the rest of the
 engine */
 void execute() {
@@ -37,12 +73,14 @@ void execute() {
     // update the window
     window->update();
 
-    // render
-    renderer->render();
-
-    // TODO: move this up??
     // update logic
     logicManager->execute();
+
+    // sort the new components that have been added this execution cycle
+    sortComponents();
+
+    // render
+    renderer->render();
 
     // swap buffers and request call back
     // TODO: renderer should swap buffers??

@@ -38,4 +38,9 @@ void LogicManager::execute() {
     }
 }
 
+std::set<Component*>& LogicManager::getDirtyComponents() {
+
+    return m_scene->dirtyComponents;
+}
+
 } // namespace omi
