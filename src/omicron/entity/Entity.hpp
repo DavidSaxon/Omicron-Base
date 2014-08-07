@@ -1,6 +1,7 @@
 #ifndef OMICRON_ENTITY_ENTITY_H_
 #   define OMICRON_ENTITY_ENTITY_H_
 
+#include "src/omicron/Omicron.hpp"
 #include "src/omicron/entity/ComponentTable.hpp"
 #include "src/omicron/entity/component/Component.hpp"
 

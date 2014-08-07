@@ -1,8 +1,7 @@
 #ifndef OMICRON_ENTITY_COMPONENT_RENDERABLE_MESH_H_
 #   define OMICRON_ENTITY_COMPONENT_RENDERABLE_MESH_H_
 
-#include <iostream>
-
+#include "src/omicron/entity/component/Transform.hpp"
 #include "src/omicron/entity/component/renderable/Renderable.hpp"
 
 namespace omi {
@@ -20,22 +19,32 @@ public:
 
     //TODO: vertices, materials and shit
     /** Creates a new mesh
-    @param id the identifier of the component */
-    Mesh(const std::string& id);
+    @param id the identifier of the component
+    @param transform a pointer to a transform to use for the mesh's position */
+    Mesh(const std::string& id, Transform* transform);
+
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
     ~Mesh();
 
-protected:
-
     //--------------------------------------------------------------------------
-    //                         PROTECTED MEMBER FUNCTIONS
+    //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** Render the mesh */
+    /** #Hidden
+    Render the mesh */
     void render();
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // pointer to the transform to use for the mesh's position
+    Transform* m_transform;
 };
 
 } // namespace omi

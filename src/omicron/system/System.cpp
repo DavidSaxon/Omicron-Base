@@ -51,7 +51,7 @@ void sortComponents() {
             case component::RENDERABLE: {
 
                 // pass on to the renderer
-                // TODO
+                renderer->addRenderable(dynamic_cast<Renderable*>(*it));
                 break;
             }
             default: {
@@ -82,9 +82,7 @@ void execute() {
     // render
     renderer->render();
 
-    // swap buffers and request call back
-    // TODO: renderer should swap buffers??
-    glutSwapBuffers();
+    // request call back
     glutPostRedisplay();
 }
 

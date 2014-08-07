@@ -55,7 +55,6 @@ public:
               const util::vec::Vector3&   r,
               const util::vec::Vector3&   s,
                     axis_space::AxisSpace axisSpace = axis_space::LOCAL) :
-
         Component  (id),
         translation(t),
         rotation   (r),
@@ -68,7 +67,6 @@ public:
     @param other the other component to copy from */
     Transform(const std::string& id,
               const Transform&   other) :
-
         Component(id),
         translation(other.translation),
         rotation(other.rotation),
@@ -95,7 +93,7 @@ public:
     /** Compute the translation values to be applied taking into regards the
     parent transform and the axis space.
     @return the computed translation */
-    util::vec::Vector3 computeTranslation() {
+    util::vec::Vector3 computeTranslation() const {
 
         // TODO:
         util::vec::Vector3 computed(translation);
@@ -106,7 +104,7 @@ public:
     /** Compute the rotation values to be applied taking into regards the
     parent transform and the axis space.
     @return the computed rotation */
-    util::vec::Vector3 computeRotation() {
+    util::vec::Vector3 computeRotation() const {
 
         // TODO:
         util::vec::Vector3 computed(rotation);
@@ -117,7 +115,7 @@ public:
     /** Compute the scale values to be applied taking into regards the parent
     transform and the axis space.
     @return the computed scale */
-    util::vec::Vector3 computeScale() {
+    util::vec::Vector3 computeScale() const {
 
         // TODO:
         util::vec::Vector3 computed(scale);

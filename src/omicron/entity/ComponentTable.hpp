@@ -10,7 +10,6 @@
 #include "lib/Utilitron/exceptions/CollectionException.hpp"
 
 #include "src/omicron/entity/component/Component.hpp"
-#include "src/omicron/entity/component/Transform.hpp"
 
 namespace omi {
 

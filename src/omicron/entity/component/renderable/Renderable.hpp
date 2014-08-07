@@ -50,13 +50,8 @@ public:
         return component::RENDERABLE;
     }
 
-protected:
-
-    //--------------------------------------------------------------------------
-    //                         PROTECTED MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
-
-    /** Render this component */
+    /** #Hidden
+    Render this component */
     virtual void render() = 0;
 };
 

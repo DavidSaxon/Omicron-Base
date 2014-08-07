@@ -7,7 +7,6 @@
 #include "lib/Utilitron/MacroUtil.hpp"
 
 #include "src/omicron/entity/component/renderable/Renderable.hpp"
-#include "src/omicron/rendering/Renderer.hpp"
 
 namespace omi {
 
@@ -30,12 +29,6 @@ private:
 public:
 
     //--------------------------------------------------------------------------
-    //                                  FRIENDS
-    //--------------------------------------------------------------------------
-
-    friend class Renderer;
-
-    //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
@@ -52,10 +45,13 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** Renders all of the renderable components contained within the render
+    lists */
+    void render();
+
     /** Adds a renderable component to the render lists
-    @param renderable the renderable to add
-    @param layer the layer to add the renderable to */
-    void addRenderable(Renderable* renderable, int layer);
+    @param renderable the renderable to add */
+    void addRenderable(Renderable* renderable);
 
     /** Removes a renderable from the render lists
     @param renderable the renderable to remove */
@@ -69,14 +65,6 @@ private:
 
     // all renderable components grouped by layer
     t_RenderableMap m_renderables;
-
-    //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
-
-    /** Renders all of the renderable components contained within the render
-    lists */
-    void render();
 };
 
 } // namespace omi

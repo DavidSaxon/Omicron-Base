@@ -6,7 +6,6 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
-class RenderLists;
 class RenderSettings;
 
 #include "src/omicron/Omicron.hpp"
@@ -49,6 +48,9 @@ public:
     /** Performs one frame of rendering */
     void render();
 
+    /** Adds a renderable component to the render lists to be rendered */
+    void addRenderable(Renderable* renderable);
+
 private:
 
     //--------------------------------------------------------------------------
@@ -57,6 +59,8 @@ private:
 
     // the render lists containing all things to be rendered
     std::unique_ptr<RenderLists> m_renderLists;
+
+    float m_rot;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

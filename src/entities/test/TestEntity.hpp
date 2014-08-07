@@ -1,8 +1,7 @@
 #ifndef OMICRON_ENTITIES_TEST_TEST_ENTITY_H_
 #   define OMICRON_ENTITIES_TEST_TEST_ENTITY_H_
 
-#include <iostream>
-#include <GL/glut.h>
+#include <cmath>
 
 #include "src/omicron/entity/Entity.hpp"
 
@@ -28,6 +27,17 @@ public:
     /** #Override */
     void update();
 
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the position of this entity
+    omi::Transform* m_transform;
+
+    // sine counter
+    float m_sineCounter;
 };
 
 #endif
