@@ -85,6 +85,7 @@ void Renderer::init() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glCullFace(GL_BACK);
     glClearDepth(1.0f);
+    glEnable(GL_TEXTURE_2D);
 
     // TODO: move this to camera
     // switch to the projection matrix

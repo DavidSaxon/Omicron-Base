@@ -2,6 +2,7 @@
 #   define OMICRON_RESOURCE_LOADER_LOADERS_H_
 
 #include <fstream>
+#include <GL/glut.h>
 #include <iostream>
 #include <IL/il.h>
 
@@ -27,7 +28,7 @@ namespace loader {
 /** Loads a texture from an image file
 @param filePath the path to the image
 @return the loaded texture */
-Texture* textureFromImage(const std::string& filePath);
+Texture textureFromImage(const std::string& filePath);
 
 //-------------------------------GEOMETRY LOADERS-------------------------------
 

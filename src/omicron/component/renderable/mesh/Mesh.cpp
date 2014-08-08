@@ -51,84 +51,34 @@ void Mesh::render() {
     // TODO: pass colour to shader instead
 
     // texture
-    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, m_material->texture.getId());
 
     // geometry
     glBegin(GL_TRIANGLES);
     for (unsigned i = 0; i < m_geometry->vertices.size(); ++i) {
 
-        // begin a triangle
-        if (i % 3 == 0) {
-
-            
-        } 
 
         // draw normals if the geometry contains them
-        // if (m_geometry->normals.size() > 0) {
+        if (m_geometry->normals.size() > 0) {
 
-        //     glNormal3f(m_geometry->normals[i].x,
-        //                m_geometry->normals[i].y,
-        //                m_geometry->normals[i].z);
-        // }
+            glNormal3f(m_geometry->normals[i].x,
+                       m_geometry->normals[i].y,
+                       m_geometry->normals[i].z);
+        }
 
-        // // TODO: check if texture exists too
-        // // draw the texture coordinates if the exists
-        // if (m_geometry->uv.size() > 0) {
+        // TODO: check if texture exists too
+        // draw the texture coordinates if the exists
+        if (m_geometry->uv.size() > 0) {
 
-        //     glTexCoord2f(m_geometry->uv[i].x, m_geometry->uv[i].y);
-        // }
+            glTexCoord2f(m_geometry->uv[i].x, m_geometry->uv[i].y);
+        }
 
         // render vertices
         glVertex3f(m_geometry->vertices[i].x,
                    m_geometry->vertices[i].y,
                    m_geometry->vertices[i].z);
-
-        // glVertex3f( 1.0,  1.0,  1.0);
-        // glVertex3f(-1.0,  1.0,  1.0);
-        // glVertex3f(-1.0, -1.0,  1.0);
     }
     glEnd();
-
-
-    // glBegin(GL_TRIANGLES);
-
-    // // front
-    // glVertex3f( 1.0f,  1.0f,  1.0);
-    // glVertex3f(-1.0f,  1.0f,  1.0);
-    // glVertex3f(-1.0f, -1.0f,  1.0);
-    // //glVertex3f( 1.0f, -1.0f,  1.0);
-
-    // // left side
-    // // glVertex3f(-1.0f,  1.0f,  1.0);
-    // // glVertex3f(-1.0f,  1.0f, -1.0);
-    // // glVertex3f(-1.0f, -1.0f, -1.0);
-    // // glVertex3f(-1.0f, -1.0f,  1.0);
-
-    // // // right side
-    // // glVertex3f( 1.0f,  1.0f, -1.0);
-    // // glVertex3f( 1.0f,  1.0f,  1.0);
-    // // glVertex3f( 1.0f, -1.0f,  1.0);
-    // // glVertex3f( 1.0f, -1.0f, -1.0);
-
-    // // // back
-    // // glVertex3f(-1.0f,  1.0f, -1.0);
-    // // glVertex3f( 1.0f,  1.0f, -1.0);
-    // // glVertex3f( 1.0f, -1.0f, -1.0);
-    // // glVertex3f(-1.0f, -1.0f, -1.0);
-
-    // // // top
-    // // glVertex3f( 1.0f,  1.0f,  1.0);
-    // // glVertex3f( 1.0f,  1.0f, -1.0);
-    // // glVertex3f(-1.0f,  1.0f, -1.0);
-    // // glVertex3f(-1.0f,  1.0f,  1.0);
-
-    // // // bottom
-    // // glVertex3f(-1.0f, -1.0f,  1.0);
-    // // glVertex3f(-1.0f, -1.0f, -1.0);
-    // // glVertex3f( 1.0f, -1.0f, -1.0);
-    // // glVertex3f( 1.0f, -1.0f,  1.0);
-
-    // glEnd();
 
     glPopMatrix();
 }

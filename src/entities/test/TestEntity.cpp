@@ -28,11 +28,12 @@ void TestEntity::init() {
         omi::loader::geoFromWavefront("res/gfx/geometry/test/box.obj");
 
     // load a texture
-    omi::Texture* texture =
+    omi::Texture texture =
         omi::loader::textureFromImage("res/gfx/texture/test/brick.png");
 
     // create a material
-    omi::Material* material = new omi::Material();
+    omi::Material* material = new omi::Material(
+            util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f), texture);
 
     // memory leaks!
 
