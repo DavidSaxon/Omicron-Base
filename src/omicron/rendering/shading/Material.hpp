@@ -3,6 +3,8 @@
 
 #include "lib/Utilitron/Vector.hpp"
 
+#include "src/omicron/rendering/shading/Texture.hpp"
+
 namespace omi {
 
 /*********************************************************\
@@ -10,6 +12,16 @@ namespace omi {
 \*********************************************************/
 class Material {
 public:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    //! the colour of the material
+    util::vec::Vector4 colour;
+    //! the texture of the material
+    Texture texture;
+    // TODO: shader
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTORS
@@ -20,8 +32,10 @@ public:
 
     // TODO:
     /** Creates a material using the given values
-    @param colour the colour of the material */
-    Material(const util::vec::Vector4& colour);
+    @param a_colour the colour of the material
+    @param a_texture the texture of the material*/
+    Material(const util::vec::Vector4& a_colour,
+             const Texture&            a_texture);
 
     /** Creates a copy of the given material
     @param other the material to copy from */
@@ -40,17 +54,6 @@ public:
     /** Copies the values of the given material to this material
     @param other the material to copy from */
     const Material& operator=(const Material& other);
-
-private:
-
-    //--------------------------------------------------------------------------
-    //                                 VARIABLES
-    //--------------------------------------------------------------------------
-
-    // the colour of the material
-    util::vec::Vector4 m_colour;
-    // TODO: texture
-    // TODO: shader
 };
 
 } // namespace omi

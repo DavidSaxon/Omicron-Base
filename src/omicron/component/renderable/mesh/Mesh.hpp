@@ -27,7 +27,8 @@ public:
     @param material a pointer to the material to use for the mesh*/
     Mesh(const std::string& id,
                Transform*   transform,
-               Geometry*    geometry);
+               Geometry*    geometry,
+               Material*    material);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR

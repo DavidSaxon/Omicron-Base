@@ -13,14 +13,14 @@ TestEntity::TestEntity() :
     omi::Geometry* geo =
         omi::loader::geoFromWavefront("res/gfx/geometry/test/teapot.obj");
 
+    // create a material
+    omi::Material* material = new omi::Material();
+
+    // memory leaks!
+
     // add a mesh
     m_components.add(
-        new omi::Mesh(
-            "cube",
-            m_transform,
-            geo
-        )
-    );
+        new omi::Mesh("cube", m_transform, geo, material));
 }
 
 //------------------------------------------------------------------------------

@@ -2,9 +2,11 @@
 #   define OMICRON_ENTITIES_TEST_TEST_ENTITY_H_
 
 #include <cmath>
+#include <iostream>
 
 #include "src/omicron/entity/Entity.hpp"
 
+#include "src/omicron/rendering/shading/Material.hpp"
 #include "src/omicron/resource/loader/GeometryLoader.hpp"
 
 class TestEntity : public omi::Entity {
@@ -37,7 +39,7 @@ private:
 
     // the position of this entity
     omi::Transform* m_transform;
-
+    
     // sine counter
     float m_sineCounter;
 };

@@ -8,10 +8,12 @@ namespace omi {
 
 Mesh::Mesh(const std::string& id,
                  Transform*   transform,
-                 Geometry*    geometry) :
-    Renderable(id),
+                 Geometry*    geometry,
+                 Material*    material) :
+    Renderable (id),
     m_transform(transform),
-    m_geometry(geometry) {
+    m_geometry (geometry),
+    m_material (material) {
 }
 
 //------------------------------------------------------------------------------
@@ -29,6 +31,7 @@ void Mesh::render() {
 
     glPushMatrix();
 
+    // TODO: move this to be part of renderable?
     //apply translation
     util::vec::Vector3 translation(m_transform->computeTranslation());
     glTranslatef(translation.x, translation.y, translation.z);
@@ -39,11 +42,16 @@ void Mesh::render() {
     glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
     glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
 
+    // colour
+    glColor4f(m_material->colour.r,
+              m_material->colour.g,
+              m_material->colour.b,
+              m_material->colour.a);
+
+    // TODO: pass colour to shader instead
+
     // texture
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    // colour
-    glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 
     // geometry
     glBegin(GL_TRIANGLES);

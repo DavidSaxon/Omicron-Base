@@ -7,15 +7,19 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 Material::Material() :
-    m_colour(1.0f, 1.0f, 1.0f, 1.0f) {
+    colour (1.0f, 1.0f, 1.0f, 1.0f),
+    texture() {
 }
 
-Material::Material(const util::vec::Vector4& colour) :
-    m_colour(colour) {
+Material::Material(const util::vec::Vector4& a_colour,
+                   const Texture&            a_texture) :
+    colour (a_colour),
+    texture(a_texture) {
 }
 
 Material::Material(const Material& other) :
-    m_colour(other.m_colour) {
+    colour (other.colour),
+    texture(other.texture) {
 }
 
 //------------------------------------------------------------------------------
@@ -31,7 +35,8 @@ Material::~Material() {
 
 const Material& Material::operator=(const Material& other) {
 
-    m_colour = other.m_colour;
+    colour  = other.colour;
+    texture = other.texture;
 }
 
 } // namespace omi
