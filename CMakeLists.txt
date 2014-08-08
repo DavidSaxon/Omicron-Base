@@ -23,6 +23,7 @@ set(SRCS
 
     src/scenes/TestScene.cpp
 
+    src/entities/test/Skybox.cpp
     src/entities/test/TestEntity.cpp
 )
 
