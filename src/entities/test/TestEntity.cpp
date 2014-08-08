@@ -36,6 +36,7 @@ void TestEntity::update() {
     // move the mesh up and down
     m_sineCounter += 0.05f * omi::fpsManager.getTimeScale();
     m_transform->translation.y = sin(m_sineCounter);
+    m_transform->translation.z = sin(m_sineCounter / 7.0f) * 6.0f;
 
     // flip the mesh
     m_transform->rotation.x += 1.0f * omi::fpsManager.getTimeScale();

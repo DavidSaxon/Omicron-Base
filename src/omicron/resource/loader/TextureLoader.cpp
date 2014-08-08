@@ -72,12 +72,18 @@ Texture textureFromImage(const std::string& filePath) {
     glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
+    // load the texture into OpenGL
     glTexImage2D(GL_TEXTURE_2D, 0, format, width,
                  height, 0, format, type, data);
 
-    // TODO: set up mipmaping and proper filters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // set the filtering modes
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    // generate mipmaps
+    glGenerateMipmap(GL_TEXTURE_2D);
 
 
     //--------------------CREATE AND RETURN OMICRON TEXTURE---------------------
