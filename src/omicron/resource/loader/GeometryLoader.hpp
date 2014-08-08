@@ -6,7 +6,7 @@
 
 #include "lib/Utilitron/StringUtil.hpp"
 
-#include "src/omicron/rendering/data/structure/Geometry.hpp"
+#include "src/omicron/rendering/object_data/Geometry.hpp"
 
 namespace omi {
 
