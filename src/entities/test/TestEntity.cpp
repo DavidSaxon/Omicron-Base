@@ -1,27 +1,16 @@
 #include "TestEntity.hpp"
 
 //------------------------------------------------------------------------------
-//                                  CONSTRUCTOR
-//------------------------------------------------------------------------------
-
-TestEntity::TestEntity() :
-    Entity(),
-    m_transform(dynamic_cast<omi::Transform*>(m_components.get("transform"))),
-    m_sineCounter(0.0f) {
-}
-
-//------------------------------------------------------------------------------
-//                                   DESTRUCTOR
-//------------------------------------------------------------------------------
-
-TestEntity::~TestEntity() {
-}
-
-//------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
 void TestEntity::init() {
+
+    // initialise values
+    m_sineCounter = 0.0;
+
+    // store the transform
+    m_transform = dynamic_cast<omi::Transform*>(m_components.get("transform"));
 
     // load some geometry yo
     omi::Geometry* geo =

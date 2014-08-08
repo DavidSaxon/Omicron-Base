@@ -23,6 +23,7 @@ void TestScene::init() {
 
     // add the test entity to the scene
     addEntity(m_test);
+    addEntity(new Skybox());
 }
 
 bool TestScene::update() {

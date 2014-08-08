@@ -1,5 +1,5 @@
-#ifndef OMICRON_ENTITIES_TEST_TEST_ENTITY_H_
-#   define OMICRON_ENTITIES_TEST_TEST_ENTITY_H_
+#ifndef OMICRON_ENTITIES_TEST_TESTENTITY_H_
+#   define OMICRON_ENTITIES_TEST_TESTENTITY_H_
 
 #include <cmath>
 #include <iostream>
@@ -13,23 +13,11 @@ class TestEntity : public omi::Entity {
 public:
 
     //--------------------------------------------------------------------------
-    //                                CONSTRUCTOR
-    //--------------------------------------------------------------------------
-
-    TestEntity();
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~TestEntity();
-
-    //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     /** #Override */
-    virtual void init();
+    void init();
 
     /** #Override */
     void update();
