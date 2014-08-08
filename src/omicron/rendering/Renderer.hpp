@@ -2,6 +2,7 @@
 #   define OMICRON_RENDERING_RENDERER_H_
 
 #include <GL/glut.h>
+#include <IL/il.h>
 #include <memory>
 
 #include "lib/Utilitron/MacroUtil.hpp"

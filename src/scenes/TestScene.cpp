@@ -6,9 +6,6 @@
 
 TestScene::TestScene() :
     m_test(new TestEntity()) {
-
-    // add the test entity to the scene
-    addEntity(m_test);
 }
 
 //------------------------------------------------------------------------------
@@ -21,6 +18,12 @@ TestScene::~TestScene() {
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+void TestScene::init() {
+
+    // add the test entity to the scene
+    addEntity(m_test);
+}
 
 bool TestScene::update() {
 

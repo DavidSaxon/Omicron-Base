@@ -10,6 +10,9 @@ namespace omi {
 
 LogicManager::LogicManager(Scene* initScene) :
     m_scene(initScene) {
+
+    // initialise the first scene
+    m_scene->init();
 }
 
 //------------------------------------------------------------------------------
@@ -33,6 +36,8 @@ void LogicManager::execute() {
 
         // get the next scene
         m_scene = std::unique_ptr<Scene>(m_scene->nextScene());
+        // initialise the next scene
+        m_scene->init();
         // zero the fps manager
         fpsManager.zero();
     }

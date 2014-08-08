@@ -38,6 +38,9 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** Initialises the scene */
+    virtual void init() = 0;
+
     /** #Hidden
     Controls execution of the scene */
     bool execute();

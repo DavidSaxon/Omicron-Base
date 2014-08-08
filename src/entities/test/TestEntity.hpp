@@ -7,7 +7,7 @@
 #include "src/omicron/entity/Entity.hpp"
 
 #include "src/omicron/rendering/shading/Material.hpp"
-#include "src/omicron/resource/loader/GeometryLoader.hpp"
+#include "src/omicron/resource/loader/Loaders.hpp"
 
 class TestEntity : public omi::Entity {
 public:
@@ -29,6 +29,9 @@ public:
     //--------------------------------------------------------------------------
 
     /** #Override */
+    virtual void init();
+
+    /** #Override */
     void update();
 
 private:
@@ -39,7 +42,7 @@ private:
 
     // the position of this entity
     omi::Transform* m_transform;
-    
+
     // sine counter
     float m_sineCounter;
 };

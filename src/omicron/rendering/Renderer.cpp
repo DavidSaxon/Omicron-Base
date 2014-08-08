@@ -97,6 +97,9 @@ void Renderer::init() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    // initialise DevIL
+    ilInit();
+
     // create the render lists
     m_renderLists = std::unique_ptr<RenderLists>(new RenderLists());
 }

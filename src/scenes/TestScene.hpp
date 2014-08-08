@@ -29,6 +29,9 @@ public:
     //--------------------------------------------------------------------------
 
     /** #Override */
+    virtual void init();
+
+    /** #Override */
     virtual bool update();
 
     /** #Override */

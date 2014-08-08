@@ -11,6 +11,10 @@ set(SRCS
     src/omicron/logic/LogicManager.cpp
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
+    src/omicron/rendering/shading/Material.cpp
+    src/omicron/rendering/shading/Texture.cpp
+    src/omicron/resource/loader/GeometryLoader.cpp
+    src/omicron/resource/loader/TextureLoader.cpp
     src/omicron/scene/Scene.cpp
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp
@@ -39,4 +43,5 @@ target_link_libraries(TestRun
     -lglut
     -lm
     -lpng
+    -lIL
 )

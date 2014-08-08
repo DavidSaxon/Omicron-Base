@@ -14,7 +14,7 @@ omi::Scene* init() {
 
     // render settings
     omi::renderSettings.setDepthTest(true);
-    omi::renderSettings.setBackFaceCulling(true);
+    omi::renderSettings.setBackFaceCulling(false);
     omi::renderSettings.setClearColour(
         util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 

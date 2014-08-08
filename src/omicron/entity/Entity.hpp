@@ -46,14 +46,18 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** initialises the entity */
+    virtual void init() = 0;
+
+    /** Updates the entity and computes it's logic */
+    virtual void update() = 0;
+
     /** @return the component table of this entity */
-    virtual ComponentTable& getComponents() {
+    ComponentTable& getComponents() {
 
         return m_components;
     }
 
-    /** Updates the entity and computes it's logic */
-    virtual void update() = 0;
 
 protected:
 

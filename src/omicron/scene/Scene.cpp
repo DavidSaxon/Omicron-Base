@@ -26,6 +26,12 @@ bool Scene::execute() {
 
 void Scene::addEntity(Entity* entity) {
 
+    // initialise the entity
+    entity->init();
+
+    // TODO: check that the entity doesn't already exists in the scene
+
+    // add to the list of all entities in the scene
     m_entities.push_back(t_EntityPtr(entity));
 }
 
