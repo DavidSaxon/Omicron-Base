@@ -1,6 +1,7 @@
 #ifndef OMICRON_RENDERING_RENDERER_H_
 #   define OMICRON_RENDERING_RENDERER_H_
 
+#include <GL/glew.h>
 #include <GL/glut.h>
 #include <IL/il.h>
 #include <memory>

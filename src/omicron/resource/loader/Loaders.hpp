@@ -2,6 +2,7 @@
 #   define OMICRON_RESOURCE_LOADER_LOADERS_H_
 
 #include <fstream>
+#include <GL/glew.h>
 #include <GL/glut.h>
 #include <iostream>
 #include <IL/il.h>

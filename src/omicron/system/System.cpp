@@ -1,7 +1,7 @@
+#include <GL/glew.h>
+
 #include <iostream>
 #include <memory>
-
-#include <GL/glut.h>
 
 #include "lib/Utilitron/Vector.hpp"
 

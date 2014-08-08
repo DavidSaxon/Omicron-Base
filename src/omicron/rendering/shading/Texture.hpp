@@ -1,6 +1,7 @@
 #ifndef OMICRON_RENDERING_SHADING_TEXTURE_H_
 #   define OMICRON_RENDERING_SHADING_TEXTURE_H_
 
+#include <GL/glew.h>
 #include <GL/glut.h>
 
 #include "lib/Utilitron/Vector.hpp"

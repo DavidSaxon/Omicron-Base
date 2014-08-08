@@ -76,14 +76,14 @@ Texture textureFromImage(const std::string& filePath) {
     glTexImage2D(GL_TEXTURE_2D, 0, format, width,
                  height, 0, format, type, data);
 
+    // build mip-maps
+    gluBuild2DMipmaps(GL_TEXTURE_2D, format, width, height, format, type, data);
+
     // set the filtering modes
     glTexParameteri(
         GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
     glTexParameteri(
         GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    // generate mipmaps
-    glGenerateMipmap(GL_TEXTURE_2D);
 
 
     //--------------------CREATE AND RETURN OMICRON TEXTURE---------------------

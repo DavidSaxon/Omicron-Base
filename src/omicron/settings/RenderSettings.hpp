@@ -1,6 +1,7 @@
 #ifndef OMICRON_SETTINGS_RENDERSETTINGS_H_
 #   define OMICRON_SETTINGS_RENDERSETTINGS_H_
 
+#include <GL/glew.h>
 #include <GL/glut.h>
 
 #include "lib/Utilitron/MacroUtil.hpp"
