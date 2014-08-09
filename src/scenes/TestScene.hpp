@@ -4,6 +4,7 @@
 #include "src/omicron/scene/Scene.hpp"
 
 #include "src/entities/test/Skybox.hpp"
+#include "src/entities/test/SpriteTest.hpp"
 #include "src/entities/test/TestEntity.hpp"
 
 /**************************************\

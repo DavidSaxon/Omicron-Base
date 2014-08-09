@@ -4,7 +4,7 @@ project(TestRun)
 set(SRCS
 
     src/omicron/Omicron.cpp
-    src/omicron/component/renderable/mesh/Mesh.cpp
+    src/omicron/component/renderable/Mesh.cpp
     src/omicron/display/Window.cpp
     src/omicron/entity/ComponentTable.cpp
     src/omicron/logic/FPSManager.cpp

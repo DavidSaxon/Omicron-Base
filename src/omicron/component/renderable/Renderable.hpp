@@ -5,6 +5,7 @@
 #include <GL/glut.h>
 
 #include "src/omicron/component/Component.hpp"
+#include "src/omicron/component/Transform.hpp"
 
 namespace omi {
 
@@ -54,6 +55,33 @@ public:
     /** #Hidden
     Render this component */
     virtual void render() = 0;
+
+protected:
+
+    //--------------------------------------------------------------------------
+    //                         PROTECTED MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** Applies the transformations of the given transform
+    @param transform the transform to apply */
+    void applyTransform(Transform* transform) {
+
+        // apply translation
+        util::vec::Vector3 translation(transform->computeTranslation());
+        glTranslatef(translation.x, translation.y, translation.z);
+
+        // TODO: local and global shit
+        // apply rotation
+        util::vec::Vector3 rotation(transform->computeRotation());
+        glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
+        glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
+        glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
+
+        // apply scale
+        util::vec::Vector3 scale(transform->computeScale());
+        glScalef(scale.x, scale.y, scale.z);
+    }
+
 };
 
 } // namespace omi

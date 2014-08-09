@@ -7,7 +7,8 @@
 
 // here we are including all known components so the user doesn't have to
 #include "src/omicron/component/Transform.hpp"
-#include "src/omicron/component/renderable/mesh/Mesh.hpp"
+#include "src/omicron/component/renderable/Mesh.hpp"
+#include "src/omicron/component/renderable/Sprite.hpp"
 
 namespace omi {
 
@@ -30,7 +31,7 @@ public:
                 "transform",
                 util::vec::Vector3(),
                 util::vec::Vector3(),
-                util::vec::Vector3()
+                util::vec::Vector3(1.0f, 1.0f, 1.0f)
             )
         );
     }

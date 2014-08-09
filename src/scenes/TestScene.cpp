@@ -24,6 +24,7 @@ void TestScene::init() {
     // add the test entity to the scene
     addEntity(m_test);
     addEntity(new Skybox());
+    addEntity(new SpriteTest());
 }
 
 bool TestScene::update() {
