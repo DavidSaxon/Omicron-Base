@@ -45,11 +45,14 @@ void Mesh::render() {
     // use the shader
     glUseProgram(m_material->shader.getProgram());
 
-    // colour
-    glColor4f(m_material->colour.r,
-              m_material->colour.g,
-              m_material->colour.b,
-              m_material->colour.a);
+    // pass in colour to the shader
+    glUniform4f(
+        glGetUniformLocation(m_material->shader.getProgram(), "u_colour"),
+        m_material->colour.r,
+        m_material->colour.g,
+        m_material->colour.b,
+        m_material->colour.a
+    );
 
     // texture
     glBindTexture(GL_TEXTURE_2D, m_material->texture.getId());

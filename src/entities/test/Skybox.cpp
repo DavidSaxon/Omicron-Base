@@ -26,14 +26,14 @@ void Skybox::init() {
     // memory leaks!
 
     // add a mesh
-    // m_components.add(
-    //     new omi::Mesh(
-    //         "skybox",
-    //         dynamic_cast<omi::Transform*>(m_components.get("transform")),
-    //         geo,
-    //         material
-    //     )
-    // );
+    m_components.add(
+        new omi::Mesh(
+            "skybox",
+            dynamic_cast<omi::Transform*>(m_components.get("transform")),
+            geo,
+            material
+        )
+    );
 }
 
 void Skybox::update() {
