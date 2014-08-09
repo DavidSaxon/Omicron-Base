@@ -18,6 +18,8 @@ set(SRCS
     src/omicron/resource/loader/GeometryLoader.cpp
     src/omicron/resource/loader/ShaderLoader.cpp
     src/omicron/resource/loader/TextureLoader.cpp
+    src/omicron/resource/type/MaterialResource.cpp
+    src/omicron/resource/type/ShaderResource.cpp
     src/omicron/resource/type/TextureResource.cpp
     src/omicron/resource/ResourceManager.cpp
     src/omicron/scene/Scene.cpp
@@ -25,6 +27,8 @@ set(SRCS
     src/omicron/settings/RenderSettings.cpp
     src/omicron/system/System.cpp
     src/override/StartUp.cpp
+
+    src/resource_pack/TestPack.cpp
 
     src/scenes/TestScene.cpp
 
