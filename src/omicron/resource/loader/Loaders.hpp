@@ -12,6 +12,7 @@
 #include "lib/Utilitron/Vector.hpp"
 
 #include "src/omicron/rendering/object_data/Geometry.hpp"
+#include "src/omicron/rendering/shading/Material.hpp"
 #include "src/omicron/rendering/shading/Shader.hpp"
 #include "src/omicron/rendering/shading/Texture.hpp"
 
@@ -41,6 +42,18 @@ Shader loadShaderFromFiles(
 @param filePath the path to the image
 @return the loaded texture */
 Texture textureFromImage(const std::string& filePath);
+
+//-------------------------------MATERIAL LOADER--------------------------------
+
+/** Loads a material using the given values
+@param colour the colour of the material
+@param texture the texture of the material
+@param shader the shader of the material
+@return the loaded material */
+Material materialFromValues(
+        const util::vec::Vector4& colour,
+              Texture             texture,
+              Shader              shader);
 
 //-------------------------------GEOMETRY LOADERS-------------------------------
 
