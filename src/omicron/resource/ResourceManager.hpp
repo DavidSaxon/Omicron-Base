@@ -4,35 +4,48 @@
 #include <map>
 #include <memory>
 
+#include "lib/Utilitron/MacroUtil.hpp"
+
+#include "src/omicron/resource/type/Resource.hpp"
 #include "src/omicron/resource/type/TextureResource.hpp"
 #include "src/override/ResourceGroups.hpp"
 
 namespace omi {
 
-//-----------------------------------TYPEDEF------------------------------------
+//--------------------------------------------------------------------------
+//                              TYPE DEFINITIONS
+//--------------------------------------------------------------------------
 
-typedef std::unique_ptr<TextureResource> t_TextureResourcePtr;
-typedef std::map<std::string, t_TextureResourcePtr> t_TextureMap;
-
+typedef std::unique_ptr<Resource>            t_ResourcePtr;
+typedef std::map<std::string, t_ResourcePtr> t_ResourceGroup;
+typedef std::map<int, t_ResourceGroup>       t_ResourceMap;
 
 /***********************************************************************\
 | The resource manager stores, loads, and provides access to resources. |
 \***********************************************************************/
 class ResourceManager {
+private:
+
+    //--------------------------------------------------------------------------
+    //                                RESTRICTIONS
+    //--------------------------------------------------------------------------
+
+    //DISALLOW_CONSTRUCTION(ResourceManager);
+
+    //--------------------------------------------------------------------------
+    //                                ENUMERATORS
+    //--------------------------------------------------------------------------
+
+    //! the types of resources
+    enum ResourceType {
+
+        TEXTURE,
+        MATERIAL,
+        MESH,
+        SPRITE
+    };
+
 public:
-
-    //--------------------------------------------------------------------------
-    //                                CONSTRUCTOR
-    //--------------------------------------------------------------------------
-
-    /** Creates a resource manager */
-    ResourceManager();
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~ResourceManager();
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -44,7 +57,7 @@ public:
 
     /** Loads the resources within the given group
     #NOTE: this function will only return once all resources are loaded */
-    void load(resource_group::ResourceGroup);
+    static void load(resource_group::ResourceGroup resourceGroup);
 
 
     //------------------------------GET FUNCTIONS-------------------------------
@@ -53,7 +66,7 @@ public:
     /** Gets the texture resource with the given identifier if it exists
     @param id the identifier of the texture
     @return the requested texture */
-    Texture getTexture(const std::string& id);
+    static Texture getTexture(const std::string& id);
 
 
     //------------------------------ADD FUNCTIONS-------------------------------
@@ -63,9 +76,9 @@ public:
     @param id the identifier of the texture resource
     @param resourceGroup the resource group of the texture
     @param filePath the image file to load the texture from */
-    void addTexture(const std::string&                  id,
+    static void addTexture(const std::string&           id,
                           resource_group::ResourceGroup resourceGroup,
-                    const std::string&                  filePath);
+                          const std::string&            filePath);
 
 private:
 
@@ -73,9 +86,16 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // map from ids to textures
-    t_TextureMap m_textures;
+    // the map of all resources
+    static t_ResourceMap m_resources;
 
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** Checks if a resource type group exists in the map, if not create it
+    @param type the resource type to check if it exists*/
+    static void createGroup(ResourceType type);
 };
 
 } // namespace omi

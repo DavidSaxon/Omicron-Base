@@ -10,9 +10,8 @@ TextureResource::TextureResource(
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  filePath)
     :
-    m_loaded(false),
-    m_resourceGroup(resourceGroup),
-    m_filePath(filePath) {        
+    Resource  (resourceGroup),
+    m_filePath(filePath)       {        
 }
 
 //------------------------------------------------------------------------------
@@ -56,11 +55,6 @@ Texture TextureResource::get() const {
     }
 
     return m_texture;
-}
-
-resource_group::ResourceGroup TextureResource::getGroup() const {
-
-    return m_resourceGroup;
 }
 
 } // namespace omi

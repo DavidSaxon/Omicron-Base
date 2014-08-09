@@ -10,6 +10,7 @@
 #include "src/omicron/rendering/Renderer.hpp"
 #include "src/omicron/scene/Scene.hpp"
 #include "src/override/StartUp.hpp"
+#include "src/resource_pack/Packs.hpp"
 
 namespace omi {
 
@@ -105,6 +106,9 @@ void init() {
 
     // initialise glew
     glewInit();
+
+    // build the resource packs
+    pack::build();
 
     // create the logic manager
     logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));

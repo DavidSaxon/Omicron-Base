@@ -42,6 +42,8 @@ const Material& Material::operator=(const Material& other) {
     colour  = other.colour;
     texture = other.texture;
     shader  = other.shader;
+
+    return *this;
 }
 
 } // namespace omi

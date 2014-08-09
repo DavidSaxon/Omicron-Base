@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "src/omicron/entity/Entity.hpp"
+#include "src/omicron/resource/ResourceManager.hpp"
 
 namespace omi {
 

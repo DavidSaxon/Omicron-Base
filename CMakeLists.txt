@@ -5,6 +5,7 @@ set(SRCS
 
     src/omicron/Omicron.cpp
     src/omicron/component/renderable/Mesh.cpp
+    src/omicron/component/renderable/Sprite.cpp
     src/omicron/display/Window.cpp
     src/omicron/entity/ComponentTable.cpp
     src/omicron/logic/FPSManager.cpp
@@ -12,9 +13,13 @@ set(SRCS
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
     src/omicron/rendering/shading/Material.cpp
+    src/omicron/rendering/shading/Shader.cpp
     src/omicron/rendering/shading/Texture.cpp
     src/omicron/resource/loader/GeometryLoader.cpp
+    src/omicron/resource/loader/ShaderLoader.cpp
     src/omicron/resource/loader/TextureLoader.cpp
+    src/omicron/resource/type/TextureResource.cpp
+    src/omicron/resource/ResourceManager.cpp
     src/omicron/scene/Scene.cpp
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp
@@ -24,6 +29,7 @@ set(SRCS
     src/scenes/TestScene.cpp
 
     src/entities/test/Skybox.cpp
+    src/entities/test/SpriteTest.cpp
     src/entities/test/TestEntity.cpp
 )
 
@@ -42,6 +48,7 @@ target_link_libraries(TestRun
     -lGL
     -lGLU
     -lglut
+    -lGLEW
     -lm
     -lpng
     -lIL

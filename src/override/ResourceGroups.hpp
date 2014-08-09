@@ -1,18 +1,15 @@
 #ifndef OMICRON_OVERRIDE_RESOURCEGROUPS_H_
 #   define OMICRON_OVERRIDE_RESOURCEGROUPS_H_
 
-namespace omi {
-
 namespace resource_group {
 
 enum ResourceGroup {
 
+    ALL,
     START_UP,
-    EXAMPLE
+    TEST
 };
 
 } // namespace resource_group
-
-} // namespace omi
 
 #endif

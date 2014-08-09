@@ -21,10 +21,13 @@ TestScene::~TestScene() {
 
 void TestScene::init() {
 
+    // load the test resource group
+    omi::ResourceManager::load(resource_group::TEST);
+
     // add the test entity to the scene
     addEntity(m_test);
-    addEntity(new Skybox());
     addEntity(new SpriteTest());
+    addEntity(new Skybox());
 }
 
 bool TestScene::update() {

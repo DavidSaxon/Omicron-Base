@@ -36,6 +36,8 @@ const Texture& Texture::operator=(const Texture& other) {
 
     m_id =         other.m_id;
     m_dimensions = other.m_dimensions;
+
+    return *this;
 }
 
 //------------------------------------------------------------------------------

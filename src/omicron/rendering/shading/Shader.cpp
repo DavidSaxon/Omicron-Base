@@ -40,6 +40,8 @@ const Shader& Shader::operator=(const Shader& other) {
     m_vertex   = other.m_vertex;
     m_fragment = other.m_fragment;
     m_program  = other.m_program;
+
+    return *this;
 }
 
 //------------------------------------------------------------------------------

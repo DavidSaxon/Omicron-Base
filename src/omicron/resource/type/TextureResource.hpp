@@ -1,30 +1,15 @@
 #ifndef OMICRON_RESOURCE_TYPE_TEXTURERESOURCE_H_
 #   define OMICRON_RESOURCE_TYPE_TEXTURERESOURCE_H_
 
-#include <GL/glew.h>
-#include <GL/glut.h>
-#include <iostream>
-
-#include "lib/Utilitron/MacroUtil.hpp"
-
 #include "src/omicron/rendering/shading/Texture.hpp"
-#include "src/omicron/resource/loader/Loaders.hpp"
-#include "src/override/ResourceGroups.hpp"
+#include "src/omicron/resource/type/Resource.hpp"
 
 namespace omi {
 
 /*********************************************\
 | Contains the needed data to load a texture. |
 \*********************************************/
-class TextureResource {
-private:
-
-    //--------------------------------------------------------------------------
-    //                                RESTRICTIONS
-    //--------------------------------------------------------------------------
-
-    DISALLOW_COPY_AND_ASSIGN(TextureResource);
-
+class TextureResource : public Resource {
 public:
 
     //--------------------------------------------------------------------------
@@ -47,17 +32,14 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** Loads the texture */
+    /** #Override */
     void load();
 
-    /** Releases the texture */
+    /** #Override */
     void release();
 
     /** @return the loaded texture */
     Texture get() const;
-
-    /** @return the resource group the texture is in */
-    resource_group::ResourceGroup getGroup() const;
 
 private:
 
@@ -65,10 +47,6 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // true once the texture has been loaded
-    bool m_loaded;
-    // the resource group of the texture
-    resource_group::ResourceGroup m_resourceGroup;
     // the file path to load the texture from
     std::string m_filePath;
 
