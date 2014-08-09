@@ -20,8 +20,8 @@ void Skybox::init() {
         "res/gfx/shader/test/test_fragment.glsl");
 
     // create a material
-    omi::Material* material = new omi::Material(
-            util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f), texture, shader);
+    omi::Material material(
+            shader, util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f), texture);
 
     // memory leaks!
 

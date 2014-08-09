@@ -29,7 +29,7 @@ void TextureResource::load() {
 
     if (!m_loaded) {
 
-        m_texture = omi::loader::textureFromImage(m_filePath);
+        m_texture = loader::textureFromImage(m_filePath);
         m_loaded = true;
     }
 }

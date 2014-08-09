@@ -8,7 +8,7 @@ namespace omi {
 
 Sprite::Sprite(const std::string& id,
              Transform*   transform,
-             Material*    material) :
+             Material     material) :
     Renderable(id),
     m_transform(transform),
     m_material(material) {
@@ -33,19 +33,19 @@ void Sprite::render() {
     applyTransform(m_transform);
 
     // use the shader
-    glUseProgram(m_material->shader.getProgram());
+    glUseProgram(m_material.shader.getProgram());
 
     // pass in colour to the shader
     glUniform4f(
-        glGetUniformLocation(m_material->shader.getProgram(), "u_colour"),
-        m_material->colour.r,
-        m_material->colour.g,
-        m_material->colour.b,
-        m_material->colour.a
+        glGetUniformLocation(m_material.shader.getProgram(), "u_colour"),
+        m_material.colour.r,
+        m_material.colour.g,
+        m_material.colour.b,
+        m_material.colour.a
     );
 
     // texture
-    glBindTexture(GL_TEXTURE_2D, m_material->texture.getId());
+    glBindTexture(GL_TEXTURE_2D, m_material.texture.getId());
 
     // draw the sprite
     glBegin(GL_TRIANGLES);

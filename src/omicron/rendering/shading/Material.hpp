@@ -18,12 +18,13 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    //! the shader used for the material
+    Shader shader;
     //! the colour of the material
     util::vec::Vector4 colour;
     //! the texture of the material
     Texture texture;
-    //! the shader used for the material
-    Shader shader;
+
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTORS
@@ -34,12 +35,12 @@ public:
 
     // TODO:
     /** Creates a material using the given values
+    @param a_shader the shader of the material
     @param a_colour the colour of the material
-    @param a_texture the texture of the material
-    @param a_shader the shader of the material*/
-    Material(const util::vec::Vector4& a_colour,
-             const Texture&            a_texture,
-             const Shader&             a_shader);
+    @param a_texture the texture of the material */
+    Material(const Shader&             a_shader,
+             const util::vec::Vector4& a_colour,
+             const Texture&            a_texture);
 
     /** Creates a copy of the given material
     @param other the material to copy from */

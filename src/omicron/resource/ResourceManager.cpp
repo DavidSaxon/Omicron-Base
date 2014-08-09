@@ -72,6 +72,23 @@ Texture ResourceManager::getTexture(const std::string& id) {
             m_resources[TEXTURE][id].get())->get();
 }
 
+Material ResourceManager::getMaterial(const std::string& id) {
+
+    // create the materials group if we need to
+    createGroup(MATERIAL);
+
+    // check if the material is in the map
+    if (m_resources[MATERIAL].find(id) == m_resources[MATERIAL].end()) {
+
+        std::cout << "unable to find material in resource manager" << std::endl;
+
+        // TODO: throw an exception
+    }
+
+    // cast the resource and return
+    return dynamic_cast<MaterialResource*>(
+            m_resources[MATERIAL][id].get())->get();
+}
 
 //--------------------------------ADD FUNCTIONS---------------------------------
 
@@ -110,6 +127,29 @@ void ResourceManager::addTexture(
         t_ResourcePtr(new TextureResource(resourceGroup, filePath))));
 }
 
+void ResourceManager::addMaterial(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const util::vec::Vector4&           colour,
+    const std::string&                  texture) {
+
+    // create the materials group if we need to
+    createGroup(MATERIAL);
+
+    // insert in to the map
+    m_resources[MATERIAL].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new MaterialResource(
+                resourceGroup,
+                shader,
+                colour,
+                texture
+            ))
+        )
+    );
+}
 
 //------------------------------------------------------------------------------
 //                            PRIVATE MEMBER FUNCTIONS

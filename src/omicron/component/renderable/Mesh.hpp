@@ -22,11 +22,11 @@ public:
     @param id the identifier of the component
     @param transform a pointer to a transform to use for the mesh's position
     @param geometry a pointer to the geometry to use for the mesh
-    @param material a pointer to the material to use for the mesh*/
+    @param material the material to use for the mesh*/
     Mesh(const std::string& id,
                Transform*   transform,
                Geometry*    geometry,
-               Material*    material);
+               Material     material);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -52,8 +52,8 @@ private:
     Transform* m_transform;
     // pointer to the geometry to use for the mesh
     Geometry* m_geometry;
-    // pointer to the material to use for the mesh
-    Material* m_material;
+    // the material to use for the mesh
+    Material  m_material;
 };
 
 } // namespace omi

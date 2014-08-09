@@ -6,18 +6,20 @@ namespace omi {
 //                                  CONSTRUCTORS
 //------------------------------------------------------------------------------
 
-Material::Material() :
+Material::Material() 
+    :
+    shader (),
     colour (1.0f, 1.0f, 1.0f, 1.0f),
-    texture(),
-    shader () {
+    texture() {
 }
 
-Material::Material(const util::vec::Vector4& a_colour,
-                   const Texture&            a_texture,
-                   const Shader&             a_shader) :
+Material::Material(const Shader&             a_shader,
+                   const util::vec::Vector4& a_colour,
+                   const Texture&            a_texture)
+    :
+    shader (a_shader),
     colour (a_colour),
-    texture(a_texture),
-    shader (a_shader) {
+    texture(a_texture) {
 }
 
 Material::Material(const Material& other) :
@@ -39,9 +41,9 @@ Material::~Material() {
 
 const Material& Material::operator=(const Material& other) {
 
+    shader  = other.shader;
     colour  = other.colour;
     texture = other.texture;
-    shader  = other.shader;
 
     return *this;
 }

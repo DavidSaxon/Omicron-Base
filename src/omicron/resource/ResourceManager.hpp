@@ -6,6 +6,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/resource/type/MaterialResource.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
 #include "src/omicron/resource/type/ShaderResource.hpp"
 #include "src/omicron/resource/type/TextureResource.hpp"
@@ -43,6 +44,7 @@ private:
         SHADER,
         TEXTURE,
         MATERIAL,
+        GEOMETRY,
         MESH,
         SPRITE
     };
@@ -65,15 +67,20 @@ public:
     //------------------------------GET FUNCTIONS-------------------------------
 
 
-    /** Gets the shader resource with the given identifier if it exists 
+    /** Gets the shader with the given identifier if it exists 
     @param id the identifier of the shader
     @return the requested shader */
     static Shader getShader(const std::string& id);
 
-    /** Gets the texture resource with the given identifier if it exists
+    /** Gets the texture with the given identifier if it exists
     @param id the identifier of the texture
     @return the requested texture */
     static Texture getTexture(const std::string& id);
+
+    /** Gets the material with the given identifier if it exists
+    @param id the identifier of the material
+    @return the requested material */
+    static Material getMaterial(const std::string& id);
 
 
     //------------------------------ADD FUNCTIONS-------------------------------
@@ -99,6 +106,17 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  filePath);
+
+    /** Adds a material to the resource map
+    @param id the identifier of the material resource
+    @param resourceGroup the resource group of the material
+    @param filePath the image file to load the material from */
+    static void addMaterial(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour,
+        const std::string&                  texture);
 
 
 private:

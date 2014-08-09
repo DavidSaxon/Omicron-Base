@@ -1,4 +1,4 @@
-#include "ShaderResource.hpp"
+#include "MaterialResource.hpp"
 
 namespace omi {
 
@@ -6,58 +6,61 @@ namespace omi {
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-ShaderResource::ShaderResource(
-          resource_group::ResourceGroup resourceGroup,
-    const std::string&                  vertexPath,
-    const std::string&                  fragmentPath)
+MaterialResource::MaterialResource(     
+               resource_group::ResourceGroup resourceGroup,
+         const std::string&                  shader,
+         const util::vec::Vector4&           colour,
+         const std::string&                  texture)
     :
-    Resource      (resourceGroup),
-    m_vertexPath  (vertexPath),
-    m_fragmentPath(fragmentPath) {
+    Resource (resourceGroup),
+    m_shader (shader),
+    m_colour (colour),
+    m_texture(texture) {
 }
 
 //------------------------------------------------------------------------------
 //                                   DESTRUCTOR
 //------------------------------------------------------------------------------
 
-ShaderResource::~ShaderResource() {
+MaterialResource::~MaterialResource() {
 }
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void ShaderResource::load() {
+void MaterialResource::load() {
 
     if (!m_loaded) {
 
-        m_shader = loader::loadShaderFromFiles(m_vertexPath, m_fragmentPath);
+        m_material = Material(
+            ResourceManager::getShader(m_shader),
+            m_colour,
+            ResourceManager::getTexture(m_texture)
+        );
         m_loaded = true;
     }
 }
 
-void ShaderResource::release() {
+void MaterialResource::release() {
 
     if (m_loaded) {
 
-        glDeleteShader(m_shader.getVertexShader());
-        glDeleteShader(m_shader.getFragmentShader());
-        glDeleteProgram(m_shader.getProgram());
-        m_shader = Shader();
+        m_material = Material();
         m_loaded = false;
     }
 }
 
-Shader ShaderResource::get() const {
+Material MaterialResource::get() const {
 
     if (!m_loaded) {
 
-        std::cout << "attempted to get unloaded shader" << std::endl;
+        std::cout << "attempted to get unloaded material" << std::endl;
 
         //TODO: throw an exception
     }
 
-    return m_shader;
+    return m_material;
 }
 
 } // namespace omi

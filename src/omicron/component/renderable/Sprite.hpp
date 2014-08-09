@@ -19,10 +19,10 @@ public:
     /** Creates a new sprite
     @param id the identifier of the component
     @param transform a pointer to a transform to use for the spirte's position
-    @param material a pointer to the the material to use for sprite */
+    @param material the the material to use for sprite */
     Sprite(const std::string& id,
                  Transform*   transform,
-                 Material*    material);
+                 Material     material);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -46,8 +46,8 @@ private:
 
     // pointer to the transform to use for the meshes position
     Transform* m_transform;
-    // pointer to the material to use for the mesh
-    Material* m_material;
+    // the material to use for the mesh
+    Material  m_material;
 };
 
 } // namespace omi
