@@ -7,9 +7,10 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 Sprite::Sprite(const std::string& id,
-             Transform*   transform,
-             Material     material) :
-    Renderable(id),
+                     int          layer,
+                     Transform*   transform,
+                     Material     material) :
+    Renderable(id, layer),
     m_transform(transform),
     m_material(material) {
 }
@@ -26,6 +27,12 @@ Sprite::~Sprite() {
 //------------------------------------------------------------------------------
 
 void Sprite::render() {
+
+    // only render if the sprite is visible
+    if (!visible) {
+
+        return;
+    }
 
     glPushMatrix();
 

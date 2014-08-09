@@ -7,10 +7,11 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 Mesh::Mesh(const std::string& id,
+                 int          layer,
                  Transform*   transform,
                  Geometry*    geometry,
                  Material     material) :
-    Renderable (id),
+    Renderable (id, layer),
     m_transform(transform),
     m_geometry (geometry),
     m_material (material) {
@@ -28,6 +29,12 @@ Mesh::~Mesh() {
 //------------------------------------------------------------------------------
 
 void Mesh::render() {
+
+    // only render if the mesh is visible
+    if (!visible) {
+
+        return;
+    }
 
     glPushMatrix();
 

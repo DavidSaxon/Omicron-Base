@@ -38,8 +38,7 @@ void RenderLists::render() {
 void RenderLists::addRenderable(Renderable* renderable) {
 
     // get the layer from the component
-    // TODO:
-    int layer = 0;
+    int layer = renderable->getLayer();
 
     // check if a set exists for the given layer
     if (m_renderables.find(layer) == m_renderables.end()) {

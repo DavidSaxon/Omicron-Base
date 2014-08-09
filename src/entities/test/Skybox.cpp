@@ -29,6 +29,7 @@ void Skybox::init() {
     m_components.add(
         new omi::Mesh(
             "skybox",
+            0,
             dynamic_cast<omi::Transform*>(m_components.get("transform")),
             geo,
             material

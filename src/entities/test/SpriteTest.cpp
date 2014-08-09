@@ -27,6 +27,7 @@ void SpriteTest::init() {
     m_components.add(
         new omi::Sprite(
             "sprite",
+            2,
             transform,
             material
         )

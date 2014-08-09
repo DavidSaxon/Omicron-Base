@@ -28,11 +28,13 @@ public:
     //--------------------------------------------------------------------------
 
     /** Super constructor
-    @param id the identifier of the component */
-    Renderable(const std::string& id)
+    @param id the identifier of the component
+    @param layer the render layer of the component*/
+    Renderable(const std::string& id, int layer)
         :
         Component(id),
-        visible (true) {
+        visible (true),
+        m_layer(layer) {
     }
 
     //--------------------------------------------------------------------------
@@ -52,11 +54,26 @@ public:
         return component::RENDERABLE;
     }
 
+    // TODO: setting layer (gets complicated)
+
+    /** @return the layer of the renderable */
+    int getLayer() const {
+
+        return m_layer;
+    }
+
     /** #Hidden
     Render this component */
     virtual void render() = 0;
 
 protected:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the render layer
+    int m_layer;
 
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS

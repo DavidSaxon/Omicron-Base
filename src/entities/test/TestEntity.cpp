@@ -16,20 +16,13 @@ void TestEntity::init() {
     omi::Geometry* geo =
         omi::loader::geoFromWavefront("res/gfx/geometry/test/box.obj");
 
-    // // create a material
-    // omi::Material* material =
-    //     new omi::Material(
-    //         omi::ResourceManager::getShader ("test_shader"),
-    //         util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-    //         omi::ResourceManager::getTexture("test_brick")
-    //     );
-
     // memory leaks!
 
     // add a mesh
     m_components.add(
         new omi::Mesh(
             "cube",
+            1,
             m_transform,
             geo,
             omi::ResourceManager::getMaterial("test_brick")
