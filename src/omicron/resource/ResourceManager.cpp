@@ -18,20 +18,15 @@ t_ResourceMap ResourceManager::m_resources;
 
 void ResourceManager::load(resource_group::ResourceGroup resourceGroup) {
 
-    // iterate over all resources
-    for (t_ResourceMap::iterator it =  m_resources.begin();
-                                 it != m_resources.end()  ;
-                               ++it                        ) {
+    for (unsigned i = 0; i < m_resources.size(); ++i) {
 
-        for (t_ResourceGroup::iterator itg =  it->second.begin();
-                                       itg != it->second.end()  ;
-                                     ++itg                        ) {
-
+        for (t_ResourceGroup::iterator it =  m_resources[i].begin();
+                                       it != m_resources[i].end()  ;
+                                     ++it                        ) {
             // check the resource group
-            if (itg->second->getGroup() == resourceGroup) {
-
+            if (it->second->getGroup() == resourceGroup) {
                 // load
-                itg->second->load();
+                it->second->load();
             }
         }
     }
@@ -40,6 +35,24 @@ void ResourceManager::load(resource_group::ResourceGroup resourceGroup) {
 
 //--------------------------------GET FUNCTIONS---------------------------------
 
+
+Shader ResourceManager::getShader(const std::string& id) {
+
+    // create the shaders group if we need to
+    createGroup(SHADER);
+
+    // check if the shader is in the map
+    if (m_resources[SHADER].find(id) == m_resources[SHADER].end()) {
+
+        std::cout << "unable to find shader in resource manager" << std::endl;
+
+        // TODO: throw an exception
+    }
+
+    // cast the resource and return
+    return dynamic_cast<ShaderResource*>(
+            m_resources[SHADER][id].get())->get();
+}
 
 Texture ResourceManager::getTexture(const std::string& id) {
 
@@ -62,6 +75,27 @@ Texture ResourceManager::getTexture(const std::string& id) {
 
 //--------------------------------ADD FUNCTIONS---------------------------------
 
+void ResourceManager::addShader(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  vertexPath,
+        const std::string&                  fragmentShader) {
+
+    // create the shaders group if we need to
+    createGroup(SHADER);
+
+    // insert in to the map
+    m_resources[SHADER].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new ShaderResource(
+                resourceGroup,
+                vertexPath,
+                fragmentShader
+            ))
+        )
+    );
+}
 
 void ResourceManager::addTexture(
         const std::string&                  id,

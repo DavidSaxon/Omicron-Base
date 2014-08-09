@@ -16,17 +16,12 @@ void TestEntity::init() {
     omi::Geometry* geo =
         omi::loader::geoFromWavefront("res/gfx/geometry/test/box.obj");
 
-    // load a shader
-    omi::Shader shader = omi::loader::loadShaderFromFiles(
-        "res/gfx/shader/test/test_vertex.glsl",
-        "res/gfx/shader/test/test_fragment.glsl");
-
     // create a material
     omi::Material* material =
         new omi::Material(
             util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
             omi::ResourceManager::getTexture("test_brick"),
-            shader
+            omi::ResourceManager::getShader ("test_shader")
         );
 
     // memory leaks!

@@ -7,6 +7,7 @@
 #include "lib/Utilitron/MacroUtil.hpp"
 
 #include "src/omicron/resource/type/Resource.hpp"
+#include "src/omicron/resource/type/ShaderResource.hpp"
 #include "src/omicron/resource/type/TextureResource.hpp"
 #include "src/override/ResourceGroups.hpp"
 
@@ -39,6 +40,7 @@ private:
     //! the types of resources
     enum ResourceType {
 
+        SHADER,
         TEXTURE,
         MATERIAL,
         MESH,
@@ -63,6 +65,11 @@ public:
     //------------------------------GET FUNCTIONS-------------------------------
 
 
+    /** Gets the shader resource with the given identifier if it exists 
+    @param id the identifier of the shader
+    @return the requested shader */
+    static Shader getShader(const std::string& id);
+
     /** Gets the texture resource with the given identifier if it exists
     @param id the identifier of the texture
     @return the requested texture */
@@ -72,13 +79,27 @@ public:
     //------------------------------ADD FUNCTIONS-------------------------------
 
 
+    /** Adds a shader to the resource map
+    @param id the identifier of the shader resource
+    @param resourceGroup the resource group of the shader
+    @param vertexPath the path to the vertex shader
+    @param fragmentPath the path to the fragment shader */
+    static void addShader(
+            const std::string&                  id,
+                  resource_group::ResourceGroup resourceGroup,
+            const std::string&                  vertexPath,
+            const std::string&                  fragmentShader);
+
+
     /** Adds a texture to the resource map
     @param id the identifier of the texture resource
     @param resourceGroup the resource group of the texture
     @param filePath the image file to load the texture from */
-    static void addTexture(const std::string&           id,
-                          resource_group::ResourceGroup resourceGroup,
-                          const std::string&            filePath);
+    static void addTexture(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  filePath);
+
 
 private:
 
