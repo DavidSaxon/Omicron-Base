@@ -7,10 +7,12 @@
 #include <iostream>
 #include <IL/il.h>
 
+#include "lib/Utilitron/FileUtil.hpp"
 #include "lib/Utilitron/StringUtil.hpp"
 #include "lib/Utilitron/Vector.hpp"
 
 #include "src/omicron/rendering/object_data/Geometry.hpp"
+#include "src/omicron/rendering/shading/Shader.hpp"
 #include "src/omicron/rendering/shading/Texture.hpp"
 
 namespace omi {
@@ -23,6 +25,15 @@ namespace loader {
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
+
+//--------------------------------SHADER LOADERS--------------------------------
+
+/** Loads a shader from seperate file paths for each shader
+@param vertexPath the path to the vertex shader
+@param fragmentPath the path to the fragment shader */
+Shader loadShaderFromFiles(
+        const std::string& vertexPath,
+        const std::string& fragmentPath);
 
 //-------------------------------TEXTURE LOADERS--------------------------------
 

@@ -42,13 +42,14 @@ void Mesh::render() {
     glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
     glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
 
+    // use the shader
+    glUseProgram(m_material->shader.getProgram());
+
     // colour
     glColor4f(m_material->colour.r,
               m_material->colour.g,
               m_material->colour.b,
               m_material->colour.a);
-
-    // TODO: pass colour to shader instead
 
     // texture
     glBindTexture(GL_TEXTURE_2D, m_material->texture.getId());
@@ -79,6 +80,10 @@ void Mesh::render() {
                    m_geometry->vertices[i].z);
     }
     glEnd();
+
+    //clean up
+    glUseProgram(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     glPopMatrix();
 }

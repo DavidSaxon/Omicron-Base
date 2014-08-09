@@ -20,9 +20,14 @@ void TestEntity::init() {
     omi::Texture texture =
         omi::loader::textureFromImage("res/gfx/texture/test/brick.png");
 
+    // load a shader
+    omi::Shader shader = omi::loader::loadShaderFromFiles(
+        "res/gfx/shader/test/test_vertex.glsl",
+        "res/gfx/shader/test/test_fragment.glsl");
+
     // create a material
     omi::Material* material = new omi::Material(
-            util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f), texture);
+            util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f), texture, shader);
 
     // memory leaks!
 

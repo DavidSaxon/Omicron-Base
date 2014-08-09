@@ -103,6 +103,9 @@ void init() {
     // create the renderer
     renderer = std::unique_ptr<Renderer>(new Renderer());
 
+    // initialise glew
+    glewInit();
+
     // create the logic manager
     logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));
 

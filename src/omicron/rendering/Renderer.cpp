@@ -36,7 +36,7 @@ void Renderer::render() {
     m_rot += 0.5f * fpsManager.getTimeScale();
 
     // TODO: replace with camera (is a camera a type of entity??)
-    glTranslatef(0.0f, 0.0f, -10.0f);
+    glTranslatef(0.0f, 0.0f, -15.0f);
     glRotatef(25.0f, 1.0f, 0.0f, 0.0f);
     glRotatef(m_rot, 0.0f, 1.0f, 0.0f);
 
@@ -91,7 +91,7 @@ void Renderer::init() {
     // switch to the projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(90.0f,
+    gluPerspective(60.0f,
         displaySettings.getSize().x / displaySettings.getSize().y,
         0.001f, 1000.0f);
     // revert to the model view matrix
