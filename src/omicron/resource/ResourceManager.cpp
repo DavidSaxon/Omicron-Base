@@ -170,6 +170,52 @@ void ResourceManager::addMaterial(
     );
 }
 
+void ResourceManager::addMaterial(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const std::string&                  texture) {
+
+    // create the materials group if we need to
+    createGroup(MATERIAL);
+
+    // insert in to the map
+    m_resources[MATERIAL].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new MaterialResource(
+                resourceGroup,
+                shader,
+                util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+                texture
+            ))
+        )
+    );
+}
+
+void ResourceManager::addMaterial(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const util::vec::Vector4&           colour) {
+
+    // create the materials group if we need to
+    createGroup(MATERIAL);
+
+    // insert in to the map
+    m_resources[MATERIAL].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new MaterialResource(
+                resourceGroup,
+                shader,
+                colour,
+                ""
+            ))
+        )
+    );
+}
+
 void ResourceManager::addGeometry(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,

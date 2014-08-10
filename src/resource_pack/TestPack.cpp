@@ -33,7 +33,6 @@ void buildTestBack() {
         "test_brick",
         resource_group::TEST,
         "test_shader",
-        util::vec::Vector4(1.0f, 1.0f, 1.0f, 0.5f),
         "test_brick"
     );
 

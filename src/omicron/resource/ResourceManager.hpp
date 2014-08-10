@@ -126,6 +126,29 @@ public:
         const util::vec::Vector4&           colour,
         const std::string&                  texture);
 
+    /** Adds a material to the resource map using default white as the colour
+    of the material
+    @param id the identifier of the material resource
+    @param resourceGroup the resource group of the material
+    @param shader the resource id of the shader to use for the material
+    @param texture the resource id of the texture to use for the material */
+    static void addMaterial(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texture);
+
+    /** Adds a material with no texture to the resource map
+    @param id the identifier of the material resource
+    @param resourceGroup the resource group of the material
+    @param shader the resource id of the shader to use for the material
+    @param colour the colour to use for the material */
+    static void addMaterial(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour);
+
     /** Adds geometry to the resource map
     @param id the identifier of the geometry resource
     @param resourceGroup the resource group of the geometry

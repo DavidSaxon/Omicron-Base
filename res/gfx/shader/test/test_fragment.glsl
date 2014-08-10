@@ -6,6 +6,8 @@
 
 // the colour
 uniform vec4 u_colour;
+// if the material has a texture
+uniform int u_hasTexture;
 // the texture
 uniform sampler2D u_texture;
 
@@ -22,5 +24,14 @@ varying vec3 v_normal;
 
 void main() {
 
-    gl_FragColor = texture2D(u_texture, v_texCoord) * u_colour;
+    // the final colour
+    vec4 finalColour = u_colour;
+    vec4 textureColour = texture2D(u_texture, v_texCoord);
+
+    if (u_hasTexture > 0) {
+
+        finalColour *= textureColour;
+    }
+
+    gl_FragColor = finalColour;
 }

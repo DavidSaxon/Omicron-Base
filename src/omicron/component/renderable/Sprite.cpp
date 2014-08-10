@@ -39,12 +39,15 @@ void Sprite::render() {
     // apply the transform to the matrices
     applyTransform(m_transform);
 
+    // the OpenGL program
+    GLuint program = m_material.shader.getProgram();
+
     // use the shader
-    glUseProgram(m_material.shader.getProgram());
+    glUseProgram(program);
 
     // pass in colour to the shader
     glUniform4f(
-        glGetUniformLocation(m_material.shader.getProgram(), "u_colour"),
+        glGetUniformLocation(program, "u_colour"),
         m_material.colour.r,
         m_material.colour.g,
         m_material.colour.b,
@@ -52,7 +55,9 @@ void Sprite::render() {
     );
 
     // texture
-    glBindTexture(GL_TEXTURE_2D, m_material.texture.getId());
+    GLuint texture = m_material.texture.getId();
+    glUniform1i(glGetUniformLocation(program, "u_hasTexture"), texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     // draw the sprite
     glBegin(GL_TRIANGLES);
