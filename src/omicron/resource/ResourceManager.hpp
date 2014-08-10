@@ -6,6 +6,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/resource/type/GeometryResource.hpp"
 #include "src/omicron/resource/type/MaterialResource.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
 #include "src/omicron/resource/type/ShaderResource.hpp"
@@ -67,7 +68,7 @@ public:
     //------------------------------GET FUNCTIONS-------------------------------
 
 
-    /** Gets the shader with the given identifier if it exists 
+    /** Gets the shader with the given identifier if it exists
     @param id the identifier of the shader
     @return the requested shader */
     static Shader getShader(const std::string& id);
@@ -81,6 +82,11 @@ public:
     @param id the identifier of the material
     @return the requested material */
     static Material getMaterial(const std::string& id);
+
+    /** Gets the geometry with the given identifier if it exists
+    @param id the identifier of the geometry
+    @return the requested geometry */
+    static Geometry* getGeometry(const std::string& id);
 
 
     //------------------------------ADD FUNCTIONS-------------------------------
@@ -110,7 +116,9 @@ public:
     /** Adds a material to the resource map
     @param id the identifier of the material resource
     @param resourceGroup the resource group of the material
-    @param filePath the image file to load the material from */
+    @param shader the resource id of the shader to use for the material
+    @param colour the colour to use for the material
+    @param texture the resource id of the texture to use for the material */
     static void addMaterial(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
@@ -118,6 +126,14 @@ public:
         const util::vec::Vector4&           colour,
         const std::string&                  texture);
 
+    /** Adds geometry to the resource map
+    @param id the identifier of the geometry resource
+    @param resourceGroup the resource group of the geometry
+    @param filePath the image file to load the geometry from */
+    static void addGeometry(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  filePath);
 
 private:
 

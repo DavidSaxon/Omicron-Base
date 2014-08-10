@@ -90,6 +90,25 @@ Material ResourceManager::getMaterial(const std::string& id) {
             m_resources[MATERIAL][id].get())->get();
 }
 
+Geometry* ResourceManager::getGeometry(const std::string& id) {
+
+    // create the geometry group if we need to
+    createGroup(GEOMETRY);
+
+    // check if the geometry is in the map
+    if (m_resources[GEOMETRY].find(id) == m_resources[GEOMETRY].end()) {
+
+        std::cout << "unable to find geometry in resource manager" << std::endl;
+
+        // TODO: throw an exception
+    }
+
+    // cast the resource and return
+    return dynamic_cast<GeometryResource*>(
+            m_resources[GEOMETRY][id].get())->get();
+}
+
+
 //--------------------------------ADD FUNCTIONS---------------------------------
 
 void ResourceManager::addShader(
@@ -146,6 +165,26 @@ void ResourceManager::addMaterial(
                 shader,
                 colour,
                 texture
+            ))
+        )
+    );
+}
+
+void ResourceManager::addGeometry(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  filePath) {
+
+    // create the geometry group if we need to
+    createGroup(GEOMETRY);
+
+    // insert in to the map
+    m_resources[GEOMETRY].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new GeometryResource(
+                resourceGroup,
+                filePath
             ))
         )
     );

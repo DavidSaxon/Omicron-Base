@@ -12,19 +12,13 @@ void TestEntity::init() {
     // store the transform
     m_transform = dynamic_cast<omi::Transform*>(m_components.get("transform"));
 
-    // load some geometry yo
-    omi::Geometry* geo =
-        omi::loader::geoFromWavefront("res/gfx/geometry/test/box.obj");
-
-    // memory leaks!
-
     // add a mesh
     m_components.add(
         new omi::Mesh(
             "cube",
             1,
             m_transform,
-            geo,
+            omi::ResourceManager::getGeometry("test_cube"),
             omi::ResourceManager::getMaterial("test_brick")
         )
     );

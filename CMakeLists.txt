@@ -18,6 +18,7 @@ set(SRCS
     src/omicron/resource/loader/GeometryLoader.cpp
     src/omicron/resource/loader/ShaderLoader.cpp
     src/omicron/resource/loader/TextureLoader.cpp
+    src/omicron/resource/type/GeometryResource.cpp
     src/omicron/resource/type/MaterialResource.cpp
     src/omicron/resource/type/ShaderResource.cpp
     src/omicron/resource/type/TextureResource.cpp
