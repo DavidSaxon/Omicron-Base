@@ -83,6 +83,12 @@ protected:
     @param transform the transform to apply */
     void applyTransform(Transform* transform) {
 
+        // do nothing if the transform is null
+        if (!transform) {
+
+            return;
+        }
+
         // apply translation
         util::vec::Vector3 translation(transform->computeTranslation());
         glTranslatef(translation.x, translation.y, translation.z);

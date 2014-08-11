@@ -5,8 +5,8 @@
 #include <iostream>
 
 #include "src/omicron/entity/Entity.hpp"
-
 #include "src/omicron/rendering/shading/Material.hpp"
+#include "src/omicron/resource/ResourceManager.hpp"
 #include "src/omicron/resource/loader/Loaders.hpp"
 
 class TestEntity : public omi::Entity {

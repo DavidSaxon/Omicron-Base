@@ -108,8 +108,29 @@ Geometry* ResourceManager::getGeometry(const std::string& id) {
             m_resources[GEOMETRY][id].get())->get();
 }
 
+Mesh* ResourceManager::getMesh(const std::string& id,
+                              const std::string& componentId,
+                                    Transform*   transform) {
+
+    // create the mesh group if we need to
+    createGroup(MESH);
+
+    // check if the mesh is in the map
+    if (m_resources[MESH].find(id) == m_resources[MESH].end()) {
+
+        std::cout << "unable to find mesh in resource manager" << std::endl;
+
+        // TODO: throw an exception
+    }
+
+    // cast the resource and return
+    return dynamic_cast<MeshResource*>(
+            m_resources[MESH][id].get())->get(componentId, transform);
+}
+
 
 //--------------------------------ADD FUNCTIONS---------------------------------
+
 
 void ResourceManager::addShader(
         const std::string&                  id,
@@ -231,6 +252,30 @@ void ResourceManager::addGeometry(
             t_ResourcePtr(new GeometryResource(
                 resourceGroup,
                 filePath
+            ))
+        )
+    );
+}
+
+void ResourceManager::addMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+          int                           layer,
+    const std::string&                  geometry,
+    const std::string&                  material) {
+
+    // create the mesh group if we need to
+    createGroup(MESH);
+
+    // insert in to the map
+    m_resources[MESH].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new MeshResource(
+                resourceGroup,
+                layer,
+                geometry,
+                material
             ))
         )
     );

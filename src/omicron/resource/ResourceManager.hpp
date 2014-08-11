@@ -6,8 +6,10 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/resource/type/GeometryResource.hpp"
 #include "src/omicron/resource/type/MaterialResource.hpp"
+#include "src/omicron/resource/type/MeshResource.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
 #include "src/omicron/resource/type/ShaderResource.hpp"
 #include "src/omicron/resource/type/TextureResource.hpp"
@@ -88,6 +90,15 @@ public:
     @return the requested geometry */
     static Geometry* getGeometry(const std::string& id);
 
+    /** Gets the mesh with the given identifier if it exists
+    @param id the identifier of the mesh
+    @param componentId the component identifier to use for the mesh
+    @oaram transform the transform to use for the mesh
+    @return the requested mesh */
+    static Mesh* getMesh(const std::string& id,
+                        const std::string& componentId,
+                              Transform*   transform);
+
 
     //------------------------------ADD FUNCTIONS-------------------------------
 
@@ -157,6 +168,19 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  filePath);
+
+    /** Adds a mesh to the resource map
+    @param id the identifier of the mesh resource
+    @param resourceGroup the resource group of the mesh
+    @param layer the layer of the mesh
+    @param geometry the resource id of the meshes' geometry
+    @param material the resource if of the meshes' material*/
+    static void addMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+              int                           layer,
+        const std::string&                  geometry,
+        const std::string&                  material);
 
 private:
 

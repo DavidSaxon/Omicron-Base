@@ -45,6 +45,17 @@ void buildTestBack() {
         resource_group::TEST,
         "res/gfx/geometry/test/box.obj"
     );
+
+
+    //----------------------------------MESHES----------------------------------
+
+    omi::ResourceManager::addMesh(
+        "test_brick_cube",
+        resource_group::TEST,
+        1,
+        "test_cube",
+        "test_brick"
+    );
 }
 
 } // namespace pack

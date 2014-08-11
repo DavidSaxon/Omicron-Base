@@ -13,15 +13,8 @@ void TestEntity::init() {
     m_transform = dynamic_cast<omi::Transform*>(m_components.get("transform"));
 
     // add a mesh
-    m_components.add(
-        new omi::Mesh(
-            "cube",
-            1,
-            m_transform,
-            omi::ResourceManager::getGeometry("test_cube"),
-            omi::ResourceManager::getMaterial("test_brick")
-        )
-    );
+    m_components.add(omi::ResourceManager::getMesh(
+            "test_brick_cube", "mesh", m_transform));
 }
 
 void TestEntity::update() {
