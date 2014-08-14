@@ -137,6 +137,17 @@ public:
         const util::vec::Vector4&           colour,
         const std::string&                  texture);
 
+    /** Adds a material with no texture to the resource map
+    @param id the identifier of the material resource
+    @param resourceGroup the resource group of the material
+    @param shader the resource id of the shader to use for the material
+    @param colour the colour to use for the material */
+    static void addMaterial(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour);
+
     /** Adds a material to the resource map using default white as the colour
     of the material
     @param id the identifier of the material resource
@@ -148,17 +159,6 @@ public:
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
         const std::string&                  texture);
-
-    /** Adds a material with no texture to the resource map
-    @param id the identifier of the material resource
-    @param resourceGroup the resource group of the material
-    @param shader the resource id of the shader to use for the material
-    @param colour the colour to use for the material */
-    static void addMaterial(
-        const std::string&                  id,
-              resource_group::ResourceGroup resourceGroup,
-        const std::string&                  shader,
-        const util::vec::Vector4&           colour);
 
     /** Adds geometry to the resource map
     @param id the identifier of the geometry resource
@@ -181,6 +181,58 @@ public:
               int                           layer,
         const std::string&                  geometry,
         const std::string&                  material);
+
+    /** Adds a material, geometry, and mesh into the resource map all with the
+    same resource id. The mesh will use both the created geometry and material
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param colour the colour of the material
+    @param geometryPath the path to file to read geometry from
+    @param layer the rendering layer of the mesh */
+    static void addMaterialGeometryMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour,
+        const std::string&                  geometryPath,
+              int                           layer);
+
+    /** Adds a texture, material, geometry, and mesh into the resource map all
+    with the same resource id. The mesh will use both the created geometry and
+    material. The material will use default white as its colour.
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param texturePath the path to the image file to load the texture from
+    @param geometryPath the path to file to read geometry from
+    @param layer the rendering layer of the mesh */
+    static void addTextureMaterialGeometryMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texturePath,
+        const std::string&                  geometryPath,
+              int                           layer);
+
+    /** Adds a texture, material, geometry, and mesh into the resource map all
+    with the same resource id. The mesh will use both the created geometry and
+    material.
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param colour the colour of the material
+    @param texturePath the path to the image file to load the texture from
+    @param geometryPath the path to file to read geometry from
+    @param layer the rendering layer of the mesh */
+    static void addTextureMaterialGeometryMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour,
+        const std::string&                  texturePath,
+        const std::string&                  geometryPath,
+              int                           layer);
 
 private:
 

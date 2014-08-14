@@ -16,45 +16,15 @@ void buildTestBack() {
     );
 
 
-    //---------------------------------TEXTURES---------------------------------
-
-
-    omi::ResourceManager::addTexture(
-        "test_brick",
-        resource_group::TEST,
-        "res/gfx/texture/test/brick.png"
-    );
-
-
-    //--------------------------------MATERIALS---------------------------------
-
-
-    omi::ResourceManager::addMaterial(
-        "test_brick",
-        resource_group::TEST,
-        "test_shader",
-        "test_brick"
-    );
-
-
-    //---------------------------------GEOMETRY---------------------------------
-
-
-    omi::ResourceManager::addGeometry(
-        "test_cube",
-        resource_group::TEST,
-        "res/gfx/geometry/test/box.obj"
-    );
-
-
     //----------------------------------MESHES----------------------------------
 
-    omi::ResourceManager::addMesh(
-        "test_brick_cube",
-        resource_group::TEST,
-        1,
-        "test_cube",
-        "test_brick"
+
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_brick_cube", resource_group::TEST,
+        "test_shader",
+        "res/gfx/texture/test/brick.png",
+        "res/gfx/geometry/test/box.obj",
+        1
     );
 }
 

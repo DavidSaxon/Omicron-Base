@@ -195,29 +195,6 @@ void ResourceManager::addMaterial(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
-    const std::string&                  texture) {
-
-    // create the materials group if we need to
-    createGroup(MATERIAL);
-
-    // insert in to the map
-    m_resources[MATERIAL].insert(
-        std::make_pair(
-            id,
-            t_ResourcePtr(new MaterialResource(
-                resourceGroup,
-                shader,
-                util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-                texture
-            ))
-        )
-    );
-}
-
-void ResourceManager::addMaterial(
-    const std::string&                  id,
-          resource_group::ResourceGroup resourceGroup,
-    const std::string&                  shader,
     const util::vec::Vector4&           colour) {
 
     // create the materials group if we need to
@@ -232,6 +209,29 @@ void ResourceManager::addMaterial(
                 shader,
                 colour,
                 ""
+            ))
+        )
+    );
+}
+
+void ResourceManager::addMaterial(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const std::string&                  texture) {
+
+    // create the materials group if we need to
+    createGroup(MATERIAL);
+
+    // insert in to the map
+    m_resources[MATERIAL].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new MaterialResource(
+                resourceGroup,
+                shader,
+                util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+                texture
             ))
         )
     );
@@ -279,6 +279,59 @@ void ResourceManager::addMesh(
             ))
         )
     );
+}
+
+void ResourceManager::addMaterialGeometryMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const util::vec::Vector4&           colour,
+    const std::string&                  geometryPath,
+          int                           layer) {
+
+    // material
+    addMaterial(id, resourceGroup, shader, colour);
+    // geometry
+    addGeometry(id, resourceGroup, geometryPath);
+    // mesh
+    addMesh(    id, resourceGroup, layer, id, id);
+}
+
+void ResourceManager::addTextureMaterialGeometryMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const std::string&                  texturePath,
+    const std::string&                  geometryPath,
+          int                           layer) {
+
+    // texture
+    addTexture( id, resourceGroup, texturePath);
+    // material
+    addMaterial(id, resourceGroup, shader, id);
+    // geometry
+    addGeometry(id, resourceGroup, geometryPath);
+    // mesh
+    addMesh(    id, resourceGroup, layer, id, id);
+}
+
+void ResourceManager::addTextureMaterialGeometryMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const util::vec::Vector4&           colour,
+    const std::string&                  texturePath,
+    const std::string&                  geometryPath,
+          int                           layer) {
+
+    // texture
+    addTexture( id, resourceGroup, texturePath);
+    // material
+    addMaterial(id, resourceGroup, shader, colour, id);
+    // geometry
+    addGeometry(id, resourceGroup, geometryPath);
+    // mesh
+    addMesh(    id, resourceGroup, layer, id, id);
 }
 
 //------------------------------------------------------------------------------
