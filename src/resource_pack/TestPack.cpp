@@ -26,6 +26,13 @@ void buildTestBack() {
         "res/gfx/geometry/test/box.obj",
         1
     );
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "test_box_trail", resource_group::TEST,
+        "test_shader",
+        util::vec::Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/geometry/test/box.obj",
+        1
+    );
 }
 
 } // namespace pack

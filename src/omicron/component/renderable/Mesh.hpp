@@ -3,7 +3,6 @@
 
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/rendering/object_data/Geometry.hpp"
-#include "src/omicron/rendering/shading/Material.hpp"
 
 namespace omi {
 
@@ -50,12 +49,8 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // pointer to the transform to use for the mesh's position
-    Transform* m_transform;
     // pointer to the geometry to use for the mesh
     Geometry* m_geometry;
-    // the material to use for the mesh
-    Material  m_material;
 };
 
 } // namespace omi

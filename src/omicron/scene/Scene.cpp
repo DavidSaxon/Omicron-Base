@@ -37,6 +37,7 @@ void Scene::addEntity(Entity* entity) {
 
 bool Scene::removeEntity(Entity* entity) {
 
+    // TODO: should this exists?? (probably)
     // TODO: implement
 }
 
@@ -46,6 +47,30 @@ bool Scene::removeEntity(Entity* entity) {
 
 void Scene::updateEntities() {
 
+    // find all the new entities
+    std::vector<Entity*> newEntities;
+    for (t_EntityList::iterator it = m_entities.begin();
+         it != m_entities.end(); ++it) {
+
+        for (std::vector<Entity*>::iterator itn = (*it)->getAddList().begin();
+             itn != (*it)->getAddList().end(); ++itn) {
+
+            newEntities.push_back(*itn);
+        }
+
+        // clear the entities new entities
+        (*it)->getAddList().clear();
+    }
+
+    // copy the new entities into the list of all entities and initialise them
+    for (std::vector<Entity*>::iterator it = newEntities.begin();
+         it != newEntities.end(); ++it) {
+
+        (*it)->init();
+        m_entities.push_back(t_EntityPtr(*it));
+    }
+
+    // iterate over all the existing entities in the scene and update them
     for (t_EntityList::iterator it = m_entities.begin();
          it != m_entities.end(); ++it) {
 

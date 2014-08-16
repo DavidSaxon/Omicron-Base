@@ -11,10 +11,8 @@ Mesh::Mesh(const std::string& id,
                  Transform*   transform,
                  Geometry*    geometry,
                  Material     material) :
-    Renderable (id, layer),
-    m_transform(transform),
-    m_geometry (geometry),
-    m_material (material) {
+    Renderable (id, layer, transform, material),
+    m_geometry (geometry) {
 }
 
 //------------------------------------------------------------------------------
@@ -39,7 +37,7 @@ void Mesh::render() {
     glPushMatrix();
 
     // apply the transform to matrices
-    applyTransform(m_transform);
+    applyTransformations();
 
     // the OpenGL program
     GLuint program = m_material.shader.getProgram();

@@ -26,4 +26,7 @@ void TestEntity::update() {
 
     // flip the mesh
     m_transform->rotation.x += 1.0f * omi::fpsManager.getTimeScale();
+
+    // add a box trail entity
+    addEntity(new BoxTrail(m_transform));
 }

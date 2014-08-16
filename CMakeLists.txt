@@ -34,6 +34,7 @@ set(SRCS
 
     src/scenes/TestScene.cpp
 
+    src/entities/test/BoxTrail.cpp
     src/entities/test/Skybox.cpp
     src/entities/test/SpriteTest.cpp
     src/entities/test/TestEntity.cpp

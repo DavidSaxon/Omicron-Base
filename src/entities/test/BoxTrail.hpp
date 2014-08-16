@@ -1,15 +1,18 @@
-#ifndef OMICRON_ENTITIES_TEST_TESTENTITY_H_
-#   define OMICRON_ENTITIES_TEST_TESTENTITY_H_
+#ifndef OMICRON_ENTITIES_TEST_BOXTRAIL_H_
+#   define OMICRON_ENTITIES_TEST_BOXTRAIL_H_
 
-#include <cmath>
-#include <iostream>
-
-#include "src/entities/test/BoxTrail.hpp"
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/resource/ResourceManager.hpp"
 
-class TestEntity : public omi::Entity {
+class BoxTrail : public omi::Entity {
 public:
+
+    //--------------------------------------------------------------------------
+    //                                CONSTRUCTOR
+    //--------------------------------------------------------------------------
+
+    /** Constructor */
+    BoxTrail(const omi::Transform* transform);
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -27,11 +30,10 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // the position of this entity
+    // the transform of the entity
     omi::Transform* m_transform;
-
-    // sine counter
-    float m_sineCounter;
+    // the material of the entity
+    omi::Material* m_material;
 };
 
 #endif

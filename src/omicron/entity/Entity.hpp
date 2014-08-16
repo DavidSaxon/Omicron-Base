@@ -1,6 +1,8 @@
 #ifndef OMICRON_ENTITY_ENTITY_H_
 #   define OMICRON_ENTITY_ENTITY_H_
 
+#include <vector>
+
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/entity/ComponentTable.hpp"
@@ -60,6 +62,12 @@ public:
         return m_components;
     }
 
+    /** #Hidden
+    @return the entities add list */
+    std::vector<Entity*>& getAddList() {
+
+        return m_addList;
+    }
 
 protected:
 
@@ -71,12 +79,24 @@ protected:
     ComponentTable m_components;
 
     //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
+    //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    // TODO: component update
+    /** Adds a new entity to the current scene
+    @param entity a pointer to the new entity */
+    void addEntity(Entity* entity) {
 
-    // TODO: clean up
+        m_addList.push_back(entity);
+    }
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the list of new entities created by this entity this frame
+    std::vector<Entity*> m_addList;
 };
 
 } // namespace omi

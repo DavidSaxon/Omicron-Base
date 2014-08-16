@@ -6,6 +6,7 @@
 
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/component/Transform.hpp"
+#include "src/omicron/rendering/shading/Material.hpp"
 
 namespace omi {
 
@@ -29,12 +30,20 @@ public:
 
     /** Super constructor
     @param id the identifier of the component
-    @param layer the render layer of the component*/
-    Renderable(const std::string& id, int layer)
+    @param layer the render layer of the component
+    @oaram transform the pointer to the transform to use for positioning
+    @param material the material to use for the renderable*/
+    Renderable(
+            const std::string& id,
+                  int          layer,
+                  Transform*   transform,
+            const Material     material)
         :
-        Component(id),
-        visible (true),
-        m_layer(layer) {
+        Component  (id),
+        visible    (true),
+        m_layer    (layer),
+        m_transform(transform),
+        m_material (material) {
     }
 
     //--------------------------------------------------------------------------
@@ -62,6 +71,18 @@ public:
         return m_layer;
     }
 
+    /** @return the transform used for positioning this renderable */
+    Transform* getTransform() {
+
+        return m_transform;
+    }
+
+    /** @return the material used for this renderable */
+    Material& getMaterial() {
+
+        return m_material;
+    }
+
     /** #Hidden
     Render this component */
     virtual void render() = 0;
@@ -74,34 +95,37 @@ protected:
 
     // the render layer
     int m_layer;
+    // the transform
+    Transform* m_transform;
+    // the material
+    Material  m_material;
 
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** Applies the transformations of the given transform
-    @param transform the transform to apply */
-    void applyTransform(Transform* transform) {
+    /** Applies transformations */
+    void applyTransformations() {
 
         // do nothing if the transform is null
-        if (!transform) {
+        if (!m_transform) {
 
             return;
         }
 
         // apply translation
-        util::vec::Vector3 translation(transform->computeTranslation());
+        util::vec::Vector3 translation(m_transform->computeTranslation());
         glTranslatef(translation.x, translation.y, translation.z);
 
         // TODO: local and global shit
         // apply rotation
-        util::vec::Vector3 rotation(transform->computeRotation());
+        util::vec::Vector3 rotation(m_transform->computeRotation());
         glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
         glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
         glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
 
         // apply scale
-        util::vec::Vector3 scale(transform->computeScale());
+        util::vec::Vector3 scale(m_transform->computeScale());
         glScalef(scale.x, scale.y, scale.z);
     }
 

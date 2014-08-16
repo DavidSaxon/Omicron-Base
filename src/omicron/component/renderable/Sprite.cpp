@@ -10,9 +10,7 @@ Sprite::Sprite(const std::string& id,
                      int          layer,
                      Transform*   transform,
                      Material     material) :
-    Renderable(id, layer),
-    m_transform(transform),
-    m_material(material) {
+    Renderable(id, layer, transform, material) {
 }
 
 //------------------------------------------------------------------------------
@@ -37,7 +35,7 @@ void Sprite::render() {
     glPushMatrix();
 
     // apply the transform to the matrices
-    applyTransform(m_transform);
+    applyTransformations();
 
     // the OpenGL program
     GLuint program = m_material.shader.getProgram();
