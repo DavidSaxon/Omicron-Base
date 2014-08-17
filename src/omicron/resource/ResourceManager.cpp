@@ -54,7 +54,7 @@ Shader ResourceManager::getShader(const std::string& id) {
             m_resources[SHADER][id].get())->get();
 }
 
-Texture ResourceManager::getTexture(const std::string& id) {
+Texture* ResourceManager::getTexture(const std::string& id) {
 
     // create the textures group if we need to
     createGroup(TEXTURE);

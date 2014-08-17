@@ -6,12 +6,14 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <IL/il.h>
+#include <sstream>
 
 #include "lib/Utilitron/FileUtil.hpp"
 #include "lib/Utilitron/StringUtil.hpp"
 #include "lib/Utilitron/Vector.hpp"
 
 #include "src/omicron/rendering/object_data/Geometry.hpp"
+#include "src/omicron/rendering/shading/Animation.hpp"
 #include "src/omicron/rendering/shading/Material.hpp"
 #include "src/omicron/rendering/shading/Shader.hpp"
 #include "src/omicron/rendering/shading/Texture.hpp"
@@ -41,7 +43,15 @@ Shader loadShaderFromFiles(
 /** Loads a texture from an image file
 @param filePath the path to the image
 @return the loaded texture */
-Texture textureFromImage(const std::string& filePath);
+Texture* textureFromImage(const std::string& filePath);
+
+/** Loads an animation from an image sequence
+@param filePath the path of the sequence (omitting the frame number)
+@param begin the being frame of the animation
+@param end the ending frame of the animation */
+Texture* animationFromImage(
+    const std::string& filePath,
+    unsigned begin, unsigned end);
 
 //-------------------------------MATERIAL LOADER--------------------------------
 

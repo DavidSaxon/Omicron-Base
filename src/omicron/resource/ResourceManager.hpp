@@ -80,7 +80,7 @@ public:
     /** Gets the texture with the given identifier if it exists
     @param id the identifier of the texture
     @return the requested texture */
-    static Texture getTexture(const std::string& id);
+    static Texture* getTexture(const std::string& id);
 
     /** Gets the material with the given identifier if it exists
     @param id the identifier of the material

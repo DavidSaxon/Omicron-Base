@@ -25,7 +25,7 @@ void TestScene::init() {
     omi::ResourceManager::load(resource_group::TEST);
 
     // add the test entity to the scene
-    addEntity(m_test);
+    // addEntity(m_test);
     addEntity(new SpriteTest());
     addEntity(new Skybox());
 }

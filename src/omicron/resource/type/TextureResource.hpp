@@ -1,6 +1,8 @@
 #ifndef OMICRON_RESOURCE_TYPE_TEXTURERESOURCE_H_
 #   define OMICRON_RESOURCE_TYPE_TEXTURERESOURCE_H_
 
+#include <memory>
+
 #include "src/omicron/rendering/shading/Texture.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
 
@@ -39,7 +41,7 @@ public:
     void release();
 
     /** @return the loaded texture */
-    Texture get() const;
+    Texture* get() const;
 
 private:
 
@@ -51,7 +53,7 @@ private:
     std::string m_filePath;
 
     // the omicron texture
-    Texture m_texture;
+    std::unique_ptr<Texture> m_texture;
 };
 
 } // namespace omi

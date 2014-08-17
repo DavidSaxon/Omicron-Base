@@ -49,7 +49,7 @@ void MaterialResource::load() {
             m_material = Material(
                 ResourceManager::getShader(m_shader),
                 m_colour,
-                Texture()
+                NULL
             );
         }
         m_loaded = true;

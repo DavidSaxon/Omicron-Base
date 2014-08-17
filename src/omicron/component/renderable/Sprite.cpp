@@ -35,6 +35,9 @@ Sprite::~Sprite() {
 
 void Sprite::render() {
 
+    // update the material
+    m_material.update();
+
     // only render if the sprite is visible
     if (!visible) {
 
@@ -62,7 +65,7 @@ void Sprite::render() {
     );
 
     // texture
-    GLuint texture = m_material.texture.getId();
+    GLuint texture = m_material.texture->getId();
     glUniform1i(glGetUniformLocation(program, "u_hasTexture"), texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 

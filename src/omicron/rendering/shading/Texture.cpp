@@ -7,18 +7,15 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 Texture::Texture() :
-    m_id        (0),
-    m_dimensions() {
+    m_id        (0) {
 }
 
-Texture::Texture(GLuint id, const util::vec::Vector2& dimensions) :
-    m_id        (id),
-    m_dimensions(dimensions) {
+Texture::Texture(GLuint id) :
+    m_id        (id){
 }
 
 Texture::Texture(const Texture& other) :
-    m_id        (other.m_id),
-    m_dimensions(other.m_dimensions) {
+    m_id        (other.m_id) {
 }
 
 //------------------------------------------------------------------------------
@@ -35,7 +32,6 @@ Texture::~Texture() {
 const Texture& Texture::operator=(const Texture& other) {
 
     m_id =         other.m_id;
-    m_dimensions = other.m_dimensions;
 
     return *this;
 }
@@ -44,14 +40,19 @@ const Texture& Texture::operator=(const Texture& other) {
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
+void Texture::update() {
+
+    // do nothing
+}
+
 GLuint Texture::getId() const {
 
     return m_id;
 }
 
-const util::vec::Vector2& Texture::getDimesions() const {
+tex::Type Texture::getType() const {
 
-    return m_dimensions;
+    return tex::TEXTURE;
 }
 
 } // namespace omi

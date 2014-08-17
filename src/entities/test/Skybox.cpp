@@ -11,7 +11,7 @@ void Skybox::init() {
         omi::loader::geoFromWavefront("res/gfx/geometry/test/skybox.obj");
 
     // load a texture
-    omi::Texture texture =
+    omi::Texture* texture =
         omi::loader::textureFromImage("res/gfx/texture/test/skybox.png");
 
     // load a shader

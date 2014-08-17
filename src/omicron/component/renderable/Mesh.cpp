@@ -28,6 +28,9 @@ Mesh::~Mesh() {
 
 void Mesh::render() {
 
+    // update the material
+    m_material.update();
+
     // only render if the mesh is visible
     if (!visible) {
 
@@ -55,9 +58,16 @@ void Mesh::render() {
     );
 
     // texture
-    GLuint texture = m_material.texture.getId();
-    glUniform1i(glGetUniformLocation(program, "u_hasTexture"), texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
+    if (m_material.texture != NULL) {
+
+        glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 1);
+        glBindTexture(GL_TEXTURE_2D, m_material.texture->getId());
+    }
+    else {
+
+        glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
 
     // geometry
     glBegin(GL_TRIANGLES);

@@ -1,4 +1,4 @@
-#include "Material.hpp"
+#include "Animation.hpp"
 
 namespace omi {
 
@@ -6,56 +6,55 @@ namespace omi {
 //                                  CONSTRUCTORS
 //------------------------------------------------------------------------------
 
-Material::Material() 
-    :
-    shader (),
-    colour (1.0f, 1.0f, 1.0f, 1.0f),
-    texture() {
+Animation::Animation() :
+    m_frame(0) {
 }
 
-Material::Material(const Shader&             a_shader,
-                   const util::vec::Vector4& a_colour,
-                         Texture*            a_texture)
-    :
-    shader (a_shader),
-    colour (a_colour),
-    texture(a_texture) {
+Animation::Animation(const t_TextureList& textures) :
+    m_textures(textures),
+    m_frame   (0) {
 }
 
-Material::Material(const Material& other) :
-    colour (other.colour),
-    texture(other.texture),
-    shader (other.shader) {
+Animation::Animation(const Animation& other) :
+    m_textures(other.m_textures),
+    m_frame   (other.m_frame) {
 }
 
 //------------------------------------------------------------------------------
 //                                   DESTRUCTOR
 //------------------------------------------------------------------------------
 
-Material::~Material() {
+Animation::~Animation() { 
 }
 
 //------------------------------------------------------------------------------
 //                                   OPERATORS
 //------------------------------------------------------------------------------
 
-const Material& Material::operator=(const Material& other) {
+const Animation& Animation::operator=(const Animation& other) {
 
-    shader  = other.shader;
-    colour  = other.colour;
-    texture = other.texture;
-
-    return *this;
+    m_textures = other.m_textures;
+    m_frame    = other.m_frame;
 }
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Material::update() {
+void Animation::update() {
 
-    // update the texture
-    texture->update();
+    ++m_frame;
+    if (m_frame >= m_textures.size()) {
+
+        m_frame = 0;
+    }
+
+    m_id = m_textures[m_frame];
 }
 
-} // namespace omi
+tex::Type Animation::getType() const {
+
+    return tex::ANIMATION;
+}
+
+} // namsepace omi

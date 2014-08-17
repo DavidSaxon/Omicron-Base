@@ -33,7 +33,7 @@ void Renderer::render() {
 
     glLoadIdentity();
 
-    m_rot += 0.5f * fpsManager.getTimeScale();
+    // m_rot += 0.5f * fpsManager.getTimeScale();
 
     // TODO: replace with camera (is a camera a type of entity??)
     glTranslatef(0.0f, 0.0f, -10.0f);

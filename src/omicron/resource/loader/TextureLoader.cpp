@@ -4,7 +4,7 @@ namespace omi {
 
 namespace loader {
 
-Texture textureFromImage(const std::string& filePath) {
+GLuint loadTexture(const std::string& filePath) {
 
 
     //--------------------------LOAD IMAGE USING DEVIL--------------------------
@@ -86,10 +86,40 @@ Texture textureFromImage(const std::string& filePath) {
         GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-    //--------------------CREATE AND RETURN OMICRON TEXTURE---------------------
+    //---------------------------RETURN THE OPENGL ID---------------------------
 
 
-    return Texture(textureId, util::vec::Vector2(width, height));
+    return textureId;
+}
+
+Texture* textureFromImage(const std::string& filePath) {
+
+    return new Texture(loadTexture(filePath));
+}
+
+Texture* animationFromImage(
+    const std::string& filePath,
+    unsigned begin, unsigned end) {
+
+    // separate the filename and extension
+    unsigned divider = filePath.find_last_of('.');
+    std::string filename  = filePath.substr(0, divider);
+    std::string extension = filePath.substr(divider + 1, filePath.length());
+
+    // load each texture and insert into a list
+    std::vector<GLuint> textures;
+    for (unsigned i = begin; i <= end; ++i) {
+
+        // TODO: freak out if the file doesn't exist
+
+        // create the texture name and load it
+        std::stringstream ss;
+        ss << filename << "." << i << "." << extension;
+
+        textures.push_back(loadTexture(ss.str()));
+    }
+
+    return new Animation(textures);
 }
 
 } // namespace loader
