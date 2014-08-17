@@ -29,7 +29,8 @@ void SpriteTest::init() {
             "sprite",
             2,
             transform,
-            material
+            material,
+            util::vec::Vector2(10.0, 10.0)
         )
     );
 }
