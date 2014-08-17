@@ -381,6 +381,59 @@ void ResourceManager::addSprite(
     );
 }
 
+void ResourceManager::addMaterialSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour,
+              int                           layer,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset) {
+
+    // material
+    addMaterial(id, resourceGroup, shader, colour);
+    // sprite
+    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+}
+
+void ResourceManager::addTextureMaterialSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texturePath,
+              int                           layer,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset) {
+
+    // texture 
+    addTexture( id, resourceGroup, texturePath);
+    // material
+    addMaterial(id, resourceGroup, shader, id);
+    // sprite
+    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+}
+
+void ResourceManager::addTextureMaterialSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour,
+        const std::string&                  texturePath,
+              int                           layer,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset) {
+
+    // texture 
+    addTexture( id, resourceGroup, texturePath);
+    // material
+    addMaterial(id, resourceGroup, shader, colour, id);
+    // sprite
+    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+}
+
 //------------------------------------------------------------------------------
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------

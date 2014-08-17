@@ -261,6 +261,69 @@ public:
         const util::vec::Vector2&           texSize,
         const util::vec::Vector2&           texOffset);
 
+    /** Adds a material and a sprite into the resource map, all with the same
+    id. The sprite will use the created material
+    @param id the identifier of the resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader to use for the material
+    @param colour the colour of the material
+    @param layer the layer of the sprite
+    @param size the size of the sprite
+    @param texSize the size of the sprite's texture co-ordinates
+    @param texOffset the offset of the sprite's texture co-ordinates */
+    static void addMaterialSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour,
+              int                           layer,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset);
+
+    /** Adds a material and a sprite into the resource map, all with the same
+    id. The sprite will use the created material. Default white will be used as
+    the colour of the material
+    @param id the identifier of the resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader to use for the material
+    @param texturePath the path to the image file to load the texture from
+    @param layer the layer of the sprite
+    @param size the size of the sprite
+    @param texSize the size of the sprite's texture co-ordinates
+    @param texOffset the offset of the sprite's texture co-ordinates */
+    static void addTextureMaterialSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texturePath,
+              int                           layer,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset);
+
+    /** Adds a material and a sprite into the resource map, all with the same
+    id. The sprite will use the created material.
+    @param id the identifier of the resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader to use for the material
+    @param colour the colour of the material
+    @param texturePath the path to the image file to load the texture from
+    @param layer the layer of the sprite
+    @param size the size of the sprite
+    @param texSize the size of the sprite's texture co-ordinates
+    @param texOffset the offset of the sprite's texture co-ordinates */
+    static void addTextureMaterialSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const util::vec::Vector4&           colour,
+        const std::string&                  texturePath,
+              int                           layer,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset);
+
 private:
 
     //--------------------------------------------------------------------------

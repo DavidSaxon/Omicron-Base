@@ -16,25 +16,14 @@ void buildTestBack() {
     );
 
 
-
-
-    omi::ResourceManager::addTexture(
-        "test_sprite", resource_group::TEST,
-        "res/gfx/texture/test/sprite_test.png"
-    );
-
-    omi::ResourceManager::addMaterial(
-        "test_sprite", resource_group::TEST,
-        "test_shader", "test_sprite"
-    );
-
-
     //---------------------------------SPRITES----------------------------------
 
 
-    omi::ResourceManager::addSprite(
+    omi::ResourceManager::addTextureMaterialSprite(
         "test_sprite", resource_group::TEST,
-        2, "test_sprite",
+        "test_shader",
+        "res/gfx/texture/test/sprite_test.png",
+        2,
         util::vec::Vector2(4.0f, 4.0f),
         util::vec::Vector2(1.0f, 1.0f),
         util::vec::Vector2(0.0f, 0.0f)
