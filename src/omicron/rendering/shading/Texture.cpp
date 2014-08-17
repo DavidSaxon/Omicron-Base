@@ -55,4 +55,9 @@ tex::Type Texture::getType() const {
     return tex::TEXTURE;
 }
 
+bool Texture::isVisible() const {
+
+    return m_visible;
+}
+
 } // namespace omi

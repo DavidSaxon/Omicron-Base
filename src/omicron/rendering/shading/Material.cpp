@@ -55,7 +55,20 @@ const Material& Material::operator=(const Material& other) {
 void Material::update() {
 
     // update the texture
-    texture->update();
+    if (texture != NULL) {
+    
+        texture->update();
+    }
+}
+
+bool Material::isVisible() const {
+
+    if (texture != NULL) {
+
+        return texture->isVisible();
+    }
+
+    return true;
 }
 
 } // namespace omi

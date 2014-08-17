@@ -98,8 +98,8 @@ Texture* textureFromImage(const std::string& filePath) {
 }
 
 Texture* animationFromImage(
-    const std::string& filePath,
-    unsigned begin, unsigned end) {
+    const std::string& filePath, unsigned frameRate,
+    bool repeat, unsigned begin, unsigned end) {
 
     // separate the filename and extension
     unsigned divider = filePath.find_last_of('.');
@@ -119,7 +119,7 @@ Texture* animationFromImage(
         textures.push_back(loadTexture(ss.str()));
     }
 
-    return new Animation(textures);
+    return new Animation(textures, frameRate, repeat);
 }
 
 } // namespace loader

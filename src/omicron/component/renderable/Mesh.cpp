@@ -32,7 +32,7 @@ void Mesh::render() {
     m_material.update();
 
     // only render if the mesh is visible
-    if (!visible) {
+    if (!visible || !m_material.isVisible()) {
 
         return;
     }

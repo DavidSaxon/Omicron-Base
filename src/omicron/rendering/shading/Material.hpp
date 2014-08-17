@@ -65,6 +65,9 @@ public:
 
     /** Updates the material */
     void update();
+
+    /** @return if the material is visible */
+    bool isVisible() const;
 };
 
 } // namespace omi

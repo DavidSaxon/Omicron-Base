@@ -39,7 +39,7 @@ void Sprite::render() {
     m_material.update();
 
     // only render if the sprite is visible
-    if (!visible) {
+    if (!visible || !m_material.isVisible()) {
 
         return;
     }

@@ -8,21 +8,14 @@ void SpriteTest::init() {
 
     omi::Transform* transform =
         dynamic_cast<omi::Transform*>(m_components.get("transform"));
-    // transform->scale = util::vec::Vector3(4.0f, 4.0f, 4.0f);
 
     // load animation
-    // omi::Texture tex = omi::loader::animationFromImage(
-    //     "res/gfx/texture/test/explosion_1/explosion.png", 1, 15);
     omi::Texture* tex = omi::loader::animationFromImage(
-        "res/gfx/texture/test/explosion_1/explosion.png", 1, 15);
+        "res/gfx/texture/test/explosion_1/explosion.png", 55, true, 1, 12);
 
     // create material
     omi::Material material(omi::ResourceManager::getShader("test_shader"),
         util::vec::Vector4(1, 1, 1, 1), tex);
-
-    // add a sprite
-    // m_sprite = omi::ResourceManager::getSprite(
-    //     "test_sprite", "sprite", transform);
 
     m_sprite = new omi::Sprite(
         "sprite", 2, transform, material,

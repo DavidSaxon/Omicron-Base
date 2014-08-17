@@ -5,6 +5,8 @@
 #include <GL/glut.h>
 #include <vector>
 
+#include "lib/Utilitron/TimeUtil.hpp"
+
 #include "Texture.hpp"
 
 namespace omi {
@@ -29,8 +31,10 @@ public:
     Animation();
 
     /** Creates a new animation with the given list of OpenGL texture pointers
-    @param textures the list of pointers to OpenGL textures */
-    Animation(const t_TextureList& textures);
+    @param textures the list of pointers to OpenGL textures
+    @param frameRate the animation playback speed
+    @param repeat if the animation repeats */
+    Animation(const t_TextureList& textures, unsigned frameRate, bool repeat);
 
     /** Creates a copy of the given animation
     @param other the animation to copy from */
@@ -67,8 +71,22 @@ private:
     // the list of OpenGL pointers to textures
     t_TextureList m_textures;
 
+    // the framerate of the animation
+    unsigned m_frameRate;
+    // the frame length of the animation in ms
+    util::int64 m_frameLength;
     // the current frame of the animation
     unsigned m_frame;
+
+    // is true if the animation should repeat
+    bool m_repeat;
+    // is true if the animation has ended
+    bool m_ended;
+
+    // the time the last frame begin
+    util::int64 m_lastFrameTime;
+    // the accumulated time from the last frame
+    util::int64 m_accumTime;
 };
 
 } // namespace omi

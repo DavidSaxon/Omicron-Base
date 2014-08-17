@@ -64,6 +64,9 @@ public:
     /** @return the type of the texture */
     virtual tex::Type getType() const;
 
+    /** @return if the texture is visible */
+    bool isVisible() const;
+
 protected:
 
     //--------------------------------------------------------------------------
@@ -72,6 +75,9 @@ protected:
 
     // the OpenGL pointer to the texture
     GLuint m_id;
+
+    // if the texture is visible
+    bool m_visible;
 };
 
 } // namespace omi
