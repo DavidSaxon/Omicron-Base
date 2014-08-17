@@ -42,7 +42,7 @@ void MeshResource::release() {
 
     if (m_loaded) {
 
-        // likewise the don't need to be delete
+        // likewise they don't need to be delete
         m_loaded = false;
     }
 }
@@ -51,7 +51,7 @@ Mesh* MeshResource::get(const std::string& id, Transform* transform) const {
 
     if (!m_loaded) {
 
-        std::cout << "attempted to get unloaded texture" << std::endl;
+        std::cout << "attempted to get unloaded mesh" << std::endl;
 
         //TODO: throw an exception
     }

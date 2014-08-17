@@ -109,8 +109,8 @@ Geometry* ResourceManager::getGeometry(const std::string& id) {
 }
 
 Mesh* ResourceManager::getMesh(const std::string& id,
-                              const std::string& componentId,
-                                    Transform*   transform) {
+                               const std::string& componentId,
+                                     Transform*   transform) {
 
     // create the mesh group if we need to
     createGroup(MESH);
@@ -128,6 +128,25 @@ Mesh* ResourceManager::getMesh(const std::string& id,
             m_resources[MESH][id].get())->get(componentId, transform);
 }
 
+Sprite* ResourceManager::getSprite(const std::string& id,
+                                   const std::string& componentId,
+                                         Transform*   transform) {
+
+    // create the sprite group if we need to
+    createGroup(SPRITE);
+
+    // check if the sprite is in the map
+    if (m_resources[SPRITE].find(id) == m_resources[SPRITE].end()) {
+
+        std::cout << "unable to find sprite in resource manager" << std::endl;
+
+        // TODO: throw an exception
+    }
+
+    // cast the resource and return
+    return dynamic_cast<SpriteResource*>(
+            m_resources[SPRITE][id].get())->get(componentId, transform);
+}
 
 //--------------------------------ADD FUNCTIONS---------------------------------
 
@@ -332,6 +351,34 @@ void ResourceManager::addTextureMaterialGeometryMesh(
     addGeometry(id, resourceGroup, geometryPath);
     // mesh
     addMesh(    id, resourceGroup, layer, id, id);
+}
+
+void ResourceManager::addSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+              int                           layer,
+        const std::string&                  material,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset) {
+
+    // create the sprite group if we need to
+    createGroup(SPRITE);
+
+    // insert in to the map
+    m_resources[SPRITE].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new SpriteResource(
+                resourceGroup,
+                layer,
+                material,
+                size,
+                texSize,
+                texOffset
+            ))
+        )
+    );
 }
 
 //------------------------------------------------------------------------------

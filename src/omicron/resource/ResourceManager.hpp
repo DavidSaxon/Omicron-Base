@@ -7,11 +7,13 @@
 #include "lib/Utilitron/MacroUtil.hpp"
 
 #include "src/omicron/component/renderable/Mesh.hpp"
+#include "src/omicron/component/renderable/Sprite.hpp"
 #include "src/omicron/resource/type/GeometryResource.hpp"
 #include "src/omicron/resource/type/MaterialResource.hpp"
 #include "src/omicron/resource/type/MeshResource.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
 #include "src/omicron/resource/type/ShaderResource.hpp"
+#include "src/omicron/resource/type/SpriteResource.hpp"
 #include "src/omicron/resource/type/TextureResource.hpp"
 #include "src/override/ResourceGroups.hpp"
 
@@ -96,9 +98,17 @@ public:
     @oaram transform the transform to use for the mesh
     @return the requested mesh */
     static Mesh* getMesh(const std::string& id,
-                        const std::string& componentId,
-                              Transform*   transform);
+                         const std::string& componentId,
+                               Transform*   transform);
 
+    /** Gets the sprite with the given identifier if it exists
+    @param id the identifier of the sprite
+    @param componentId the component identifier to use for the sprite
+    @oaram transform the transform to use for the sprite
+    @return the requested sprite */
+    static Sprite* getSprite(const std::string& id,
+                             const std::string& componentId,
+                                   Transform*   transform);
 
     //------------------------------ADD FUNCTIONS-------------------------------
 
@@ -174,7 +184,7 @@ public:
     @param resourceGroup the resource group of the mesh
     @param layer the layer of the mesh
     @param geometry the resource id of the meshes' geometry
-    @param material the resource if of the meshes' material*/
+    @param material the resource id of the meshes' material */
     static void addMesh(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
@@ -233,6 +243,23 @@ public:
         const std::string&                  texturePath,
         const std::string&                  geometryPath,
               int                           layer);
+
+    /** Adds a sprite to the resource map
+    @param id the identifier of the sprite resource
+    @param resourceGroup the resource group of the sprite
+    @param layer the layer of the sprite
+    @param material the resource id of the sprite's material
+    @param size the size of the sprite
+    @param texSize the size of the sprite's texture co-ordinates
+    @param texOffset the offset of the sprite's texture co-ordinates */
+    static void addSprite(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+              int                           layer,
+        const std::string&                  material,
+        const util::vec::Vector2&           size,
+        const util::vec::Vector2&           texSize,
+        const util::vec::Vector2&           texOffset);
 
 private:
 
