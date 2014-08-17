@@ -49,7 +49,7 @@ Texture* textureFromImage(const std::string& filePath);
 @param filePath the path of the sequence (omitting the frame number)
 @param frameRate the playback speed of the animation
 @param repeat if the animation should repeat 
-@param begin the being frame of the animation
+@param begin the beginning frame of the animation
 @param end the ending frame of the animation */
 Texture* animationFromImage(
     const std::string& filePath, unsigned frameRate,

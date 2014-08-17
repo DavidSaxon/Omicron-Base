@@ -7,6 +7,7 @@
 void TestEntity::init() {
 
     // initialise values
+    m_counter = 0;
     m_sineCounter = 0.0;
 
     // store the transform
@@ -14,7 +15,7 @@ void TestEntity::init() {
 
     // add a mesh
     m_components.add(omi::ResourceManager::getMesh(
-            "test_brick_cube", "mesh", m_transform));
+            "test_torus", "mesh", m_transform));
 }
 
 void TestEntity::update() {
@@ -28,5 +29,11 @@ void TestEntity::update() {
     m_transform->rotation.x += 1.0f * omi::fpsManager.getTimeScale();
 
     // add a box trail entity
-    addEntity(new BoxTrail(m_transform));
+    if (m_counter == 0) {
+        
+        addEntity(new BoxTrail(m_transform));
+    }
+
+    ++m_counter;
+    m_counter = m_counter % 8;
 }

@@ -30,6 +30,8 @@ private:
     // the position of this entity
     omi::Transform* m_transform;
 
+    // counter
+    unsigned m_counter;
     // sine counter
     float m_sineCounter;
 };

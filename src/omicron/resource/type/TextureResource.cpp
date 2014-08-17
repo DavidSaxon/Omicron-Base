@@ -3,7 +3,7 @@
 namespace omi {
 
 //------------------------------------------------------------------------------
-//                                  CONSTRUCTOR
+//                                  CONSTRUCTORS
 //------------------------------------------------------------------------------
 
 TextureResource::TextureResource(
@@ -11,7 +11,25 @@ TextureResource::TextureResource(
         const std::string&                  filePath)
     :
     Resource  (resourceGroup),
+    m_type    (tex::TEXTURE),
     m_filePath(filePath)       {        
+}
+
+TextureResource::TextureResource(
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  filePath,
+              unsigned                      frameRate,
+              bool                          repeat,
+              unsigned                      begin,
+              unsigned                      end)
+    :
+    Resource   (resourceGroup),
+    m_type     (tex::ANIMATION),
+    m_filePath (filePath),
+    m_frameRate(frameRate),
+    m_repeat   (repeat),
+    m_begin    (begin),
+    m_end      (end) {
 }
 
 //------------------------------------------------------------------------------
@@ -29,8 +47,21 @@ void TextureResource::load() {
 
     if (!m_loaded) {
 
-        m_texture = std::unique_ptr<Texture>(
-            loader::textureFromImage(m_filePath));
+        switch (m_type) {
+
+            case tex::TEXTURE: {
+
+                m_texture = std::unique_ptr<Texture>(
+                    loader::textureFromImage(m_filePath));
+                break;
+            }
+            case tex::ANIMATION: {
+
+                m_texture = std::unique_ptr<Texture>(loader::animationFromImage(
+                    m_filePath, m_frameRate, m_repeat, m_begin, m_end));
+                break;
+            }
+        }
         m_loaded = true;
     }
 }
