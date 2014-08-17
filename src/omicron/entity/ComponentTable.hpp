@@ -39,7 +39,7 @@ public:
     //! #Hidden
     //! list of components that have been added that have not been sorted by the
     //! Logic Manager yet
-    std::vector<Component*> dirty;
+    std::vector<Component*> newComponents;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR

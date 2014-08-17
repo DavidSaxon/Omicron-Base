@@ -25,9 +25,8 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // TODO: change this to new
-    // the set of dirty components
-    std::set<Component*> dirtyComponents;
+    // the set of new components
+    std::set<Component*> newComponents;
     // the list of components to be removed
     std::vector<Component*> removeComponents;
 

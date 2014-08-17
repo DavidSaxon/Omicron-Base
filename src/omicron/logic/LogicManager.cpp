@@ -43,9 +43,9 @@ void LogicManager::execute() {
     }
 }
 
-std::set<Component*>& LogicManager::getDirtyComponents() {
+std::set<Component*>& LogicManager::getNewComponents() {
 
-    return m_scene->dirtyComponents;
+    return m_scene->newComponents;
 }
 
 std::vector<Component*>& LogicManager::getRemoveComponents() {

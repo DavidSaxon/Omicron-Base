@@ -45,9 +45,8 @@ public:
     /** Perfroms an execution cycle of logic */
     void execute();
 
-    // TODO change to new
-    /** @return the dirty components from the scene */
-    std::set<Component*>& getDirtyComponents();
+    /** @return the new components from the scene */
+    std::set<Component*>& getNewComponents();
 
     /** @return the components to be removed from the scene */
     std::vector<Component*>& getRemoveComponents();

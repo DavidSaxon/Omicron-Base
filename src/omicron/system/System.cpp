@@ -65,8 +65,8 @@ void sortComponents() {
 
     // sort the new components
     for (std::set<Component*>::iterator it =
-        logicManager->getDirtyComponents().begin();
-        it != logicManager->getDirtyComponents().end(); ++it) {
+        logicManager->getNewComponents().begin();
+        it != logicManager->getNewComponents().end(); ++it) {
 
         // sort the component based on its type
         switch ((*it)->getType()) {

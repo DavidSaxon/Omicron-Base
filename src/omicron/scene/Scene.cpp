@@ -9,7 +9,7 @@ namespace omi {
 bool Scene::execute() {
 
     // clear dirty components from the last iteration
-    dirtyComponents.clear();
+    newComponents.clear();
     removeComponents.clear();
 
     // update this scene and store whether it's complete
@@ -92,12 +92,12 @@ void Scene::updateEntities() {
 
         // find new components
         for (std::vector<Component*>::iterator itc =
-            (*it)->getComponents().dirty.begin();
-            itc != (*it)->getComponents().dirty.end(); ++itc) {
+            (*it)->getComponents().newComponents.begin();
+            itc != (*it)->getComponents().newComponents.end(); ++itc) {
 
-            dirtyComponents.insert(*itc);
+            newComponents.insert(*itc);
         }
-        (*it)->getComponents().dirty.clear();
+        (*it)->getComponents().newComponents.clear();
 
         // find components to be removed
         if ((*it)->shouldRemove()) {
