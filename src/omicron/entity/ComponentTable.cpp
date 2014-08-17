@@ -23,7 +23,7 @@ ComponentTable::~ComponentTable() {
 bool ComponentTable::contains(const std::string& id) {
 
     // search for the key in the table
-    ComponentMap::iterator it = m_components.find(id);
+    t_ComponentMap::iterator it = m_components.find(id);
     return it != m_components.end();
 }
 
@@ -67,6 +67,16 @@ bool ComponentTable::remove(const std::string& id) {
     }
 
     return false;
+}
+
+void ComponentTable::copyToList(std::vector<Component*>& list) {
+
+    // iterate over the map and copy into list
+    for (t_ComponentMap::iterator it = m_components.begin();
+        it != m_components.end(); ++it) {
+
+        list.push_back(it->second.get());
+    }
 }
 
 } // namespace omi

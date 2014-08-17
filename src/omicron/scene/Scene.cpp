@@ -8,14 +8,15 @@ namespace omi {
 
 bool Scene::execute() {
 
+    // clear dirty components from the last iteration
+    dirtyComponents.clear();
+    removeComponents.clear();
+
     // update this scene and store whether it's complete
     bool complete = update();
 
     // update all the entities
     updateEntities();
-
-    // find all dirty components
-    findDirty();
 
     return complete;
 }
@@ -47,19 +48,31 @@ bool Scene::removeEntity(Entity* entity) {
 
 void Scene::updateEntities() {
 
-    // find all the new entities
+    // find all the new entities and remove entities marked for removal
     std::vector<Entity*> newEntities;
     for (t_EntityList::iterator it = m_entities.begin();
-         it != m_entities.end(); ++it) {
+         it != m_entities.end();) {
 
+        // get all new entities created by this entity
         for (std::vector<Entity*>::iterator itn = (*it)->getAddList().begin();
              itn != (*it)->getAddList().end(); ++itn) {
 
             newEntities.push_back(*itn);
         }
-
         // clear the entities new entities
         (*it)->getAddList().clear();
+
+        //remove this entity
+        if ((*it)->shouldRemove()) {
+
+            // remove from the list which will erase all memory since
+            // the entity is contained with a shared pointer
+            it = m_entities.erase(it);
+        }
+        else {
+
+            ++it;
+        }
     }
 
     // copy the new entities into the list of all entities and initialise them
@@ -71,27 +84,26 @@ void Scene::updateEntities() {
     }
 
     // iterate over all the existing entities in the scene and update them
+    // and collect all dirty components
     for (t_EntityList::iterator it = m_entities.begin();
          it != m_entities.end(); ++it) {
 
         (*it)->update();
-    }
-}
 
-void Scene::findDirty() {
-
-    for (t_EntityList::iterator it = m_entities.begin();
-         it != m_entities.end(); ++it) {
-
+        // find new components
         for (std::vector<Component*>::iterator itc =
             (*it)->getComponents().dirty.begin();
             itc != (*it)->getComponents().dirty.end(); ++itc) {
 
             dirtyComponents.insert(*itc);
         }
-
-        // clear the dirty components on the entity
         (*it)->getComponents().dirty.clear();
+
+        // find components to be removed
+        if ((*it)->shouldRemove()) {
+            
+            (*it)->getComponents().copyToList(removeComponents);
+        }
     }
 }
 

@@ -35,7 +35,35 @@ std::unique_ptr<LogicManager> logicManager;
 them to their appropriate managers */
 void sortComponents() {
 
-    //iterate over the new components
+    //sort the components to be removed
+    for (std::vector<Component*>::iterator it =
+        logicManager->getRemoveComponents().begin();
+        it != logicManager->getRemoveComponents().end(); ++it) {
+
+        // sort the component based on its type
+        switch ((*it)->getType()) {
+
+            case component::UPDATEABLE: {
+
+                // TODO:
+                std::cout << "REMOVE UPDATEABLE" << std::endl;
+                break;
+            }
+            case component::RENDERABLE: {
+
+                // pass on to the renderer
+                renderer->removeRenderable(dynamic_cast<Renderable*>(*it));
+                break;
+            }
+            default: {
+
+                // do nothing with simple components
+                break;
+            }
+        }
+    }
+
+    // sort the new components
     for (std::set<Component*>::iterator it =
         logicManager->getDirtyComponents().begin();
         it != logicManager->getDirtyComponents().end(); ++it) {
@@ -62,9 +90,6 @@ void sortComponents() {
             }
         }
     }
-
-    // clear the dirty components
-    logicManager->getDirtyComponents().clear();
 }
 
 /** The main loop function of Omicron, controls callback to the rest of the
@@ -77,7 +102,7 @@ void execute() {
     // update logic
     logicManager->execute();
 
-    // sort the new components that have been added this execution cycle
+    // sort the new components that have added or removed this cycle
     sortComponents();
 
     // render

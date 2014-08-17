@@ -17,7 +17,7 @@ namespace omi {
 //                                    TYPEDEF
 //------------------------------------------------------------------------------
 
-typedef std::map<std::string, std::unique_ptr<Component>> ComponentMap;
+typedef std::map<std::string, std::unique_ptr<Component>> t_ComponentMap;
 
 /************************************************************************\
 | A component table contains a set of generic components mapped by their |
@@ -79,6 +79,10 @@ public:
     @return if a component was successfully removed from the table */
     bool remove(const std::string& id);
 
+    /** Copies all the components in the component table to the given list
+    @param list the list to copy them to */
+    void copyToList(std::vector<Component*>& list);
+
 private:
 
     //--------------------------------------------------------------------------
@@ -86,7 +90,7 @@ private:
     //--------------------------------------------------------------------------
 
     // the map from component ids to components
-    ComponentMap m_components;
+    t_ComponentMap m_components;
 };
 
 } // namespace omi

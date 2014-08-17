@@ -52,6 +52,11 @@ void Renderer::addRenderable(Renderable* renderable) {
     m_renderLists->addRenderable(renderable);
 }
 
+void Renderer::removeRenderable(Renderable* renderable) {
+
+    m_renderLists->removeRenderable(renderable);
+}
+
 //------------------------------------------------------------------------------
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------

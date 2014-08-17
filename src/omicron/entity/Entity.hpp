@@ -26,7 +26,8 @@ public:
     //--------------------------------------------------------------------------
 
     /** Entity super constructor */
-    Entity() {
+    Entity() :
+        m_remove(false) {
 
         // create a transform at origin
         m_components.add(
@@ -69,6 +70,13 @@ public:
         return m_addList;
     }
 
+    /** #Hidden
+    @return if this entity should be removed*/
+    bool shouldRemove() {
+
+        return m_remove;
+    }
+
 protected:
 
     //--------------------------------------------------------------------------
@@ -89,6 +97,12 @@ protected:
         m_addList.push_back(entity);
     }
 
+    /** Marks this entity for removal from the scene and clean up */
+    void remove() {
+
+        m_remove = true;
+    }
+
 private:
 
     //--------------------------------------------------------------------------
@@ -97,6 +111,8 @@ private:
 
     // the list of new entities created by this entity this frame
     std::vector<Entity*> m_addList;
+    // whether this entity should be removed
+    bool m_remove;
 };
 
 } // namespace omi

@@ -48,4 +48,9 @@ std::set<Component*>& LogicManager::getDirtyComponents() {
     return m_scene->dirtyComponents;
 }
 
+std::vector<Component*>& LogicManager::getRemoveComponents() {
+
+    return m_scene->removeComponents;
+}
+
 } // namespace omi

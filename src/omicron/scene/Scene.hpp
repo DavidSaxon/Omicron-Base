@@ -25,8 +25,11 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // TODO: change this to new
     // the set of dirty components
     std::set<Component*> dirtyComponents;
+    // the list of components to be removed
+    std::vector<Component*> removeComponents;
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -88,11 +91,6 @@ private:
 
     /** Updates all entities in the entity list */
     void updateEntities();
-
-    /** Find all dirty components that entities have created this update
-    cycle */
-    void findDirty();
-
 };
 
 } // namespace omi

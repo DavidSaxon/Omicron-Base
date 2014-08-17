@@ -52,6 +52,30 @@ void RenderLists::addRenderable(Renderable* renderable) {
 }
 
 void RenderLists::removeRenderable(Renderable* renderable) {
+
+    // get the layer from the component
+    int layer = renderable->getLayer();
+
+    // check that the layer exists
+    if (m_renderables.find(layer) == m_renderables.end()) {
+
+        // TODO: throw an exception
+        std::cout << "remove renderable from non-existent layer" << std::endl;
+    }
+
+    // search the layer for the renderable
+    for (std::set<Renderable*>::iterator it = m_renderables[layer].begin();
+         it != m_renderables[layer].end();) {
+
+        if (*it == renderable) {
+
+            it = m_renderables[layer].erase(it);
+        }
+        else {
+
+            ++it;
+        }
+    }
 }
 
 } // namespace omi

@@ -27,5 +27,10 @@ void BoxTrail::init() {
 
 void BoxTrail::update() {
 
-    m_material->colour.a -= 0.0015 * omi::fpsManager.getTimeScale();
+    m_material->colour.a -= 0.005 * omi::fpsManager.getTimeScale();
+
+    if (m_material->colour.a <= 0.0f) {
+
+        remove();
+    }
 }
