@@ -83,7 +83,7 @@ Texture textureFromImage(const std::string& filePath) {
     glTexParameteri(
         GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
     glTexParameteri(
-        GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
     //--------------------CREATE AND RETURN OMICRON TEXTURE---------------------
