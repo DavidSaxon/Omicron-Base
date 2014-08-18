@@ -9,6 +9,7 @@
 #include "src/omicron/resource/ResourceManager.hpp"
 
 // here we are including all known components so the user doesn't have to
+#include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/Transform.hpp"
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"

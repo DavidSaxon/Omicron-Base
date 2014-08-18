@@ -3,9 +3,6 @@
 
 #include "src/omicron/entity/Entity.hpp"
 
-#include "src/omicron/rendering/shading/Material.hpp"
-#include "src/omicron/resource/loader/Loaders.hpp"
-
 class Skybox : public omi::Entity {
 public:
 

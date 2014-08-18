@@ -57,6 +57,12 @@ void sortComponents() {
                 renderer->removeRenderable(dynamic_cast<Renderable*>(*it));
                 break;
             }
+            case component::CAMERA: {
+
+                // pass on to the renderer
+                renderer->removeCamera(dynamic_cast<Camera*>(*it));
+                break;
+            }
             default: {
 
                 // do nothing with simple components
@@ -83,6 +89,12 @@ void sortComponents() {
 
                 // pass on to the renderer
                 renderer->addRenderable(dynamic_cast<Renderable*>(*it));
+                break;
+            }
+            case component::CAMERA: {
+
+                // pass on to the renderer
+                renderer->setCamera(dynamic_cast<Camera*>(*it));
                 break;
             }
             default: {

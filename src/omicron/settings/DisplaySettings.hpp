@@ -7,8 +7,6 @@
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/Vector.hpp"
 
-#include "src/omicron/display/Window.hpp"
-
 namespace omi {
 
 /******************************************************************************\
@@ -27,12 +25,6 @@ private:
 public:
 
     //--------------------------------------------------------------------------
-    //                                  FRIENDS
-    //--------------------------------------------------------------------------
-
-    friend class Window;
-
-    //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
@@ -48,6 +40,10 @@ public:
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    /** #Hidden
+    Checks if a change has been made to the settings */
+    bool check();
 
     /** @return the title of the window */
     const std::string& getTitle() const;
@@ -90,13 +86,6 @@ private:
     util::vec::Vector2 m_pos;
     // is true if the window is in fullscreen
     bool m_fullscreen;
-
-    //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
-
-    /** Checks if a change has been made to the settings */
-    bool check();
 };
 
 

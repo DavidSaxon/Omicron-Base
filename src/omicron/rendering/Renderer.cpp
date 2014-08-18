@@ -6,7 +6,8 @@ namespace omi {
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Renderer::Renderer() {
+Renderer::Renderer() :
+    m_camera(NULL) {
 
     // initialise
     init();
@@ -33,18 +34,24 @@ void Renderer::render() {
 
     glLoadIdentity();
 
-    m_rot += 0.5f * fpsManager.getTimeScale();
-
-    // TODO: replace with camera (is a camera a type of entity??)
-    glTranslatef(0.0f, 0.0f, -10.0f);
-    glRotatef(25.0f, 1.0f, 0.0f, 0.0f);
-    glRotatef(m_rot, 0.0f, 1.0f, 0.0f);
-
     // render the render lists
-    m_renderLists->render();
+    m_renderLists->render(m_camera);
 
     // swap the buffers
     glutSwapBuffers();
+}
+
+void Renderer::setCamera(Camera* camera) {
+
+    m_camera = camera;
+}
+
+void Renderer::removeCamera(Camera* camera) {
+
+    if (m_camera == camera) {
+
+        m_camera = NULL;
+    }
 }
 
 void Renderer::addRenderable(Renderable* renderable) {
@@ -91,17 +98,6 @@ void Renderer::init() {
     glCullFace(GL_BACK);
     glClearDepth(1.0f);
     glEnable(GL_TEXTURE_2D);
-
-    // TODO: move this to camera
-    // switch to the projection matrix
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(60.0f,
-        displaySettings.getSize().x / displaySettings.getSize().y,
-        0.001f, 1000.0f);
-    // revert to the model view matrix
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 
     // initialise DevIL
     ilInit();

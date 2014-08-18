@@ -7,8 +7,6 @@
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/Vector.hpp"
 
-#include "src/omicron/rendering/Renderer.hpp"
-
 namespace omi {
 
 /*************************************************************\
@@ -26,12 +24,6 @@ private:
 public:
 
     //--------------------------------------------------------------------------
-    //                                  FRIENDS
-    //--------------------------------------------------------------------------
-
-    friend class Renderer;
-
-    //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
@@ -47,6 +39,10 @@ public:
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    /** #Hidden
+    Checks if a change has been made to the settings */
+    bool check();
 
     /** @return if depth testing is enabled */
     bool getDepthTest() const;
@@ -81,13 +77,6 @@ private:
     bool m_backFaceCulling;
     // the clear colour
     util::vec::Vector4 m_clearColour;
-
-    //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
-
-    /** Checks if a change has been made to the settings */
-    bool check();
 };
 
 } // namespace omi

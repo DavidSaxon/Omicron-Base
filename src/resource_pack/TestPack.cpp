@@ -33,12 +33,13 @@ void buildTestBack() {
     //----------------------------------MESHES----------------------------------
 
 
-    // omi::ResourceManager::addTextureMaterialGeometryMesh(
-    //     "test_brick_cube", resource_group::TEST,
-    //     "test_shader",
-    //     "res/gfx/texture/test/brick.png",
-    //     "res/gfx/geometry/test/box.obj", 1
-    // );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_skybox", resource_group::TEST,
+        "test_shader",
+        "res/gfx/texture/test/skybox.png",
+        "res/gfx/geometry/test/skybox.obj",
+        0
+    );
     omi::ResourceManager::addMaterialGeometryMesh(
         "test_torus", resource_group::TEST,
         "test_shader",

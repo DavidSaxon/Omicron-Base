@@ -20,7 +20,13 @@ RenderLists::~RenderLists() {
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void RenderLists::render() {
+void RenderLists::render(Camera* camera) {
+
+    // apply the camera
+    if (camera != NULL) {
+
+        camera->apply();
+    }
 
     // iterate over the layers
     for (t_RenderableMap::iterator it = m_renderables.begin();

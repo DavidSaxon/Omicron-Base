@@ -50,6 +50,16 @@ public:
     /** Performs one frame of rendering */
     void render();
 
+    // TODO: clear
+
+    /** Sets the camera to use for rendering
+    @param camera the new camera to use */
+    void setCamera(Camera* camera);
+
+    /** Removes the given camera if it is being used
+    @param camera the camera to remove */
+    void removeCamera(Camera* camera);
+
     /** Adds a renderable component to the render lists to be rendered
     @param renderable the renderable to add */
     void addRenderable(Renderable* renderable);
@@ -66,9 +76,8 @@ private:
 
     // the render lists containing all things to be rendered
     std::unique_ptr<RenderLists> m_renderLists;
-
-    // REMOVE ME
-    float m_rot;
+    // the camera the used for perspective
+    Camera* m_camera;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

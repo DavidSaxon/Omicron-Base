@@ -14,7 +14,8 @@ enum Type {
 
     SIMPLE,     // a component that requires no updating
     UPDATEABLE, // a component that should be updated once per logic cycle
-    RENDERABLE  // a component that should be updated by the renderer
+    RENDERABLE, // a component that should be updated by the renderer
+    CAMERA      // a component that is used by the render for perspective
 };
 
 } // namespace component

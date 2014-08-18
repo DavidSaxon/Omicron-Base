@@ -6,6 +6,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 
 namespace omi {
@@ -46,8 +47,9 @@ public:
     //--------------------------------------------------------------------------
 
     /** Renders all of the renderable components contained within the render
-    lists */
-    void render();
+    lists
+    @param the camera to use for rendering */
+    void render(Camera* camera);
 
     /** Adds a renderable component to the render lists
     @param renderable the renderable to add */

@@ -1,13 +1,9 @@
-#ifndef OMICRON_ENTITIES_TEST_TESTENTITY_H_
-#   define OMICRON_ENTITIES_TEST_TESTENTITY_H_
+#ifndef OMICRON_ENTITIES_TEST_CAMERA_CONTROL_H_
+#   define OMICRON_ENTITIES_TEST_CAMERA_CONTROL_H_
 
-#include <cmath>
-
-#include "src/entities/test/BoxTrail.hpp"
 #include "src/omicron/entity/Entity.hpp"
-#include "src/omicron/resource/ResourceManager.hpp"
 
-class TestEntity : public omi::Entity {
+class CameraControl : public omi::Entity {
 public:
 
     //--------------------------------------------------------------------------
@@ -26,13 +22,8 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // the position of this entity
+    // the position of the camera
     omi::Transform* m_transform;
-
-    // counter
-    unsigned m_counter;
-    // sine counter
-    float m_sineCounter;
 };
 
 #endif
