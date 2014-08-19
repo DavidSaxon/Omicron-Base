@@ -7,15 +7,18 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 Texture::Texture() :
-    m_id        (0) {
+    m_id     (0),
+    m_visible(true) {
 }
 
 Texture::Texture(GLuint id) :
-    m_id        (id){
+    m_id     (id),
+    m_visible(true) {
 }
 
 Texture::Texture(const Texture& other) :
-    m_id        (other.m_id) {
+    m_id     (other.m_id),
+    m_visible(true) {
 }
 
 //------------------------------------------------------------------------------
@@ -31,7 +34,8 @@ Texture::~Texture() {
 
 const Texture& Texture::operator=(const Texture& other) {
 
-    m_id =         other.m_id;
+    m_id =      other.m_id;
+    m_visible = other.m_visible;
 
     return *this;
 }

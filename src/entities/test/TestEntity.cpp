@@ -10,8 +10,14 @@ void TestEntity::init() {
     m_counter = 0;
     m_sineCounter = 0.0;
 
-    // store the transform
-    m_transform = dynamic_cast<omi::Transform*>(m_components.get("transform"));
+    // transform
+    m_transform = new omi::Transform(
+        "transform",
+        util::vec::Vector3(),
+        util::vec::Vector3(),
+        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+    );
+    m_components.add(m_transform);
 
     // add a mesh
     m_components.add(omi::ResourceManager::getMesh(

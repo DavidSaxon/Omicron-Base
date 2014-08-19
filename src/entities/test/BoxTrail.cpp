@@ -21,7 +21,6 @@ void BoxTrail::init() {
     omi::Mesh* mesh =
         omi::ResourceManager::getMesh("test_torus", "mesh", m_transform);
     m_material = &mesh->getMaterial();
-	// m_material->colour.a = 0.5f;
     m_components.add(mesh);
 }
 

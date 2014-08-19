@@ -16,7 +16,9 @@ namespace pack {
 
 //--------------------------------RESOURCE PACKS--------------------------------
 
-void buildTestBack();
+void buildStartUpPack();
+
+void buildTestPack();
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
@@ -25,7 +27,8 @@ void buildTestBack();
 /** Builds all resource packs */
 inline void build() {
 
-    buildTestBack();
+    buildStartUpPack();
+    buildTestPack();
 }
 
 } // namespace pack

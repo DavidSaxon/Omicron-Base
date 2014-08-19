@@ -29,16 +29,6 @@ public:
     /** Entity super constructor */
     Entity() :
         m_remove(false) {
-
-        // create a transform at origin
-        m_components.add(
-            new omi::Transform(
-                "transform",
-                util::vec::Vector3(),
-                util::vec::Vector3(),
-                util::vec::Vector3(1.0f, 1.0f, 1.0f)
-            )
-        );
     }
 
     //--------------------------------------------------------------------------

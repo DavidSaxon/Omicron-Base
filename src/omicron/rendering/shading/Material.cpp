@@ -6,7 +6,7 @@ namespace omi {
 //                                  CONSTRUCTORS
 //------------------------------------------------------------------------------
 
-Material::Material() 
+Material::Material()
     :
     shader (),
     colour (1.0f, 1.0f, 1.0f, 1.0f),
@@ -56,7 +56,7 @@ void Material::update() {
 
     // update the texture
     if (texture != NULL) {
-    
+
         texture->update();
     }
 }

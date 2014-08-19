@@ -1,9 +1,9 @@
-#ifndef OMICRON_ENTITIES_TEST_CAMERACONTROL_H_
-#   define OMICRON_ENTITIES_TEST_CAMERACONTROL_H_
+#ifndef OMICRON_ENTITIES_START_UP_STARTUPCAMERA_H_
+#   define OMICRON_ENTITIES_START_UP_STARTUPCAMERA_H_
 
 #include "src/omicron/entity/Entity.hpp"
 
-class CameraControl : public omi::Entity {
+class StartUpCamera : public omi::Entity {
 public:
 
     //--------------------------------------------------------------------------

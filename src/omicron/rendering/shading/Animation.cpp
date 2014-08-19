@@ -11,6 +11,8 @@ Animation::Animation() :
     m_lastFrameTime(-1),
     m_accumTime    (0),
     m_repeat       (false) {
+
+    m_visible = true;
 }
 
 Animation::Animation(
@@ -24,6 +26,8 @@ Animation::Animation(
     m_ended        (false),
     m_lastFrameTime(-1),
     m_accumTime    (0) {
+
+    m_visible = true;
 }
 
 Animation::Animation(const Animation& other) :
@@ -35,13 +39,15 @@ Animation::Animation(const Animation& other) :
     m_ended        (false),
     m_lastFrameTime(-1),
     m_accumTime    (0) {
+
+    m_visible = true;
 }
 
 //------------------------------------------------------------------------------
 //                                   DESTRUCTOR
 //------------------------------------------------------------------------------
 
-Animation::~Animation() { 
+Animation::~Animation() {
 }
 
 //------------------------------------------------------------------------------
@@ -58,6 +64,7 @@ const Animation& Animation::operator=(const Animation& other) {
     m_ended         = false;
     m_lastFrameTime = -1;
     m_accumTime     = 0;
+    m_visible       = other.m_visible;
 }
 
 //------------------------------------------------------------------------------
@@ -75,7 +82,7 @@ void Animation::update() {
 
     // get time for the first time
     if (m_lastFrameTime < 0) {
-    
+
         m_lastFrameTime = util::time::getCurrentTime();
     }
 
@@ -85,7 +92,7 @@ void Animation::update() {
 
         // update the amount of frames we need to
         m_frame += (currentTime - m_lastFrameTime) / m_frameLength;
-        
+
         // loop or end the texture
         if (m_repeat) {
 
@@ -98,7 +105,7 @@ void Animation::update() {
             return;
         }
 
-        // update the time of the last frame 
+        // update the time of the last frame
         m_lastFrameTime = currentTime +
             ((currentTime - m_lastFrameTime) % m_frameLength);
     }

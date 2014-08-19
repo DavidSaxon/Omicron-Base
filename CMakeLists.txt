@@ -4,6 +4,7 @@ project(TestRun)
 set(SRCS
 
     src/omicron/Omicron.cpp
+    src/omicron/component/Camera.cpp
     src/omicron/component/renderable/Mesh.cpp
     src/omicron/component/renderable/Sprite.cpp
     src/omicron/display/Window.cpp
@@ -32,11 +33,15 @@ set(SRCS
     src/omicron/system/System.cpp
     src/override/StartUp.cpp
 
+    src/resource_pack/StartUpPack.cpp
     src/resource_pack/TestPack.cpp
 
+    src/scenes/StartUpScene.cpp
     src/scenes/TestScene.cpp
 
+    src/entities/start_up/Camera.cpp
     src/entities/test/BoxTrail.cpp
+    src/entities/test/CameraControl.cpp
     src/entities/test/Skybox.cpp
     src/entities/test/TestEntity.cpp
 )

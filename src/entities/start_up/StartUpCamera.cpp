@@ -1,10 +1,10 @@
-#include "CameraControl.hpp"
+#include "StartUpCamera.hpp"
 
 //------------------------------------------------------------------------------
-//                            PUBLIC MEMBER FUNCTIONS
+//                             PUBLIC MEMBER FUNCTION
 //------------------------------------------------------------------------------
 
-void CameraControl::init() {
+void StartUpCamera::init() {
 
     // transform
     m_transform = new omi::Transform(
@@ -13,15 +13,12 @@ void CameraControl::init() {
         util::vec::Vector3(),
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
     );
-    m_transform->translation.y = -5.0f;
-    m_transform->translation.z = -15.0f;
-    m_transform->rotation.x = 25.0f;
     m_components.add(m_transform);
-
+    m_transform->translation.z = -1.0f;
     // add a camera
     m_components.add(
-        new omi::Camera("camera", omi::cam::PERSPECTIVE, m_transform));
+        new omi::Camera("camera", omi::cam::ORTHOGRAPHIC, m_transform));
 }
 
-void CameraControl::update() {
+void StartUpCamera::update() {
 }
