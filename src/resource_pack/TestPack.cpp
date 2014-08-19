@@ -4,18 +4,6 @@ namespace pack {
 
 void buildTestPack() {
 
-
-    //---------------------------------SHADERS----------------------------------
-
-
-    omi::ResourceManager::addShader(
-        "test_shader",
-        resource_group::TEST,
-        "res/gfx/shader/test/test_vertex.glsl",
-        "res/gfx/shader/test/test_fragment.glsl"
-    );
-
-
     //---------------------------------SPRITES----------------------------------
 
 

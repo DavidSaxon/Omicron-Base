@@ -4,18 +4,6 @@ namespace pack {
 
 void buildStartUpPack() {
 
-
-    //---------------------------------SHADERS----------------------------------
-
-
-    omi::ResourceManager::addShader(
-        "test_shader",
-        resource_group::START_UP,
-        "res/gfx/shader/test/test_vertex.glsl",
-        "res/gfx/shader/test/test_fragment.glsl"
-    );
-
-
     //---------------------------------SPRITES----------------------------------
 
     // omicron logo text bottom

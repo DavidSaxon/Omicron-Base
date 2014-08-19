@@ -9,7 +9,8 @@ void StartUpScene::init() {
     // turn off depth testing
     omi::renderSettings.setDepthTest(false);
 
-    // load the start up resources resource group
+    // load the need resources
+    omi::ResourceManager::load(resource_group::ALL);
     omi::ResourceManager::load(resource_group::START_UP);
 
     // add entities

@@ -16,6 +16,8 @@ namespace pack {
 
 //--------------------------------RESOURCE PACKS--------------------------------
 
+void buildAllPack();
+
 void buildStartUpPack();
 
 void buildTestPack();
@@ -27,6 +29,7 @@ void buildTestPack();
 /** Builds all resource packs */
 inline void build() {
 
+    buildAllPack();
     buildStartUpPack();
     buildTestPack();
 }
