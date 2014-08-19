@@ -68,6 +68,8 @@ public:
     #NOTE: this function will only return once all resources are loaded */
     static void load(resource_group::ResourceGroup resourceGroup);
 
+    /** Releases the resources within the given group */
+    static void release(resource_group::ResourceGroup resourceGroup);
 
     //------------------------------GET FUNCTIONS-------------------------------
 

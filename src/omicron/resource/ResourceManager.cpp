@@ -32,6 +32,21 @@ void ResourceManager::load(resource_group::ResourceGroup resourceGroup) {
     }
 }
 
+void ResourceManager::release(resource_group::ResourceGroup resourceGroup) {
+
+    for (unsigned i = 0; i < m_resources.size(); ++i) {
+
+        for (t_ResourceGroup::iterator it =  m_resources[i].begin();
+                                       it != m_resources[i].end()  ;
+                                     ++it                        ) {
+            // check the resource group
+            if (it->second->getGroup() == resourceGroup) {
+                // release
+                it->second->release();
+            }
+        }
+    }
+}
 
 //--------------------------------GET FUNCTIONS---------------------------------
 
