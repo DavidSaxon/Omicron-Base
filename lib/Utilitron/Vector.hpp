@@ -129,6 +129,16 @@ public:
         return *this;
     }
 
+    /** Sets the values of the vector to the given scalar
+    @param scalar the scalar to set all values to */
+    inline Vector2& operator =(float scalar) {
+
+        x = scalar;
+        y = scalar;
+
+        return *this;
+    }
+
     //---------------------------------EQUALITY---------------------------------
 
     /** @return if this vector and the other given vector are equal */
@@ -525,6 +535,17 @@ public:
         x = other.x;
         y = other.y;
         z = other.z;
+
+        return *this;
+    }
+
+    /** Sets the values of the vector to the given scalar
+    @param scalar the scalar to set all values to */
+    inline Vector3& operator =(float scalar) {
+
+        x = scalar;
+        y = scalar;
+        z = scalar;
 
         return *this;
     }
@@ -1102,6 +1123,18 @@ public:
         z = other.z;
         w = other.w;
 
+        return *this;
+    }
+
+    /** Sets the values of the vector to the given scalar
+    @param scalar the scalar to set all values to */
+    inline Vector4& operator =(float scalar) {
+
+        x = scalar;
+        y = scalar;
+        z = scalar;
+        w = scalar;
+        
         return *this;
     }
 

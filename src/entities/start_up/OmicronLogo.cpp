@@ -72,9 +72,7 @@ void OmicronLogo::update() {
             if (m_flareLongT->scale.x >= 1.0f) {
 
                 m_flareLongT->scale.x   = 1.0f;
-                m_flareCentreT->scale.x = 1.0f;
-                m_flareCentreT->scale.y = 1.0f;
-                m_flareCentreT->scale.z = 1.0f;
+                m_flareCentreT->scale   = 1.0f;
                 m_stage = FLARE_FADE;
             }
             break;
