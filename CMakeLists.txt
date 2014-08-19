@@ -33,13 +33,14 @@ set(SRCS
     src/omicron/system/System.cpp
     src/override/StartUp.cpp
 
+    src/resource_pack/AllPack.cpp
     src/resource_pack/StartUpPack.cpp
     src/resource_pack/TestPack.cpp
 
     src/scenes/StartUpScene.cpp
     src/scenes/TestScene.cpp
 
-    src/entities/start_up/Camera.cpp
+    src/entities/start_up/OmicronLogo.cpp
     src/entities/test/BoxTrail.cpp
     src/entities/test/CameraControl.cpp
     src/entities/test/Skybox.cpp
