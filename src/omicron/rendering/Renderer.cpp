@@ -41,6 +41,12 @@ void Renderer::render() {
     glutSwapBuffers();
 }
 
+void Renderer::clear() {
+
+    m_camera = NULL;
+    m_renderLists->clear();
+}
+
 void Renderer::setCamera(Camera* camera) {
 
     m_camera = camera;

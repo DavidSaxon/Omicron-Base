@@ -41,6 +41,11 @@ void RenderLists::render(Camera* camera) {
     }
 }
 
+void RenderLists::clear() {
+
+    m_renderables.clear();
+}
+
 void RenderLists::addRenderable(Renderable* renderable) {
 
     // get the layer from the component

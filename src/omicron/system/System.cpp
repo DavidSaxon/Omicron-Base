@@ -116,7 +116,11 @@ void execute() {
     window->update();
 
     // update logic
-    logicManager->execute();
+    if (logicManager->execute()) {
+
+        // clear components
+        renderer->clear();
+    }
 
     // sort the new components that have added or removed this cycle
     sortComponents();

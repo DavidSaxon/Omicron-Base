@@ -51,6 +51,9 @@ public:
     @param the camera to use for rendering */
     void render(Camera* camera);
 
+    /** Removes all components from the render lists */
+    void clear();
+
     /** Adds a renderable component to the render lists
     @param renderable the renderable to add */
     void addRenderable(Renderable* renderable);

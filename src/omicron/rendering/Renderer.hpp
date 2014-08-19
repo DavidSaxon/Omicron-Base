@@ -50,7 +50,8 @@ public:
     /** Performs one frame of rendering */
     void render();
 
-    // TODO: clear
+    /** Clears all the components from the renderer */
+    void clear();
 
     /** Sets the camera to use for rendering
     @param camera the new camera to use */

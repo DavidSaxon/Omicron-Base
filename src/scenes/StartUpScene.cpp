@@ -22,7 +22,7 @@ bool StartUpScene::update() {
     if (m_omicronLogo->done()) {
 
         // load the first scene resources
-        omi::ResourceManager::load(resource_group::START_UP);
+        omi::ResourceManager::load(resource_group::TEST);
         // start up finished
         return true;
     }
@@ -34,6 +34,8 @@ omi::Scene* StartUpScene::nextScene() const {
 
     // turn depth testing back on
     omi::renderSettings.setDepthTest(true);
+    // release resources
+    omi::ResourceManager::release(resource_group::START_UP);
 
     return new TestScene();
 }

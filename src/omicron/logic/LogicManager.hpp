@@ -42,8 +42,9 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** Perfroms an execution cycle of logic */
-    void execute();
+    /** Perfroms an execution cycle of logic
+    @return if components should be clear for the next scene */
+    bool execute();
 
     /** @return the new components from the scene */
     std::set<Component*>& getNewComponents();
@@ -57,6 +58,8 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // is true if we need to set up the scene
+    bool m_sceneInit;
     // the current scene
     std::unique_ptr<Scene> m_scene;
 };
