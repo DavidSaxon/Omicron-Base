@@ -6,7 +6,6 @@
 #include "src/scenes/TestScene.hpp"
 
 #include "src/entities/start_up/OmicronLogo.hpp"
-#include "src/entities/start_up/StartUpCamera.hpp"
 
 /*************************************************************\
 | Loads the initial resources and displays start up graphics. |
@@ -26,6 +25,15 @@ public:
 
     /** #Override */
     virtual omi::Scene* nextScene() const;
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the omicron cinematic
+    OmicronLogo* m_omicronLogo;
 };
 
 #endif

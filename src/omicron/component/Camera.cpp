@@ -46,7 +46,9 @@ void Camera::apply() {
     else {
 
         // set up the orthographic matrix
-        glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, 0.001f, 1000.0f);
+        float aspectRatio = 
+            displaySettings.getSize().x / displaySettings.getSize().y;
+        glOrtho(-aspectRatio, aspectRatio, -1.0f, 1.0f, 0.001f, 1000.0f);
     }
 
     // set up the model view matrix

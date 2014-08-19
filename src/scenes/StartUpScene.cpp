@@ -13,11 +13,19 @@ void StartUpScene::init() {
     omi::ResourceManager::load(resource_group::START_UP);
 
     // add entities
-    addEntity(new StartUpCamera());
-    addEntity(new OmicronLogo());
+    m_omicronLogo = new OmicronLogo();
+    addEntity(m_omicronLogo);
 }
 
 bool StartUpScene::update() {
+
+    if (m_omicronLogo->done()) {
+
+        // load the first scene resources
+        omi::ResourceManager::load(resource_group::START_UP);
+        // start up finished
+        return true;
+    }
 
     return false;
 }

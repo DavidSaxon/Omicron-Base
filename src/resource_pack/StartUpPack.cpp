@@ -45,6 +45,33 @@ void buildStartUpPack() {
         util::vec::Vector2(1, 1),
         util::vec::Vector2(0, 0)
     );
+    // omicron centre lens flare
+    omi::ResourceManager::addTextureMaterialSprite(
+        "omicron_flare_centre", resource_group::START_UP,
+        "test_shader",
+        "res/gfx/texture/start_up/omicron/logo_flare_centre.png", 5,
+        util::vec::Vector2(2, 2),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    // omicron glow
+    omi::ResourceManager::addTextureMaterialSprite(
+        "omicron_glow", resource_group::START_UP,
+        "test_shader",
+        "res/gfx/texture/start_up/omicron/logo_glow.png", 1,
+        util::vec::Vector2(2, 2),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    // omicron powered by text
+    omi::ResourceManager::addTextureMaterialSprite(
+        "omicron_powered_by", resource_group::START_UP,
+        "test_shader",
+        "res/gfx/texture/start_up/omicron/logo_powered_by.png", 6,
+        util::vec::Vector2(2, 2),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
 }
 
 

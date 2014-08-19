@@ -5,6 +5,7 @@
 #include <set>
 #include <vector>
 
+#include "src/omicron/Omicron.hpp"
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/resource/ResourceManager.hpp"
 

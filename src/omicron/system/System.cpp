@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <memory>
+#include <stdlib.h>
+#include <time.h>
 
 #include "lib/Utilitron/Vector.hpp"
 
@@ -128,6 +130,9 @@ void execute() {
 
 /** Sets up Omicron */
 void init() {
+
+    // seed random number generators
+    srand(time(NULL));
 
     // initialise glut
     int ac = 1;

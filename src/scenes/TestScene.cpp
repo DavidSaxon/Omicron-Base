@@ -21,9 +21,7 @@ TestScene::~TestScene() {
 
 void TestScene::init() {
 
-    // load the test resource group
-    omi::ResourceManager::load(resource_group::TEST);
-
+    // add entities
     addEntity(new CameraControl());
     addEntity(m_test);
     addEntity(new Skybox());
