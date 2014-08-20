@@ -10,6 +10,7 @@
 #include "lib/Utilitron/Vector.hpp"
 
 #include "src/omicron/display/Window.hpp"
+#include "src/omicron/input/Input.hpp"
 #include "src/omicron/logic/LogicManager.hpp"
 #include "src/omicron/rendering/Renderer.hpp"
 #include "src/omicron/scene/Scene.hpp"
@@ -161,7 +162,11 @@ void init() {
     // create the logic manager
     logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));
 
-    // set the call back function of the glut main loop
+    // set the input call backs
+    glutKeyboardFunc(input::keyPressed);
+    glutKeyboardUpFunc(input::keyReleased);
+
+    // set the display call back function to system execution
     glutDisplayFunc(execute);
 }
 

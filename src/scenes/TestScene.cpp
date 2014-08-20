@@ -22,7 +22,7 @@ TestScene::~TestScene() {
 void TestScene::init() {
 
     // add entities
-    addEntity(new CameraControl());
+    addEntity(new Player());
     addEntity(m_test);
     addEntity(new Skybox());
 }
