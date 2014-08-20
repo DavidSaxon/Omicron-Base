@@ -45,6 +45,11 @@ bool LogicManager::execute() {
 
         // get the next scene
         m_scene = std::unique_ptr<Scene>(m_scene->nextScene());
+        //if the scene we get is null we're done
+        if (!m_scene) {
+
+            exit(0);
+        }
         m_sceneInit = true;
         return true;
     }
