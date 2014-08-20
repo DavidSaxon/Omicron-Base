@@ -9,6 +9,8 @@ set(SRCS
     src/omicron/component/renderable/Sprite.cpp
     src/omicron/display/Window.cpp
     src/omicron/entity/ComponentTable.cpp
+    src/omicron/input/Keyboard.cpp
+    src/omicron/input/Mouse.cpp
     src/omicron/logic/FPSManager.cpp
     src/omicron/logic/LogicManager.cpp
     src/omicron/rendering/Renderer.cpp
@@ -42,7 +44,7 @@ set(SRCS
 
     src/entities/start_up/OmicronLogo.cpp
     src/entities/test/BoxTrail.cpp
-    src/entities/test/CameraControl.cpp
+    src/entities/test/Player.cpp
     src/entities/test/Skybox.cpp
     src/entities/test/TestEntity.cpp
 )
@@ -64,6 +66,7 @@ target_link_libraries(TestRun
     -lglut
     -lGLEW
     -lm
-    -lpng
     -lIL
+    -lsfml-audio
+    -lsfml-system
 )
