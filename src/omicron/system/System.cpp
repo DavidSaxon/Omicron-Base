@@ -163,8 +163,10 @@ void init() {
     logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));
 
     // set the input call backs
-    glutKeyboardFunc(input::keyPressed);
+    glutKeyboardFunc  (input::keyPressed);
     glutKeyboardUpFunc(input::keyReleased);
+    glutSpecialFunc   (input::specialPressed);
+    glutSpecialUpFunc (input::specialReleased);
 
     // set the display call back function to system execution
     glutDisplayFunc(execute);

@@ -29,6 +29,12 @@ void TestScene::init() {
 
 bool TestScene::update() {
 
+    // exit if the escape key has been pressed
+    if (omi::input::isKeyPressed(27)) {
+
+        return true;
+    }
+
     return false;
 }
 
