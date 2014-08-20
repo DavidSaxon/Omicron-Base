@@ -371,7 +371,7 @@ public:
     inline std::string toString() const {
 
         std::stringstream ss;
-        ss << "[ " << x << ", " << y << "]";
+        ss << "[" << x << ", " << y << "]";
 
         return ss.str();
     }
@@ -862,7 +862,7 @@ public:
     inline std::string toString() const {
 
         std::stringstream ss;
-        ss << "[ " << x << ", " << y << ", " << z << "]";
+        ss << "[" << x << ", " << y << ", " << z << "]";
 
         return ss.str();
     }
@@ -1692,7 +1692,7 @@ public:
     inline std::string toString() const {
 
         std::stringstream ss;
-        ss << "[ " << x << ", " << y << ", " << z <<  ", " << w << "]";
+        ss << "[" << x << ", " << y << ", " << z <<  ", " << w << "]";
 
         return ss.str();
     }

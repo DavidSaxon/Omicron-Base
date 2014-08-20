@@ -4,11 +4,11 @@ namespace {
 
 //----------------------------------CONSTANTS-----------------------------------
 
-static const float TIMER_SPEED         = 0.015f;
+static const float TIMER_SPEED         = 0.016f;
 static const float TEXT_ENTRANCE_SPEED = 0.1f;
 static const float FLARE_EXPAND_SPEED  = 0.1f;
 static const float FLARE_FADE_SPEED    = 0.012f;
-static const float GLOW_SPEED          = 0.02f;
+static const float GLOW_SPEED          = 0.005f;
 static const float CAM_DESHAKE         = 0.035f;
 
 } // namespace anonymous
@@ -130,8 +130,8 @@ void OmicronLogo::update() {
 
 bool OmicronLogo::done() {
 
-    return true;
-    // return m_stage == DONE;
+    // return true;
+    return m_stage == DONE;
 }
 
 //------------------------------------------------------------------------------

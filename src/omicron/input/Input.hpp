@@ -6,6 +6,8 @@
 #include <GL/glut.h>
 #include <stdio.h>
 
+#include "lib/Utilitron/Vector.hpp"
+
 namespace omi {
 
 /*********************************\
@@ -17,16 +19,39 @@ namespace input {
 //                                   PROTOTYPES
 //------------------------------------------------------------------------------
 
-/** Is called when a key is pressed */
+//------------------------------------MOUSE-------------------------------------
+
+/** #Hidden
+Is called when the mouse is moved */
+void mouseMove(int x, int y);
+
+/** #Hidden
+Is called when a mouse button is pressed */
+void mouseButton(int button, int state, int x, int y);
+
+/** #Hidden
+switch the mouse buffers */
+void switchMouseBuffers();
+
+/** @return the mouse position */
+const util::vec::Vector2& getMousePos();
+
+//-----------------------------------KEYBOARD-----------------------------------
+
+/** #Hidden
+Is called when a key is pressed */
 void keyPressed(unsigned char key, int x, int y);
 
-/** Is called when a key is released */
+/** #Hidden
+Is called when a key is released */
 void keyReleased(unsigned char key, int x, int y);
 
-/** Is called when a special key is pressed */
+/** #Hidden
+Is called when a special key is pressed */
 void specialPressed(int key, int x, int y);
 
-/** Is called when a special key is released */
+/** #Hidden
+Is called when a special key is released */
 void specialReleased(int key, int x, int y);
 
 /** Check if the given is being pressed

@@ -123,6 +123,14 @@ void execute() {
         renderer->clear();
     }
 
+    // the switch the mouse buffers
+    input::switchMouseBuffers();
+    // should be done through system settings
+    // TODO:
+    glutWarpPointer(
+        displaySettings.getPos().x + (displaySettings.getSize().x / 2.0),
+        displaySettings.getPos().y + (displaySettings.getSize().y / 2.0)); 
+
     // sort the new components that have added or removed this cycle
     sortComponents();
 
@@ -163,10 +171,12 @@ void init() {
     logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));
 
     // set the input call backs
-    glutKeyboardFunc  (input::keyPressed);
-    glutKeyboardUpFunc(input::keyReleased);
-    glutSpecialFunc   (input::specialPressed);
-    glutSpecialUpFunc (input::specialReleased);
+    glutKeyboardFunc     (input::keyPressed);
+    glutKeyboardUpFunc   (input::keyReleased);
+    glutSpecialFunc      (input::specialPressed);
+    glutSpecialUpFunc    (input::specialReleased);
+    glutPassiveMotionFunc(input::mouseMove);
+    glutMouseFunc        (input::mouseButton);
 
     // set the display call back function to system execution
     glutDisplayFunc(execute);

@@ -2,7 +2,8 @@
 
 namespace {
 
-static const float MOVE_SPEED = 0.2f;
+static const float LOOK_SPEED = 0.05f;
+static const float MOVE_SPEED = 0.1f;
 
 } // namespace anonymouse
 
@@ -41,7 +42,19 @@ void Player::init() {
 
 void Player::update() {
 
-    // move the player
+    // look
+    m_camT->rotation.x -=
+        ((omi::displaySettings.getPos().y +
+        (omi::displaySettings.getSize().y / 2.0)) -
+        omi::input::getMousePos().y) *
+        LOOK_SPEED * omi::fpsManager.getTimeScale();
+    m_camT->rotation.y -=
+        ((omi::displaySettings.getPos().x +
+        (omi::displaySettings.getSize().x / 2.0)) -
+        omi::input::getMousePos().x) *
+        LOOK_SPEED * omi::fpsManager.getTimeScale();
+
+    // move
     if (omi::input::isKeyPressed('w')) {
 
         m_camT->translation.z += MOVE_SPEED * omi::fpsManager.getTimeScale();

@@ -9,11 +9,8 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 LogicManager::LogicManager(Scene* initScene) :
-    m_sceneInit(false),
+    m_sceneInit(true),
     m_scene(initScene) {
-
-    // initialise the first scene
-    m_scene->init();
 }
 
 //------------------------------------------------------------------------------

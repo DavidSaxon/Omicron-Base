@@ -16,6 +16,13 @@ void StartUpScene::init() {
     // add entities
     m_omicronLogo = new OmicronLogo();
     addEntity(m_omicronLogo);
+
+    // load sound
+    if (!m_music.openFromFile("res/sound/fx/omicron_intro.ogg")){
+
+        std::cout << "fuck" << std::endl;
+    }
+    m_music.play();
 }
 
 bool StartUpScene::update() {
@@ -38,5 +45,6 @@ omi::Scene* StartUpScene::nextScene() const {
     // release resources
     omi::ResourceManager::release(resource_group::START_UP);
 
+    // return new StartUpScene();
     return new TestScene();
 }
