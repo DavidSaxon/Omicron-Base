@@ -1,6 +1,8 @@
 #ifndef OMICRON_TEST_PLAYER_H_
 #    define OMICRON_TEST_PLAYER_H_
 
+#include "lib/Utilitron/MathUtil.hpp"
+
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/input/Input.hpp"
 

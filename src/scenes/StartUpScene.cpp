@@ -6,7 +6,8 @@
 
 void StartUpScene::init() {
 
-    // turn off depth testing
+    // apply settings
+    omi::systemSettings.setCursorHidden(true);
     omi::renderSettings.setDepthTest(false);
 
     // load the need resources
@@ -40,10 +41,11 @@ bool StartUpScene::update() {
 
 omi::Scene* StartUpScene::nextScene() const {
 
-    // turn depth testing back on
-    omi::renderSettings.setDepthTest(true);
     // release resources
     omi::ResourceManager::release(resource_group::START_UP);
+
+    // revert settings
+    omi::renderSettings.setDepthTest(true);
 
     // return new StartUpScene();
     return new TestScene();

@@ -36,6 +36,9 @@ void switchMouseBuffers();
 /** @return the mouse position */
 const util::vec::Vector2& getMousePos();
 
+/** @return if the given mouse button is being pressed */
+bool mousePressed(ButtonType button);
+
 //-----------------------------------KEYBOARD-----------------------------------
 
 /** #Hidden

@@ -6,6 +6,7 @@ namespace omi {
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
+SystemSettings systemSettings;
 DisplaySettings displaySettings;
 RenderSettings renderSettings;
 

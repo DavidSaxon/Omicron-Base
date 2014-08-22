@@ -2,8 +2,8 @@
 
 namespace {
 
-static const float LOOK_SPEED = 0.05f;
-static const float MOVE_SPEED = 0.1f;
+static const float LOOK_SPEED = 0.085f;
+static const float MOVE_SPEED = 0.15f;
 
 } // namespace anonymouse
 
@@ -44,32 +44,41 @@ void Player::update() {
 
     // look
     m_camT->rotation.x -=
-        ((omi::displaySettings.getPos().y +
-        (omi::displaySettings.getSize().y / 2.0)) -
-        omi::input::getMousePos().y) *
+        (omi::displaySettings.getCentre().y - omi::input::getMousePos().y) *
         LOOK_SPEED * omi::fpsManager.getTimeScale();
     m_camT->rotation.y -=
-        ((omi::displaySettings.getPos().x +
-        (omi::displaySettings.getSize().x / 2.0)) -
-        omi::input::getMousePos().x) *
+        (omi::displaySettings.getCentre().x - omi::input::getMousePos().x) *
         LOOK_SPEED * omi::fpsManager.getTimeScale();
 
     // move
+    float moveSpeed = MOVE_SPEED * omi::fpsManager.getTimeScale();
     if (omi::input::isKeyPressed('w')) {
 
-        m_camT->translation.z += MOVE_SPEED * omi::fpsManager.getTimeScale();
+        m_camT->translation.z +=
+            util::math::cosd(m_camT->rotation.y) * moveSpeed;
+        m_camT->translation.x -=
+            util::math::sind(m_camT->rotation.y) * moveSpeed;
     }
     if (omi::input::isKeyPressed('s')) {
 
-        m_camT->translation.z -= MOVE_SPEED * omi::fpsManager.getTimeScale();
+        m_camT->translation.z -=
+            util::math::cosd(m_camT->rotation.y) * moveSpeed;
+        m_camT->translation.x +=
+            util::math::sind(m_camT->rotation.y) * moveSpeed;
     }
     if (omi::input::isKeyPressed('a')) {
 
-        m_camT->translation.x += MOVE_SPEED * omi::fpsManager.getTimeScale();
+        m_camT->translation.z +=
+            util::math::sind(m_camT->rotation.y) * moveSpeed;
+        m_camT->translation.x +=
+            util::math::cosd(m_camT->rotation.y) * moveSpeed;
     }
     if (omi::input::isKeyPressed('d')) {
 
-        m_camT->translation.x -= MOVE_SPEED * omi::fpsManager.getTimeScale();
+        m_camT->translation.z -=
+            util::math::sind(m_camT->rotation.y) * moveSpeed;
+        m_camT->translation.x -=
+            util::math::cosd(m_camT->rotation.y) * moveSpeed;
     }
 }
 

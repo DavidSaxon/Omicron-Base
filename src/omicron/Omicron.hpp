@@ -4,6 +4,7 @@
 #include "src/omicron/logic/FPSManager.hpp"
 #include "src/omicron/settings/DisplaySettings.hpp"
 #include "src/omicron/settings/RenderSettings.hpp"
+#include "src/omicron/settings/SystemSettings.hpp"
 
 namespace omi {
 
@@ -13,6 +14,8 @@ namespace omi {
 
 //-----------------------------------SETTINGS-----------------------------------
 
+// system settings
+extern SystemSettings systemSettings;
 // the display settings
 extern DisplaySettings displaySettings;
 // the render settings

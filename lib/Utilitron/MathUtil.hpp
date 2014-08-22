@@ -11,6 +11,12 @@ namespace util {
 namespace math {
 
 //------------------------------------------------------------------------------
+//                                   CONSTANTS
+//------------------------------------------------------------------------------
+
+static const float DEGREES_TO_RADIANS = 0.0174532925f;
+
+//------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
@@ -100,6 +106,20 @@ inline bool withinDistance(double a, double b, double distance) {
 
     // return if abs is less than
     return fabs(a - b) <= distance;
+}
+
+/** Returns the sine of the given angle being in degrees
+@param angle the angle in degrees to compute the sine of */
+inline float sind(float angle) {
+
+    return sin(angle * DEGREES_TO_RADIANS);
+}
+
+/** Returns the co-sine of the given angle being in degrees
+@param angle the angle in degrees to compute the co-sine of */
+inline float cosd(float angle) {
+
+    return cos(angle * DEGREES_TO_RADIANS);
 }
 
 } // namespace math

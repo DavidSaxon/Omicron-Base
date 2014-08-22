@@ -48,23 +48,26 @@ public:
     /** @return the title of the window */
     const std::string& getTitle() const;
 
-    /** @param title the new title of the window */
-    void setTitle(const std::string& title);
-
     /** @return the size of the window */
     const util::vec::Vector2& getSize() const;
+    
+    /** @return the position of the window */
+    const util::vec::Vector2& getPos() const;
+
+    /** @return the centre of the window */
+    const util::vec::Vector2 getCentre() const;
+
+    /** @return if the window is in fullscreen */
+    bool getFullscreen() const;
+
+    /** @param title the new title of the window */
+    void setTitle(const std::string& title);
 
     /** @param size the new size of the window */
     void setSize(const util::vec::Vector2& size);
 
-    /** @return the position of the window */
-    const util::vec::Vector2& getPos() const;
-
     /** @param pos the new position of the window */
     void setPos(const util::vec::Vector2& pos);
-
-    /** @return if the window is in fullscreen */
-    bool getFullscreen() const;
 
     /** @param fullscreen the new fullscreen mode of the window */
     void setFullscreen(bool fullscreen);
@@ -84,6 +87,8 @@ private:
     util::vec::Vector2 m_size;
     // the position of the window
     util::vec::Vector2 m_pos;
+    // the centre of the window
+    util::vec::Vector2 m_centre;
     // is true if the window is in fullscreen
     bool m_fullscreen;
 };

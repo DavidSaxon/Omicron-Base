@@ -123,13 +123,30 @@ void execute() {
         renderer->clear();
     }
 
-    // the switch the mouse buffers
+    // switch the mouse buffers
     input::switchMouseBuffers();
-    // should be done through system settings
-    // TODO:
-    glutWarpPointer(
-        displaySettings.getPos().x + (displaySettings.getSize().x / 2.0),
-        displaySettings.getPos().y + (displaySettings.getSize().y / 2.0)); 
+
+    // lock the mouse if enabled
+    if (systemSettings.isCursorLocked()) {
+
+        glutWarpPointer(
+            systemSettings.getCursorLockedPos().x,
+            systemSettings.getCursorLockedPos().y);
+    }
+
+    // other system settings
+    if (systemSettings.check()) {
+
+        // hide or show the mouse
+        if (systemSettings.isCursorHidden()) {
+
+            glutSetCursor(GLUT_CURSOR_NONE); 
+        }
+        else {
+
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW); 
+        }
+    }
 
     // sort the new components that have added or removed this cycle
     sortComponents();

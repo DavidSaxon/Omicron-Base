@@ -9,10 +9,10 @@ omi::Scene* init() {
 
     // display settings
     omi::displaySettings.setSize(util::vec::Vector2(960, 540));
-    omi::displaySettings.setSize(util::vec::Vector2(1920, 1080));
+    // omi::displaySettings.setSize(util::vec::Vector2(1920, 1080));
     // omi::displaySettings.setPos(util::vec::Vector2(100, 100));
-    omi::displaySettings.setPos(util::vec::Vector2(0, 0));
-    // omi::displaySettings.setTitle("Omicron Test");
+    omi::displaySettings.setPos(util::vec::Vector2(860, 440));
+    omi::displaySettings.setTitle("Omicron Test");
 
     // render settings
     omi::renderSettings.setDepthTest(true);

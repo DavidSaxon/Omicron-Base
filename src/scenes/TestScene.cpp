@@ -21,6 +21,10 @@ TestScene::~TestScene() {
 
 void TestScene::init() {
 
+    // apply settings
+    omi::systemSettings.setCursorLocked(true);
+    omi::systemSettings.setCursorLockPosition(omi::displaySettings.getCentre());
+
     // add entities
     addEntity(new Player());
     addEntity(m_test);
@@ -40,6 +44,8 @@ bool TestScene::update() {
 
 omi::Scene* TestScene::nextScene() const {
 
-    // TODO:
+    // revert settings
+    omi::systemSettings.setCursorLocked(false);
+
     return 0;
 }
