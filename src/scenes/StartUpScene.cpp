@@ -19,7 +19,7 @@ void StartUpScene::init() {
     addEntity(m_omicronLogo);
 
     // load sound
-    if (!m_music.openFromFile("res/sound/fx/omicron_intro.ogg")){
+    if (!m_music.openFromFile("res/sound/fx/start_up/omicron_intro.ogg")){
 
         std::cout << "fuck" << std::endl;
     }
