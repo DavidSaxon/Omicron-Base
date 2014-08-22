@@ -1,8 +1,9 @@
 #ifndef OMICRON_ENTITY_RENDERING_RENDERLISTS_H_
 #   define OMICRON_ENTITY_RENDERING_RENDERLISTS_H_
 
+#include <algorithm>
 #include <map>
-#include <set>
+#include <vector>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
@@ -13,7 +14,33 @@ namespace omi {
 
 //-----------------------------------TYPEDEF------------------------------------
 
-typedef std::map<int, std::set<Renderable*>> t_RenderableMap;
+typedef std::map<int, std::vector<Renderable*>> t_RenderableMap;
+
+/**********************************\
+| Object for transparency sorting. |
+\**********************************/
+struct RenderableDepthSorter {
+
+    // the camera to sort depth with
+    Camera* camera;
+
+    /** The sorting function */
+    bool operator ()(Renderable* a, Renderable* b) {
+
+        // compared based on their distances from the camera
+        float distanceA = util::vec::distance(
+            a->getTransform()->translation,
+            camera->getTransform()->translation
+        );
+
+        float distanceB = util::vec::distance(
+            b->getTransform()->translation,
+            camera->getTransform()->translation
+        );
+
+        return distanceA > distanceB;
+    }
+};
 
 /*************************************************************************\
 | A set of lists that contain all objects to be rendered by the renderer. |
@@ -70,6 +97,9 @@ private:
 
     // all renderable components grouped by layer
     t_RenderableMap m_renderables;
+
+    // the depth sorter
+    RenderableDepthSorter depthSorter;
 };
 
 } // namespace omi

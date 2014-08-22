@@ -32,8 +32,12 @@ void RenderLists::render(Camera* camera) {
     for (t_RenderableMap::iterator it = m_renderables.begin();
         it != m_renderables.end(); ++it) {
 
+        //sort the list of renderables based on their distance from the camera
+        depthSorter.camera = camera;
+        std::sort(it->second.begin(), it->second.end(), depthSorter);
+
         // iterate over the renderables in this layer and render them
-        for (std::set<Renderable*>::iterator itr = it->second.begin();
+        for (std::vector<Renderable*>::iterator itr = it->second.begin();
             itr != it->second.end(); ++itr) {
 
             (*itr)->render();
@@ -51,15 +55,15 @@ void RenderLists::addRenderable(Renderable* renderable) {
     // get the layer from the component
     int layer = renderable->getLayer();
 
-    // check if a set exists for the given layer
+    // check if a list exists for the given layer
     if (m_renderables.find(layer) == m_renderables.end()) {
 
-        // create a set for this layer
-        m_renderables.insert(std::make_pair(layer, std::set<Renderable*>()));
+        // create a list for this layer
+        m_renderables.insert(std::make_pair(layer, std::vector<Renderable*>()));
     }
 
     // add the renderable to the layer
-    m_renderables[layer].insert(renderable);
+    m_renderables[layer].push_back(renderable);
 }
 
 void RenderLists::removeRenderable(Renderable* renderable) {
@@ -75,7 +79,7 @@ void RenderLists::removeRenderable(Renderable* renderable) {
     }
 
     // search the layer for the renderable
-    for (std::set<Renderable*>::iterator it = m_renderables[layer].begin();
+    for (std::vector<Renderable*>::iterator it = m_renderables[layer].begin();
          it != m_renderables[layer].end();) {
 
         if (*it == renderable) {
