@@ -29,8 +29,7 @@ Player::~Player() {
 void Player::init() {
 
     // create a camera
-    m_camT = new omi::Transform(
-        "camera_t",
+    m_camT = new omi::Transform("",
         util::vec::Vector3(),
         util::vec::Vector3(),
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
@@ -38,7 +37,7 @@ void Player::init() {
     m_camT->translation.z = -15.0f;
     m_components.add(m_camT);
     m_components.add(
-        new omi::Camera("camera", omi::cam::PERSPECTIVE, m_camT));
+        new omi::Camera("", omi::cam::PERSPECTIVE, m_camT));
 }
 
 void Player::update() {

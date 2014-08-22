@@ -29,13 +29,49 @@ public:
     //                                CONSTRUCTORS
     //--------------------------------------------------------------------------
 
-    /** Creates a new camera
+    /** Creates a new camera, and uses default fov, near clip, and far clip
     @param id the identifier of the component
     @param mode the mode of the camera
     @param transform a pointer to the transform to use for the camera */
     Camera(const std::string& id,
                  cam::Mode    mode,
                  Transform*   transform);
+
+    /** Creates a new camera and uses default near and far clipping planes
+    @param id the identifier of the component
+    @param mode the mode of the camera
+    @param transform a pointer to the transform to use for the camera
+    @param fov the field of view of the camera */
+    Camera(const std::string& id,
+                 cam::Mode    mode,
+                 Transform*   transform,
+                 float        fov);
+
+     /** Creates a new camera, and uses default fov
+     @param id the identifier of the component
+     @param mode the mode of the camera
+     @param transform a pointer to the transform to use for the camera
+     @param nearClip the near clipping plane
+     @param farClip the far clipping plane */
+     Camera(const std::string& id,
+                  cam::Mode    mode,
+                  Transform*   transform,
+                  float        nearClip,
+                  float        farClip);
+
+     /** Creates a new camera
+     @param id the identifier of the component
+     @param mode the mode of the camera
+     @param transform a pointer to the transform to use for the camera
+     @param fov the field of view of the camera
+     @param nearClip the near clipping plane
+     @param farClip the far clipping plane */
+     Camera(const std::string& id,
+                  cam::Mode    mode,
+                  Transform*   transform,
+                  float        fov,
+                  float        nearClip,
+                  float        farClip);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -60,11 +96,29 @@ public:
     /** @return the transform used by the camera */
     Transform* getTransform();
 
+    /** @return the field of view of the camera */
+    float getFOV() const;
+
+    /** @return the near clipping plane of the camera */
+    float getNearClippingPlane() const;
+
+    /** @return the far clipping plane of the camera */
+    float getFarClippingPlane() const;
+
     /** @param the new mode of the camera */
     void setMode(cam::Mode mode);
 
     /** @param the new transform to be used by the camera */
     void setTransform(Transform* transform);
+
+    /** @param fov the new field of view of the camera */
+    void setFOV(float fov);
+
+    /** @param nearClip the new near clipping plane of the camera */
+    void setNearClip(float nearClip);
+
+    /** @param farClip the new far clipping plane of the camera */
+    void setFarClip(float farClip);
 
 private:
 
@@ -77,6 +131,13 @@ private:
     // the transform of the camera
     Transform* m_transform;
 
+    // the field of view of the camera
+    float m_fov;
+
+    // the near clipping plane
+    float m_nearClip;
+    // the far clipping plane
+    float m_farClip;
 };
 
  } // namespace omi

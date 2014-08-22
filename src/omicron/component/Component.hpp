@@ -1,6 +1,7 @@
 #ifndef OMICRON_COMPONENT_COMPONENT_H_
 #   define OMICRON_COMPONENT_COMPONENT_H_
 
+#include <sstream>
 #include <string>
 
 #include "lib/Utilitron/MacroUtil.hpp"
@@ -59,6 +60,14 @@ protected:
     @param id the identifier of the component */
     Component(const std::string& id) :
         m_id(id) {
+
+            // if an id hasn't been defined just serialise the pointer of this
+            if (!m_id.length()) {
+
+                std::stringstream ss;
+                ss << this;
+                m_id = ss.str();
+            }
     }
 
     Component(const Component&) {
