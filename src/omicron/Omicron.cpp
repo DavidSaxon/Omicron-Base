@@ -9,6 +9,7 @@ namespace omi {
 SystemSettings systemSettings;
 DisplaySettings displaySettings;
 RenderSettings renderSettings;
+AudioSettings audioSettings;
 
 FPSManager fpsManager;
 

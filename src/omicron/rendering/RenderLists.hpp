@@ -38,7 +38,7 @@ struct RenderableDepthSorter {
             camera->getTransform()->translation
         );
 
-        return distanceA > distanceB;
+        return distanceA < distanceB;
     }
 };
 

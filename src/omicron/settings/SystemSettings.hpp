@@ -9,9 +9,9 @@
 
 namespace omi {
 
-/*************************************************************************************\
-| An object that contains all system related settings that are controlled by Android. |
-\*************************************************************************************/
+/****************************************************************************\
+| An object that contains all system related settings controlled by Omicron. |
+\****************************************************************************/
 class SystemSettings {
 private:
 
