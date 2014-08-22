@@ -16,6 +16,18 @@ namespace omi {
 namespace input {
 
 //------------------------------------------------------------------------------
+//                                  ENUMERATORS
+//------------------------------------------------------------------------------
+
+// mouse button types
+enum MouseButton {
+
+    LEFT,
+    MIDDLE,
+    RIGHT
+};
+
+//------------------------------------------------------------------------------
 //                                   PROTOTYPES
 //------------------------------------------------------------------------------
 
@@ -37,7 +49,7 @@ void switchMouseBuffers();
 const util::vec::Vector2& getMousePos();
 
 /** @return if the given mouse button is being pressed */
-bool mousePressed(ButtonType button);
+bool mousePressed(MouseButton button);
 
 //-----------------------------------KEYBOARD-----------------------------------
 

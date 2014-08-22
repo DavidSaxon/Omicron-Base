@@ -11,7 +11,8 @@ static const float MOVE_SPEED = 0.15f;
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Player::Player() {
+Player::Player() :
+    m_shootButton(false) {
 }
 
 //------------------------------------------------------------------------------
@@ -41,6 +42,20 @@ void Player::init() {
 }
 
 void Player::update() {
+
+    // shoot
+    if (omi::input::mousePressed(omi::input::LEFT)) {
+
+        if (!m_shootButton) {
+
+            addEntity(new TestEntity());
+            m_shootButton = true;
+        }
+    }
+    else {
+
+        m_shootButton = false;
+    }
 
     // look
     m_camT->rotation.x -=

@@ -27,7 +27,7 @@ void TestScene::init() {
 
     // add entities
     addEntity(new Player());
-    addEntity(m_test);
+    // addEntity(m_test);
     addEntity(new Skybox());
 }
 

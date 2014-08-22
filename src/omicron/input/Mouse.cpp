@@ -4,14 +4,6 @@ namespace omi {
     
 namespace input {
 
-// mouse button types
-enum ButtonType {
-
-    LEFT,
-    MIDDLE,
-    RIGHT
-};
-
 namespace {
 
     // the current buffer
@@ -49,7 +41,7 @@ const util::vec::Vector2& getMousePos() {
     return mousePos[!currentBuffer];
 }
 
-bool mousePressed(ButtonType button) {
+bool mousePressed(MouseButton button) {
 
     return buttonStates[button];
 }
