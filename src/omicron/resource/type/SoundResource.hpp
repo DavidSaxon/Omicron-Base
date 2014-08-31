@@ -1,6 +1,7 @@
 #ifndef OMICRON_RESOURCE_TYPE_SOUNDRESOURCE_H_
 #   define OMICRON_RESOURCE_TYPE_SOUNDRESOURCE_H_
 
+#include "src/omicron/audio/SoundPool.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
 
 namespace omi {

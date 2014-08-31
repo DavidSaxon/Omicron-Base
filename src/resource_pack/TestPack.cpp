@@ -35,6 +35,14 @@ void buildTestPack() {
         "res/gfx/geometry/test/torus.obj",
         1
     );
+
+
+    //----------------------------------SOUNDS----------------------------------
+
+    omi::ResourceManager::addSound(
+        "test_sound_1", resource_group::TEST,
+        "res/sound/fx/test/test_sound_2.ogg", 3
+    );
 }
 
 } // namespace pack

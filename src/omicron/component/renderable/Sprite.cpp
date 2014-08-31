@@ -76,6 +76,7 @@ void Sprite::render() {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+    // TODO: use VBOS
     // draw the sprite
     glBegin(GL_TRIANGLES);
 

@@ -30,8 +30,8 @@ void SoundResource::load() {
 
     if (!m_loaded) {
 
-        // TODO:
         // add to the sound pool and get the id back
+        m_id = SoundPool::load(m_filePath, m_instances);
         m_loaded = true;
     }
 }
@@ -40,8 +40,8 @@ void SoundResource::release() {
 
     if (m_loaded) {
 
-        // TODO:
         // remove from the sound pool
+        SoundPool::release(m_id);
         m_loaded = false;
     }
 }

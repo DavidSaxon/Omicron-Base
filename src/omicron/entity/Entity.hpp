@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "src/omicron/Omicron.hpp"
+#include "src/omicron/audio/SoundPool.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/entity/ComponentTable.hpp"
 #include "src/omicron/resource/ResourceManager.hpp"

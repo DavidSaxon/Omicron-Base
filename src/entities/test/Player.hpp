@@ -41,6 +41,10 @@ private:
     // the transform of the camera
     omi::Transform* m_camT;
 
+    // sounds
+    unsigned m_sound_1;
+    unsigned m_sound_2;
+
     // is true if the shoot button is down
     bool m_shootButton;
 };

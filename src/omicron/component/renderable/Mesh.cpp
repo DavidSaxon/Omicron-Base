@@ -69,6 +69,7 @@ void Mesh::render() {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+    //TODO: use VBOS
     // geometry
     glBegin(GL_TRIANGLES);
     for (unsigned i = 0; i < m_geometry->vertices.size(); ++i) {

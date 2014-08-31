@@ -4,6 +4,7 @@ project(TestRun)
 set(SRCS
 
     src/omicron/Omicron.cpp
+    src/omicron/audio/SoundPool.cpp
     src/omicron/component/Camera.cpp
     src/omicron/component/renderable/Mesh.cpp
     src/omicron/component/renderable/Sprite.cpp
@@ -27,11 +28,14 @@ set(SRCS
     src/omicron/resource/type/MeshResource.cpp
     src/omicron/resource/type/ShaderResource.cpp
     src/omicron/resource/type/SpriteResource.cpp
+    src/omicron/resource/type/SoundResource.cpp
     src/omicron/resource/type/TextureResource.cpp
     src/omicron/resource/ResourceManager.cpp
     src/omicron/scene/Scene.cpp
+    src/omicron/settings/AudioSettings.cpp
     src/omicron/settings/DisplaySettings.cpp
     src/omicron/settings/RenderSettings.cpp
+    src/omicron/settings/SystemSettings.cpp
     src/omicron/system/System.cpp
     src/override/StartUp.cpp
 

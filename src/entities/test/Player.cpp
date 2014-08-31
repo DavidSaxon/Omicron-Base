@@ -38,6 +38,9 @@ void Player::init() {
     m_components.add(m_camT);
     m_components.add(
         new omi::Camera("", omi::cam::PERSPECTIVE, m_camT));
+
+    // get sounds
+    m_sound_1 = omi::ResourceManager::getSound("test_sound_1");
 }
 
 void Player::update() {
@@ -48,6 +51,7 @@ void Player::update() {
         if (!m_shootButton) {
 
             addEntity(new TestEntity());
+            omi::SoundPool::play(m_sound_1, false, 1.0f);
             m_shootButton = true;
         }
     }

@@ -40,6 +40,16 @@ bool RenderSettings::getBackFaceCulling() const {
     return m_backFaceCulling;
 }
 
+float RenderSettings::getAmbientStrength() const {
+
+    return m_ambientStrength;
+}
+
+const util::vec::Vector4& RenderSettings::getAmbientColour() const {
+
+    return m_ambientColour;
+}
+
 void RenderSettings::setBackFaceCulling(bool backFaceCulling) {
 
     m_change = true;
@@ -55,6 +65,18 @@ void RenderSettings::setClearColour(const util::vec::Vector4& clearColour) {
 
     m_change = true;
     m_clearColour = clearColour;
+}
+
+void RenderSettings::setAmbientStrength(float strength) {
+
+    m_change = true;
+    m_ambientStrength = strength;
+}
+
+void RenderSettings::setAmbientColour(const util::vec::Vector4& colour) {
+
+    m_change = true;
+    m_ambientColour = colour;
 }
 
 //------------------------------------------------------------------------------

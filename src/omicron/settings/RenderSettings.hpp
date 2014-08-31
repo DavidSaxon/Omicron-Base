@@ -44,6 +44,8 @@ public:
     Checks if a change has been made to the settings */
     bool check();
 
+    //---------------------------------GETTERS----------------------------------
+
     /** @return if depth testing is enabled */
     bool getDepthTest() const;
 
@@ -53,6 +55,14 @@ public:
     /** @return if back face culling is enabled */
     bool getBackFaceCulling() const;
 
+    /** @return the strength of the ambient light */
+    float getAmbientStrength() const;
+
+    /** @return the colour of the ambient light */
+    const util::vec::Vector4& getAmbientColour() const;
+
+    //---------------------------------SETTERS----------------------------------
+
     /** @param backFaceCulling whether back face culling should be enabled */
     void setBackFaceCulling(bool backFaceCulling);
 
@@ -61,6 +71,12 @@ public:
 
     /** @param clearColour the new clear colour */
     void setClearColour(const util::vec::Vector4& clearColour);
+
+    /** @param strength the new strength of ambient light */
+    void setAmbientStrength(float strength);
+
+    /** @param colour the new colour of ambient light */
+    void setAmbientColour(const util::vec::Vector4& colour);
 
 private:
 
@@ -77,6 +93,11 @@ private:
     bool m_backFaceCulling;
     // the clear colour
     util::vec::Vector4 m_clearColour;
+
+    // the strength of ambient light
+    float m_ambientStrength;
+    // the colour of ambient light
+    util::vec::Vector4 m_ambientColour;
 };
 
 } // namespace omi

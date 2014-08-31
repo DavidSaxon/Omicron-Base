@@ -163,6 +163,24 @@ Sprite* ResourceManager::getSprite(const std::string& id,
             m_resources[SPRITE][id].get())->get(componentId, transform);
 }
 
+unsigned ResourceManager::getSound(const std::string& id) {
+
+    // create the sound group if we need to
+    createGroup(SOUND);
+
+    // check if the sound is in the map
+    if (m_resources[SOUND].find(id) == m_resources[SOUND].end()) {
+
+        std::cout << "unable to find sound in resource manager" << std::endl;
+
+        // TODO: throw an exception
+    }
+
+    // cast and return id
+    return dynamic_cast<SoundResource*>(
+            m_resources[SOUND][id].get())->get();
+}
+
 //--------------------------------ADD FUNCTIONS---------------------------------
 
 
@@ -555,6 +573,28 @@ void ResourceManager::addTextureMaterialSprite(
     addMaterial(id, resourceGroup, shader, colour, id);
     // sprite
     addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+}
+
+void ResourceManager::addSound(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  filePath,
+              unsigned                      instances) {
+
+    // create the sound group if we need to
+    createGroup(SOUND);
+
+    // insert in to the map
+    m_resources[SOUND].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr(new SoundResource(
+                resourceGroup,
+                filePath,
+                instances
+            ))
+        )
+    );
 }
 
 //------------------------------------------------------------------------------

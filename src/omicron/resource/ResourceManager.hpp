@@ -13,6 +13,7 @@
 #include "src/omicron/resource/type/MeshResource.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
 #include "src/omicron/resource/type/ShaderResource.hpp"
+#include "src/omicron/resource/type/SoundResource.hpp"
 #include "src/omicron/resource/type/SpriteResource.hpp"
 #include "src/omicron/resource/type/TextureResource.hpp"
 #include "src/override/ResourceGroups.hpp"
@@ -37,7 +38,7 @@ private:
     //                                RESTRICTIONS
     //--------------------------------------------------------------------------
 
-    //DISALLOW_CONSTRUCTION(ResourceManager);
+    DISALLOW_CONSTRUCTION(ResourceManager);
 
     //--------------------------------------------------------------------------
     //                                ENUMERATORS
@@ -51,7 +52,8 @@ private:
         MATERIAL,
         GEOMETRY,
         MESH,
-        SPRITE
+        SPRITE,
+        SOUND
     };
 
 public:
@@ -112,6 +114,10 @@ public:
                              const std::string& componentId,
                                    Transform*   transform);
 
+    /** Gets the id of the sound with the given identifier if it exists
+    @param id the identifier of the sound */
+    static unsigned getSound(const std::string& id);
+
     //------------------------------ADD FUNCTIONS-------------------------------
 
 
@@ -139,7 +145,7 @@ public:
     /** Adds an animated texture to the resource map
     @param id the identifier of the texture resource
     @param resourceGroup the resource group of the texture
-    @param filePath the path to the image file to use for the texture 
+    @param filePath the path to the image file to use for the texture
     @param frameRate the playback speed of the animation
     @param repeat if the animation should repeat
     @param begin the beginning frame if the animation
@@ -452,6 +458,17 @@ public:
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
         const util::vec::Vector2&           texOffset);
+
+    /** Adds a sound to the resource map
+    @param id the identifier of the resource
+    @param resourceGroup the resource group of the sound
+    @param filePath the location of the sound
+    @param instances the number of instances of sound to create */
+    static void addSound(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  filePath,
+              unsigned                      instances);
 
 private:
 
