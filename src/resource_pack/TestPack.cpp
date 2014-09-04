@@ -16,7 +16,7 @@ void buildTestPack() {
     );
     omi::ResourceManager::addTextureMaterialGeometryMesh(
         "test_floor_1", resource_group::TEST,
-        "test_shader",
+        "default_shader",
         "res/gfx/texture/test/floor_1.png",
         "res/gfx/geometry/test/floor_1.obj",
         1

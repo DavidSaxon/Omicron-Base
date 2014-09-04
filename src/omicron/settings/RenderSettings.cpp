@@ -45,7 +45,7 @@ float RenderSettings::getAmbientStrength() const {
     return m_ambientStrength;
 }
 
-const util::vec::Vector4& RenderSettings::getAmbientColour() const {
+const util::vec::Vector3& RenderSettings::getAmbientColour() const {
 
     return m_ambientColour;
 }
@@ -73,7 +73,7 @@ void RenderSettings::setAmbientStrength(float strength) {
     m_ambientStrength = strength;
 }
 
-void RenderSettings::setAmbientColour(const util::vec::Vector4& colour) {
+void RenderSettings::setAmbientColour(const util::vec::Vector3& colour) {
 
     m_change = true;
     m_ambientColour = colour;

@@ -24,10 +24,13 @@ void TestScene::init() {
     omi::systemSettings.setCursorLocked(true);
     omi::systemSettings.setCursorLockPosition(omi::displaySettings.getCentre());
 
+    omi::renderSettings.setAmbientStrength(0.3f);
+    omi::renderSettings.setAmbientColour(util::vec::Vector3(0.3f, 0.3f, 1.0f));
+
     // add entities
     addEntity(new Player());
     addEntity(new Skybox());
-    addEntity(new Monkey());
+    // addEntity(new Monkey());
 }
 
 bool TestScene::update() {

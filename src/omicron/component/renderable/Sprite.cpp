@@ -49,32 +49,8 @@ void Sprite::render() {
     // apply the transform to the matrices
     applyTransformations();
 
-    // the OpenGL program
-    GLuint program = m_material.shader.getProgram();
-
-    // use the shader
-    glUseProgram(program);
-
-    // pass in colour to the shader
-    glUniform4f(
-        glGetUniformLocation(program, "u_colour"),
-        m_material.colour.r,
-        m_material.colour.g,
-        m_material.colour.b,
-        m_material.colour.a
-    );
-
-    // texture
-    if (m_material.texture != NULL) {
-
-        glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 1);
-        glBindTexture(GL_TEXTURE_2D, m_material.texture->getId());
-    }
-    else {
-
-        glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 0);
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
+    // set the shader
+    setShader();
 
     // TODO: use VBOS
     // draw the sprite
@@ -106,9 +82,7 @@ void Sprite::render() {
 
     glEnd();
 
-    //clean up
-    glUseProgram(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    unsetShader();
 
     glPopMatrix();
 }

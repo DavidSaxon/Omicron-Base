@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
+#include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/component/Transform.hpp"
 #include "src/omicron/rendering/shading/Material.hpp"
@@ -129,6 +130,59 @@ protected:
         glScalef(scale.x, scale.y, scale.z);
     }
 
+    /** Sets up the shader for rendering and passes in all data */
+    void setShader() {
+
+        // get the OpenGL program
+        GLuint program = m_material.shader.getProgram();
+        // use the shader
+        glUseProgram(program);
+
+        // pass in colour to the shader
+        glUniform4f(
+            glGetUniformLocation(program, "u_colour"),
+            m_material.colour.r,
+            m_material.colour.g,
+            m_material.colour.b,
+            m_material.colour.a
+        );
+
+        // texture
+        if (m_material.texture != NULL) {
+
+            glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 1);
+            glBindTexture(GL_TEXTURE_2D, m_material.texture->getId());
+        }
+        else {
+
+            glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 0);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
+        // pass in ambient light
+        util::vec::Vector3 ambientLight =
+            renderSettings.getAmbientColour() * renderSettings.getAmbientStrength();
+        glUniform3f(
+            glGetUniformLocation(program, "u_ambientLight"),
+            ambientLight.r, ambientLight.g, ambientLight.b
+        );
+
+        // pass in directional lights
+        // TODO:
+
+        // pass in point lights
+        // TODO:
+
+        // pass in spot lights
+        // TODO:
+    }
+
+    /** Cleans up the shader */
+    void unsetShader() {
+
+        glUseProgram(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
 };
 
 } // namespace omi

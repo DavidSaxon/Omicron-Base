@@ -59,7 +59,7 @@ public:
     float getAmbientStrength() const;
 
     /** @return the colour of the ambient light */
-    const util::vec::Vector4& getAmbientColour() const;
+    const util::vec::Vector3& getAmbientColour() const;
 
     //---------------------------------SETTERS----------------------------------
 
@@ -76,7 +76,7 @@ public:
     void setAmbientStrength(float strength);
 
     /** @param colour the new colour of ambient light */
-    void setAmbientColour(const util::vec::Vector4& colour);
+    void setAmbientColour(const util::vec::Vector3& colour);
 
 private:
 
@@ -97,7 +97,7 @@ private:
     // the strength of ambient light
     float m_ambientStrength;
     // the colour of ambient light
-    util::vec::Vector4 m_ambientColour;
+    util::vec::Vector3 m_ambientColour;
 };
 
 } // namespace omi
