@@ -1,8 +1,6 @@
 #ifndef OMICRON_SCENES_STARTUPSCENE_H_
 #   define OMICRON_SCENES_STARTUPSCENE_H_
 
-#include <SFML/Audio.hpp>
-
 #include "src/omicron/scene/Scene.hpp"
 
 #include "src/scenes/TestScene.hpp"
@@ -36,9 +34,6 @@ private:
 
     // the omicron cinematic
     OmicronLogo* m_omicronLogo;
-
-    // TESTING
-    sf::Music m_music;
 };
 
 #endif

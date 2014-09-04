@@ -4,20 +4,6 @@ namespace pack {
 
 void buildTestPack() {
 
-    //---------------------------------SPRITES----------------------------------
-
-
-    // omi::ResourceManager::addTextureMaterialSprite(
-    //     "test_explosion_1", resource_group::TEST,
-    //     "test_shader", util::vec::Vector4(0, 0, 1, 1),
-    //     "res/gfx/texture/test/explosion_1/explosion.png",
-    //     55, true, 1, 12, 2,
-    //     util::vec::Vector2(4.0f, 4.0f),
-    //     util::vec::Vector2(1.0f, 1.0f),
-    //     util::vec::Vector2(0.0f, 0.0f)
-    // );
-
-
     //----------------------------------MESHES----------------------------------
 
 
@@ -28,14 +14,20 @@ void buildTestPack() {
         "res/gfx/geometry/test/skybox.obj",
         0
     );
-    omi::ResourceManager::addMaterialGeometryMesh(
-        "test_torus", resource_group::TEST,
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_floor_1", resource_group::TEST,
         "test_shader",
-        util::vec::Vector4(1.0f, 0.0f, 0.0f, 1.0f),
-        "res/gfx/geometry/test/torus.obj",
+        "res/gfx/texture/test/floor_1.png",
+        "res/gfx/geometry/test/floor_1.obj",
         1
     );
-
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "test_monkey", resource_group::TEST,
+        "test_shader",
+        util::vec::Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/geometry/test/monkey.obj",
+        2
+    );
 
     //----------------------------------SOUNDS----------------------------------
 

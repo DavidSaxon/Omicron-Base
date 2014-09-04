@@ -25,6 +25,10 @@ void OmicronLogo::init() {
 
     // create the components
     initComponents();
+
+    // play sound
+    omi::SoundPool::play(
+        omi::ResourceManager::getSound("omicron_intro"), false, 1.0f);
 }
 
 void OmicronLogo::update() {
@@ -58,7 +62,7 @@ void OmicronLogo::update() {
                 m_textTopT->translation.x = 0.0f;
                 m_stage = FLARE_EXPAND;
                 m_camShake = 1.0f;
-            } 
+            }
             break;
         }
         case FLARE_EXPAND: {

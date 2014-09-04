@@ -1,17 +1,16 @@
-#include "Skybox.hpp"
+#include "Monkey.hpp"
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Skybox::init() {
+void Monkey::init() {
 
     // add meshes
     m_components.add(
-        omi::ResourceManager::getMesh("test_skybox", "", NULL));
-    m_components.add(
-        omi::ResourceManager::getMesh("test_floor_1", "", NULL));
+        omi::ResourceManager::getMesh("test_monkey", "", NULL));
 }
 
-void Skybox::update() {
+void Monkey::update() {
 }
+

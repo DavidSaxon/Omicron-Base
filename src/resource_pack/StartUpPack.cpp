@@ -60,6 +60,13 @@ void buildStartUpPack() {
         util::vec::Vector2(1, 1),
         util::vec::Vector2(0, 0)
     );
+
+    //----------------------------------SOUNDS----------------------------------
+
+    omi::ResourceManager::addSound(
+        "omicron_intro", resource_group::START_UP,
+        "res/sound/fx/start_up/omicron_intro.ogg", 1
+    );
 }
 
 

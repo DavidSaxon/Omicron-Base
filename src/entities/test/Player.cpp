@@ -50,7 +50,6 @@ void Player::update() {
 
         if (!m_shootButton) {
 
-            addEntity(new TestEntity());
             omi::SoundPool::play(m_sound_1, false, 1.0f);
             m_shootButton = true;
         }

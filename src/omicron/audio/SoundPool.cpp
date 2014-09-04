@@ -36,7 +36,11 @@ void SoundPool::release(unsigned id) {
 
 unsigned SoundPool::play(unsigned id, bool loop, float volume) {
 
-    // TODO: check audio settings if sounds have been disabled
+    // don't play if sounds are disabled
+    if (audioSettings.isSoundDisabled()) {
+
+        return -1;
+    }
 
     return m_pool[id].playNext(loop, volume);
 }

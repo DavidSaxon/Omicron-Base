@@ -4,8 +4,7 @@
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-TestScene::TestScene() :
-    m_test(new TestEntity()) {
+TestScene::TestScene() {
 }
 
 //------------------------------------------------------------------------------
@@ -27,8 +26,8 @@ void TestScene::init() {
 
     // add entities
     addEntity(new Player());
-    // addEntity(m_test);
     addEntity(new Skybox());
+    addEntity(new Monkey());
 }
 
 bool TestScene::update() {
