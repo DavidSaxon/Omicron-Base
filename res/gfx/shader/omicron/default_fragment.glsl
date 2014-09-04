@@ -42,12 +42,21 @@ void main() {
     //---------------------------------LIGHTING---------------------------------
 
     // apply ambient light
-    vec4 light = vec4(u_ambientLight, 1.0);
+    vec3 light = u_ambientLight;
 
     // apply point lights
-    
+    // TODO: vec3(0.0) = light pos
+    vec3 L = normalize(vec3(0.0, -1.0, 0.0) - v_vertex);
+    vec3 E = normalize(-v_vertex);
+    vec3 R = normalize(-reflect(L, v_normal));
+
+    // TODO: vec3(1.0) = diffuse
+    vec3 diffuse = vec3(1.5) * max(dot(v_normal, L), 0.0);
+
+    // TODO:
+    light += diffuse;
 
     //----------------------------------OUTPUT----------------------------------
 
-    gl_FragColor = material * light;
+    gl_FragColor = material * vec4(light, 1.0);
 }

@@ -30,7 +30,7 @@ void TestScene::init() {
     // add entities
     addEntity(new Player());
     addEntity(new Skybox());
-    // addEntity(new Monkey());
+    addEntity(new Monkey());
 }
 
 bool TestScene::update() {

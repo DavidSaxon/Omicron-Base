@@ -23,7 +23,7 @@ void buildTestPack() {
     );
     omi::ResourceManager::addMaterialGeometryMesh(
         "test_monkey", resource_group::TEST,
-        "test_shader",
+        "default_shader",
         util::vec::Vector4(1.0f, 0.0f, 0.0f, 1.0f),
         "res/gfx/geometry/test/monkey.obj",
         2
