@@ -4,6 +4,7 @@ project(TestRun)
 set(SRCS
 
     src/omicron/Omicron.cpp
+    src/omicron/audio/MusicPlayer.cpp
     src/omicron/audio/SoundPool.cpp
     src/omicron/component/Camera.cpp
     src/omicron/component/renderable/Mesh.cpp
@@ -47,10 +48,10 @@ set(SRCS
     src/scenes/TestScene.cpp
 
     src/entities/start_up/OmicronLogo.cpp
-    src/entities/test/BoxTrail.cpp
+    src/entities/test/Human.cpp
+    src/entities/test/Monkey.cpp
     src/entities/test/Player.cpp
     src/entities/test/Skybox.cpp
-    src/entities/test/TestEntity.cpp
 )
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")

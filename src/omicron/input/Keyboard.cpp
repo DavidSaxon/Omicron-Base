@@ -25,7 +25,7 @@ void keyPressed(unsigned char key, int x, int y) {
 void keyReleased(unsigned char key, int x, int y) {
 
     keyState[key] = false;
-}   
+}
 
 void specialPressed(int key, int x, int y) {
 
