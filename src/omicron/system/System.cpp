@@ -48,7 +48,7 @@ void sortComponents() {
         // sort the component based on its type
         switch ((*it)->getType()) {
 
-            case component::UPDATEABLE: {
+            case component::UPDATABLE: {
 
                 // TODO:
                 std::cout << "REMOVE UPDATEABLE" << std::endl;
@@ -82,7 +82,7 @@ void sortComponents() {
         // sort the component based on its type
         switch ((*it)->getType()) {
 
-            case component::UPDATEABLE: {
+            case component::UPDATABLE: {
 
                 // TODO:
                 std::cout << "UPDATEABLE" << std::endl;

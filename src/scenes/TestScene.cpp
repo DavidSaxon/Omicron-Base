@@ -30,10 +30,10 @@ void TestScene::init() {
     // create music
     m_musicStart = std::unique_ptr<omi::MusicPlayer>(
         new omi::MusicPlayer("res/sound/music/test/test_music_start.ogg", true));
-    m_musicStart->setVolume(0.2f);
+    m_musicStart->setVolume(1.0f);
     m_musicMain = std::unique_ptr<omi::MusicPlayer>(
         new omi::MusicPlayer("res/sound/music/test/test_music_main.ogg", true));
-    m_musicMain->setVolume(0.2f);
+    m_musicMain->setVolume(1.0f);
     m_musicMain->setLoop(true);
 
     // add entities
