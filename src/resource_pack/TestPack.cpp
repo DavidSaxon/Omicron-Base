@@ -28,6 +28,13 @@ void buildTestPack() {
         "res/gfx/geometry/test/monkey.obj",
         2
     );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_human", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/human.png",
+        "res/gfx/geometry/test/human.obj",
+        2
+    );
 
     //----------------------------------SOUNDS----------------------------------
 

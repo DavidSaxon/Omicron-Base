@@ -22,6 +22,10 @@ enum Mode {
 
 } // namespace cam
 
+/***********************************************************************\
+| A camera used to render perspective from. Note that the most recently |
+| created camera will be the one that is used for rendering.            |
+\***********************************************************************/
 class Camera : public Component {
 public:
 

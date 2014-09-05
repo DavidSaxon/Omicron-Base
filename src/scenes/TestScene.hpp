@@ -1,9 +1,12 @@
 #ifndef OMICRON_SCENES_TESTSCENE_H_
 #   define OMICRON_SCENES_TESTSCENE_H_
 
+#include <memory>
+
+#include "src/omicron/audio/MusicPlayer.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
-#include "src/entities/test/Monkey.hpp"
+#include "src/entities/test/Human.hpp"
 #include "src/entities/test/Player.hpp"
 #include "src/entities/test/Skybox.hpp"
 
@@ -45,7 +48,8 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    omi::Entity* m_test;
+    std::unique_ptr<omi::MusicPlayer> m_musicStart;
+    std::unique_ptr<omi::MusicPlayer> m_musicMain;
 };
 
 #endif
