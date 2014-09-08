@@ -14,6 +14,7 @@
 #include "src/omicron/component/Transform.hpp"
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"
+#include "src/omicron/component/updatable/audio/Music.hpp"
 
 namespace omi {
 

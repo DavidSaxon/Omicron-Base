@@ -39,11 +39,32 @@ void Player::init() {
     m_components.add(
         new omi::Camera("", omi::cam::PERSPECTIVE, m_camT));
 
+    // create music
+    m_musicStart = new omi::Music(
+        "", "res/sound/music/test/test_music_start.ogg",
+        1.0f, false
+    );
+    m_components.add(m_musicStart);
+    m_musicMain = new omi::Music(
+        "", "res/sound/music/test/test_music_main.ogg",
+        1.0f, true
+    );
+    m_components.add(m_musicMain);
+
     // get sounds
     m_sound_1 = omi::ResourceManager::getSound("test_sound_1");
+
+    // start playing music
+    m_musicStart->play();
 }
 
 void Player::update() {
+
+    // transition music
+    if (m_musicStart->isStopped() && m_musicMain->isStopped()) {
+
+        m_musicMain->play();
+    }
 
     // shoot
     if (omi::input::mousePressed(omi::input::LEFT)) {

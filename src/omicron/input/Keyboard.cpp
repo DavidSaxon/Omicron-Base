@@ -29,6 +29,8 @@ void keyReleased(unsigned char key, int x, int y) {
 
 void specialPressed(int key, int x, int y) {
 
+    std::cout << "SPECIAL" << std::endl;
+
     specialState[key] = true;
 }
 

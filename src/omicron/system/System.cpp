@@ -50,8 +50,8 @@ void sortComponents() {
 
             case component::UPDATABLE: {
 
-                // TODO:
-                std::cout << "REMOVE UPDATEABLE" << std::endl;
+                // pass to logic manager
+                logicManager->addUpdatable(dynamic_cast<Updatable*>(*it));
                 break;
             }
             case component::RENDERABLE: {
@@ -84,8 +84,8 @@ void sortComponents() {
 
             case component::UPDATABLE: {
 
-                // TODO:
-                std::cout << "UPDATEABLE" << std::endl;
+                // pass to logic manager
+                logicManager->addUpdatable(dynamic_cast<Updatable*>(*it));
                 break;
             }
             case component::RENDERABLE: {

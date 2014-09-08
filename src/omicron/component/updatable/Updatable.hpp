@@ -38,7 +38,8 @@ public:
         return component::UPDATABLE;
     }
 
-    /** Updates this component */
+    /** #Hidden
+    Updates this component */
     virtual void update() = 0;
 };
 

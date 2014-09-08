@@ -49,7 +49,16 @@ bool LogicManager::execute() {
         }
         m_sceneInit = true;
         return true;
+    } else {
+
+        // update components
+        for (std::vector<Updatable*>::iterator it = m_components.begin();
+             it != m_components.end(); ++it) {
+
+            (*it)->update();
+        }
     }
+
 
     return false;
 }
@@ -62,6 +71,28 @@ std::set<Component*>& LogicManager::getNewComponents() {
 std::vector<Component*>& LogicManager::getRemoveComponents() {
 
     return m_scene->removeComponents;
+}
+
+void LogicManager::addUpdatable(Updatable* updatable) {
+
+    m_components.push_back(updatable);
+}
+
+void LogicManager::removeUpdatable(Updatable* updatable) {
+
+    // search and remove updatable
+    for (std::vector<Updatable*>::iterator it = m_components.begin();
+         it != m_components.end(); ++it) {
+
+        if (*it == updatable) {
+
+            it = m_components.erase(it);
+        }
+        else {
+
+            ++it;
+        }
+    }
 }
 
 } // namespace omi

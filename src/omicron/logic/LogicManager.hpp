@@ -5,6 +5,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/component/updatable/Updatable.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
 namespace omi {
@@ -52,6 +53,12 @@ public:
     /** @return the components to be removed from the scene */
     std::vector<Component*>& getRemoveComponents();
 
+    /** @param updatable a new updatable component to manage */
+    void addUpdatable(Updatable* updatable);
+
+    /** @param updatable an updatable component to remove */
+    void removeUpdatable(Updatable* updatable);
+
 private:
 
     //--------------------------------------------------------------------------
@@ -62,6 +69,8 @@ private:
     bool m_sceneInit;
     // the current scene
     std::unique_ptr<Scene> m_scene;
+    // the components to update
+    std::vector<Updatable*> m_components;
 };
 
 } // namespace omi

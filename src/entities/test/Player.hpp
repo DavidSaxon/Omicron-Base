@@ -40,6 +40,10 @@ private:
     // the transform of the camera
     omi::Transform* m_camT;
 
+    // music
+    omi::Music* m_musicStart;
+    omi::Music* m_musicMain;
+
     // sounds
     unsigned m_sound_1;
     unsigned m_sound_2;
