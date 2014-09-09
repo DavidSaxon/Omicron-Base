@@ -2,7 +2,9 @@
 #   define OMICRON_DISPLAY_WINDOW_H_
 
 #include <GL/glew.h>
-#include <GL/glut.h>
+#include <memory>
+#include <SFML/OpenGL.hpp>
+#include <SFML/Window.hpp>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
@@ -49,14 +51,19 @@ public:
     settings. This is a back end class that should only be used by Omicron */
     void update();
 
+    /** @param visible whether the cursor is visible or not */
+    void setCursorVisble(bool visible);
+
 private:
 
     //--------------------------------------------------------------------------
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // the handle to the glut window
-    GLuint m_window;
+    // the window object
+    std::unique_ptr<sf::Window> m_window;
+    // whether the cursor should be visible or not
+    bool m_cursorVisble;
 };
 
 } // namespace omi

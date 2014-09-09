@@ -2,7 +2,7 @@
 #   define OMICRON_SETTINGS_RENDERSETTINGS_H_
 
 #include <GL/glew.h>
-#include <GL/glut.h>
+#include <SFML/OpenGL.hpp>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/Vector.hpp"

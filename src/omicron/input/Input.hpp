@@ -1,10 +1,7 @@
 #ifndef OMICRON_INPUT_INPUT_H_
 #   define OMICRON_INPUT_INPUT_H_
 
-#include <ctype.h>
-#include <GL/glew.h>
-#include <GL/glut.h>
-#include <stdio.h>
+#include <SFML/Window.hpp>
 
 #include "lib/Utilitron/Vector.hpp"
 
@@ -19,71 +16,23 @@ namespace input {
 //                                  ENUMERATORS
 //------------------------------------------------------------------------------
 
-// mouse button types
-enum MouseButton {
-
-    LEFT,
-    MIDDLE,
-    RIGHT
-};
-
 //------------------------------------------------------------------------------
 //                                   PROTOTYPES
 //------------------------------------------------------------------------------
 
-//------------------------------------MOUSE-------------------------------------
-
-/** #Hidden
-Is called when the mouse is moved */
-void mouseMove(int x, int y);
-
-/** #Hidden
-Is called when a mouse button is pressed */
-void mouseButton(int button, int state, int x, int y);
-
-/** #Hidden
-switch the mouse buffers */
-void switchMouseBuffers();
-
 /** @return the mouse position */
-const util::vec::Vector2& getMousePos();
+util::vec::Vector2 getMousePos();
 
+// TODO: make omi mouse buttons
 /** @return if the given mouse button is being pressed */
-bool mousePressed(MouseButton button);
+bool mousePressed(sf::Mouse::Button button);
 
-//-----------------------------------KEYBOARD-----------------------------------
-
-/** #Hidden
-Is called when a key is pressed */
-void keyPressed(unsigned char key, int x, int y);
-
-/** #Hidden
-Is called when a key is released */
-void keyReleased(unsigned char key, int x, int y);
-
-/** #Hidden
-Is called when a special key is pressed */
-void specialPressed(int key, int x, int y);
-
-/** #Hidden
-Is called when a special key is released */
-void specialReleased(int key, int x, int y);
-
+// TODO: make omicron key enum
 /** Check if the given is being pressed
 #NOTE: this does not take into consideration upper and lower case
-@param key the character of the key to check for
+@param key the key to check for
 @return if the key is being pressed*/
-bool isKeyPressed(unsigned char key);
-
-/** Check if a character is being prssed
-@param key the character to check for
-@return if the key is being pressed */
-bool isCharPressed(unsigned char key);
-
-/** Check if the given special key is pressed
-@param key the glut enum of the special key to check for
-@return if the key is being pressed */
-bool isSpecialPressed(int key);
+bool isKeyPressed(sf::Keyboard::Key key);
 
 } // namespace input
 

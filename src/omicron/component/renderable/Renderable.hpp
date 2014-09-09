@@ -2,7 +2,7 @@
 #   define OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 
 #include <GL/glew.h>
-#include <GL/glut.h>
+#include <SFML/OpenGL.hpp>
 
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"

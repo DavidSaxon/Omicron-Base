@@ -38,7 +38,7 @@ void Renderer::render() {
     m_renderLists->render(m_camera);
 
     // swap the buffers
-    glutSwapBuffers();
+    // TODO:?
 }
 
 void Renderer::clear() {

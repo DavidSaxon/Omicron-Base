@@ -7,12 +7,13 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 DisplaySettings::DisplaySettings() :
-    m_change(true),
-    m_title("Omicron"),
-    m_size(640, 480),
-    m_pos(0, 0),
-    m_centre(320, 240),
-    m_fullscreen(false) {
+    m_change    (true),
+    m_title     ("Omicron"),
+    m_size      (640, 480),
+    m_pos       (0, 0),
+    m_centre    (320, 240),
+    m_fullscreen(false),
+    m_vsync     (false) {
 }
 
 //------------------------------------------------------------------------------
@@ -32,6 +33,8 @@ bool DisplaySettings::check() {
     m_change = false;
     return temp;
 }
+
+//-----------------------------------GETTERS------------------------------------
 
 const std::string& DisplaySettings::getTitle() const {
 
@@ -58,6 +61,13 @@ bool DisplaySettings::getFullscreen() const {
     return m_fullscreen;
 }
 
+bool DisplaySettings::getVsync() const {
+
+    return m_vsync;
+}
+
+//-----------------------------------SETTERS------------------------------------
+
 void DisplaySettings::setTitle(const std::string& title) {
 
     m_title = title;
@@ -83,6 +93,11 @@ void DisplaySettings::setFullscreen(bool fullscreen) {
 
     m_fullscreen = fullscreen;
     m_change = true;
+}
+
+void DisplaySettings::setVsync(bool vsnyc) {
+
+    m_vsync = vsnyc;
 }
 
 } // namespace omi

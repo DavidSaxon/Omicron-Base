@@ -2,8 +2,8 @@
 #   define OMICRON_COMPONENT_CAMERA_H_
 
 #include <GL/glew.h>
-#include <GL/glut.h>
 #include <iostream>
+#include <SFML/OpenGL.hpp>
 
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"

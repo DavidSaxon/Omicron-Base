@@ -21,7 +21,7 @@ TestScene::~TestScene() {
 void TestScene::init() {
 
     // apply settings
-    // omi::systemSettings.setCursorLocked(true);
+    omi::systemSettings.setCursorLocked(true);
     omi::systemSettings.setCursorLockPosition(omi::displaySettings.getCentre());
 
     omi::renderSettings.setAmbientStrength(0.3f);
@@ -36,7 +36,7 @@ void TestScene::init() {
 bool TestScene::update() {
 
     // exit if the escape key has been pressed
-    if (omi::input::isKeyPressed(27)) {
+    if (omi::input::isKeyPressed(sf::Keyboard::Escape)) {
 
         return true;
     }

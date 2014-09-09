@@ -2,7 +2,7 @@
 #   define OMICRON_SETTINGS_DISPLAYSETTINGS_H_
 
 #include <GL/glew.h>
-#include <GL/glut.h>
+#include <SFML/OpenGL.hpp>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 #include "lib/Utilitron/Vector.hpp"
@@ -45,6 +45,8 @@ public:
     Checks if a change has been made to the settings */
     bool check();
 
+    //---------------------------------GETTERS----------------------------------
+
     /** @return the title of the window */
     const std::string& getTitle() const;
 
@@ -60,6 +62,11 @@ public:
     /** @return if the window is in fullscreen */
     bool getFullscreen() const;
 
+    /** @return if vsync is enabled */
+    bool getVsync() const;
+
+    //---------------------------------SETTERS----------------------------------
+
     /** @param title the new title of the window */
     void setTitle(const std::string& title);
 
@@ -71,6 +78,9 @@ public:
 
     /** @param fullscreen the new fullscreen mode of the window */
     void setFullscreen(bool fullscreen);
+
+    /** @param vsync whether vsnyc should be enabled or not */
+    void setVsync(bool vsnyc);
 
 private:
 
@@ -91,6 +101,8 @@ private:
     util::vec::Vector2 m_centre;
     // is true if the window is in fullscreen
     bool m_fullscreen;
+    // is true to enable vertical sync
+    bool m_vsync;
 };
 
 

@@ -2,7 +2,7 @@
 #   define OMICRON_RENDERING_SHADING_SHADER_H_
 
 #include <GL/glew.h>
-#include <GL/glut.h>
+#include <SFML/OpenGL.hpp>
 
 namespace omi {
 

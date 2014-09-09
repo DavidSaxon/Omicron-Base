@@ -113,9 +113,6 @@ void sortComponents() {
 engine */
 void execute() {
 
-    // update the window
-    window->update();
-
     // update logic
     if (logicManager->execute()) {
 
@@ -123,29 +120,19 @@ void execute() {
         renderer->clear();
     }
 
-    // switch the mouse buffers
-    input::switchMouseBuffers();
-
     // lock the mouse if enabled
     if (systemSettings.isCursorLocked()) {
 
-        glutWarpPointer(
+        sf::Mouse::setPosition(sf::Vector2i(
             systemSettings.getCursorLockedPos().x,
-            systemSettings.getCursorLockedPos().y);
+            systemSettings.getCursorLockedPos().y));
     }
 
     // other system settings
     if (systemSettings.check()) {
 
         // hide or show the mouse
-        if (systemSettings.isCursorHidden()) {
-
-            glutSetCursor(GLUT_CURSOR_NONE); 
-        }
-        else {
-
-            glutSetCursor(GLUT_CURSOR_LEFT_ARROW); 
-        }
+        window->setCursorVisble(!systemSettings.isCursorHidden());
     }
 
     // sort the new components that have added or removed this cycle
@@ -154,8 +141,8 @@ void execute() {
     // render
     renderer->render();
 
-    // request call back
-    glutPostRedisplay();
+    // update the window
+    window->update();
 }
 
 /** Sets up Omicron */
@@ -163,11 +150,6 @@ void init() {
 
     // seed random number generators
     srand(time(NULL));
-
-    // initialise glut
-    int ac = 1;
-    char* av[1] = {(char*) "Omicron"};
-    glutInit(&ac, av);
 
     // run the start up script and get the first scene from it
     Scene* initScene = start_up::init();
@@ -186,24 +168,6 @@ void init() {
 
     // create the logic manager
     logicManager = std::unique_ptr<LogicManager>(new LogicManager(initScene));
-
-    // set the input call backs
-    glutKeyboardFunc     (input::keyPressed);
-    glutKeyboardUpFunc   (input::keyReleased);
-    glutSpecialFunc      (input::specialPressed);
-    glutSpecialUpFunc    (input::specialReleased);
-    glutPassiveMotionFunc(input::mouseMove);
-    glutMouseFunc        (input::mouseButton);
-
-    // set the display call back function to system execution
-    glutDisplayFunc(execute);
-}
-
-/** Begins Omicron */
-void begin() {
-
-    // start the glut main loop
-    glutMainLoop();
 }
 
 } // namespace anonymous
@@ -222,7 +186,10 @@ int main(int argc, char** argv) {
     omi::init();
 
     // begin
-    omi::begin();
+    while (true) {
+
+        omi::execute();
+    }
 
     // will never be reached
     return 0;

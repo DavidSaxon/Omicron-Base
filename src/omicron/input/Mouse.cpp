@@ -4,46 +4,19 @@ namespace omi {
     
 namespace input {
 
-namespace {
-
-    // the current buffer
-    bool currentBuffer = 0;
-    // the mouse move buffer
-    util::vec::Vector2 mousePos[2];
-
-    //the button states
-    bool buttonStates[3];
-
-} // namespace anonymous
-
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
-void mouseMove(int x, int y) {
+util::vec::Vector2 getMousePos() {
 
-    mousePos[currentBuffer].x = x;
-    mousePos[currentBuffer].y = y;
+    sf::Vector2i pos = sf::Mouse::getPosition();
+    return util::vec::Vector2(pos.x, pos.y);
 }
 
-void mouseButton(int button, int state, int x, int y) {
+bool mousePressed(sf::Mouse::Button button) {
 
-    buttonStates[button] = !state;
-}
-
-void switchMouseBuffers() {
-
-    currentBuffer = !currentBuffer;
-}
-
-const util::vec::Vector2& getMousePos() {
-
-    return mousePos[!currentBuffer];
-}
-
-bool mousePressed(MouseButton button) {
-
-    return buttonStates[button];
+    return sf::Mouse::isButtonPressed(button);
 }
 
 } // namespace input

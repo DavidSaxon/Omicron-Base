@@ -2,8 +2,8 @@
 #   define OMICRON_RESOURCE_TYPE_RESOURCE_H_
 
 #include <GL/glew.h>
-#include <GL/glut.h>
 #include <iostream>
+#include <SFML/OpenGL.hpp>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
