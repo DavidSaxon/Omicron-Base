@@ -3,7 +3,6 @@
 
 #include <memory>
 
-#include "src/omicron/audio/MusicPlayer.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
 #include "src/entities/test/Human.hpp"
@@ -41,15 +40,6 @@ public:
 
     /** #Override */
     virtual omi::Scene* nextScene() const;
-
-private:
-
-    //--------------------------------------------------------------------------
-    //                                 VARIABLES
-    //--------------------------------------------------------------------------
-
-    std::unique_ptr<omi::MusicPlayer> m_musicStart;
-    std::unique_ptr<omi::MusicPlayer> m_musicMain;
 };
 
 #endif

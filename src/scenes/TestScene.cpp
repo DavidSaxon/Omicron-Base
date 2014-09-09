@@ -21,7 +21,7 @@ TestScene::~TestScene() {
 void TestScene::init() {
 
     // apply settings
-    omi::systemSettings.setCursorLocked(true);
+    // omi::systemSettings.setCursorLocked(true);
     omi::systemSettings.setCursorLockPosition(omi::displaySettings.getCentre());
 
     omi::renderSettings.setAmbientStrength(0.3f);

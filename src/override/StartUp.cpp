@@ -8,10 +8,10 @@ namespace start_up {
 omi::Scene* init() {
 
     // display settings
-    // omi::displaySettings.setSize(util::vec::Vector2(960, 540));
-    // omi::displaySettings.setPos(util::vec::Vector2(860, 440));
-    omi::displaySettings.setSize(util::vec::Vector2(1920, 1080));
-    omi::displaySettings.setPos(util::vec::Vector2(0, 0));
+    omi::displaySettings.setSize(util::vec::Vector2(960, 540));
+    omi::displaySettings.setPos(util::vec::Vector2(10, 10));
+    // omi::displaySettings.setSize(util::vec::Vector2(1920, 1080));
+    // omi::displaySettings.setPos(util::vec::Vector2(0, 0));
     omi::displaySettings.setTitle("Omicron Test");
 
     // render settings
@@ -22,7 +22,7 @@ omi::Scene* init() {
 
     //audio settings
     omi::audioSettings.setSoundDisabled(true);
-    omi::audioSettings.setMusicDisabled(false);
+    omi::audioSettings.setMusicDisabled(true);
     omi::audioSettings.setSoundVolume(1.0f);
     omi::audioSettings.setMusicVolume(1.0f);
 
