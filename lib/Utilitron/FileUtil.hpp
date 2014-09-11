@@ -27,7 +27,7 @@ inline std::string fileToString(
     if (in) {
 
         in.seekg(0, std::ios::end);
-        str.resize(in.tellg());
+        str.resize(static_cast<unsigned>(in.tellg()));
         in.seekg(0, std::ios::beg);
         in.read(&str[0], str.size());
         in.close();

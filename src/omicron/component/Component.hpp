@@ -13,10 +13,12 @@ namespace component {
 //! the different possible types of component
 enum Type {
 
-    SIMPLE,     // a component that requires no updating
-    UPDATABLE,  // a component that should be updated once per logic cycle
-    RENDERABLE, // a component that should be updated by the renderer
-    CAMERA      // a component that is used by the render for perspective
+    SIMPLE     = 1,   // a component that requires no updating
+    UPDATABLE  = 2,   // a component that should be updated once per logic cycle
+    RENDERABLE = 4,   // a component that should be updated by the renderer
+    CAMERA     = 8,   // a component that is used by the render for perspective
+    PHYSICS    = 16,  // a component used for physic
+    COLLISION  = 32,  // a component used for collision detection
 };
 
 } // namespace component

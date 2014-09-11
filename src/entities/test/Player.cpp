@@ -39,6 +39,12 @@ void Player::init() {
     m_components.add(
         new omi::Camera("", omi::cam::PERSPECTIVE, m_camT));
 
+    // create collision detector
+    m_collisionDetect = new omi::CollisionDetector(
+        "", "player", this);
+    m_collisionDetect->addBounding(new omi::BoundingCircle(2.0f, m_camT));
+    m_components.add(m_collisionDetect);
+
     // create music
     m_musicStart = new omi::Music(
         "", "res/sound/music/test/test_music_start.ogg",

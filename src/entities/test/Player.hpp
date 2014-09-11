@@ -40,6 +40,9 @@ private:
     // the transform of the camera
     omi::Transform* m_camT;
 
+    // the collision detector
+    omi::CollisionDetector* m_collisionDetect;
+
     // music
     omi::Music* m_musicStart;
     omi::Music* m_musicMain;

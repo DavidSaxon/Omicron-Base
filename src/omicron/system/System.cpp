@@ -12,6 +12,7 @@
 #include "src/omicron/display/Window.hpp"
 #include "src/omicron/input/Input.hpp"
 #include "src/omicron/logic/LogicManager.hpp"
+#include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
 #include "src/omicron/rendering/Renderer.hpp"
 #include "src/omicron/scene/Scene.hpp"
 #include "src/override/StartUp.hpp"
@@ -46,31 +47,29 @@ void sortComponents() {
         it != logicManager->getRemoveComponents().end(); ++it) {
 
         // sort the component based on its type
-        switch ((*it)->getType()) {
+        if ((*it)->getType() & component::UPDATABLE) {
 
-            case component::UPDATABLE: {
+            // pass to logic manager
+            logicManager->removeUpdatable(dynamic_cast<Updatable*>(*it));
+        }
+        else if ((*it)->getType() & component::RENDERABLE) {
 
-                // pass to logic manager
-                logicManager->addUpdatable(dynamic_cast<Updatable*>(*it));
-                break;
-            }
-            case component::RENDERABLE: {
-
-                // pass on to the renderer
-                renderer->removeRenderable(dynamic_cast<Renderable*>(*it));
-                break;
-            }
-            case component::CAMERA: {
+            // pass on to the renderer
+            renderer->removeRenderable(dynamic_cast<Renderable*>(*it));
+        }
+        else if ((*it)->getType() & component::CAMERA) {
 
                 // pass on to the renderer
                 renderer->removeCamera(dynamic_cast<Camera*>(*it));
-                break;
-            }
-            default: {
+        }
+        else if ((*it)->getType() & component::PHYSICS) {
 
-                // do nothing with simple components
-                break;
-            }
+            // TODO:
+        }
+        else if ((*it)->getType() & component::COLLISION) {
+
+            CollisionDetect::removeDetector(
+                dynamic_cast<CollisionDetector*>(*it));
         }
     }
 
@@ -80,31 +79,29 @@ void sortComponents() {
         it != logicManager->getNewComponents().end(); ++it) {
 
         // sort the component based on its type
-        switch ((*it)->getType()) {
+        if ((*it)->getType() & component::UPDATABLE) {
 
-            case component::UPDATABLE: {
+            // pass to logic manager
+            logicManager->addUpdatable(dynamic_cast<Updatable*>(*it));
+        }
+        else if ((*it)->getType() & component::RENDERABLE) {
 
-                // pass to logic manager
-                logicManager->addUpdatable(dynamic_cast<Updatable*>(*it));
-                break;
-            }
-            case component::RENDERABLE: {
-
-                // pass on to the renderer
-                renderer->addRenderable(dynamic_cast<Renderable*>(*it));
-                break;
-            }
-            case component::CAMERA: {
+            // pass on to the renderer
+            renderer->addRenderable(dynamic_cast<Renderable*>(*it));
+        }
+        else if ((*it)->getType() & component::CAMERA) {
 
                 // pass on to the renderer
                 renderer->setCamera(dynamic_cast<Camera*>(*it));
-                break;
-            }
-            default: {
+        }
+        else if ((*it)->getType() & component::PHYSICS) {
 
-                // do nothing with simple components
-                break;
-            }
+            // TODO:
+        }
+        else if ((*it)->getType() & component::COLLISION) {
+
+            CollisionDetect::addDetector(
+                dynamic_cast<CollisionDetector*>(*it));
         }
     }
 }
@@ -124,8 +121,8 @@ void execute() {
     if (systemSettings.isCursorLocked()) {
 
         sf::Mouse::setPosition(sf::Vector2i(
-            systemSettings.getCursorLockedPos().x,
-            systemSettings.getCursorLockedPos().y));
+            static_cast<int>(systemSettings.getCursorLockedPos().x),
+            static_cast<int>(systemSettings.getCursorLockedPos().y)));
     }
 
     // other system settings
@@ -149,7 +146,7 @@ void execute() {
 void init() {
 
     // seed random number generators
-    srand(time(NULL));
+    srand(static_cast<unsigned>(time(NULL)));
 
     // run the start up script and get the first scene from it
     Scene* initScene = start_up::init();

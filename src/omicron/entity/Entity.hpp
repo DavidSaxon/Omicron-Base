@@ -12,9 +12,13 @@
 // here we are including all known components so the user doesn't have to
 #include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/Transform.hpp"
+#include "src/omicron/component/physics/CollisionDetector.hpp"
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"
 #include "src/omicron/component/updatable/audio/Music.hpp"
+
+// some other useful things
+#include "src/omicron/physics/bounding/BoundingCircle.hpp"
 
 namespace omi {
 

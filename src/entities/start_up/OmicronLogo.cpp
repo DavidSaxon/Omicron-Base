@@ -118,10 +118,10 @@ void OmicronLogo::update() {
     if (m_camShake > 0.0f) {
 
         // shift the cam
-        m_camT->translation.x =
-            ((((rand() % 1000) / 1000.0f) * 0.025) - 0.0125) * m_camShake;
-        m_camT->translation.y =
-            ((((rand() % 1000) / 1000.0f) * 0.05) - 0.025) * m_camShake;
+        m_camT->translation.x = static_cast<float>(
+            ((((rand() % 1000) / 1000.0f) * 0.025) - 0.0125) * m_camShake);
+        m_camT->translation.y = static_cast<float>(
+            ((((rand() % 1000) / 1000.0f) * 0.05) - 0.025) * m_camShake);
         // decrease shake
         m_camShake -= CAM_DESHAKE * omi::fpsManager.getTimeScale();
     }
