@@ -37,6 +37,15 @@ void PlayerShip::update() {
 
     // process input
     processInput();
+
+    if (m_collisionDetect->getCollisionData().size() > 0) {
+
+        std::cout << "yes!" << std::endl;
+    }
+    else {
+
+        std::cout << "no!" << std::endl;
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -92,4 +101,9 @@ void PlayerShip::initComponents() {
     m_components.add(m_shipT);
     m_components.add(omi::ResourceManager::getSprite(
         "block_steel", "", m_shipT));
+    //---------------------------COLLISION DETECTION----------------------------
+    m_collisionDetect = new omi::CollisionDetector(
+        "", "block", this);
+    m_collisionDetect->addBounding(new omi::BoundingCircle(0.5f, m_shipT));
+    m_components.add(m_collisionDetect);
 }

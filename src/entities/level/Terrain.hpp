@@ -25,15 +25,9 @@ private:
     //--------------------------------------------------------------------------
 
     // the positions of the sprites
-    omi::Transform* m_pos_1;
-    omi::Transform* m_pos_2;
-    omi::Transform* m_pos_3;
     std::vector<omi::Transform*> m_transforms;
 
     // the sprites
-    omi::Sprite* m_sprite_1;
-    omi::Sprite* m_sprite_2;
-    omi::Sprite* m_sprite_3;
     std::vector<omi::Sprite*> m_sprites;
 };
 

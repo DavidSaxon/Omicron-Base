@@ -62,9 +62,22 @@ private:
     //--------------------------------------------------------------------------
 
     // the groups and their detectors
-    static std::map<std::string, CollisionDetector*> m_groups;
+    static std::map<std::string, std::vector<CollisionDetector*>> m_groups;
     // groups to check
     static std::vector<CheckPair> m_check;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** Process collision detection between two detectors */
+    static void processDetectors(CollisionDetector* a, CollisionDetector* b);
+
+    /** Checks if two boundings are colliding */
+    static bool checkCollision(BoundingShape* a, BoundingShape* b);
+
+    /** Checks if two bounding circles are colliding */
+    static bool checkCircleCircle(BoundingCircle* a, BoundingCircle* b);
 };
 
 } // namespace omi

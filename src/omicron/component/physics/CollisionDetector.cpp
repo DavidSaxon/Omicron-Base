@@ -53,6 +53,11 @@ const std::string& CollisionDetector::getGroup() const {
     return m_group;
 }
 
+Entity* CollisionDetector::getOwner() {
+
+    return m_owner;
+}
+
 const std::vector<CollisionData>& CollisionDetector::getCollisionData() {
 
     return m_collisionData;

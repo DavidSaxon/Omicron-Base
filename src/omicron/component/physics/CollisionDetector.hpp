@@ -79,6 +79,9 @@ public:
     /** @return the group of this */
     const std::string& getGroup() const;
 
+    /** @return the owner of this */
+    Entity* getOwner();
+
     /** @return the collision data from this frame */
     const std::vector<CollisionData>& getCollisionData();
 

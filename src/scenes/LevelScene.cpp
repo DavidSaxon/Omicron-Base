@@ -24,7 +24,11 @@ void LevelScene::init() {
     omi::renderSettings.setAmbientStrength(1.0f);
     omi::renderSettings.setAmbientColour(util::vec::Vector3(1.0f, 1.0f, 1.0f));
 
+    // set up collision groups
+    omi::CollisionDetect::checkGroup("block", "block");
+
     // add entities
+    addEntity(new Block());
     addEntity(new Terrain());
     addEntity(new PlayerShip());
 }

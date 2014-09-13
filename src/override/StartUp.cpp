@@ -9,9 +9,9 @@ omi::Scene* init() {
 
     // display settings
     omi::displaySettings.setSize(util::vec::Vector2(960, 540));
-    omi::displaySettings.setPos(util::vec::Vector2(10, 10));
-    omi::displaySettings.setTitle("Omicron Test");
-    omi::displaySettings.setFullscreen(true);
+    omi::displaySettings.setPos(util::vec::Vector2(800, 400));
+    omi::displaySettings.setTitle("Blocks of Fury ");
+    // omi::displaySettings.setFullscreen(true);
     omi::displaySettings.setVsync(true);
 
     // render settings

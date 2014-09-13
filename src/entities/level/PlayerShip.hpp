@@ -40,6 +40,9 @@ private:
     // the transform of the ship
     omi::Transform* m_shipT;
 
+    // the collision detector
+    omi::CollisionDetector* m_collisionDetect;
+
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
