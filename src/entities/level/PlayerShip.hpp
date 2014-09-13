@@ -2,6 +2,7 @@
 #    define BOF_LEVEL_PLAYERSHIP_H_
 
 #include "src/omicron/entity/Entity.hpp"
+#include "src/omicron/input/Input.hpp"
 
 class PlayerShip : public omi::Entity {
 public:
@@ -42,6 +43,10 @@ private:
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    void processInput();
+
+    void movement();
 
     void initComponents();
 };
