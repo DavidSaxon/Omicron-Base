@@ -58,7 +58,7 @@ Entity* CollisionDetector::getOwner() {
     return m_owner;
 }
 
-const std::vector<CollisionData>& CollisionDetector::getCollisionData() {
+std::vector<CollisionData>& CollisionDetector::getCollisionData() {
 
     return m_collisionData;
 }

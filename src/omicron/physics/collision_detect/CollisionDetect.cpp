@@ -25,6 +25,17 @@ void CollisionDetect::checkGroup(const std::string& a, const std::string& b) {
 
 void CollisionDetect::update() {
     
+    // clear collision data on all detector
+    for (std::map<std::string, std::vector<CollisionDetector*>>::iterator it =
+         m_groups.begin(); it != m_groups.end(); ++it) {
+
+        for (std::vector<CollisionDetector*>::iterator detector =
+             it->second.begin(); detector != it->second.end(); ++detector) {
+
+            (*detector)->clearData();
+        }
+    }
+
     // go over each check pair
     for (std::vector<CheckPair>::iterator it = m_check.begin();
          it != m_check.end(); ++it) {
@@ -84,9 +95,6 @@ void CollisionDetect::processDetectors(
     // iterate over each bounding in the first detector
     for (std::vector<std::unique_ptr<BoundingShape>>::iterator first =
          a->m_boundings.begin(); first != a->m_boundings.end(); ++first) {
-
-        // clear detector first
-        a->clearData();
 
         // iterate over each bounding in the second detector
         for (std::vector<std::unique_ptr<BoundingShape>>::iterator second =

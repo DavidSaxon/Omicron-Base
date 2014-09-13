@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "MathUtil.hpp"
 #include "exceptions/CollectionException.hpp"
 
 namespace util {
@@ -1832,7 +1833,7 @@ inline float distance(const Vector4& a, const Vector4& b) {
 @return the angle between the vectors */
 inline float angleBetween(const Vector2& a, const Vector2& b) {
 
-    return (-1.0f * atan2(a.y - b.y, a.x - b.x));
+    return (-1.0f * atan2(a.y - b.y, a.x - b.x)) * math::RADIANS_TO_DEGREES;
 }
 
 } // namespace vec

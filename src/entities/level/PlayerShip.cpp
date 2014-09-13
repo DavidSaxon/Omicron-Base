@@ -36,8 +36,7 @@ void PlayerShip::init() {
 
 void PlayerShip::update() {
 
-    // process collisions
-    
+    processBlockGrab();
 
     // process input
     processInput();
@@ -46,6 +45,108 @@ void PlayerShip::update() {
 //------------------------------------------------------------------------------
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+void PlayerShip::processBlockGrab() {
+
+    std::vector<Block*> newBlocks;
+    // check over the collisions of the blocks contained withing this
+    for (std::vector<Block*>::iterator it = m_blocks.begin();
+         it != m_blocks.end(); ++it) {
+
+        // get collision data from each block
+        for (std::vector<omi::CollisionData>::iterator data =
+            (*it)->m_collisionDetect->getCollisionData().begin();
+            data != (*it)->m_collisionDetect->getCollisionData().end();
+            ++data) {
+
+            if (data->group.compare("block")) {
+
+                return;
+            }
+
+            // cast the entity to a block
+            Block* block = static_cast<Block*>(data->entity);
+
+            // add to the list of new blocks
+            if (block->getOwner() == block::NONE &&
+                find(newBlocks.begin(), newBlocks.end(), block) == 
+                newBlocks.end()) {
+
+                // add to the list of new entities;
+                newBlocks.push_back(block);
+            }
+        }
+    }
+
+    // process the new blocks
+    for (std::vector<Block*>::iterator it = newBlocks.begin();
+         it != newBlocks.end(); ++it) {
+
+        // find the closet block
+        Block* closet = 0;
+        float distance = 10000000.0f;
+        for (std::vector<Block*>::iterator block = m_blocks.begin();
+             block != m_blocks.end(); ++block) {
+
+            if ((*block)->top != NULL && (*block)->bottom != NULL &&
+                (*block)->left != NULL && (*block)->right != NULL) {
+
+                continue;
+            }
+
+            if (util::vec::distance(
+                (*it)->m_transform->translation,
+                (*block)->m_transform->translation) <
+                distance) {
+
+                distance = util::vec::distance(
+                    (*it)->m_transform->translation,
+                    (*block)->m_transform->translation);
+                closet = *block;
+            }
+        }
+        // calculate the angle between the blocks
+        float angle = util::vec::angleBetween(
+            (*it)->m_transform->translation.xy(),
+            closet->m_transform->translation.xy());
+        if (angle < 0.0) {
+
+            angle += 360.0f;
+        }
+        else if (angle >= 360.0f) {
+
+            angle -= 360.0f;
+        }
+        std::cout << angle << std::endl;
+        // attach to the closet block
+        if (angle > 45.0f &&  angle < 135.0f) {
+
+            closet->bottom = *it;
+            (*it)->top = closet;
+        }
+        else if (angle > 135.0f &&  angle < 225.0f) {
+
+            closet->left = *it;
+            (*it)->right = closet;
+        }
+        else if (angle > 225.0f &&  angle < 315.0f) {
+
+            closet->top = *it;
+            (*it)->bottom = closet;
+        }
+        else {
+
+            closet->right = *it;
+            (*it)->left = closet;
+        }
+    }
+    for (std::vector<Block*>::iterator it = newBlocks.begin();
+         it != newBlocks.end(); ++it) {
+
+        (*it)->setOwner(block::PLAYER);
+        m_blocks.push_back(*it);
+    }
+}
 
 void PlayerShip::processInput() {
 

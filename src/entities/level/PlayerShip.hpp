@@ -54,6 +54,8 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    void processBlockGrab();
+
     void processInput();
 
     void movement();

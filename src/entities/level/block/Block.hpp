@@ -30,6 +30,8 @@ public:
     Block* left;
     Block* right;
 
+    // the transform of the block
+    omi::Transform* m_transform;
     // the collision detector of the block
     omi::CollisionDetector* m_collisionDetect;
 
@@ -68,6 +70,10 @@ public:
     /** @return the owner of the block */
     block::Owner getOwner() const;
 
+    //---------------------------------SETTERS----------------------------------
+
+    void setOwner(block::Owner owner);
+
 private:
 
     //--------------------------------------------------------------------------
@@ -77,8 +83,6 @@ private:
     // the owner of the block
     block::Owner m_owner;
 
-    // the transform of the block
-    omi::Transform* m_transform;
     // the name of the sprite
     std::string m_spriteName;
 

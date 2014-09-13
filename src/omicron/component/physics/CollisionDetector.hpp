@@ -1,6 +1,7 @@
 #ifndef OMICRON_COMPONENT_PHYSICS_COLLISIONDETECTOR_H_
 #   define OMICRON_COMPONENT_PHYSICS_COLLISIONDETECTOR_H_
 
+#include <algorithm>
 #include <memory>
 #include <vector>
 
@@ -15,7 +16,7 @@ namespace omi {
 | Contains an entity and a collision group |
 \******************************************/
 struct CollisionData {
-    Entity* entity;
+    void* entity;
     std::string group;
 };
 
@@ -83,7 +84,7 @@ public:
     Entity* getOwner();
 
     /** @return the collision data from this frame */
-    const std::vector<CollisionData>& getCollisionData();
+    std::vector<CollisionData>& getCollisionData();
 
     /** #Hidden
     Clears the collision data */
