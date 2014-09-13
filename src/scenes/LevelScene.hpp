@@ -5,7 +5,6 @@
 #include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
-#include "src/entities/level/Block.hpp"
 #include "src/entities/level/PlayerShip.hpp"
 #include "src/entities/level/Terrain.hpp"
 

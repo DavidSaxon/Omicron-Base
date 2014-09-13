@@ -30,6 +30,10 @@ PlayerShip::~PlayerShip() {
 
 void PlayerShip::init() {
 
+    // create the hub
+    m_hub = new PlayerHub(util::vec::Vector3());
+    addEntity(m_hub);
+
     initComponents();
 }
 
@@ -37,15 +41,6 @@ void PlayerShip::update() {
 
     // process input
     processInput();
-
-    if (m_collisionDetect->getCollisionData().size() > 0) {
-
-        std::cout << "yes!" << std::endl;
-    }
-    else {
-
-        std::cout << "no!" << std::endl;
-    }
 }
 
 //------------------------------------------------------------------------------
@@ -78,6 +73,9 @@ void PlayerShip::movement() {
 
         m_shipT->translation.x += moveSpeed;
     }
+
+    // pass the position to the hub
+    m_hub->setPosition(m_shipT->translation);
 }
 
 void PlayerShip::initComponents() {
@@ -99,11 +97,4 @@ void PlayerShip::initComponents() {
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
     );
     m_components.add(m_shipT);
-    m_components.add(omi::ResourceManager::getSprite(
-        "block_steel", "", m_shipT));
-    //---------------------------COLLISION DETECTION----------------------------
-    m_collisionDetect = new omi::CollisionDetector(
-        "", "block", this);
-    m_collisionDetect->addBounding(new omi::BoundingCircle(0.5f, m_shipT));
-    m_components.add(m_collisionDetect);
 }

@@ -22,6 +22,15 @@ void buildLevelPack() {
 
     //----------------------------------BLOCKS----------------------------------
 
+    // HUB PLAYER
+    omi::ResourceManager::addTextureMaterialSprite(
+        "block_hub_player", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/block/hub_player.png", SHIP_BLOCK,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
     // STEEL
     omi::ResourceManager::addTextureMaterialSprite(
         "block_steel", resource_group::LEVEL,

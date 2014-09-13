@@ -28,7 +28,6 @@ void LevelScene::init() {
     omi::CollisionDetect::checkGroup("block", "block");
 
     // add entities
-    addEntity(new Block());
     addEntity(new Terrain());
     addEntity(new PlayerShip());
 }
