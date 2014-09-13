@@ -24,6 +24,15 @@ public:
     // if the block has been traversed this iteration
     bool traversed;
 
+    // the neighbors of the block
+    Block* top;
+    Block* bottom;
+    Block* left;
+    Block* right;
+
+    // the collision detector of the block
+    omi::CollisionDetector* m_collisionDetect;
+
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
@@ -72,14 +81,12 @@ private:
     omi::Transform* m_transform;
     // the name of the sprite
     std::string m_spriteName;
-    // the collision detector of the block
-    omi::CollisionDetector* m_collisionDetect;
 
-    // the neighbors of the block
-    Block* m_top;
-    Block* m_bottom;
-    Block* m_left;
-    Block* m_right;
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    void noOwnerUpdate();
 };
 
 #endif

@@ -30,6 +30,8 @@ void LevelScene::init() {
     // add entities
     addEntity(new Terrain());
     addEntity(new PlayerShip());
+    addEntity(
+        new SteelBlock(util::vec::Vector3(0.0f, 25.0f, 0.0f), block::NONE));
 }
 
 bool LevelScene::update() {

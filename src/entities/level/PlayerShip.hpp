@@ -1,10 +1,13 @@
 #ifndef BOF_LEVEL_PLAYERSHIP_H_
 #    define BOF_LEVEL_PLAYERSHIP_H_
 
+#include <vector>
+
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/input/Input.hpp"
 
 #include "src/entities/level/block/PlayerHub.hpp"
+#include "src/entities/level/block/SteelBlock.hpp"
 
 class PlayerShip : public omi::Entity {
 public:
@@ -44,6 +47,8 @@ private:
 
     // the hub of the ship
     PlayerHub* m_hub;
+    // the list of all blocks in the ship
+    std::vector<Block*> m_blocks;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
@@ -54,6 +59,8 @@ private:
     void movement();
 
     void initComponents();
+
+    void buildShip();
 };
 
 #endif

@@ -18,6 +18,7 @@
 #include "src/omicron/component/updatable/audio/Music.hpp"
 
 // some other useful things
+#include "src/override/Values.hpp"
 #include "src/omicron/physics/bounding/BoundingCircle.hpp"
 
 namespace omi {

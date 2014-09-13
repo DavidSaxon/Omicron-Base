@@ -8,6 +8,8 @@
 #include "src/entities/level/PlayerShip.hpp"
 #include "src/entities/level/Terrain.hpp"
 
+#include "src/entities/level/block/SteelBlock.hpp"
+
 class LevelScene: public omi::Scene {
 public:
 
