@@ -7,7 +7,8 @@ enum ResourceGroup {
 
     ALL,
     START_UP,
-    TEST
+    TEST,
+    LEVEL
 };
 
 } // namespace resource_group
