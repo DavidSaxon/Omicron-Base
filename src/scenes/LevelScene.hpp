@@ -5,6 +5,7 @@
 #include "src/omicron/scene/Scene.hpp"
 
 #include "src/entities/level/PlayerShip.hpp"
+#include "src/entities/level/Terrain.hpp"
 
 class LevelScene: public omi::Scene {
 public:

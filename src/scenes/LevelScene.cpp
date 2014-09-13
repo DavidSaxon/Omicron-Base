@@ -25,6 +25,7 @@ void LevelScene::init() {
     omi::renderSettings.setAmbientColour(util::vec::Vector3(1.0f, 1.0f, 1.0f));
 
     // add entities
+    addEntity(new Terrain());
     addEntity(new PlayerShip());
 }
 

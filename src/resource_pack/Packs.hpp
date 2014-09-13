@@ -18,6 +18,7 @@ namespace pack {
 enum Layers {
 
     BOTTOM = 0,
+    TERRAIN,
     SHIP_BLOCK,
     TOP
 };

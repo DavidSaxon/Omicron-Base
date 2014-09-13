@@ -77,7 +77,7 @@ void PlayerShip::initComponents() {
     m_camT = new omi::Transform("",
         util::vec::Vector3(0.0f, 0.0f, -1.0f),
         util::vec::Vector3(),
-        util::vec::Vector3(0.045f, 0.045f, 0.045f)
+        util::vec::Vector3(0.055f, 0.055f, 0.055f)
     );
     m_components.add(m_camT);
     m_components.add(
