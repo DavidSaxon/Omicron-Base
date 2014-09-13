@@ -40,6 +40,28 @@ void buildLevelPack() {
         util::vec::Vector2(1, 1),
         util::vec::Vector2(0, 0)
     );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "weapon_steel", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/weapon/steel.png", SHIP_WEAPON,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "engine_steel", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/engine/steel.png", SHIP_ENGINE,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "trail_steel", resource_group::LEVEL,
+        "default_shader",
+        util::vec::Vector4(1.0f, 0.5f, 0.0f, 1.0f),
+        "res/gfx/geometry/level/engine_trail.obj", ENGINE_TRAIL
+    );
 }
 
 } // namespace pack

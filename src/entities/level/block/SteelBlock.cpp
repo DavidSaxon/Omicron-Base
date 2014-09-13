@@ -5,7 +5,8 @@
 //------------------------------------------------------------------------------
 
 SteelBlock::SteelBlock(const util::vec::Vector3& pos, block::Owner owner) :
-    BasicBlock("block_steel", pos, owner) {
+    BasicBlock("block_steel", "weapon_steel", "engine_steel", "trail_steel",
+        pos, owner) {
 }
 
 //------------------------------------------------------------------------------

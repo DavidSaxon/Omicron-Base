@@ -12,6 +12,13 @@ enum Owner {
     ENEMY
 };
 
+enum State {
+
+    NOT_ATTACHED,
+    ATTACHING,
+    ATTACHED
+};
+
 } // namespace block
 
 class Block : public omi::Entity {
@@ -40,7 +47,8 @@ public:
     //--------------------------------------------------------------------------
 
     Block(
-            const std::string& sprite,
+            const std::string& sprite, const std::string& weapon,
+            const std::string& engine, const std::string& trail,
             const util::vec::Vector3& pos,
                   block::Owner         owner);
 
@@ -60,10 +68,12 @@ public:
     /** #Override */
     virtual void update();
 
-    void setPosition(const util::vec::Vector3& pos);
+    virtual void setPosition(const util::vec::Vector3& pos);
 
     /** Renews the travsel state of this block */
     void renew();
+
+    void attach(bool a);
 
     //---------------------------------GETTERSA---------------------------------
 
@@ -74,7 +84,7 @@ public:
 
     void setOwner(block::Owner owner);
 
-private:
+protected:
 
     //--------------------------------------------------------------------------
     //                                 VARIABLES
@@ -82,12 +92,28 @@ private:
 
     // the owner of the block
     block::Owner m_owner;
+    // the state of the block
+    block::State m_state;
 
     // the name of the sprite
     std::string m_spriteName;
 
+    omi::Transform* m_weaponT;
+    omi::Sprite* m_weaponSprite;
+    std::string m_weaponName;
+    util::vec::Vector3 m_weaponOffset;
+
+    omi::Transform* m_engineT;
+    omi::Sprite* m_engineSprite;
+    std::string m_engineName;
+    util::vec::Vector3 m_engineOffset;
+
+    omi::Transform* m_trailT;
+    omi::Sprite* m_trailSprite;
+    std::string m_trailName;
+
     //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
+    //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     void noOwnerUpdate();

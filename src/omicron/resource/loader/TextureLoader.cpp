@@ -79,6 +79,11 @@ GLuint loadTexture(const std::string& filePath) {
     // build mip-maps
     gluBuild2DMipmaps(GL_TEXTURE_2D, format, width, height, format, type, data);
 
+    // set clamps
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     // set the filtering modes
     glTexParameteri(
         GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);

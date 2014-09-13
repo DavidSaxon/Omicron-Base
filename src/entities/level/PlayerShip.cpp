@@ -59,7 +59,7 @@ void PlayerShip::processBlockGrab() {
             data != (*it)->m_collisionDetect->getCollisionData().end();
             ++data) {
 
-            if (data->group.compare("block")) {
+            if (data->group.compare("none_block")) {
 
                 return;
             }
@@ -117,7 +117,6 @@ void PlayerShip::processBlockGrab() {
 
             angle -= 360.0f;
         }
-        std::cout << angle << std::endl;
         // attach to the closet block
         if (angle > 45.0f &&  angle < 135.0f) {
 
@@ -144,6 +143,7 @@ void PlayerShip::processBlockGrab() {
          it != newBlocks.end(); ++it) {
 
         (*it)->setOwner(block::PLAYER);
+        (*it)->attach(true);
         m_blocks.push_back(*it);
     }
 }
@@ -217,6 +217,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(-1.0f, 0.0f, 0.0f), block::PLAYER);
     m_hub->left = block1;
     block1->right = m_hub;
+    block1->attach(true);
     m_blocks.push_back(block1);
     addEntity(block1);
 
@@ -224,20 +225,23 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(1.0f, 0.0f, 0.0f), block::PLAYER);
     m_hub->right = block2;
     block2->left = m_hub;
+    block2->attach(true);
     m_blocks.push_back(block2);
     addEntity(block2);
 
-    // Block* block3 = new SteelBlock(
-    //     util::vec::Vector3(0.0f, 1.0f, 0.0f), block::PLAYER);
-    // m_hub->top = block3;
-    // block3->bottom = m_hub;
-    // m_blocks.push_back(block3);
-    // addEntity(block3);
+    Block* block3 = new SteelBlock(
+        util::vec::Vector3(0.0f, 1.0f, 0.0f), block::PLAYER);
+    m_hub->top = block3;
+    block3->bottom = m_hub;
+    block3->attach(true);
+    m_blocks.push_back(block3);
+    addEntity(block3);
 
     Block* block4 = new SteelBlock(
         util::vec::Vector3(-2.0f, 0.0f, 0.0f), block::PLAYER);
     block1->left = block4;
     block4->right = block1;
+    block4->attach(true);
     m_blocks.push_back(block4);
     addEntity(block4);
 
@@ -245,6 +249,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(2.0f, 0.0f, 0.0f), block::PLAYER);
     block2->right = block5;
     block5->left = block2;
+    block5->attach(true);
     m_blocks.push_back(block5);
     addEntity(block5);
 
@@ -252,6 +257,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(-1.0f, -1.0f, 0.0f), block::PLAYER);
     block1->bottom = block6;
     block6->top = block1;
+    block6->attach(true);
     m_blocks.push_back(block6);
     addEntity(block6);
 
@@ -259,6 +265,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(1.0f, -1.0f, 0.0f), block::PLAYER);
     block2->bottom = block7;
     block7->top = block2;
+    block7->attach(true);
     m_blocks.push_back(block7);
     addEntity(block7);
 
@@ -266,6 +273,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(0.0f, -1.0f, 0.0f), block::PLAYER);
     m_hub->bottom = block8;
     block8->top = m_hub;
+    block8->attach(true);
     m_blocks.push_back(block8);
     addEntity(block8);
 
@@ -273,6 +281,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(0.0f, -2.0f, 0.0f), block::PLAYER);
     block8->bottom = block9;
     block9->top = block8;
+    block9->attach(true);
     m_blocks.push_back(block9);
     addEntity(block9);
 
@@ -280,6 +289,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(-2.0f, 1.0f, 0.0f), block::PLAYER);
     block4->top = block10;
     block10->bottom = block4;
+    block10->attach(true);
     m_blocks.push_back(block10);
     addEntity(block10);
 
@@ -287,6 +297,7 @@ void PlayerShip::buildShip() {
         util::vec::Vector3(2.0f, 1.0f, 0.0f), block::PLAYER);
     block5->top = block11;
     block11->bottom = block5;
+    block11->attach(true);
     m_blocks.push_back(block11);
     addEntity(block11);
 }

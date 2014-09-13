@@ -53,6 +53,11 @@ const std::string& CollisionDetector::getGroup() const {
     return m_group;
 }
 
+void CollisionDetector::setGroup(const std::string& group) {
+
+    m_group = group;
+}
+
 Entity* CollisionDetector::getOwner() {
 
     return m_owner;

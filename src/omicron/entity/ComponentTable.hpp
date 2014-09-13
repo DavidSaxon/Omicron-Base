@@ -40,6 +40,7 @@ public:
     //! list of components that have been added that have not been sorted by the
     //! Logic Manager yet
     std::vector<Component*> newComponents;
+    std::vector<Component*> removeComponents;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR

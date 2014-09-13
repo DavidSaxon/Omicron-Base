@@ -61,6 +61,8 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // the detectors
+    static std::vector<CollisionDetector*> m_detectors;
     // the groups and their detectors
     static std::map<std::string, std::vector<CollisionDetector*>> m_groups;
     // groups to check

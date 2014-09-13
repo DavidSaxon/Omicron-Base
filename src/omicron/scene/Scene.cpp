@@ -98,6 +98,14 @@ void Scene::updateEntities() {
             newComponents.insert(*itc);
         }
         (*it)->getComponents().newComponents.clear();
+        // find components to be removed
+        for (std::vector<Component*>::iterator itc =
+            (*it)->getComponents().removeComponents.begin();
+            itc != (*it)->getComponents().removeComponents.end(); ++itc) {
+
+            removeComponents.push_back(*itc);
+        }
+        (*it)->getComponents().removeComponents.clear();
 
         // find components to be removed
         if ((*it)->shouldRemove()) {

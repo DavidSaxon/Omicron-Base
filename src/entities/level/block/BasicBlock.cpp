@@ -4,9 +4,10 @@
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-BasicBlock::BasicBlock(const std::string& spriteName,
-    const util::vec::Vector3& pos, block::Owner owner) :
-    Block(spriteName, pos, owner) {
+BasicBlock::BasicBlock(const std::string& spriteName, const std::string& weapon,
+        const std::string& engine, const std::string& trail,
+        const util::vec::Vector3& pos, block::Owner owner) :
+    Block(spriteName, weapon, engine, trail, pos, owner) {
 }
 
 //------------------------------------------------------------------------------
@@ -19,16 +20,3 @@ BasicBlock::~BasicBlock() {
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
-
-void BasicBlock::init() {
-
-    // super call
-    Block::init();
-}
-
-void BasicBlock::update() {
-
-    // super call
-    Block::update();
-}
-

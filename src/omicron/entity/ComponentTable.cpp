@@ -62,6 +62,7 @@ bool ComponentTable::remove(const std::string& id) {
     // check if the id is contained within the table
     if (contains(id)) {
 
+        removeComponents.push_back(m_components[id].get());
         m_components.erase(m_components.find(id));
         return true;
     }

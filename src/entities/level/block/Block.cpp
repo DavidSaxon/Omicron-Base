@@ -5,20 +5,43 @@
 //------------------------------------------------------------------------------
 
 Block::Block(
-        const std::string& sprite,
+        const std::string& sprite, const std::string& weapon,
+        const std::string& engine, const std::string& trail,
         const util::vec::Vector3& pos,
               block::Owner         owner) :
     traversed(false),
     m_spriteName(sprite),
+    m_weaponName(weapon),
+    m_engineName(engine),
+    m_trailName(trail),
     m_owner(owner),
+    m_state(block::NOT_ATTACHED),
     top(NULL),
     bottom(NULL),
     left(NULL),
     right(NULL) {
 
-    // create the transform
+    // create the transforms
     m_transform = new omi::Transform(
         "", pos,
+        util::vec::Vector3(),
+        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+    );
+    m_weaponT = new omi::Transform(
+        "",
+        m_transform->translation,
+        util::vec::Vector3(),
+        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+    );
+    m_engineT = new omi::Transform(
+        "",
+        m_transform->translation,
+        util::vec::Vector3(),
+        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+    );
+    m_trailT = new omi::Transform(
+        "",
+        m_transform->translation,
         util::vec::Vector3(),
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
     );
@@ -41,10 +64,32 @@ void Block::init() {
     m_components.add(m_transform);
     m_components.add(omi::ResourceManager::getSprite(
         m_spriteName, "", m_transform));
-    m_collisionDetect = new omi::CollisionDetector(
-        "", "block", this);
+    std::string group = "none_block";
+    if (m_owner == block::PLAYER) {
+
+        group = "player_block";
+    }
+    else if (m_owner == block::ENEMY) {
+
+        group = "none_block";
+    }
+    m_collisionDetect = new omi::CollisionDetector("", group, this);
     m_collisionDetect->addBounding(new omi::BoundingCircle(0.5f, m_transform));
     m_components.add(m_collisionDetect);
+
+    m_components.add(m_weaponT);
+    m_weaponSprite = omi::ResourceManager::getSprite(
+        m_weaponName, "", m_weaponT);
+    m_components.add(m_weaponSprite);
+    m_engineSprite = omi::ResourceManager::getSprite(
+        m_engineName, "", m_engineT);
+    m_components.add(m_engineSprite);
+    m_trailSprite = omi::ResourceManager::getSprite(
+        m_engineName, "", m_trailT);
+    m_components.add(m_trailSprite);
+    // m_trailSprite = omi::ResourceManager::getMesh(
+    //     m_trailName, "", m_trailT);
+    // m_components.add(m_trailSprite);
 }
 
 void Block::update() {
@@ -63,6 +108,48 @@ void Block::update() {
         }
         case block::ENEMY: {
 
+            break;
+        }
+    }
+
+    // update based on state
+    switch (m_state) {
+
+        case block::NOT_ATTACHED: {
+
+            m_weaponOffset = 0.0f;
+            m_weaponSprite->visible = false;
+            m_engineOffset = 0.0f;
+            m_engineSprite->visible = false;
+            break;
+        }
+        case block::ATTACHING: {
+
+            float slideSpeed = 0.02f * omi::fpsManager.getTimeScale();;
+
+            // slide out weapon
+            m_weaponOffset.y += slideSpeed;
+            if (m_weaponOffset.y >= 1.0f) {
+
+                m_weaponOffset.y = 1.0f;
+                m_state = block::ATTACHED;
+            }
+            m_weaponSprite->visible = true;
+
+            // slide out engine
+            m_engineOffset.y -= slideSpeed;
+            if (m_engineOffset.y >= 1.0f) {
+
+                m_engineOffset.y = 1.0f;
+                m_state = block::ATTACHED;
+            }
+            m_engineSprite->visible = true;
+            break;
+        }
+        default: {
+
+            m_weaponSprite->visible = true;
+            m_engineSprite->visible = true;
             break;
         }
     }
@@ -90,11 +177,27 @@ void Block::setPosition(const util::vec::Vector3& pos) {
 
         right->setPosition(pos + util::vec::Vector3(1.0f, 0.0f, 0.0f));
     }
+
+    // update the weapons position
+    m_weaponT->translation = m_transform->translation + m_weaponOffset;
+    m_engineT->translation = m_transform->translation + m_engineOffset;
 }
 
 void Block::renew() {
 
     traversed = true;
+}
+
+void Block::attach(bool a) {
+
+    if (a) {
+
+        m_state = block::ATTACHING;
+    }
+    else {
+
+        m_state = block::NOT_ATTACHED;
+    }
 }
 
 //-----------------------------------GETTERS------------------------------------
@@ -109,6 +212,21 @@ block::Owner Block::getOwner() const {
 void Block::setOwner(block::Owner owner) {
 
     m_owner = owner;
+    std::string group = "none_block";
+    if (m_owner == block::PLAYER) {
+
+        group = "player_block";
+    }
+    else if (m_owner == block::ENEMY) {
+
+        group = "none_block";
+    }
+    m_collisionDetect->setGroup(group);
+    // m_components.remove("col_d");
+
+    // m_collisionDetect = new omi::CollisionDetector("col_d", group, this);
+    // m_collisionDetect->addBounding(new omi::BoundingCircle(0.5f, m_transform));
+    // m_components.add(m_collisionDetect);
 }
 
 //------------------------------------------------------------------------------
@@ -120,4 +238,5 @@ void Block::noOwnerUpdate() {
     // move the block down
     m_transform->translation.y -=
         value::DOWN_SPEED * omi::fpsManager.getTimeScale();
+    setPosition(m_transform->translation);
 }

@@ -26,6 +26,7 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // TODO: why is this a set NO!
     // the set of new components
     std::set<Component*> newComponents;
     // the list of components to be removed

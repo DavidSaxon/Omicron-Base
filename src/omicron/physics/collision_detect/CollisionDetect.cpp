@@ -6,6 +6,7 @@ namespace omi {
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
+std::vector<CollisionDetector*> CollisionDetect::m_detectors;
 std::map<std::string, std::vector<CollisionDetector*>>
         CollisionDetect::m_groups;
 std::vector<CheckPair> CollisionDetect::m_check;
@@ -25,15 +26,22 @@ void CollisionDetect::checkGroup(const std::string& a, const std::string& b) {
 
 void CollisionDetect::update() {
     
+    m_groups.clear();
+
     // clear collision data on all detector
-    for (std::map<std::string, std::vector<CollisionDetector*>>::iterator it =
-         m_groups.begin(); it != m_groups.end(); ++it) {
+    for (std::vector<CollisionDetector*>::iterator detector =
+         m_detectors.begin(); detector != m_detectors.end(); ++detector) {
 
-        for (std::vector<CollisionDetector*>::iterator detector =
-             it->second.begin(); detector != it->second.end(); ++detector) {
+        (*detector)->clearData();
+        // sort into a map
+        std::string group = (*detector)->getGroup();
+        // if the group doesn't already exist create it
+        if (m_groups.find(group) == m_groups.end()) {
 
-            (*detector)->clearData();
+            m_groups.insert(
+                std::make_pair(group, std::vector<CollisionDetector*>()));
         }
+        m_groups[group].push_back(*detector);
     }
 
     // go over each check pair
@@ -62,21 +70,43 @@ void CollisionDetect::update() {
 
 void CollisionDetect::addDetector(CollisionDetector* detector) {
 
-    std::string group = detector->getGroup();
+    m_detectors.push_back(detector);
 
-    // if the group doesn't already exist create it
-    if (m_groups.find(group) != m_groups.end()) {
+    // std::string group = detector->getGroup();
 
-        m_groups.insert(
-            std::make_pair(group, std::vector<CollisionDetector*>()));
-    }
+    // // if the group doesn't already exist create it
+    // if (m_groups.find(group) == m_groups.end()) {
 
-    m_groups[group].push_back(detector);
+    //     m_groups.insert(
+    //         std::make_pair(group, std::vector<CollisionDetector*>()));
+    // }
+
+    // m_groups[group].push_back(detector);
 }
 
 void CollisionDetect::removeDetector(CollisionDetector* detector) {
 
     // TODO:
+
+   // std::string group = detector->getGroup();
+
+   // if (m_groups.find(group) == m_groups.end()) {
+
+   //      std::cout << "attempted to remove non-existent detector" << std::endl;
+   // }
+
+   // for (std::vector<CollisionDetector*>::iterator it =
+   //      m_groups[group].begin(); it != m_groups[group].end();) {
+
+   //     if (*it == detector) {
+
+   //         it = m_groups[group].erase(it);
+   //     }
+   //     else {
+
+   //         ++it;
+   //     }
+   // }
 }
 
 void CollisionDetect::clear() {

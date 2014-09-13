@@ -10,7 +10,8 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    BasicBlock(const std::string& sprite_name,
+    BasicBlock(const std::string& sprite_name, const std::string& weapon,
+        const std::string& engine, const std::string& trail,
         const util::vec::Vector3& pos, block::Owner owner);
 
     //--------------------------------------------------------------------------
@@ -23,11 +24,6 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** #Override */
-    void init();
-
-    /** #Override */
-    void update();
 };
 
 #endif

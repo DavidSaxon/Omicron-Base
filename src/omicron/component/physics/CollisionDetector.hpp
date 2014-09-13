@@ -80,6 +80,8 @@ public:
     /** @return the group of this */
     const std::string& getGroup() const;
 
+    void setGroup(const std::string& group);
+
     /** @return the owner of this */
     Entity* getOwner();
 

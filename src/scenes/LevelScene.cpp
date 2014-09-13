@@ -25,7 +25,7 @@ void LevelScene::init() {
     omi::renderSettings.setAmbientColour(util::vec::Vector3(1.0f, 1.0f, 1.0f));
 
     // set up collision groups
-    omi::CollisionDetect::checkGroup("block", "block");
+    omi::CollisionDetect::checkGroup("player_block", "none_block");
 
     // add entities
     addEntity(new Terrain());

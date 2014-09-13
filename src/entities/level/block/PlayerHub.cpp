@@ -5,7 +5,8 @@
 //------------------------------------------------------------------------------
 
 PlayerHub::PlayerHub(const util::vec::Vector3& pos) :
-    Block("block_hub_player", pos, block::PLAYER) {
+    Block("block_hub_player", "weapon_steel", "engine_steel", "trail_steel",
+          pos, block::PLAYER) {
 
 }
 
