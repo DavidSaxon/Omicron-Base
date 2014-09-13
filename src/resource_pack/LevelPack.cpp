@@ -5,6 +5,18 @@ namespace pack {
 void buildLevelPack() {
 
     //--------------------------------------------------------------------------
+    //                                  SHADERS
+    //--------------------------------------------------------------------------
+
+    // default shader
+    omi::ResourceManager::addShader(
+        "engine_trail_shader",
+        resource_group::ALL,
+        "res/gfx/shader/level/engine_trail_vertex.glsl",
+        "res/gfx/shader/level/engine_trail_fragment.glsl"
+    );
+
+    //--------------------------------------------------------------------------
     //                                  SPRITES
     //--------------------------------------------------------------------------
 
@@ -58,7 +70,7 @@ void buildLevelPack() {
     );
     omi::ResourceManager::addMaterialGeometryMesh(
         "trail_steel", resource_group::LEVEL,
-        "default_shader",
+        "engine_trail_shader",
         util::vec::Vector4(1.0f, 0.5f, 0.0f, 1.0f),
         "res/gfx/geometry/level/engine_trail.obj", ENGINE_TRAIL
     );

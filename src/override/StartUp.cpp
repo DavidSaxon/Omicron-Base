@@ -12,7 +12,7 @@ omi::Scene* init() {
     omi::displaySettings.setPos(util::vec::Vector2(800, 400));
     omi::displaySettings.setTitle("Blocks of Fury ");
     omi::displaySettings.setFullscreen(true);
-    // omi::displaySettings.setVsync(true);
+    omi::displaySettings.setVsync(true);
 
     // render settings
     omi::renderSettings.setDepthTest(true);

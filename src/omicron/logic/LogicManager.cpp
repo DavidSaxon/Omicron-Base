@@ -89,7 +89,7 @@ void LogicManager::removeUpdatable(Updatable* updatable) {
             it = m_components.erase(it);
         }
         else {
-
+			  
             ++it;
         }
     }

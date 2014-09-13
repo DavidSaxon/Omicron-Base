@@ -19,7 +19,9 @@ Block::Block(
     top(NULL),
     bottom(NULL),
     left(NULL),
-    right(NULL) {
+    right(NULL),
+    m_trailIndex(0),
+    m_trailTimer(0.0f) {
 
     // create the transforms
     m_transform = new omi::Transform(
@@ -41,10 +43,16 @@ Block::Block(
     );
     m_trailT = new omi::Transform(
         "",
-        m_transform->translation,
+        util::vec::Vector3(),
         util::vec::Vector3(),
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
     );
+
+    // create trail positions
+    for (unsigned i = 0; i < 9; ++i) {
+
+        m_trailPositions[i] = pos;
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -84,12 +92,80 @@ void Block::init() {
     m_engineSprite = omi::ResourceManager::getSprite(
         m_engineName, "", m_engineT);
     m_components.add(m_engineSprite);
-    m_trailSprite = omi::ResourceManager::getSprite(
-        m_engineName, "", m_trailT);
+    m_trailSprite = omi::ResourceManager::getMesh(
+        m_trailName, "", m_trailT);
     m_components.add(m_trailSprite);
-    // m_trailSprite = omi::ResourceManager::getMesh(
-    //     m_trailName, "", m_trailT);
-    // m_components.add(m_trailSprite);
+
+    m_trailSprite->shaderFunction = [&] (GLuint program) {
+
+        GLfloat trailPos[27];
+
+        unsigned index = 0;
+        for (int i = m_trailIndex; i >= 0; --i) {
+
+            if (i == m_trailIndex) {
+
+                trailPos[(index * 3) + 0] = m_trailPositions[i].x;
+            }
+            else if (i == 8) {
+
+                trailPos[(index * 3) + 0] =
+                    (m_trailPositions[i].x * (1.0f - m_trailTimer)) +
+                    (m_trailPositions[0].x * m_trailTimer);
+            }
+            else {
+
+                trailPos[(index * 3) + 0] =
+                    (m_trailPositions[i].x * (1.0f - m_trailTimer)) +
+                    (m_trailPositions[i + 1].x * m_trailTimer);
+
+            }
+            if (m_state == block::ATTACHING) {
+
+                trailPos[(index * 3) + 1] = m_transform->translation.y -
+                    (1.25f - m_trailTimer);
+            }
+            else {
+
+                trailPos[(index * 3) + 1] = m_transform->translation.y - 1.25f;
+            }
+            trailPos[(index * 3) + 2] = m_transform->translation.z;
+            ++index;
+        }
+        for (int i = 8; i > m_trailIndex; --i) {
+
+            if (i == 8) {
+
+                trailPos[(index * 3) + 0] =
+                    (m_trailPositions[i].x * (1.0f - m_trailTimer)) +
+                    (m_trailPositions[0].x * m_trailTimer);
+            }
+            else {
+
+                trailPos[(index * 3) + 0] =
+                    (m_trailPositions[i].x * (1.0f - m_trailTimer)) +
+                    (m_trailPositions[i + 1].x * m_trailTimer);
+
+            }
+            if (m_state == block::ATTACHING) {
+
+                trailPos[(index * 3) + 1] = m_transform->translation.y -
+                    (1.25f - m_trailTimer);
+            }
+            else {
+
+                trailPos[(index * 3) + 1] = m_transform->translation.y - 1.25f;
+            }
+            trailPos[(index * 3) + 2] = m_trailPositions[i].z;
+            ++index;
+        }
+
+        // pass in trail positions
+        glUniform3fv(glGetUniformLocation(program, "u_trailPositions"),
+            27, trailPos);
+        glUniform1f(glGetUniformLocation(program, "u_trailFade"),
+            -m_engineOffset.y);
+    };
 }
 
 void Block::update() {
@@ -112,6 +188,20 @@ void Block::update() {
         }
     }
 
+    // update the trail timer
+    m_trailTimer += 0.2f * omi::fpsManager.getTimeScale();
+    if (m_trailTimer >= 1.0f) {
+
+        m_trailTimer -= 1.0f;
+        ++m_trailIndex;
+        if (m_trailIndex == 9) {
+
+            m_trailIndex = 0;
+        }
+    }
+    // update the current trail
+    m_trailPositions[m_trailIndex] = m_engineT->translation;
+
     // update based on state
     switch (m_state) {
 
@@ -121,6 +211,12 @@ void Block::update() {
             m_weaponSprite->visible = false;
             m_engineOffset = 0.0f;
             m_engineSprite->visible = false;
+            m_trailSprite->visible = false;
+            // clear trail positions
+            for (unsigned i = 0; i < 9; ++i) {
+
+                m_trailPositions[i] = m_engineT->translation;
+            }
             break;
         }
         case block::ATTACHING: {
@@ -144,14 +240,27 @@ void Block::update() {
                 m_state = block::ATTACHED;
             }
             m_engineSprite->visible = true;
+            m_trailSprite->visible = true;
             break;
         }
         default: {
 
             m_weaponSprite->visible = true;
             m_engineSprite->visible = true;
+            m_trailSprite->visible = true;
             break;
         }
+    }
+
+    // visibility based on neighbours
+    if (top != NULL) {
+
+        m_weaponSprite->visible = false;
+    }
+    if (bottom != NULL) {
+
+        m_engineSprite->visible = false;
+        m_trailSprite->visible = false;
     }
 }
 

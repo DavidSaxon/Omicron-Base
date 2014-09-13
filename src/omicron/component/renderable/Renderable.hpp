@@ -1,6 +1,7 @@
 #ifndef OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 #   define OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 
+#include <functional>
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
@@ -24,6 +25,8 @@ public:
 
     //! is true if this component will be rendered
     bool visible;
+    // the custom shader function for the renderable
+    std::function<void (GLuint)> shaderFunction;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
@@ -175,6 +178,12 @@ protected:
 
         // pass in spot lights
         // TODO:
+
+        // custom shader function
+        if (shaderFunction) {
+            
+            shaderFunction(program);
+        }
     }
 
     /** Cleans up the shader */

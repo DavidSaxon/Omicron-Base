@@ -108,9 +108,13 @@ protected:
     std::string m_engineName;
     util::vec::Vector3 m_engineOffset;
 
-    omi::Transform* m_trailT;
-    omi::Sprite* m_trailSprite;
+    omi::Mesh* m_trailSprite;
     std::string m_trailName;
+
+    util::vec::Vector3 m_trailPositions[9];
+    omi::Transform* m_trailT;
+    unsigned m_trailIndex;
+    float m_trailTimer;
 
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS
