@@ -3,13 +3,17 @@
 
 #include "src/omicron/entity/Entity.hpp"
 
+#include "src/omicron/input/Input.hpp"
+
+#include "src/entities/level/Explosion.hpp"
+
 namespace block {
 
 enum Owner {
 
-    NONE,
     PLAYER,
-    ENEMY
+    ENEMY,
+    NONE
 };
 
 enum State {
@@ -42,6 +46,10 @@ public:
     // the collision detector of the block
     omi::CollisionDetector* m_collisionDetect;
 
+    float flyDir;
+    float m_flySpeed;
+    float m_rotSpeed;
+
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
@@ -49,6 +57,7 @@ public:
     Block(
             const std::string& sprite, const std::string& weapon,
             const std::string& engine, const std::string& trail,
+            float bulletSpeed, const std::string& bulletSound,
             const util::vec::Vector3& pos,
                   block::Owner         owner);
 
@@ -70,10 +79,14 @@ public:
 
     virtual void setPosition(const util::vec::Vector3& pos);
 
+    virtual void createBullet() = 0;
+
     /** Renews the travsel state of this block */
     void renew();
 
     void attach(bool a);
+
+    virtual void destroy();
 
     //---------------------------------GETTERSA---------------------------------
 
@@ -116,11 +129,22 @@ protected:
     unsigned m_trailIndex;
     float m_trailTimer;
 
+    float m_bulletSpeed;
+    float m_bulletTimer;
+
+    unsigned m_bulletSound;
+
+    bool m_dead;
+
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     void noOwnerUpdate();
+
+    void playerUpdate();
+
+    void enemyUpdate();
 };
 
 #endif

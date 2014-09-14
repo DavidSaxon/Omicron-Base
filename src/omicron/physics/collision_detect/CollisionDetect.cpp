@@ -86,27 +86,18 @@ void CollisionDetect::addDetector(CollisionDetector* detector) {
 
 void CollisionDetect::removeDetector(CollisionDetector* detector) {
 
-    // TODO:
+   for (std::vector<CollisionDetector*>::iterator it = m_detectors.begin();
+        it != m_detectors.end();) {
 
-   // std::string group = detector->getGroup();
+       if (*it == detector) {
 
-   // if (m_groups.find(group) == m_groups.end()) {
+           it = m_detectors.erase(it);
+       }
+       else {
 
-   //      std::cout << "attempted to remove non-existent detector" << std::endl;
-   // }
-
-   // for (std::vector<CollisionDetector*>::iterator it =
-   //      m_groups[group].begin(); it != m_groups[group].end();) {
-
-   //     if (*it == detector) {
-
-   //         it = m_groups[group].erase(it);
-   //     }
-   //     else {
-
-   //         ++it;
-   //     }
-   // }
+           ++it;
+       }
+   }
 }
 
 void CollisionDetect::clear() {

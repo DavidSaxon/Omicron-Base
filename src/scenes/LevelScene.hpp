@@ -5,10 +5,9 @@
 #include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
+#include "src/entities/level/EnemyShip.hpp"
 #include "src/entities/level/PlayerShip.hpp"
 #include "src/entities/level/Terrain.hpp"
-
-#include "src/entities/level/block/SteelBlock.hpp"
 
 class LevelScene: public omi::Scene {
 public:
@@ -37,6 +36,14 @@ public:
 
     /** #Override */
     virtual omi::Scene* nextScene() const;
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    float m_enemyTimer;
 };
 
 #endif

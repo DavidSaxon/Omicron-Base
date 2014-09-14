@@ -30,11 +30,11 @@ Animation::Animation(
     m_visible = true;
 }
 
-Animation::Animation(const Animation& other) :
+Animation::Animation(Animation& other) :
     m_textures     (other.m_textures),
     m_frameRate    (other.m_frameRate),
     m_frameLength  (other.m_frameLength),
-    m_frame        (other.m_frame),
+    m_frame        (0),
     m_repeat       (other.m_repeat),
     m_ended        (false),
     m_lastFrameTime(-1),

@@ -1,9 +1,11 @@
 #ifndef BOF_LEVEL_BLOCK_STEELBLOCK_H_
 #    define BOF_LEVEL_BLOCK_STEELBLOCK_H_
 
-#include "BasicBlock.hpp"
+#include "Block.hpp"
 
-class SteelBlock : public BasicBlock {
+#include "src/entities/level/bullet/SteelBullet.hpp"
+
+class SteelBlock : public Block {
 public:
 
     //--------------------------------------------------------------------------
@@ -21,6 +23,8 @@ public:
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    void createBullet();
 };
 
 #endif

@@ -7,6 +7,7 @@
 Block::Block(
         const std::string& sprite, const std::string& weapon,
         const std::string& engine, const std::string& trail,
+        float bulletSpeed, const std::string& bulletSound,
         const util::vec::Vector3& pos,
               block::Owner         owner) :
     traversed(false),
@@ -21,7 +22,11 @@ Block::Block(
     left(NULL),
     right(NULL),
     m_trailIndex(0),
-    m_trailTimer(0.0f) {
+    m_trailTimer(0.0f),
+    m_bulletSpeed(bulletSpeed),
+    m_bulletTimer(1.0f),
+    flyDir(0.0f),
+    m_dead(false) {
 
     // create the transforms
     m_transform = new omi::Transform(
@@ -29,6 +34,10 @@ Block::Block(
         util::vec::Vector3(),
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
     );
+    if (m_owner == block::ENEMY) {
+
+        m_transform->rotation.z = 180.0f;
+    }
     m_weaponT = new omi::Transform(
         "",
         m_transform->translation,
@@ -53,6 +62,9 @@ Block::Block(
 
         m_trailPositions[i] = pos;
     }
+
+    // sound
+    m_bulletSound = omi::ResourceManager::getSound(bulletSound);
 }
 
 //------------------------------------------------------------------------------
@@ -79,10 +91,10 @@ void Block::init() {
     }
     else if (m_owner == block::ENEMY) {
 
-        group = "none_block";
+        group = "enemy_block";
     }
     m_collisionDetect = new omi::CollisionDetector("", group, this);
-    m_collisionDetect->addBounding(new omi::BoundingCircle(0.5f, m_transform));
+    m_collisionDetect->addBounding(new omi::BoundingCircle(0.55f, m_transform));
     m_components.add(m_collisionDetect);
 
     m_components.add(m_weaponT);
@@ -165,28 +177,12 @@ void Block::init() {
             27, trailPos);
         glUniform1f(glGetUniformLocation(program, "u_trailFade"),
             -m_engineOffset.y);
+        glUniform1i(glGetUniformLocation(program, "u_enemy"),
+            int(m_owner == block::ENEMY));
     };
 }
 
 void Block::update() {
-
-    // update based on owner
-    switch (m_owner) {
-
-        case block::NONE: {
-
-            noOwnerUpdate();
-            break;
-        }
-        case block::PLAYER: {
-
-            break;
-        }
-        case block::ENEMY: {
-
-            break;
-        }
-    }
 
     // update the trail timer
     m_trailTimer += 0.2f * omi::fpsManager.getTimeScale();
@@ -252,15 +248,50 @@ void Block::update() {
         }
     }
 
-    // visibility based on neighbours
-    if (top != NULL) {
+    // update based on owner
+    switch (m_owner) {
 
-        m_weaponSprite->visible = false;
+        case block::NONE: {
+
+            noOwnerUpdate();
+            break;
+        }
+        case block::PLAYER: {
+
+            playerUpdate();
+            // visibility based on neighbours
+            if (top != NULL) {
+
+                m_weaponSprite->visible = false;
+            }
+            if (bottom != NULL) {
+
+                m_engineSprite->visible = false;
+                m_trailSprite->visible = false;
+            }
+            break;
+        }
+        case block::ENEMY: {
+
+            enemyUpdate();
+            // visibility based on neighbours
+            if (bottom != NULL) {
+
+                m_weaponSprite->visible = false;
+            }
+            if (top != NULL) {
+
+                m_engineSprite->visible = false;
+                m_trailSprite->visible = false;
+            }
+            break;
+        }
     }
-    if (bottom != NULL) {
 
-        m_engineSprite->visible = false;
-        m_trailSprite->visible = false;
+    if (m_dead) {
+
+        addEntity(new Explosion(m_transform->translation, "block_explosion_1"));
+        remove();
     }
 }
 
@@ -288,8 +319,19 @@ void Block::setPosition(const util::vec::Vector3& pos) {
     }
 
     // update the weapons position
-    m_weaponT->translation = m_transform->translation + m_weaponOffset;
-    m_engineT->translation = m_transform->translation + m_engineOffset;
+    if (m_owner == block::ENEMY) {
+
+        m_weaponT->translation = m_transform->translation - m_weaponOffset;
+        m_engineT->translation = m_transform->translation - m_engineOffset;
+    }
+    else {
+
+        m_weaponT->translation = m_transform->translation + m_weaponOffset;
+        m_engineT->translation = m_transform->translation + m_engineOffset;
+    }
+    
+    m_weaponT->rotation    = m_transform->rotation;
+    m_engineT->rotation    = m_transform->rotation;
 }
 
 void Block::renew() {
@@ -309,6 +351,11 @@ void Block::attach(bool a) {
     }
 }
 
+void Block::destroy() {
+
+    m_dead = true;
+}
+
 //-----------------------------------GETTERS------------------------------------
 
 block::Owner Block::getOwner() const {
@@ -322,20 +369,18 @@ void Block::setOwner(block::Owner owner) {
 
     m_owner = owner;
     std::string group = "none_block";
+    m_transform->rotation.z = 0.0f;
     if (m_owner == block::PLAYER) {
 
         group = "player_block";
+        m_transform->rotation.z = 0.0f;
     }
     else if (m_owner == block::ENEMY) {
 
-        group = "none_block";
+        group = "enemy_block";
+        m_transform->rotation.z = 180.0f;
     }
     m_collisionDetect->setGroup(group);
-    // m_components.remove("col_d");
-
-    // m_collisionDetect = new omi::CollisionDetector("col_d", group, this);
-    // m_collisionDetect->addBounding(new omi::BoundingCircle(0.5f, m_transform));
-    // m_components.add(m_collisionDetect);
 }
 
 //------------------------------------------------------------------------------
@@ -347,5 +392,56 @@ void Block::noOwnerUpdate() {
     // move the block down
     m_transform->translation.y -=
         value::DOWN_SPEED * omi::fpsManager.getTimeScale();
+
+    //fly
+    float flySpeed = m_flySpeed * omi::fpsManager.getTimeScale();
+    m_transform->translation.x -= flySpeed *
+        cos(flyDir * util::math::DEGREES_TO_RADIANS);
+    m_transform->translation.y += flySpeed *
+        sin(flyDir * util::math::DEGREES_TO_RADIANS);
+
     setPosition(m_transform->translation);
+
+    if (m_flySpeed > 0.0f) {
+
+        m_flySpeed -= 0.0002f * omi::fpsManager.getTimeScale();
+    }
+    else {
+
+        m_flySpeed = 0.0f;
+    }
+
+    // rotate
+    m_transform->rotation.z += m_rotSpeed * omi::fpsManager.getTimeScale();
+}
+
+void Block::playerUpdate() {
+
+    if (omi::input::isKeyPressed(sf::Keyboard::Space) && top == NULL) {
+
+        m_bulletTimer += m_bulletSpeed * omi::fpsManager.getTimeScale();
+
+        if (m_bulletTimer >= 1.0f) {
+        
+            createBullet();
+            omi::SoundPool::play(m_bulletSound, false, 1.0f);
+            m_bulletTimer -= 1.0f;
+        }
+    }
+    else if (m_bulletTimer < 1.0f) {
+
+        m_bulletTimer += m_bulletSpeed * omi::fpsManager.getTimeScale();
+
+        if (m_bulletTimer >= 1.0f) {
+
+            m_bulletTimer = 1.0f;
+        }
+    }
+}
+
+void Block::enemyUpdate() {
+
+    // invert offsets
+    // m_weaponOffset.y = - m_weaponOffset.y;
+    // m_engineOffset.y = - m_engineOffset.y;
 }

@@ -1,29 +1,30 @@
-#ifndef BOF_LEVEL_BLOCK_BASICBLOCK_H_
-#    define BOF_LEVEL_BLOCK_BASICBLOCK_H_
+#ifndef BOF_LEVEL_BLOCK_COPPERBLOCK_H_
+#    define BOF_LEVEL_BLOCK_COPPERBLOCK_H_
 
 #include "Block.hpp"
 
-class BasicBlock : public Block {
+#include "src/entities/level/bullet/CopperBullet.hpp"
+
+class CopperBlock : public Block {
 public:
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    BasicBlock(const std::string& sprite_name, const std::string& weapon,
-        const std::string& engine, const std::string& trail,
-        const util::vec::Vector3& pos, block::Owner owner);
+    CopperBlock(const util::vec::Vector3& pos, block::Owner owner);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    ~BasicBlock();
+    ~CopperBlock();
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    void createBullet();
 };
 
 #endif

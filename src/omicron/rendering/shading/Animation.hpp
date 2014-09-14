@@ -38,7 +38,7 @@ public:
 
     /** Creates a copy of the given animation
     @param other the animation to copy from */
-    Animation(const Animation& other);
+    Animation(Animation& other);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR

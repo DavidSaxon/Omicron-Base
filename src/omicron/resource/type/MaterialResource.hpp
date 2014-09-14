@@ -50,7 +50,7 @@ public:
     void release();
 
     /** @return the loaded material */
-    Material get() const;
+    Material get();
 
 private:
 

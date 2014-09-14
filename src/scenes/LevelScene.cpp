@@ -4,7 +4,8 @@
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-LevelScene::LevelScene() {
+LevelScene::LevelScene() :
+    m_enemyTimer(0.0f) {
 }
 
 //------------------------------------------------------------------------------
@@ -25,13 +26,14 @@ void LevelScene::init() {
     omi::renderSettings.setAmbientColour(util::vec::Vector3(1.0f, 1.0f, 1.0f));
 
     // set up collision groups
+    omi::CollisionDetect::checkGroup("player_block", "player_block");
     omi::CollisionDetect::checkGroup("player_block", "none_block");
+    omi::CollisionDetect::checkGroup("enemy_block", "player_bullet");
 
     // add entities
     addEntity(new Terrain());
     addEntity(new PlayerShip());
-    addEntity(
-        new SteelBlock(util::vec::Vector3(0.0f, 25.0f, 0.0f), block::NONE));
+
 }
 
 bool LevelScene::update() {
@@ -40,6 +42,18 @@ bool LevelScene::update() {
     if (omi::input::isKeyPressed(sf::Keyboard::Escape)) {
 
         return true;
+    }
+
+    m_enemyTimer += 0.005f * ((rand() % 1000) / 1000.0f) *
+        omi::fpsManager.getTimeScale();
+
+    if (m_enemyTimer >= 1.0f) {
+
+        float xPos = ((((rand() % 1000) / 1000.0f) * 2.0f) - 1.0f);
+        xPos *= 29.0f;
+        addEntity(
+            new EnemyShip(util::vec::Vector3(xPos, 22.0f, 0.0f)));
+        m_enemyTimer = 0.0f;
     }
 
     return false;

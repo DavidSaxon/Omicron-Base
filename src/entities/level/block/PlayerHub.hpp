@@ -3,6 +3,8 @@
 
 #include "Block.hpp"
 
+#include "src/entities/level/bullet/SteelBullet.hpp"
+
 class PlayerHub : public Block {
 public:
 
@@ -21,6 +23,8 @@ public:
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    void createBullet();
 };
 
 #endif

@@ -50,11 +50,20 @@ private:
     // the list of all blocks in the ship
     std::vector<Block*> m_blocks;
 
+    // music
+    omi::Music* m_music;
+
+    bool m_first;
+
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     void processBlockGrab();
+
+    void rebuild();
+
+    void rebuildRec(Block* block);
 
     void processInput();
 

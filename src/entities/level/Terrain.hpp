@@ -5,6 +5,20 @@
 
 #include "src/omicron/entity/Entity.hpp"
 
+#include "src/entities/level/Cave.hpp"
+
+namespace terrain {
+
+enum State {
+
+    GRASS,
+    DIRT,
+    DESERT,
+    CAVE
+};
+
+} // namesapce terrain
+
 class Terrain : public omi::Entity {
 public:
 
@@ -29,6 +43,8 @@ private:
 
     // the sprites
     std::vector<omi::Sprite*> m_sprites;
+
+    terrain::State m_state;
 };
 
 #endif

@@ -34,24 +34,24 @@ void MaterialResource::load() {
     if (!m_loaded) {
 
         //check if we are using a texture or not
-        if (m_texture.compare("")) {
+        // if (m_texture.compare("")) {
 
-            // create material with texture
-            m_material = Material(
-                ResourceManager::getShader(m_shader),
-                m_colour,
-                ResourceManager::getTexture(m_texture)
-            );
-        }
-        else {
+        //     // create material with texture
+        //     m_material = Material(
+        //         ResourceManager::getShader(m_shader),
+        //         m_colour,
+        //         ResourceManager::getTexture(m_texture)
+        //     );
+        // }
+        // else {
 
-            // create material without texture
-            m_material = Material(
-                ResourceManager::getShader(m_shader),
-                m_colour,
-                NULL
-            );
-        }
+        //     // create material without texture
+        //     m_material = Material(
+        //         ResourceManager::getShader(m_shader),
+        //         m_colour,
+        //         NULL
+        //     );
+        // }
         m_loaded = true;
     }
 }
@@ -65,13 +65,32 @@ void MaterialResource::release() {
     }
 }
 
-Material MaterialResource::get() const {
+Material MaterialResource::get() {
 
     if (!m_loaded) {
 
         std::cout << "attempted to get unloaded material" << std::endl;
 
         //TODO: throw an exception
+    }
+
+    if (m_texture.compare("")) {
+
+        // create material with texture
+        m_material = Material(
+            ResourceManager::getShader(m_shader),
+            m_colour,
+            ResourceManager::getTexture(m_texture)
+        );
+    }
+    else {
+
+        // create material without texture
+        m_material = Material(
+            ResourceManager::getShader(m_shader),
+            m_colour,
+            NULL
+        );
     }
 
     return m_material;

@@ -20,9 +20,11 @@ enum Layers {
     BOTTOM = 0,
     TERRAIN,
     ENGINE_TRAIL,
+    BULLET,
     SHIP_ENGINE,
     SHIP_WEAPON,
     SHIP_BLOCK,
+    BULLET_EXPLOSION,
     TOP
 };
 

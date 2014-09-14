@@ -6,7 +6,7 @@
 
 namespace {
 
-static const float MOVE_SPEED = 0.15f;
+static const float MOVE_SPEED = 0.25f;
 
 }
 
@@ -14,7 +14,8 @@ static const float MOVE_SPEED = 0.15f;
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-PlayerShip::PlayerShip() {
+PlayerShip::PlayerShip() :
+    m_first(true) {
 }
 
 //------------------------------------------------------------------------------
@@ -36,10 +37,20 @@ void PlayerShip::init() {
 
 void PlayerShip::update() {
 
+    if (!m_first) {
+
+        rebuild();
+    }
+    else {
+
+        m_first = false;
+    }
+
     processBlockGrab();
 
     // process input
     processInput();
+
 }
 
 //------------------------------------------------------------------------------
@@ -61,7 +72,7 @@ void PlayerShip::processBlockGrab() {
 
             if (data->group.compare("none_block")) {
 
-                return;
+                continue;
             }
 
             // cast the entity to a block
@@ -148,11 +159,133 @@ void PlayerShip::processBlockGrab() {
     }
 }
 
+void PlayerShip::rebuild() {
+    
+    for (unsigned i = 0; i < m_blocks.size(); ++i) {
+
+        m_blocks[i]->traversed = false;
+        m_blocks[i]->top = NULL;
+        m_blocks[i]->bottom = NULL;
+        m_blocks[i]->left = NULL;
+        m_blocks[i]->right = NULL;
+    }
+    rebuildRec(m_hub);
+    // destroy any blocks that have not been connected
+    for (std::vector<Block*>::iterator it = m_blocks.begin();
+         it != m_blocks.end();) {
+
+        if (!(*it)->traversed) {
+
+            (*it)->destroy();
+            it = m_blocks.erase(it);
+        }
+        else {
+
+            ++it;
+        }
+    }
+}
+
+void PlayerShip::rebuildRec(Block* block) {
+
+    if (block->traversed) {
+
+        return;
+    }
+    block->traversed = true;
+
+    // get collision data from each block
+    for (std::vector<omi::CollisionData>::iterator data =
+        block->m_collisionDetect->getCollisionData().begin();
+        data != block->m_collisionDetect->getCollisionData().end();
+        ++data) {
+
+        if (data->group.compare("player_block")) {
+
+            continue;
+        }
+
+        // cast the entity to a block
+        Block* collide = static_cast<Block*>(data->entity);
+
+        // find the side it's nearest too
+        float angle = util::vec::angleBetween(
+            block->m_transform->translation.xy(),
+            collide->m_transform->translation.xy());
+        if (angle < 0.0) {
+
+            angle += 360.0f;
+        }
+        else if (angle >= 360.0f) {
+
+            angle -= 360.0f;
+        }
+        // attach to the closet block
+        if (angle > 45.0f &&  angle < 135.0f) {
+
+            if (block->top != NULL) {
+
+                continue;
+            }
+
+            collide->bottom = block;
+            block->top = collide;
+        }
+        else if (angle > 135.0f &&  angle < 225.0f) {
+
+            if (block->right != NULL) {
+
+                continue;
+            }
+
+            collide->left = block;
+            block->right = collide;
+        }
+        else if (angle > 225.0f &&  angle < 315.0f) {
+
+            if (block->bottom != NULL) {
+
+                continue;
+            }
+
+            collide->top = block;
+            block->bottom = collide;
+        }
+        else {
+
+            if (block->left != NULL) {
+
+                continue;
+            }
+
+            collide->right = block;
+            block->left = collide;
+        }
+    }
+
+    // rebuild neighbors
+    if (block->top != NULL) {
+
+        rebuildRec(block->top);
+    }
+    if (block->bottom != NULL) {
+
+        rebuildRec(block->bottom);
+    }
+    if (block->left != NULL) {
+
+        rebuildRec(block->left);
+    }
+    if (block->right != NULL) {
+
+        rebuildRec(block->right);
+    }
+}
+
 void PlayerShip::processInput() {
 
     movement();
 }
-
 
 void PlayerShip::movement() {
 
@@ -173,6 +306,24 @@ void PlayerShip::movement() {
     if (omi::input::isKeyPressed(sf::Keyboard::Right)) {
 
         m_shipT->translation.x += moveSpeed;
+    }
+
+    // stop the player going out of bounds
+    if (m_shipT->translation.x >= 31.0f) {
+
+        m_shipT->translation.x = 31.0f;
+    }
+    else if (m_shipT->translation.x <= -31.0f) {
+
+        m_shipT->translation.x = -31.0f;
+    }
+    if (m_shipT->translation.y >= 17.0f) {
+
+        m_shipT->translation.y = 17.0f;
+    }
+    else if (m_shipT->translation.y <= -17.0f) {
+
+        m_shipT->translation.y = -17.0f;
     }
 
     // pass the position to the hub
@@ -202,12 +353,19 @@ void PlayerShip::initComponents() {
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
     );
     m_components.add(m_shipT);
+    //----------------------------------MUSIC-----------------------------------
+    m_music = new omi::Music(
+        "", "res/sound/music/level/music.ogg", 1.0f, true
+    );
+    m_components.add(m_music);
+    m_music->play();
 }
 
 void PlayerShip::buildShip() {
 
     // create the hub
     m_hub = new PlayerHub(util::vec::Vector3());
+    m_hub->attach(true);
     m_blocks.push_back(m_hub);
     addEntity(m_hub);
 

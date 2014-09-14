@@ -7,6 +7,7 @@
 // the position of the engine trails
 uniform vec3 u_trailPositions[9];
 uniform float u_trailFade;
+uniform int u_enemy;
 
 // the vertex coords 
 varying vec3 v_vertex;
@@ -30,10 +31,12 @@ void main() {
         u_trailFade;
 
     int trailIndex = 8 - int(gl_Vertex.y + 7.7);
-    // vec3 trailPos = vec3(u_trailPositions[trailIndex].x, gl_Vertex.y, gl_Vertex.z);
     vec4 trailPos = gl_Vertex;
     trailPos.x += u_trailPositions[trailIndex].x;
-    // trailPos.x += 8.0 - (gl_Vertex.y + 7.7);
+    if (u_enemy != 0) {
+
+        trailPos.y = -trailPos.y + 2.0;
+    }
     trailPos.y += u_trailPositions[trailIndex].y;
 
     //set the vertex coord

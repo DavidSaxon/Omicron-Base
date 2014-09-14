@@ -50,7 +50,7 @@ void Sprite::render() {
     applyTransformations();
 
     // set the shader
-    setShader();
+    setShader();																							
 
     // TODO: use VBOS
     // draw the sprite

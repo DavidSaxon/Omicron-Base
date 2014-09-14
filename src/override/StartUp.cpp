@@ -16,14 +16,14 @@ omi::Scene* init() {
 
     // render settings
     omi::renderSettings.setDepthTest(true);
-    omi::renderSettings.setBackFaceCulling(true);
+    omi::renderSettings.setBackFaceCulling(false);
     omi::renderSettings.setClearColour(
         util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 
     //audio settings
-    omi::audioSettings.setSoundDisabled(true);
-    omi::audioSettings.setMusicDisabled(true);
-    omi::audioSettings.setSoundVolume(1.0f);
+    omi::audioSettings.setSoundDisabled(false);
+    omi::audioSettings.setMusicDisabled(false);
+    omi::audioSettings.setSoundVolume(0.3f);
     omi::audioSettings.setMusicVolume(1.0f);
 
     return new StartUpScene();
