@@ -25,7 +25,9 @@ enum Layers {
     SHIP_WEAPON,
     SHIP_BLOCK,
     BULLET_EXPLOSION,
-    TOP
+    TOP,
+    GUI,
+    COIN
 };
 
 //------------------------------------------------------------------------------

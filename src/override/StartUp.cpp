@@ -23,7 +23,7 @@ omi::Scene* init() {
     //audio settings
     omi::audioSettings.setSoundDisabled(false);
     omi::audioSettings.setMusicDisabled(false);
-    omi::audioSettings.setSoundVolume(0.3f);
+    omi::audioSettings.setSoundVolume(0.27f);
     omi::audioSettings.setMusicVolume(1.0f);
 
     return new StartUpScene();

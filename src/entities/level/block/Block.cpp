@@ -26,7 +26,8 @@ Block::Block(
     m_bulletSpeed(bulletSpeed),
     m_bulletTimer(1.0f),
     flyDir(0.0f),
-    m_dead(false) {
+    m_dead(false),
+    m_health(1.0f) {
 
     // create the transforms
     m_transform = new omi::Transform(
@@ -65,6 +66,7 @@ Block::Block(
 
     // sound
     m_bulletSound = omi::ResourceManager::getSound(bulletSound);
+    m_blockSound = omi::ResourceManager::getSound("block_explosion");
 }
 
 //------------------------------------------------------------------------------
@@ -290,6 +292,10 @@ void Block::update() {
 
     if (m_dead) {
 
+        if (m_transform->translation.y > -24.0f) {
+        
+            omi::SoundPool::play(m_blockSound, false, 1.0f);
+        }
         addEntity(new Explosion(m_transform->translation, "block_explosion_1"));
         remove();
     }
@@ -413,6 +419,24 @@ void Block::noOwnerUpdate() {
 
     // rotate
     m_transform->rotation.z += m_rotSpeed * omi::fpsManager.getTimeScale();
+
+    // check bounds
+    if (m_transform->translation.x >= 62.0f) {
+
+        destroy();
+    }
+    else if (m_transform->translation.x <= -62.0f) {
+
+        destroy();
+    }
+    if (m_transform->translation.y >= 40.0f) {
+
+        destroy();
+    }
+    else if (m_transform->translation.y <= -26.0f) {
+
+        destroy();
+    }
 }
 
 void Block::playerUpdate() {
@@ -441,7 +465,15 @@ void Block::playerUpdate() {
 
 void Block::enemyUpdate() {
 
-    // invert offsets
-    // m_weaponOffset.y = - m_weaponOffset.y;
-    // m_engineOffset.y = - m_engineOffset.y;
+    if (bottom == NULL) {
+
+        m_bulletTimer += m_bulletSpeed * omi::fpsManager.getTimeScale() * 0.25f;
+
+        if (m_bulletTimer >= 1.0f) {
+        
+            createBullet();
+            omi::SoundPool::play(m_bulletSound, false, 0.5f);
+            m_bulletTimer -= 1.0f;
+        }
+    }
 }

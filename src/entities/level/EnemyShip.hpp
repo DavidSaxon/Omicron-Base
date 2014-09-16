@@ -7,6 +7,9 @@
 #include "src/entities/level/block/SteelBlock.hpp"
 #include "src/entities/level/block/RustyBlock.hpp"
 #include "src/entities/level/block/CopperBlock.hpp"
+#include "src/entities/level/block/TitaniumBlock.hpp"
+#include "src/entities/level/block/SilverBlock.hpp"
+#include "src/entities/level/block/GoldBlock.hpp"
 
 class EnemyShip : public omi::Entity {
 public:
@@ -15,7 +18,7 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    EnemyShip(const util::vec::Vector3 pos);
+    EnemyShip(const util::vec::Vector3 pos, float diff);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -52,6 +55,8 @@ private:
     bool m_right;
     float m_sideSpeed;
 
+    float m_diff;
+
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
@@ -67,6 +72,14 @@ private:
     Block* getBlock(const util::vec::Vector3& pos);
 
     void buildShip1();
+
+    void buildShip2();
+
+    void buildShip3();
+
+    void buildShip4();
+
+    void buildShip5();
 };
 
 #endif

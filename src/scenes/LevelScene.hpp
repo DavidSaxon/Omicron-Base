@@ -5,6 +5,8 @@
 #include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
+#include "src/override/Values.hpp"
+
 #include "src/entities/level/EnemyShip.hpp"
 #include "src/entities/level/PlayerShip.hpp"
 #include "src/entities/level/Terrain.hpp"
@@ -44,6 +46,10 @@ private:
     //--------------------------------------------------------------------------
 
     float m_enemyTimer;
+
+    float m_diff;
+
+    bool m_start;
 };
 
 #endif

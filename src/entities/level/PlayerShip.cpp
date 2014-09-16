@@ -15,7 +15,9 @@ static const float MOVE_SPEED = 0.25f;
 //------------------------------------------------------------------------------
 
 PlayerShip::PlayerShip() :
-    m_first(true) {
+    m_first(true),
+    m_start(false),
+    m_coinTimer(0.0f) {
 }
 
 //------------------------------------------------------------------------------
@@ -37,6 +39,29 @@ void PlayerShip::init() {
 
 void PlayerShip::update() {
 
+    if (!m_start) {
+
+        m_coinTimer += 0.045f * omi::fpsManager.getTimeScale();
+        if (m_coinTimer >= 1.0f) {
+
+            m_coinTimer -= 1.0f;
+            m_coinSprite->visible = !m_coinSprite->visible;
+        }
+
+        if (omi::input::isKeyPressed(sf::Keyboard::Space)) {
+
+            m_guiSprite->visible = false;
+            m_coinSprite->visible = false;
+            m_introMusic->setLoop(false);
+            m_start = true;
+        }
+    }
+
+    if (m_introMusic->isStopped() && m_music->isStopped()) {
+
+        m_music->play();
+    }
+
     if (!m_first) {
 
         rebuild();
@@ -51,6 +76,7 @@ void PlayerShip::update() {
     // process input
     processInput();
 
+    collisions();
 }
 
 //------------------------------------------------------------------------------
@@ -290,22 +316,25 @@ void PlayerShip::processInput() {
 void PlayerShip::movement() {
 
     // calculate movement speed
-    float moveSpeed = MOVE_SPEED * omi::fpsManager.getTimeScale();
-    if (omi::input::isKeyPressed(sf::Keyboard::Up)) {
+    if (m_start) {
 
-        m_shipT->translation.y += moveSpeed;
-    }
-    if (omi::input::isKeyPressed(sf::Keyboard::Down)) {
+        float moveSpeed = MOVE_SPEED * omi::fpsManager.getTimeScale();
+        if (omi::input::isKeyPressed(sf::Keyboard::Up)) {
 
-        m_shipT->translation.y -= moveSpeed;
-    }
-    if (omi::input::isKeyPressed(sf::Keyboard::Left)) {
+            m_shipT->translation.y += moveSpeed;
+        }
+        if (omi::input::isKeyPressed(sf::Keyboard::Down)) {
 
-        m_shipT->translation.x -= moveSpeed;
-    }
-    if (omi::input::isKeyPressed(sf::Keyboard::Right)) {
+            m_shipT->translation.y -= moveSpeed;
+        }
+        if (omi::input::isKeyPressed(sf::Keyboard::Left)) {
 
-        m_shipT->translation.x += moveSpeed;
+            m_shipT->translation.x -= moveSpeed;
+        }
+        if (omi::input::isKeyPressed(sf::Keyboard::Right)) {
+
+            m_shipT->translation.x += moveSpeed;
+        }
     }
 
     // stop the player going out of bounds
@@ -334,6 +363,44 @@ void PlayerShip::movement() {
     m_hub->setPosition(m_shipT->translation);
 }
 
+void PlayerShip::collisions() {
+
+    for (std::vector<Block*>::iterator it = m_blocks.begin();
+         it != m_blocks.end();) {
+
+        // get collision data from each block
+        for (std::vector<omi::CollisionData>::iterator data =
+            (*it)->m_collisionDetect->getCollisionData().begin();
+            data != (*it)->m_collisionDetect->getCollisionData().end();
+            ++data) {
+
+            if (!data->group.compare("enemy_bullet")) {
+
+                // cast the entity to a bullet
+                Bullet* bullet = static_cast<Bullet*>(data->entity);
+                bullet->destroy();
+                (*it)->m_health -= bullet->getDamage() * 1.0f;
+            }
+            if (!data->group.compare("enemy_block")) {
+
+                (*it)->m_health = -1000.0f;
+            }
+        }
+
+        // TODO: hub destruction
+        // destroy blocks if we need to
+        if ((*it)->m_health <= 0.0f && *it != m_hub) {
+
+            (*it)->destroy();
+            it = m_blocks.erase(it);
+        }
+        else {
+
+            ++it;
+        }
+    }
+}
+
 void PlayerShip::initComponents() {
 
     //----------------------------------CAMERA----------------------------------
@@ -348,17 +415,38 @@ void PlayerShip::initComponents() {
     //------------------------------SHIP POSITION-------------------------------
     m_shipT = new omi::Transform(
         "",
-        util::vec::Vector3(),
+        util::vec::Vector3(0.0f, -10.0f, 0.0f),
         util::vec::Vector3(),
         util::vec::Vector3(1.0f, 1.0f, 1.0f)
     );
     m_components.add(m_shipT);
     //----------------------------------MUSIC-----------------------------------
+    
+    m_introMusic = new omi::Music(
+        "", "res/sound/music/level/intro.ogg", 1.0f, true
+    );
+    m_components.add(m_introMusic);
+    m_introMusic->play();
+
     m_music = new omi::Music(
         "", "res/sound/music/level/music.ogg", 1.0f, true
     );
     m_components.add(m_music);
-    m_music->play();
+
+    //-----------------------------------GUI------------------------------------
+    m_guiT = new omi::Transform(
+        "",
+        util::vec::Vector3(),
+        util::vec::Vector3(),
+        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+    );
+    m_components.add(m_guiT);
+    m_guiSprite = omi::ResourceManager::getSprite(
+        "title_screen", "", m_guiT);
+    m_components.add(m_guiSprite);
+    m_coinSprite = omi::ResourceManager::getSprite(
+        "insert_coin", "", m_guiT);
+    m_components.add(m_coinSprite);
 }
 
 void PlayerShip::buildShip() {

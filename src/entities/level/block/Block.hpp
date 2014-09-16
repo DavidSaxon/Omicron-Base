@@ -50,6 +50,8 @@ public:
     float m_flySpeed;
     float m_rotSpeed;
 
+    float m_health;
+
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
@@ -133,6 +135,7 @@ protected:
     float m_bulletTimer;
 
     unsigned m_bulletSound;
+    unsigned m_blockSound;
 
     bool m_dead;
 

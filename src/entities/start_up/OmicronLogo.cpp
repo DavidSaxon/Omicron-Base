@@ -134,8 +134,8 @@ void OmicronLogo::update() {
 
 bool OmicronLogo::done() {
 
-    return true;
-    // return m_stage == DONE;
+    // return true;
+    return m_stage == DONE;
 }
 
 //------------------------------------------------------------------------------

@@ -51,9 +51,18 @@ private:
     std::vector<Block*> m_blocks;
 
     // music
+    omi::Music* m_introMusic;
     omi::Music* m_music;
 
     bool m_first;
+
+    omi::Transform* m_guiT;
+    omi::Sprite* m_guiSprite;
+    omi::Sprite* m_coinSprite;
+
+    float m_coinTimer;
+
+    bool m_start;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
@@ -66,6 +75,8 @@ private:
     void rebuildRec(Block* block);
 
     void processInput();
+
+    void collisions();
 
     void movement();
 

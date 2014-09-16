@@ -26,6 +26,28 @@ void buildLevelPack() {
     //                                  SPRITES
     //--------------------------------------------------------------------------
 
+    //-----------------------------------GUI------------------------------------
+
+    omi::ResourceManager::addTextureMaterialSprite(
+        "title_screen", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/texture/level/title.png", GUI,
+        util::vec::Vector2(65.0, 65.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+
+    omi::ResourceManager::addTextureMaterialSprite(
+        "insert_coin", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/texture/level/coin.png", COIN,
+        util::vec::Vector2(65.0, 65.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+
     //---------------------------------TERRAIN----------------------------------
 
     // MAIN 1
@@ -193,7 +215,7 @@ void buildLevelPack() {
         util::vec::Vector4(1.0f, 0.5f, 0.0f, 1.0f),
         "res/gfx/geometry/level/engine_trail.obj", ENGINE_TRAIL
     );
-    // STEEL
+    // COPPER
     omi::ResourceManager::addTextureMaterialSprite(
         "block_copper", resource_group::LEVEL,
         "default_shader",
@@ -233,6 +255,126 @@ void buildLevelPack() {
         util::vec::Vector4(0.0f, 1.0f, 0.5f, 1.0f),
         "res/gfx/geometry/level/engine_trail.obj", ENGINE_TRAIL
     );
+    // TITANIUM
+    omi::ResourceManager::addTextureMaterialSprite(
+        "block_titanium", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/block/titanium.png", SHIP_BLOCK,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "weapon_titanium", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/weapon/titanium.png", SHIP_WEAPON,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "bullet_titanium", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/texture/level/ship/bullet/titanium.png", BULLET,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "engine_titanium", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/engine/titanium.png", SHIP_ENGINE,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "trail_titanium", resource_group::LEVEL,
+        "engine_trail_shader",
+        util::vec::Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/geometry/level/engine_trail.obj", ENGINE_TRAIL
+    );
+    // SILVER
+    omi::ResourceManager::addTextureMaterialSprite(
+        "block_silver", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/block/silver.png", SHIP_BLOCK,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "weapon_silver", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/weapon/silver.png", SHIP_WEAPON,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "bullet_silver", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/texture/level/ship/bullet/silver.png", BULLET,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "engine_silver", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/engine/silver.png", SHIP_ENGINE,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "trail_silver", resource_group::LEVEL,
+        "engine_trail_shader",
+        util::vec::Vector4(0.0f, 0.5f, 1.0f, 1.0f),
+        "res/gfx/geometry/level/engine_trail.obj", ENGINE_TRAIL
+    );
+    // GOLD
+    omi::ResourceManager::addTextureMaterialSprite(
+        "block_gold", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/block/gold.png", SHIP_BLOCK,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "weapon_gold", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/weapon/gold.png", SHIP_WEAPON,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "bullet_gold", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/texture/level/ship/bullet/gold.png", BULLET,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "engine_gold", resource_group::LEVEL,
+        "default_shader",
+        "res/gfx/texture/level/ship/engine/gold.png", SHIP_ENGINE,
+        util::vec::Vector2(1.0, 1.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "trail_gold", resource_group::LEVEL,
+        "engine_trail_shader",
+        util::vec::Vector4(0.5f, 0.0f, 1.0f, 1.0f),
+        "res/gfx/geometry/level/engine_trail.obj", ENGINE_TRAIL
+    );
 
     //FX
     omi::ResourceManager::addTextureMaterialSprite(
@@ -249,6 +391,36 @@ void buildLevelPack() {
         "bullet_explosion_2", resource_group::LEVEL,
         "effect_shader",
         util::vec::Vector4(0.0f, 0.75f, 1.0f, 1.0f),
+        "res/gfx/texture/level/fx/bullet_explosion_1/explosion.png",
+        60, false, 1, 19, BULLET_EXPLOSION,
+        util::vec::Vector2(2.0, 2.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "bullet_explosion_3", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+        "res/gfx/texture/level/fx/bullet_explosion_1/explosion.png",
+        60, false, 1, 19, BULLET_EXPLOSION,
+        util::vec::Vector2(2.0, 2.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "bullet_explosion_4", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(1.0f, 0.5f, 0.0f, 1.0f),
+        "res/gfx/texture/level/fx/bullet_explosion_1/explosion.png",
+        60, false, 1, 19, BULLET_EXPLOSION,
+        util::vec::Vector2(2.0, 2.0),
+        util::vec::Vector2(1, 1),
+        util::vec::Vector2(0, 0)
+    );
+    omi::ResourceManager::addTextureMaterialSprite(
+        "bullet_explosion_5", resource_group::LEVEL,
+        "effect_shader",
+        util::vec::Vector4(0.5f, 0.0f, 1.0f, 1.0f),
         "res/gfx/texture/level/fx/bullet_explosion_1/explosion.png",
         60, false, 1, 19, BULLET_EXPLOSION,
         util::vec::Vector2(2.0, 2.0),
@@ -279,6 +451,22 @@ void buildLevelPack() {
     omi::ResourceManager::addSound(
         "bullet_copper", resource_group::LEVEL,
         "res/sound/fx/level/copper.ogg", 3
+    );
+    omi::ResourceManager::addSound(
+        "bullet_titanium", resource_group::LEVEL,
+        "res/sound/fx/level/titanium.ogg", 3
+    );
+    omi::ResourceManager::addSound(
+        "bullet_silver", resource_group::LEVEL,
+        "res/sound/fx/level/silver.ogg", 3
+    );
+    omi::ResourceManager::addSound(
+        "bullet_gold", resource_group::LEVEL,
+        "res/sound/fx/level/gold.ogg", 3
+    );
+    omi::ResourceManager::addSound(
+        "block_explosion", resource_group::LEVEL,
+        "res/sound/fx/level/block_explosion.ogg", 4
     );
 }
 
