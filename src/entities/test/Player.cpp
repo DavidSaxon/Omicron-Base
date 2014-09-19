@@ -73,7 +73,7 @@ void Player::update() {
     }
 
     // shoot
-    if (omi::input::mousePressed(sf::Mouse::Left)) {
+    if (omi::input::mousePressed(omi::input::mouse_button::LEFT)) {
 
         if (!m_shootButton) {
 
@@ -96,28 +96,28 @@ void Player::update() {
 
     // move
     float moveSpeed = MOVE_SPEED * omi::fpsManager.getTimeScale();
-    if (omi::input::isKeyPressed(sf::Keyboard::W)) {
+    if (omi::input::isKeyPressed(omi::input::key::W)) {
 
         m_camT->translation.z +=
             util::math::cosd(m_camT->rotation.y) * moveSpeed;
         m_camT->translation.x -=
             util::math::sind(m_camT->rotation.y) * moveSpeed;
     }
-    if (omi::input::isKeyPressed(sf::Keyboard::S)) {
+    if (omi::input::isKeyPressed(omi::input::key::S)) {
 
         m_camT->translation.z -=
             util::math::cosd(m_camT->rotation.y) * moveSpeed;
         m_camT->translation.x +=
             util::math::sind(m_camT->rotation.y) * moveSpeed;
     }
-    if (omi::input::isKeyPressed(sf::Keyboard::A)) {
+    if (omi::input::isKeyPressed(omi::input::key::A)) {
 
         m_camT->translation.z +=
             util::math::sind(m_camT->rotation.y) * moveSpeed;
         m_camT->translation.x +=
             util::math::cosd(m_camT->rotation.y) * moveSpeed;
     }
-    if (omi::input::isKeyPressed(sf::Keyboard::D)) {
+    if (omi::input::isKeyPressed(omi::input::key::D)) {
 
         m_camT->translation.z -=
             util::math::sind(m_camT->rotation.y) * moveSpeed;

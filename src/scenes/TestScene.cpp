@@ -36,7 +36,7 @@ void TestScene::init() {
 bool TestScene::update() {
 
     // exit if the escape key has been pressed
-    if (omi::input::isKeyPressed(sf::Keyboard::Escape)) {
+    if (omi::input::isKeyPressed(omi::input::key::ESCAPE)) {
 
         return true;
     }
