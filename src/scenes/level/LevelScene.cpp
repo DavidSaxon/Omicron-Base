@@ -20,7 +20,7 @@ void LevelScene::init()
 bool LevelScene::update()
 {
     // exit if the escape key has been pressed
-    if (omi::input::isKeyPressed(sf::Keyboard::Escape)) {
+    if (omi::input::isKeyPressed(omi::input::key::ESCAPE)) {
 
         return true;
     }
@@ -28,4 +28,6 @@ bool LevelScene::update()
 
 omi::Scene* LevelScene::nextScene() const
 {
+    // TODO
+    return 0;
 }
