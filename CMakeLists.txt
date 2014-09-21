@@ -1,20 +1,22 @@
 cmake_minimum_required(VERSION 2.6)
-project(TestRun)
+project(VoidWalker)
 
 set(SRCS
 
     src/omicron/Omicron.cpp
-    src/omicron/audio/MusicPlayer.cpp
     src/omicron/audio/SoundPool.cpp
+    src/omicron/component/physics/CollisionDetector.cpp
     src/omicron/component/Camera.cpp
     src/omicron/component/renderable/Mesh.cpp
     src/omicron/component/renderable/Sprite.cpp
+    src/omicron/component/updatable/audio/Music.cpp
     src/omicron/display/Window.cpp
     src/omicron/entity/ComponentTable.cpp
     src/omicron/input/Keyboard.cpp
     src/omicron/input/Mouse.cpp
     src/omicron/logic/FPSManager.cpp
     src/omicron/logic/LogicManager.cpp
+    src/omicron/physics/collision_detect/CollisionDetect.cpp
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
     src/omicron/rendering/shading/Animation.cpp
@@ -42,16 +44,15 @@ set(SRCS
 
     src/resource_pack/AllPack.cpp
     src/resource_pack/StartUpPack.cpp
-    src/resource_pack/TestPack.cpp
+    src/resource_pack/BuilderPack.cpp
 
-    src/scenes/StartUpScene.cpp
-    src/scenes/TestScene.cpp
+    src/scenes/start_up/StartUpScene.cpp
+    src/scenes/builder/BuilderScene.cpp
+    src/scenes/level/LevelScene.cpp
 
     src/entities/start_up/OmicronLogo.cpp
-    src/entities/test/Human.cpp
-    src/entities/test/Monkey.cpp
-    src/entities/test/Player.cpp
-    src/entities/test/Skybox.cpp
+    src/entities/builder/BuilderControl.cpp
+    src/entities/builder/BuilderEnvironment.cpp
 )
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")
@@ -62,16 +63,17 @@ include_directories("${BASEPATH}" ${INCLUDE_DIRECTORIES})
 
 link_directories(${LINK_DIRECTORIES})
 
-add_executable(TestRun ${SRCS})
+add_executable(VoidWalker ${SRCS})
 
-target_link_libraries(TestRun
+target_link_libraries(VoidWalker
 
     -lGL
     -lGLU
-    -lglut
     -lGLEW
     -lm
     -lIL
-    -lsfml-audio
     -lsfml-system
+    -lsfml-graphics
+    -lsfml-window
+    -lsfml-audio
 )
