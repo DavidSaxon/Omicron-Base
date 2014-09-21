@@ -23,9 +23,9 @@ bool StartUpScene::update() {
 
     if (m_omicronLogo->done()) {
 
-        // load the first scene resources
-        // TODO:
-        // omi::ResourceManager::load(resource_group::TEST);
+        // load the next resources we'll need
+        omi::ResourceManager::load(resource_group::SHIP);
+        omi::ResourceManager::load(resource_group::BUILDER);
         // start up finished
         return true;
     }
@@ -38,5 +38,5 @@ omi::Scene* StartUpScene::nextScene() const {
     // release resources
     omi::ResourceManager::release(resource_group::START_UP);
 
-    return new LevelScene();
+    return new BuilderScene();
 }

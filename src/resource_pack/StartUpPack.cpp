@@ -2,8 +2,8 @@
 
 namespace pack {
 
-void buildStartUpPack() {
-
+void buildStartUpPack()
+{
     //---------------------------------SPRITES----------------------------------
 
     // omicron logo text bottom

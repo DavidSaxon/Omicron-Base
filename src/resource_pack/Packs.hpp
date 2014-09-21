@@ -11,6 +11,19 @@
 namespace pack {
 
 //------------------------------------------------------------------------------
+//                                  ENUMERATORS
+//------------------------------------------------------------------------------
+
+namespace builder {
+
+enum Layer {
+    BACKGROUND,
+    SHIP_BLOCK
+};
+
+} // namespace builder
+
+//------------------------------------------------------------------------------
 //                                   PROTOTYPES
 //------------------------------------------------------------------------------
 
@@ -20,15 +33,21 @@ void buildAllPack();
 
 void buildStartUpPack();
 
+// TODO: ship pack
+
+void buildBuilderPack();
+
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
 /** Builds all resource packs */
-inline void build() {
-
+inline void build()
+{
     buildAllPack();
     buildStartUpPack();
+    // TODO: ship pack
+    buildBuilderPack();
 }
 
 } // namespace pack

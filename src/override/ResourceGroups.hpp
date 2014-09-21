@@ -6,7 +6,9 @@ namespace resource_group {
 enum ResourceGroup {
 
     ALL,
-    START_UP
+    START_UP,
+    SHIP,
+    BUILDER
 };
 
 } // namespace resource_group

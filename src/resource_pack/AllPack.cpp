@@ -2,8 +2,8 @@
 
 namespace pack {
 
-void buildAllPack() {
-
+void buildAllPack()
+{
     //---------------------------------SHADERS----------------------------------
 
     // default shader

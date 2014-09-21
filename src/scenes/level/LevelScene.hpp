@@ -1,5 +1,5 @@
-#ifndef VOIDWALKER_SCENES_LEVELSCENE_H_
-#   define VOIDWALKER_SCENES_LEVELSCENE_H_
+#ifndef VOIDWALKER_SCENES_LEVEL_LEVELSCENE_H_
+#   define VOIDWALKER_SCENES_LEVEL_LEVELSCENE_H_
 
 #include "src/omicron/input/Input.hpp"
 #include "src/omicron/scene/Scene.hpp"

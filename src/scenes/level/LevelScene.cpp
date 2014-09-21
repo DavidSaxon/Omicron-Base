@@ -25,6 +25,8 @@ bool LevelScene::update()
 
         return true;
     }
+
+    return false;
 }
 
 omi::Scene* LevelScene::nextScene() const
