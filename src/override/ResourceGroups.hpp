@@ -6,8 +6,7 @@ namespace resource_group {
 enum ResourceGroup {
 
     ALL,
-    START_UP,
-    TEST
+    START_UP
 };
 
 } // namespace resource_group

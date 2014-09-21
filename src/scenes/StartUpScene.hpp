@@ -3,7 +3,7 @@
 
 #include "src/omicron/scene/Scene.hpp"
 
-#include "src/scenes/TestScene.hpp"
+#include "src/scenes/level/LevelScene.hpp"
 
 #include "src/entities/start_up/OmicronLogo.hpp"
 
