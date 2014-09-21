@@ -54,7 +54,7 @@ bool LevelScene::update() {
 
             m_start = true;
         }
-
+        
         return false;
     }
 

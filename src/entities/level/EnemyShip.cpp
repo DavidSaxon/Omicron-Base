@@ -203,8 +203,6 @@ Block* EnemyShip::getBlock(const util::vec::Vector3& pos) {
     rnd *= m_diff;
     rnd = fabs(rnd);
 
-    std::cout << rnd << std::endl;
-
     if (rnd < 2.0f) {
 
         m_health += 0.25f;
