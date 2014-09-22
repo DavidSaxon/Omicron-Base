@@ -34,23 +34,17 @@ public:
     @param textures the list of pointers to OpenGL textures
     @param frameRate the animation playback speed
     @param repeat if the animation repeats */
-    Animation(const t_TextureList& textures, unsigned frameRate, bool repeat);
+    Animation( const t_TextureList& textures, unsigned frameRate, bool repeat );
 
     /** Creates a copy of the given animation
     @param other the animation to copy from */
-    Animation(const Animation& other);
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~Animation();
+    Animation( const Animation& other );
 
     //--------------------------------------------------------------------------
     //                                 OPERATORS
     //--------------------------------------------------------------------------
 
-    const Animation& operator=(const Animation& other);
+    const Animation& operator=( const Animation& other );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS

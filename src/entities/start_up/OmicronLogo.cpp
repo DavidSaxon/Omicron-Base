@@ -142,73 +142,70 @@ bool OmicronLogo::done() {
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void OmicronLogo::initComponents() {
-
+void OmicronLogo::initComponents()
+{
     //----------------------------------CAMERA----------------------------------
     m_camT = new omi::Transform(
-        "transform",
+        "",
+        util::vec::Vector3( 0.0f, 0.0f, -1.0f ),
         util::vec::Vector3(),
-        util::vec::Vector3(),
-        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+        util::vec::Vector3( 1.0f, 1.0f, 1.0f )
     );
-    m_camT->translation.z = -1.0f;
-    m_components.add(
-        new omi::Camera("camera", omi::cam::ORTHOGRAPHIC, m_camT));
+    m_components.add( new omi::Camera( "", omi::cam::ORTHOGRAPHIC, m_camT ) );
     //-----------------------------LOGO TEXT BOTTOM-----------------------------
     m_textBottomT = new omi::Transform(
-        "text_bottom_t",
-        util::vec::Vector3(3.5f, 0.0f, 0.0f),
+        "",
+        util::vec::Vector3( 3.5f, 0.0f, 0.0f ),
         util::vec::Vector3(),
-        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+        util::vec::Vector3( 1.0f, 1.0f, 1.0f )
     );
-    m_components.add(m_textBottomT);
+    m_components.add( m_textBottomT );
     m_components.add(omi::ResourceManager::getSprite(
-        "omicron_text_bottom", "text_bottom", m_textBottomT));
+        "omicron_text_bottom", "", m_textBottomT ) );
     //------------------------------LOGO TEXT TOP-------------------------------
     m_textTopT = new omi::Transform(
-        "text_top_t",
-        util::vec::Vector3(-3.5f, 0.0f, 0.0f),
+        "",
+        util::vec::Vector3( -3.5f, 0.0f, 0.0f ),
         util::vec::Vector3(),
-        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+        util::vec::Vector3( 1.0f, 1.0f, 1.0f )
     );
-    m_components.add(m_textTopT);
-    m_components.add(omi::ResourceManager::getSprite(
-        "omicron_text_top", "text_top", m_textTopT));
+    m_components.add( m_textTopT );
+    m_components.add( omi::ResourceManager::getSprite(
+        "omicron_text_top", "", m_textTopT ) );
     //-----------------------------LONG LENS FLARE------------------------------
     m_flareLongT = new omi::Transform(
-        "flare_long_t",
-        util::vec::Vector3(0.0f, 0.0f, 0.0f),
+        "",
         util::vec::Vector3(),
-        util::vec::Vector3(0.0f, 1.0f, 1.0f)
+        util::vec::Vector3(),
+        util::vec::Vector3( 0.0f, 1.0f, 1.0f )
     );
-    m_components.add(m_flareLongT);
+    m_components.add( m_flareLongT );
     omi::Sprite* flareLongSprite = omi::ResourceManager::getSprite(
-        "omicron_flare_long", "flare_long", m_flareLongT);
+        "omicron_flare_long", "", m_flareLongT );
     m_flareLongMat = &flareLongSprite->getMaterial();
-    m_components.add(flareLongSprite);
+    m_components.add( flareLongSprite );
     //----------------------------CENTRE LENS FLARE-----------------------------
     m_flareCentreT = new omi::Transform(
-        "flare_centre_t",
-        util::vec::Vector3(0.0f, 0.0f, 0.0f),
+        "",
         util::vec::Vector3(),
-        util::vec::Vector3(0.0f, 0.0f, 0.0f)
+        util::vec::Vector3(),
+        util::vec::Vector3( 0.0f, 0.0f, 0.0f )
     );
-    m_components.add(m_flareCentreT);
+    m_components.add( m_flareCentreT );
     omi::Sprite* flareCentreSprite = omi::ResourceManager::getSprite(
-        "omicron_flare_centre", "flare_centre", m_flareCentreT);
+        "omicron_flare_centre", "", m_flareCentreT );
     m_flareCentreMat = &flareCentreSprite->getMaterial();
-    m_components.add(flareCentreSprite);
+    m_components.add( flareCentreSprite );
     //-----------------------------------GLOW-----------------------------------
     omi::Sprite* glowSprite = omi::ResourceManager::getSprite(
-        "omicron_glow", "glow", NULL);
+        "omicron_glow", "", NULL);
     m_glowMat = &glowSprite->getMaterial();
     m_glowMat->colour.a = 0.0f;
-    m_components.add(glowSprite);
+    m_components.add( glowSprite );
     //-----------------------------POWERED BY TEXT------------------------------
     omi::Sprite* poweredBySprite = omi::ResourceManager::getSprite(
-        "omicron_powered_by", "powered_by", NULL);
+        "omicron_powered_by", "", NULL);
     m_poweredByMat = &poweredBySprite->getMaterial();
     m_poweredByMat->colour.a = 0.0f;
-    m_components.add(poweredBySprite);
-
+    m_components.add( poweredBySprite );
 }

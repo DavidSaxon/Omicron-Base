@@ -25,7 +25,7 @@ private:
     //                                RESTRICTIONS
     //--------------------------------------------------------------------------
 
-    DISALLOW_COPY_AND_ASSIGN(Window);
+    DISALLOW_COPY_AND_ASSIGN( Window );
 
 public:
 
@@ -37,12 +37,6 @@ public:
     Window();
 
     //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~Window();
-
-    //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
@@ -52,7 +46,7 @@ public:
     void update();
 
     /** @param visible whether the cursor is visible or not */
-    void setCursorVisble(bool visible);
+    void setCursorVisble( bool visible );
 
 private:
 

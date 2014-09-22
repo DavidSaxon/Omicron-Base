@@ -4,7 +4,7 @@
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
-#include "src/scenes/StartUpScene.hpp"
+#include "src/scenes/start_up/StartUpScene.hpp"
 
 /**************************************************\
 | functions used to initialise settings at launch. |
