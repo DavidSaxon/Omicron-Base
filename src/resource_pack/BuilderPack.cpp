@@ -13,7 +13,8 @@ void buildBuilderPack()
         util::vec::Vector2( 96, 96 ),
         util::vec::Vector2( 6, 6 ),
         util::vec::Vector2( 0, 0 ),
-        omi::texture::SHOW_PIXELS
+        omi::texture::SHOW_PIXELS,
+        omi::material::SHADELESS
     );
 }
 

@@ -30,14 +30,8 @@ public:
     MaterialResource(      resource_group::ResourceGroup resourceGroup,
                      const std::string&                  shader,
                      const util::vec::Vector4&           colour,
-                     const std::string&                  texture);
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~MaterialResource();
-
+                     const std::string&                  texture,
+                           unsigned                      flags );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -64,6 +58,8 @@ private:
     util::vec::Vector4 m_colour;
     // the resource id of the texture
     std::string m_texture;
+    // the flags of the material
+    unsigned m_flags;
 
     // the omicron material
     Material m_material;

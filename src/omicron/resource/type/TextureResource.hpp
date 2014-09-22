@@ -9,10 +9,12 @@
 namespace omi {
 
 namespace texture {
-    enum Flag {
-        CLAMP       = 1,
-        SHOW_PIXELS = 2
-    };
+
+enum Flag {
+    CLAMP       = 1,
+    SHOW_PIXELS = 2
+};
+
 } // namespace texture
 
 /*********************************************\
@@ -34,7 +36,7 @@ public:
 
     /** Creates an animated texture resource
     @param resourceGroup the resource group of the texture
-    @param filePath the path to the image file to use for the texture 
+    @param filePath the path to the image file to use for the texture
     @param frameRate the playback speed of the animation
     @param repeat if the animation should repeat
     @param begin the beginning frame if the animation

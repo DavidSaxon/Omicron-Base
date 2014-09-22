@@ -16,15 +16,17 @@ t_ResourceMap ResourceManager::m_resources;
 //--------------------------------LOAD FUNCTIONS--------------------------------
 
 
-void ResourceManager::load(resource_group::ResourceGroup resourceGroup) {
-
-    for (unsigned i = 0; i < m_resources.size(); ++i) {
-
-        for (t_ResourceGroup::iterator it =  m_resources[i].begin();
-                                       it != m_resources[i].end()  ;
-                                     ++it                        ) {
+void ResourceManager::load (resource_group::ResourceGroup resourceGroup )
+{
+    for ( unsigned i = 0; i < m_resources.size(); ++i )
+    {
+        for ( t_ResourceGroup::iterator it =  m_resources[i].begin();
+                                        it != m_resources[i].end()  ;
+                                      ++it                           )
+        {
             // check the resource group
-            if (it->second->getGroup() == resourceGroup) {
+            if ( it->second->getGroup() == resourceGroup )
+            {
                 // load
                 it->second->load();
             }
@@ -34,13 +36,15 @@ void ResourceManager::load(resource_group::ResourceGroup resourceGroup) {
 
 void ResourceManager::release(resource_group::ResourceGroup resourceGroup) {
 
-    for (unsigned i = 0; i < m_resources.size(); ++i) {
-
-        for (t_ResourceGroup::iterator it =  m_resources[i].begin();
-                                       it != m_resources[i].end()  ;
-                                     ++it                        ) {
+    for ( unsigned i = 0; i < m_resources.size(); ++i )
+    {
+        for ( t_ResourceGroup::iterator it =  m_resources[i].begin();
+                                        it != m_resources[i].end()  ;
+                                      ++it                           )
+        {
             // check the resource group
-            if (it->second->getGroup() == resourceGroup) {
+            if ( it->second->getGroup() == resourceGroup )
+            {
                 // release
                 it->second->release();
             }
@@ -51,134 +55,113 @@ void ResourceManager::release(resource_group::ResourceGroup resourceGroup) {
 //--------------------------------GET FUNCTIONS---------------------------------
 
 
-Shader ResourceManager::getShader(const std::string& id) {
-
+Shader ResourceManager::getShader( const std::string& id )
+{
     // create the shaders group if we need to
-    createGroup(SHADER);
-
+    createGroup( SHADER );
     // check if the shader is in the map
-    if (m_resources[SHADER].find(id) == m_resources[SHADER].end()) {
-
+    if ( m_resources[SHADER].find( id ) == m_resources[SHADER].end() )
+    {
         std::cout << "unable to find shader in resource manager" << std::endl;
-
         // TODO: throw an exception
     }
-
     // cast the resource and return
     return dynamic_cast<ShaderResource*>(
-            m_resources[SHADER][id].get())->get();
+            m_resources[SHADER][id].get() )->get();
 }
 
-Texture* ResourceManager::getTexture(const std::string& id) {
-
+Texture* ResourceManager::getTexture(const std::string& id)
+{
     // create the textures group if we need to
-    createGroup(TEXTURE);
-
+    createGroup( TEXTURE );
     // check if the texture is in the map
-    if (m_resources[TEXTURE].find(id) == m_resources[TEXTURE].end()) {
-
+    if ( m_resources[TEXTURE].find( id ) == m_resources[TEXTURE].end() )
+    {
         std::cout << "unable to find texture in resource manager" << std::endl;
-
         // TODO: throw an exception
     }
-
     // cast the resource and return
     return dynamic_cast<TextureResource*>(
-            m_resources[TEXTURE][id].get())->get();
+            m_resources[TEXTURE][id].get() )->get();
 }
 
-Material ResourceManager::getMaterial(const std::string& id) {
-
+Material ResourceManager::getMaterial( const std::string& id )
+{
     // create the materials group if we need to
-    createGroup(MATERIAL);
-
+    createGroup( MATERIAL );
     // check if the material is in the map
-    if (m_resources[MATERIAL].find(id) == m_resources[MATERIAL].end()) {
-
+    if ( m_resources[MATERIAL].find( id ) == m_resources[MATERIAL].end() )
+    {
         std::cout << "unable to find material in resource manager" << std::endl;
-
         // TODO: throw an exception
     }
-
     // cast the resource and return
     return dynamic_cast<MaterialResource*>(
-            m_resources[MATERIAL][id].get())->get();
+            m_resources[MATERIAL][id].get() )->get();
 }
 
-Geometry* ResourceManager::getGeometry(const std::string& id) {
-
+Geometry* ResourceManager::getGeometry( const std::string& id )
+{
     // create the geometry group if we need to
-    createGroup(GEOMETRY);
-
+    createGroup( GEOMETRY );
     // check if the geometry is in the map
-    if (m_resources[GEOMETRY].find(id) == m_resources[GEOMETRY].end()) {
-
+    if ( m_resources[GEOMETRY].find( id ) == m_resources[GEOMETRY].end() )
+    {
         std::cout << "unable to find geometry in resource manager" << std::endl;
-
         // TODO: throw an exception
     }
-
     // cast the resource and return
     return dynamic_cast<GeometryResource*>(
-            m_resources[GEOMETRY][id].get())->get();
+            m_resources[GEOMETRY][id].get() )->get();
 }
 
-Mesh* ResourceManager::getMesh(const std::string& id,
-                               const std::string& componentId,
-                                     Transform*   transform) {
-
+Mesh* ResourceManager::getMesh( const std::string& id,
+                                const std::string& componentId,
+                                      Transform*   transform )
+{
     // create the mesh group if we need to
-    createGroup(MESH);
-
+    createGroup( MESH );
     // check if the mesh is in the map
-    if (m_resources[MESH].find(id) == m_resources[MESH].end()) {
-
+    if ( m_resources[MESH].find( id ) == m_resources[MESH].end() )
+    {
         std::cout << "unable to find mesh in resource manager" << std::endl;
-
         // TODO: throw an exception
     }
-
     // cast the resource and return
     return dynamic_cast<MeshResource*>(
-            m_resources[MESH][id].get())->get(componentId, transform);
+            m_resources[MESH][id].get() )->get( componentId, transform );
 }
 
-Sprite* ResourceManager::getSprite(const std::string& id,
-                                   const std::string& componentId,
-                                         Transform*   transform) {
-
+Sprite* ResourceManager::getSprite( const std::string& id,
+                                    const std::string& componentId,
+                                          Transform*   transform )
+{
     // create the sprite group if we need to
-    createGroup(SPRITE);
-
+    createGroup( SPRITE );
     // check if the sprite is in the map
-    if (m_resources[SPRITE].find(id) == m_resources[SPRITE].end()) {
-
+    if ( m_resources[SPRITE].find( id ) == m_resources[SPRITE].end() )
+    {
         std::cout << "unable to find sprite in resource manager" << std::endl;
-
         // TODO: throw an exception
     }
-
     // cast the resource and return
     return dynamic_cast<SpriteResource*>(
-            m_resources[SPRITE][id].get())->get(componentId, transform);
+            m_resources[SPRITE][id].get() )->get( componentId, transform );
 }
 
-unsigned ResourceManager::getSound(const std::string& id) {
-
+unsigned ResourceManager::getSound( const std::string& id )
+{
     // create the sound group if we need to
-    createGroup(SOUND);
-
+    createGroup( SOUND );
     // check if the sound is in the map
-    if (m_resources[SOUND].find(id) == m_resources[SOUND].end()) {
-
+    if ( m_resources[SOUND].find( id ) == m_resources[SOUND].end() )
+    {
         std::cout << "unable to find sound in resource manager" << std::endl;
-
         // TODO: throw an exception
     }
-
     // cast and return id
     return dynamic_cast<SoundResource*>(
-            m_resources[SOUND][id].get())->get();
+            m_resources[SOUND][id].get() )->get();
 }
 
 //--------------------------------ADD FUNCTIONS---------------------------------
@@ -188,16 +171,15 @@ void ResourceManager::addShader(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  vertexPath,
-        const std::string&                  fragmentShader) {
-
+        const std::string&                  fragmentShader )
+{
     // create the shaders group if we need to
-    createGroup(SHADER);
-
+    createGroup( SHADER );
     // insert in to the map
     m_resources[SHADER].insert(
         std::make_pair(
             id,
-            t_ResourcePtr(new ShaderResource(
+            t_ResourcePtr( new ShaderResource(
                 resourceGroup,
                 vertexPath,
                 fragmentShader
@@ -213,8 +195,7 @@ void ResourceManager::addTexture(
               unsigned                      flags )
 {
     // create the textures group if we need to
-    createGroup(TEXTURE);
-
+    createGroup( TEXTURE );
     // insert in to the map
     m_resources[TEXTURE].insert( std::make_pair( id,
         t_ResourcePtr( new TextureResource(
@@ -236,8 +217,7 @@ void ResourceManager::addTexture(
               unsigned                      flags )
 {
     // create the textures group if we need to
-    createGroup(TEXTURE);
-
+    createGroup( TEXTURE );
     // insert in to the map
     m_resources[TEXTURE].insert( std::make_pair( id,
         t_ResourcePtr( new TextureResource(
@@ -257,20 +237,45 @@ void ResourceManager::addMaterial(
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
     const util::vec::Vector4&           colour,
-    const std::string&                  texture) {
-
+    const std::string&                  texture,
+          unsigned                      flags )
+{
     // create the materials group if we need to
-    createGroup(MATERIAL);
-
+    createGroup( MATERIAL );
     // insert in to the map
     m_resources[MATERIAL].insert(
         std::make_pair(
             id,
-            t_ResourcePtr(new MaterialResource(
+            t_ResourcePtr( new MaterialResource(
                 resourceGroup,
                 shader,
                 colour,
-                texture
+                texture,
+                flags
+            ) )
+        )
+    );
+}
+
+void ResourceManager::addMaterial(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const util::vec::Vector4&           colour,
+          unsigned                      flags )
+{
+    // create the materials group if we need to
+    createGroup( MATERIAL );
+    // insert in to the map
+    m_resources[MATERIAL].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr( new MaterialResource(
+                resourceGroup,
+                shader,
+                colour,
+                "",
+                flags
             ))
         )
     );
@@ -280,43 +285,21 @@ void ResourceManager::addMaterial(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
-    const util::vec::Vector4&           colour) {
-
+    const std::string&                  texture,
+          unsigned                      flags )
+{
     // create the materials group if we need to
-    createGroup(MATERIAL);
-
+    createGroup (MATERIAL );
     // insert in to the map
     m_resources[MATERIAL].insert(
         std::make_pair(
             id,
-            t_ResourcePtr(new MaterialResource(
+            t_ResourcePtr( new MaterialResource(
                 resourceGroup,
                 shader,
-                colour,
-                ""
-            ))
-        )
-    );
-}
-
-void ResourceManager::addMaterial(
-    const std::string&                  id,
-          resource_group::ResourceGroup resourceGroup,
-    const std::string&                  shader,
-    const std::string&                  texture) {
-
-    // create the materials group if we need to
-    createGroup(MATERIAL);
-
-    // insert in to the map
-    m_resources[MATERIAL].insert(
-        std::make_pair(
-            id,
-            t_ResourcePtr(new MaterialResource(
-                resourceGroup,
-                shader,
-                util::vec::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-                texture
+                util::vec::Vector4( 1.0f, 1.0f, 1.0f, 1.0f ),
+                texture,
+                flags
             ))
         )
     );
@@ -325,16 +308,15 @@ void ResourceManager::addMaterial(
 void ResourceManager::addGeometry(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
-    const std::string&                  filePath) {
-
+    const std::string&                  filePath )
+{
     // create the geometry group if we need to
-    createGroup(GEOMETRY);
-
+    createGroup( GEOMETRY );
     // insert in to the map
     m_resources[GEOMETRY].insert(
         std::make_pair(
             id,
-            t_ResourcePtr(new GeometryResource(
+            t_ResourcePtr( new GeometryResource(
                 resourceGroup,
                 filePath
             ))
@@ -347,16 +329,15 @@ void ResourceManager::addMesh(
           resource_group::ResourceGroup resourceGroup,
           int                           layer,
     const std::string&                  geometry,
-    const std::string&                  material) {
-
+    const std::string&                  material )
+{
     // create the mesh group if we need to
-    createGroup(MESH);
-
+    createGroup( MESH );
     // insert in to the map
     m_resources[MESH].insert(
         std::make_pair(
             id,
-            t_ResourcePtr(new MeshResource(
+            t_ResourcePtr( new MeshResource(
                 resourceGroup,
                 layer,
                 geometry,
@@ -372,14 +353,15 @@ void ResourceManager::addMaterialGeometryMesh(
     const std::string&                  shader,
     const util::vec::Vector4&           colour,
     const std::string&                  geometryPath,
-          int                           layer) {
-
+          int                           layer,
+          unsigned                      materialFlags )
+{
     // material
-    addMaterial(id, resourceGroup, shader, colour);
+    addMaterial( id, resourceGroup, shader, colour, materialFlags );
     // geometry
-    addGeometry(id, resourceGroup, geometryPath);
+    addGeometry( id, resourceGroup, geometryPath );
     // mesh
-    addMesh(    id, resourceGroup, layer, id, id);
+    addMesh( id, resourceGroup, layer, id, id );
 }
 
 void ResourceManager::addTextureMaterialGeometryMesh(
@@ -388,16 +370,18 @@ void ResourceManager::addTextureMaterialGeometryMesh(
     const std::string&                  shader,
     const std::string&                  texturePath,
     const std::string&                  geometryPath,
-          int                           layer) {
-
+          int                           layer,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
     // texture
-    addTexture( id, resourceGroup, texturePath);
+    addTexture( id, resourceGroup, texturePath, textureFlags );
     // material
-    addMaterial(id, resourceGroup, shader, id);
+    addMaterial( id, resourceGroup, shader, id, materialFlags );
     // geometry
-    addGeometry(id, resourceGroup, geometryPath);
+    addGeometry( id, resourceGroup, geometryPath );
     // mesh
-    addMesh(    id, resourceGroup, layer, id, id);
+    addMesh( id, resourceGroup, layer, id, id );
 }
 
 void ResourceManager::addTextureMaterialGeometryMesh(
@@ -410,16 +394,20 @@ void ResourceManager::addTextureMaterialGeometryMesh(
           unsigned                      begin,
           unsigned                      end,
     const std::string&                  geometryPath,
-          int                           layer) {
-
+          int                           layer,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
     // texture
-    addTexture( id, resourceGroup, texturePath, frameRate, repeat, begin, end);
+    addTexture(
+        id, resourceGroup, texturePath, frameRate,
+        repeat, begin, end, textureFlags );
     // material
-    addMaterial(id, resourceGroup, shader, id);
+    addMaterial( id, resourceGroup, shader, id, materialFlags );
     // geometry
-    addGeometry(id, resourceGroup, geometryPath);
+    addGeometry( id, resourceGroup, geometryPath );
     // mesh
-    addMesh(    id, resourceGroup, layer, id, id);
+    addMesh( id, resourceGroup, layer, id, id);
 }
 
 void ResourceManager::addTextureMaterialGeometryMesh(
@@ -429,16 +417,18 @@ void ResourceManager::addTextureMaterialGeometryMesh(
     const util::vec::Vector4&           colour,
     const std::string&                  texturePath,
     const std::string&                  geometryPath,
-          int                           layer) {
-
+          int                           layer,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
     // texture
-    addTexture( id, resourceGroup, texturePath);
+    addTexture( id, resourceGroup, texturePath, textureFlags );
     // material
-    addMaterial(id, resourceGroup, shader, colour, id);
+    addMaterial( id, resourceGroup, shader, colour, id, materialFlags );
     // geometry
-    addGeometry(id, resourceGroup, geometryPath);
+    addGeometry( id, resourceGroup, geometryPath );
     // mesh
-    addMesh(    id, resourceGroup, layer, id, id);
+    addMesh( id, resourceGroup, layer, id, id );
 }
 
 void ResourceManager::addTextureMaterialGeometryMesh(
@@ -452,16 +442,20 @@ void ResourceManager::addTextureMaterialGeometryMesh(
           unsigned                      begin,
           unsigned                      end,
     const std::string&                  geometryPath,
-          int                           layer) {
-
+          int                           layer,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
     // texture
-    addTexture( id, resourceGroup, texturePath, frameRate, repeat, begin, end);
+    addTexture(
+        id, resourceGroup, texturePath, frameRate,
+        repeat, begin, end, textureFlags );
     // material
-    addMaterial(id, resourceGroup, shader, colour, id);
+    addMaterial( id, resourceGroup, shader, colour, id, materialFlags );
     // geometry
-    addGeometry(id, resourceGroup, geometryPath);
+    addGeometry( id, resourceGroup, geometryPath );
     // mesh
-    addMesh(    id, resourceGroup, layer, id, id);
+    addMesh( id, resourceGroup, layer, id, id );
 }
 
 void ResourceManager::addSprite(
@@ -471,16 +465,15 @@ void ResourceManager::addSprite(
         const std::string&                  material,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset) {
-
+        const util::vec::Vector2&           texOffset )
+{
     // create the sprite group if we need to
-    createGroup(SPRITE);
-
+    createGroup( SPRITE );
     // insert in to the map
     m_resources[SPRITE].insert(
         std::make_pair(
             id,
-            t_ResourcePtr(new SpriteResource(
+            t_ResourcePtr( new SpriteResource(
                 resourceGroup,
                 layer,
                 material,
@@ -500,12 +493,13 @@ void ResourceManager::addMaterialSprite(
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset) {
-
+        const util::vec::Vector2&           texOffset,
+              unsigned                      materialFlags )
+{
     // material
-    addMaterial(id, resourceGroup, shader, colour);
+    addMaterial( id, resourceGroup, shader, colour, materialFlags );
     // sprite
-    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+    addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
 
 void ResourceManager::addTextureMaterialSprite(
@@ -517,12 +511,13 @@ void ResourceManager::addTextureMaterialSprite(
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
         const util::vec::Vector2&           texOffset,
-              unsigned                      textureFlags )
+              unsigned                      textureFlags,
+              unsigned                      materialFlags )
 {
     // texture
     addTexture( id, resourceGroup, texturePath, textureFlags );
     // material
-    addMaterial( id, resourceGroup, shader, id );
+    addMaterial( id, resourceGroup, shader, id, materialFlags );
     // sprite
     addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
@@ -540,14 +535,15 @@ void ResourceManager::addTextureMaterialSprite(
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
         const util::vec::Vector2&           texOffset,
-              unsigned                      textureFlags )
+              unsigned                      textureFlags,
+              unsigned                      materialFlags )
 {
     // texture
     addTexture(
         id, resourceGroup, texturePath, frameRate,
         repeat, begin, end, textureFlags );
     // material
-    addMaterial( id, resourceGroup, shader, id );
+    addMaterial( id, resourceGroup, shader, id, materialFlags );
     // sprite
     addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
@@ -562,12 +558,13 @@ void ResourceManager::addTextureMaterialSprite(
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
         const util::vec::Vector2&           texOffset,
-              unsigned                      textureFlags )
+              unsigned                      textureFlags,
+              unsigned                      materialFlags )
 {
     // texture
-    addTexture( id, resourceGroup, texturePath, textureFlags);
+    addTexture( id, resourceGroup, texturePath, textureFlags );
     // material
-    addMaterial( id, resourceGroup, shader, colour, id);
+    addMaterial( id, resourceGroup, shader, colour, id, materialFlags );
     // sprite
     addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
@@ -586,14 +583,15 @@ void ResourceManager::addTextureMaterialSprite(
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
         const util::vec::Vector2&           texOffset,
-              unsigned                      textureFlags )
+              unsigned                      textureFlags,
+              unsigned                      materialFlags )
 {
     // texture
     addTexture(
         id, resourceGroup, texturePath, frameRate,
         repeat, begin, end, textureFlags );
     // material
-    addMaterial( id, resourceGroup, shader, colour, id );
+    addMaterial( id, resourceGroup, shader, colour, id, materialFlags );
     // sprite
     addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
@@ -602,16 +600,15 @@ void ResourceManager::addSound(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  filePath,
-              unsigned                      instances) {
-
+              unsigned                      instances )
+{
     // create the sound group if we need to
-    createGroup(SOUND);
-
+    createGroup( SOUND );
     // insert in to the map
     m_resources[SOUND].insert(
         std::make_pair(
             id,
-            t_ResourcePtr(new SoundResource(
+            t_ResourcePtr( new SoundResource(
                 resourceGroup,
                 filePath,
                 instances
@@ -624,13 +621,13 @@ void ResourceManager::addSound(
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void ResourceManager::createGroup(ResourceType type) {
-
+void ResourceManager::createGroup( ResourceType type )
+{
     // look for the group
-    if (m_resources.find(type) == m_resources.end()) {
-
+    if ( m_resources.find( type ) == m_resources.end() )
+    {
         // create the group
-        m_resources.insert(std::make_pair(type, t_ResourceGroup()));
+        m_resources.insert( std::make_pair( type, t_ResourceGroup() ) );
     }
 }
 

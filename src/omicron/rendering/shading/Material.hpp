@@ -8,6 +8,14 @@
 
 namespace omi {
 
+namespace material {
+
+enum Flags {
+    SHADELESS = 1
+};
+
+} // namespace material
+
 /*********************************************************\
 | A material contains all the shading data for an object. |
 \*********************************************************/
@@ -36,20 +44,16 @@ public:
     /** Creates a material using the given values
     @param a_shader the shader of the material
     @param a_colour the colour of the material
-    @param a_texture the texture of the material */
-    Material(const Shader&             a_shader,
-             const util::vec::Vector4& a_colour,
-                   Texture*            a_texture);
+    @param a_texture the texture of the material
+    @param flags the flags of the material */
+    Material( const Shader&             a_shader,
+              const util::vec::Vector4& a_colour,
+                    Texture*            a_texture,
+                    unsigned            flags );
 
     /** Creates a copy of the given material
     @param other the material to copy from */
-    Material(const Material& other);
-
-    //--------------------------------------------------------------------------
-    //                                 DESTUCTOR
-    //--------------------------------------------------------------------------
-
-    ~Material();
+    Material( const Material& other );
 
     //--------------------------------------------------------------------------
     //                                 OPERATORS
@@ -57,7 +61,7 @@ public:
 
     /** Copies the values of the given material to this material
     @param other the material to copy from */
-    const Material& operator=(const Material& other);
+    const Material& operator=( const Material& other );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -68,8 +72,30 @@ public:
 
     /** @return if the material is visible */
     bool isVisible() const;
+
+    /** @return if the material is unaffected by light */
+    bool isShadeless() const;
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the material flags
+    unsigned m_flags;
+
+    // if the material is not affected by light
+    bool m_shadeless;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** Parses the material flags */
+    void parseFlags();
 };
 
 } // namespace omi
 
-#endif 
+#endif

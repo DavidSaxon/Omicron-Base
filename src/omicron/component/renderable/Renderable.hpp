@@ -159,29 +159,42 @@ protected:
             glBindTexture(GL_TEXTURE_2D, 0);
         }
 
-        // pass in ambient light
-        util::vec::Vector3 ambientLight =
-            renderSettings.getAmbientColour() * renderSettings.getAmbientStrength();
-        glUniform3f(
-            glGetUniformLocation(program, "u_ambientLight"),
-            ambientLight.r, ambientLight.g, ambientLight.b
-        );
+        // lighting
+        if ( m_material.isShadeless() )
+        {
+            // material is not affected by light
+            glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 1 );
+        }
+        else
+        {
+            // material is affected by light
+            glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 0 );
 
-        // pass in directional lights
-        // TODO:
+            // pass in ambient light
+            util::vec::Vector3 ambientLight =
+                renderSettings.getAmbientColour() *
+                renderSettings.getAmbientStrength();
+            glUniform3f(
+                glGetUniformLocation( program, "u_ambientLight" ),
+                ambientLight.r, ambientLight.g, ambientLight.b
+            );
 
-        // pass in point lights
-        // TODO:
+            // pass in directional lights
+            // TODO:
 
-        // pass in spot lights
-        // TODO:
+            // pass in point lights
+            // TODO:
+
+            // pass in spot lights
+            // TODO:
+        }
     }
 
     /** Cleans up the shader */
-    void unsetShader() {
-
-        glUseProgram(0);
-        glBindTexture(GL_TEXTURE_2D, 0);
+    void unsetShader()
+    {
+        glUseProgram( 0 );
+        glBindTexture( GL_TEXTURE_2D, 0 );
     }
 };
 
