@@ -209,14 +209,20 @@ void ResourceManager::addShader(
 void ResourceManager::addTexture(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
-        const std::string&                  filePath) {
-
+        const std::string&                  filePath,
+              unsigned                      flags )
+{
     // create the textures group if we need to
     createGroup(TEXTURE);
 
     // insert in to the map
-    m_resources[TEXTURE].insert(std::make_pair(id,
-        t_ResourcePtr(new TextureResource(resourceGroup, filePath))));
+    m_resources[TEXTURE].insert( std::make_pair( id,
+        t_ResourcePtr( new TextureResource(
+            resourceGroup,
+            filePath,
+            flags
+        ) )
+    ) );
 }
 
 void ResourceManager::addTexture(
@@ -226,15 +232,24 @@ void ResourceManager::addTexture(
               unsigned                      frameRate,
               bool                          repeat,
               unsigned                      begin,
-              unsigned                      end) {
-
+              unsigned                      end,
+              unsigned                      flags )
+{
     // create the textures group if we need to
     createGroup(TEXTURE);
 
     // insert in to the map
-    m_resources[TEXTURE].insert(std::make_pair(id,
-        t_ResourcePtr(new TextureResource(
-            resourceGroup, filePath, frameRate, repeat, begin, end))));
+    m_resources[TEXTURE].insert( std::make_pair( id,
+        t_ResourcePtr( new TextureResource(
+            resourceGroup,
+            filePath,
+            frameRate,
+            repeat,
+            begin,
+            end,
+            flags
+        ) )
+    ) );
 }
 
 void ResourceManager::addMaterial(
@@ -501,14 +516,15 @@ void ResourceManager::addTextureMaterialSprite(
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset) {
-
-    // texture 
-    addTexture( id, resourceGroup, texturePath);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags )
+{
+    // texture
+    addTexture( id, resourceGroup, texturePath, textureFlags );
     // material
-    addMaterial(id, resourceGroup, shader, id);
+    addMaterial( id, resourceGroup, shader, id );
     // sprite
-    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+    addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
 
 void ResourceManager::addTextureMaterialSprite(
@@ -523,14 +539,17 @@ void ResourceManager::addTextureMaterialSprite(
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset) {
-
-    // texture 
-    addTexture( id, resourceGroup, texturePath, frameRate, repeat, begin, end);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags )
+{
+    // texture
+    addTexture(
+        id, resourceGroup, texturePath, frameRate,
+        repeat, begin, end, textureFlags );
     // material
-    addMaterial(id, resourceGroup, shader, id);
+    addMaterial( id, resourceGroup, shader, id );
     // sprite
-    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+    addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
 
 void ResourceManager::addTextureMaterialSprite(
@@ -542,14 +561,15 @@ void ResourceManager::addTextureMaterialSprite(
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset) {
-
-    // texture 
-    addTexture( id, resourceGroup, texturePath);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags )
+{
+    // texture
+    addTexture( id, resourceGroup, texturePath, textureFlags);
     // material
-    addMaterial(id, resourceGroup, shader, colour, id);
+    addMaterial( id, resourceGroup, shader, colour, id);
     // sprite
-    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+    addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
 
 void ResourceManager::addTextureMaterialSprite(
@@ -565,14 +585,17 @@ void ResourceManager::addTextureMaterialSprite(
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset) {
-
-    // texture 
-    addTexture( id, resourceGroup, texturePath, frameRate, repeat, begin, end);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags )
+{
+    // texture
+    addTexture(
+        id, resourceGroup, texturePath, frameRate,
+        repeat, begin, end, textureFlags );
     // material
-    addMaterial(id, resourceGroup, shader, colour, id);
+    addMaterial( id, resourceGroup, shader, colour, id );
     // sprite
-    addSprite(  id, resourceGroup, layer, id, size, texSize, texOffset);
+    addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
 }
 
 void ResourceManager::addSound(

@@ -8,6 +8,13 @@
 
 namespace omi {
 
+namespace texture {
+    enum Flag {
+        CLAMP       = 1,
+        SHOW_PIXELS = 2
+    };
+} // namespace texture
+
 /*********************************************\
 | Contains the needed data to load a texture. |
 \*********************************************/
@@ -22,7 +29,8 @@ public:
     @param resourceGroup the resource group of the texture
     @param filePath the path to the image file to use for the texture */
     TextureResource(      resource_group::ResourceGroup resourceGroup,
-                    const std::string&                  filePath);
+                    const std::string&                  filePath,
+                          unsigned                      flags );
 
     /** Creates an animated texture resource
     @param resourceGroup the resource group of the texture
@@ -36,13 +44,8 @@ public:
                           unsigned                      frameRate,
                           bool                          repeat,
                           unsigned                      begin,
-                          unsigned                      end);
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~TextureResource();
+                          unsigned                      end,
+                          unsigned                      flags );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -68,6 +71,13 @@ private:
     // the file path to load the texture from
     std::string m_filePath;
 
+    // the texture flags
+    unsigned m_flags;
+    // if the texture should clamp to edges
+    bool m_clamp;
+    // if the texture should not interpolate when scaled
+    bool m_showPixels;
+
     //animation variables
     unsigned m_frameRate;
     bool m_repeat;
@@ -76,6 +86,13 @@ private:
 
     // the omicron texture
     std::unique_ptr<Texture> m_texture;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** Parses the texture flags */
+    void parseFlags();
 };
 
 } // namespace omi

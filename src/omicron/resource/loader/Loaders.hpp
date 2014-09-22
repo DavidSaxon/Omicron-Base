@@ -42,18 +42,23 @@ Shader loadShaderFromFiles(
 
 /** Loads a texture from an image file
 @param filePath the path to the image
+@param clamp whether to clamp the texture to the edge
+@param showPixels whether to interpolate the texture when scaling
 @return the loaded texture */
-Texture* textureFromImage(const std::string& filePath);
+Texture* textureFromImage(
+    const std::string& filePath, bool clamp, bool showPixels );
 
 /** Loads an animation from an image sequence
 @param filePath the path of the sequence (omitting the frame number)
 @param frameRate the playback speed of the animation
 @param repeat if the animation should repeat 
 @param begin the beginning frame of the animation
-@param end the ending frame of the animation */
+@param end the ending frame of the animation
+@param clamp whether to clamp the texture to the edge
+@param showPixels whether to interpolate the texture when scaling*/
 Texture* animationFromImage(
     const std::string& filePath, unsigned frameRate,
-    bool repeat, unsigned begin, unsigned end);
+    bool repeat, unsigned begin, unsigned end, bool clamp, bool showPixels );
 
 //-------------------------------MATERIAL LOADER--------------------------------
 

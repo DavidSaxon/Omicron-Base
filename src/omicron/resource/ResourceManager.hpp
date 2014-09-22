@@ -140,7 +140,8 @@ public:
     static void addTexture(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
-        const std::string&                  filePath);
+        const std::string&                  filePath,
+              unsigned                      flags = 0 );
 
     /** Adds an animated texture to the resource map
     @param id the identifier of the texture resource
@@ -157,7 +158,8 @@ public:
               unsigned                      frameRate,
               bool                          repeat,
               unsigned                      begin,
-              unsigned                      end);
+              unsigned                      end,
+              unsigned                      flags = 0 );
 
 
     /** Adds a material to the resource map
@@ -365,7 +367,8 @@ public:
     @param layer the layer of the sprite
     @param size the size of the sprite
     @param texSize the size of the sprite's texture co-ordinates
-    @param texOffset the offset of the sprite's texture co-ordinates */
+    @param texOffset the offset of the sprite's texture co-ordinates
+    @param textureFlags the flags for the texture */
     static void addTextureMaterialSprite(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
@@ -374,7 +377,8 @@ public:
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags = 0 );
 
     /** Adds an animated texture, material, and sprite into the resource map,
     all with the same id. The sprite will use the created material which will
@@ -391,7 +395,8 @@ public:
     @param layer the layer of the sprite
     @param size the size of the sprite
     @param texSize the size of the sprite's texture co-ordinates
-    @param texOffset the offset of the sprite's texture co-ordinates */
+    @param texOffset the offset of the sprite's texture co-ordinates
+    @param textureFlags the flags for the texture */
     static void addTextureMaterialSprite(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
@@ -404,7 +409,8 @@ public:
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags = 0 );
 
     /** Adds a texture, material, and sprite into the resource map, all with the
     same id. The sprite will use the created material which will use the created
@@ -417,7 +423,8 @@ public:
     @param layer the layer of the sprite
     @param size the size of the sprite
     @param texSize the size of the sprite's texture co-ordinates
-    @param texOffset the offset of the sprite's texture co-ordinates */
+    @param texOffset the offset of the sprite's texture co-ordinates
+    @param textureFlags the flags for the texture */
     static void addTextureMaterialSprite(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
@@ -427,7 +434,8 @@ public:
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags = 0 );
 
     /** Adds an animated texture, material, and sprite into the resource map,
     all with the same id. The sprite will use the created material, which will
@@ -443,7 +451,8 @@ public:
     @param layer the layer of the sprite
     @param size the size of the sprite
     @param texSize the size of the sprite's texture co-ordinates
-    @param texOffset the offset of the sprite's texture co-ordinates */
+    @param texOffset the offset of the sprite's texture co-ordinates
+    @param textureFlags the flags for the texture */
     static void addTextureMaterialSprite(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
@@ -457,7 +466,8 @@ public:
               int                           layer,
         const util::vec::Vector2&           size,
         const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset);
+        const util::vec::Vector2&           texOffset,
+              unsigned                      textureFlags = 0 );
 
     /** Adds a sound to the resource map
     @param id the identifier of the resource
