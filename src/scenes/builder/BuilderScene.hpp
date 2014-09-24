@@ -9,6 +9,8 @@
 #include "src/entities/builder/BuilderControl.hpp"
 #include "src/entities/builder/BuilderEnvironment.hpp"
 
+#include "src/entities/ship/Block.hpp"
+
 /*****************************************************\
 | The scene where ships and designed and constructed. |
 \*****************************************************/

@@ -35,4 +35,8 @@ void BuilderScene::initEntities()
 {
     addEntity( new BuilderControl() );
     addEntity( new BuilderEnvironment() );
+
+    // TESTING TODO: REMOVE ME
+    Block* block = new Block( util::vec::Vector3( ) );
+    addEntity( block );
 }

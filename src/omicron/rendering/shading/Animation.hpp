@@ -56,6 +56,20 @@ public:
     /** #Override */
     tex::Type getType() const;
 
+    /** @return the length of the animation */
+    unsigned getLength() const;
+
+    /** Sets the current frame of the animation
+    @param frame the new current frame of the animation (between 1 and animation
+    length inclusive)*/
+    void setFrame( unsigned frame );
+
+    /** Pauses playback of the animation */
+    void pause();
+
+    /** Resumes playback of the animation if it is currently paused */
+    void resume();
+
 private:
 
     //--------------------------------------------------------------------------
@@ -72,6 +86,8 @@ private:
     // the current frame of the animation
     unsigned m_frame;
 
+    // is true if the animation is paused
+    bool m_paused;
     // is true if the animation should repeat
     bool m_repeat;
     // is true if the animation has ended

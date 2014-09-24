@@ -14,11 +14,11 @@ namespace pack {
 //                                  ENUMERATORS
 //------------------------------------------------------------------------------
 
-namespace builder {
+namespace layer {
 
 enum Layer {
     BACKGROUND,
-    SHIP_BLOCK
+    SHIP_HULL
 };
 
 } // namespace builder
@@ -33,7 +33,7 @@ void buildAllPack();
 
 void buildStartUpPack();
 
-// TODO: ship pack
+void buildShipPack();
 
 void buildBuilderPack();
 
@@ -46,7 +46,7 @@ inline void build()
 {
     buildAllPack();
     buildStartUpPack();
-    // TODO: ship pack
+    buildShipPack();
     buildBuilderPack();
 }
 

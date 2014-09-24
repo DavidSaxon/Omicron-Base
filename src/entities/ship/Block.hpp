@@ -1,0 +1,41 @@
+#ifndef VOIDWALKER_SHIP_BLOCK_H_
+#    define VOIDWALKER_SHIP_BLOCK_H_
+
+#include "src/omicron/entity/Entity.hpp"
+
+/***************************************************************************\
+| A block represents any part that a ship can compromise of, be part of the |
+| hull, an engine, or a utility.                                            |
+\***************************************************************************/
+class Block : public omi::Entity {
+public:
+
+    //--------------------------------------------------------------------------
+    //                                CONSTRUCTOR
+    //--------------------------------------------------------------------------
+
+    /** Creates a new block
+    @param pos the initial position of the block */
+    Block( const util::vec::Vector3& pos );
+
+    //--------------------------------------------------------------------------
+    //                          PUBLIC MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** #Override */
+    void init();
+
+    /** #Override */
+    void update();
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the transform of the block
+    omi::Transform* m_transform;
+};
+
+#endif

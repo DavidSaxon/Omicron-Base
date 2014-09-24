@@ -9,7 +9,7 @@ void buildBuilderPack()
         "builder_background", resource_group::BUILDER,
         "test_shader",
         "res/gfx/texture/builder/background.png",
-        builder::BACKGROUND,
+        layer::BACKGROUND,
         util::vec::Vector2( 96, 96 ),
         util::vec::Vector2( 6, 6 ),
         util::vec::Vector2( 0, 0 ),
