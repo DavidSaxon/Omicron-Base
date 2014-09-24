@@ -44,6 +44,7 @@ set(SRCS
 
     src/resource_pack/AllPack.cpp
     src/resource_pack/StartUpPack.cpp
+    src/resource_pack/ShipPack.cpp
     src/resource_pack/BuilderPack.cpp
 
     src/scenes/start_up/StartUpScene.cpp
@@ -51,6 +52,9 @@ set(SRCS
     src/scenes/level/LevelScene.cpp
 
     src/entities/start_up/OmicronLogo.cpp
+
+    src/entities/ship/Block.cpp
+
     src/entities/builder/BuilderControl.cpp
     src/entities/builder/BuilderEnvironment.cpp
 )
