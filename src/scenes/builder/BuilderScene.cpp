@@ -37,7 +37,5 @@ void BuilderScene::initEntities()
     addEntity( new BuilderEnvironment() );
 
     // TESTING TODO: REMOVE ME
-    Block* block = new Block( util::vec::Vector3( ) );
-    block->drawComponent = new RandomStillDrawComp( "ship_hull_steel" );
-    addEntity( block );
+    addEntity( block_factory::hullSteel( util::vec::Vector3() ) );
 }
