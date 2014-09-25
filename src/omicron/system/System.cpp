@@ -154,11 +154,11 @@ void init() {
     // create the window
     window = std::unique_ptr<Window>(new Window());
 
-    // create the renderer
-    renderer = std::unique_ptr<Renderer>(new Renderer());
-
     // initialise glew
     glewInit();
+
+    // create the renderer
+    renderer = std::unique_ptr<Renderer>(new Renderer());
 
     // build the resource packs
     pack::build();

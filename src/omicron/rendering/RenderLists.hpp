@@ -10,6 +10,9 @@
 #include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 
+// TODO: REMOVE ME
+#include "src/omicron/resource/ResourceManager.hpp"
+
 namespace omi {
 
 //-----------------------------------TYPEDEF------------------------------------
@@ -25,7 +28,8 @@ struct RenderableDepthSorter {
     Camera* camera;
 
     /** The sorting function */
-    bool operator ()(Renderable* a, Renderable* b) {
+    bool operator ()( Renderable* a, Renderable* b )
+    {
 
         // compared based on their distances from the camera
         float distanceA = util::vec::distance(
@@ -52,7 +56,7 @@ private:
     //                                RESTRICTIONS
     //--------------------------------------------------------------------------
 
-    DISALLOW_COPY_AND_ASSIGN(RenderLists);
+    DISALLOW_COPY_AND_ASSIGN( RenderLists );
 
 public:
 
@@ -64,30 +68,24 @@ public:
     RenderLists();
 
     //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~RenderLists();
-
-    //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     /** Renders all of the renderable components contained within the render
     lists
     @param the camera to use for rendering */
-    void render(Camera* camera);
+    void render( Camera* camera );
 
     /** Removes all components from the render lists */
     void clear();
 
     /** Adds a renderable component to the render lists
     @param renderable the renderable to add */
-    void addRenderable(Renderable* renderable);
+    void addRenderable( Renderable* renderable );
 
     /** Removes a renderable from the render lists
     @param renderable the renderable to remove */
-    void removeRenderable(Renderable* renderable);
+    void removeRenderable( Renderable* renderable );
 
 private:
 
@@ -100,6 +98,10 @@ private:
 
     // the depth sorter
     RenderableDepthSorter depthSorter;
+
+
+    // TESTING
+    GLuint m_vertexBuffer;
 };
 
 } // namespace omi

@@ -22,7 +22,7 @@ Window::Window() :
     settings.stencilBits        = 8;
     settings.antialiasingLevel  = 4;
     settings.majorVersion       = 3;
-    settings.minorVersion       = 0;
+    settings.minorVersion       = 3;
 
     // non-full screen mode
     if ( !displaySettings.getFullscreen() )
