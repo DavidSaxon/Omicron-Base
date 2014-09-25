@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
+#include "lib/glm/glm.hpp"
+
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/component/Transform.hpp"
