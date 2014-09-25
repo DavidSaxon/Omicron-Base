@@ -10,6 +10,7 @@
 #include "src/entities/builder/BuilderEnvironment.hpp"
 
 #include "src/entities/ship/Block.hpp"
+#include "src/entities/ship/draw_component/RandomStillDrawComp.hpp"
 
 /*****************************************************\
 | The scene where ships and designed and constructed. |

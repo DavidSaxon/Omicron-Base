@@ -4,7 +4,8 @@
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Block::Block( const util::vec::Vector3& pos )
+Block::Block(const util::vec::Vector3& pos ) :
+    drawComponent( NULL )
 {
     // set up the initial transform using the given position
     m_transform = new omi::Transform(
@@ -12,6 +13,17 @@ Block::Block( const util::vec::Vector3& pos )
         util::vec::Vector3(),
         util::vec::Vector3( 1.0f, 1.0f, 1.0f )
     );
+}
+
+//------------------------------------------------------------------------------
+//                                   DESTRUCTOR
+//------------------------------------------------------------------------------
+
+Block::~Block()
+{
+    // delete existing components
+    delete drawComponent;
+    drawComponent = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -24,15 +36,19 @@ void Block::init()
     m_components.add( m_transform );
 
     // TESTING
-    omi::Sprite* sprite = omi::ResourceManager::getSprite(
-        "ship_hull_steel", "", m_transform );
-    omi::Animation* animation = dynamic_cast<omi::Animation*>(
-        sprite->getMaterial().texture);
-    animation->setFrame( 3 );
-    animation->pause();
-    m_components.add( sprite );
+    // omi::Sprite* sprite = omi::ResourceManager::getSprite(
+    //     "ship_hull_steel", "", m_transform );
+    // omi::Animation* animation = dynamic_cast<omi::Animation*>(
+    //     sprite->getMaterial().texture);
+    // animation->setFrame( 3 );
+    // animation->pause();
+    // m_components.add( sprite );
 
-    // TODO: get components from ship components
+    // get components from ship components
+    if ( drawComponent )
+    {
+        m_components.add( drawComponent->getComponent( m_transform ) );
+    }
 }
 
 void Block::update()

@@ -10,8 +10,9 @@
 class DrawComponent {
 public:
 
-    /** @return the renderable component to use for the block */
-    virtual omi::Component* getComponent() = 0;
+    /** @return the renderable component to use for the block
+    @param transform the transform to use for the renderable */
+    virtual omi::Component* getComponent( omi::Transform* transform ) = 0;
 };
 
 #endif
