@@ -1,7 +1,7 @@
-#ifndef VOIDWALKER_SHIP_BLOCK_H_
-#    define VOIDWALKER_SHIP_BLOCK_H_
+#ifndef VOIDWALKER_SHIP_BLOCK_HPP_
+#    define VOIDWALKER_SHIP_BLOCK_HPP_
 
-#include "src/omicron/entity/Entity.hpp"
+#include "src/entities/ship/draw_component/DrawComponent.hpp"
 
 /***************************************************************************\
 | A block represents any part that a ship can compromise of, be part of the |
