@@ -14,9 +14,9 @@ namespace block_factory {
 //                                     HULLS
 //------------------------------------------------------------------------------
 
-inline Block* hullSteel( const util::vec::Vector3& pos )
+inline Block* hullSteel( const glm::vec3& pos )
 {
-    Block* block = new Block( util::vec::Vector3( ) );
+    Block* block = new Block( pos );
     block->drawComponent = new RandomStillDrawComp( "ship_hull_steel" );
 
     return block;

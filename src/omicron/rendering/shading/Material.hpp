@@ -1,7 +1,7 @@
 #ifndef OMICRON_RENDERING_SHADING_MATERIAL_H_
 #   define OMICRON_RENDERING_SHADING_MATERIAL_H_
 
-#include "lib/Utilitron/Vector.hpp"
+#include "lib/glm/glm.hpp"
 
 #include "src/omicron/rendering/shading/Shader.hpp"
 #include "src/omicron/rendering/shading/Texture.hpp"
@@ -29,7 +29,7 @@ public:
     //! the shader used for the material
     Shader shader;
     //! the colour of the material
-    util::vec::Vector4 colour;
+    glm::vec4 colour;
     //! a pointer to the texture of the material
     Texture* texture;
 
@@ -46,10 +46,10 @@ public:
     @param a_colour the colour of the material
     @param a_texture the texture of the material
     @param flags the flags of the material */
-    Material( const Shader&             a_shader,
-              const util::vec::Vector4& a_colour,
-                    Texture*            a_texture,
-                    unsigned            flags );
+    Material( const Shader&    a_shader,
+              const glm::vec4& a_colour,
+                    Texture*   a_texture,
+                    unsigned   flags );
 
     /** Creates a copy of the given material
     @param other the material to copy from */

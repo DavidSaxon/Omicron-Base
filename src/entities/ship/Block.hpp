@@ -23,7 +23,7 @@ public:
 
     /** Creates a new block
     @param pos the initial position of the block */
-    Block( const util::vec::Vector3& pos );
+    Block( const glm::vec3& pos );
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR

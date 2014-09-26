@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "lib/Utilitron/Vector.hpp"
-
 #include "src/omicron/display/Window.hpp"
 #include "src/omicron/input/Input.hpp"
 #include "src/omicron/logic/LogicManager.hpp"

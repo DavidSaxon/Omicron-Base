@@ -236,7 +236,7 @@ void ResourceManager::addMaterial(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
-    const util::vec::Vector4&           colour,
+    const glm::vec4&                    colour,
     const std::string&                  texture,
           unsigned                      flags )
 {
@@ -261,7 +261,7 @@ void ResourceManager::addMaterial(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
-    const util::vec::Vector4&           colour,
+    const glm::vec4&                    colour,
           unsigned                      flags )
 {
     // create the materials group if we need to
@@ -297,7 +297,7 @@ void ResourceManager::addMaterial(
             t_ResourcePtr( new MaterialResource(
                 resourceGroup,
                 shader,
-                util::vec::Vector4( 1.0f, 1.0f, 1.0f, 1.0f ),
+                glm::vec4( 1.0f, 1.0f, 1.0f, 1.0f ),
                 texture,
                 flags
             ))
@@ -351,7 +351,7 @@ void ResourceManager::addMaterialGeometryMesh(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
-    const util::vec::Vector4&           colour,
+    const glm::vec4&                    colour,
     const std::string&                  geometryPath,
           int                           layer,
           unsigned                      materialFlags )
@@ -414,7 +414,7 @@ void ResourceManager::addTextureMaterialGeometryMesh(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
-    const util::vec::Vector4&           colour,
+    const glm::vec4&                    colour,
     const std::string&                  texturePath,
     const std::string&                  geometryPath,
           int                           layer,
@@ -435,7 +435,7 @@ void ResourceManager::addTextureMaterialGeometryMesh(
     const std::string&                  id,
           resource_group::ResourceGroup resourceGroup,
     const std::string&                  shader,
-    const util::vec::Vector4&           colour,
+    const glm::vec4&                    colour,
     const std::string&                  texturePath,
           unsigned                      frameRate,
           bool                          repeat,
@@ -463,9 +463,9 @@ void ResourceManager::addSprite(
               resource_group::ResourceGroup resourceGroup,
               int                           layer,
         const std::string&                  material,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset )
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset )
 {
     // create the sprite group if we need to
     createGroup( SPRITE );
@@ -489,11 +489,11 @@ void ResourceManager::addMaterialSprite(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      materialFlags )
 {
     // material
@@ -508,9 +508,9 @@ void ResourceManager::addTextureMaterialSprite(
         const std::string&                  shader,
         const std::string&                  texturePath,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags,
               unsigned                      materialFlags )
 {
@@ -532,9 +532,9 @@ void ResourceManager::addTextureMaterialSprite(
               unsigned                      begin,
               unsigned                      end,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags,
               unsigned                      materialFlags )
 {
@@ -552,12 +552,12 @@ void ResourceManager::addTextureMaterialSprite(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  texturePath,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags,
               unsigned                      materialFlags )
 {
@@ -573,16 +573,16 @@ void ResourceManager::addTextureMaterialSprite(
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  texturePath,
               unsigned                      frameRate,
               bool                          repeat,
               unsigned                      begin,
               unsigned                      end,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags,
               unsigned                      materialFlags )
 {

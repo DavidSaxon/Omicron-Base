@@ -15,10 +15,10 @@ Material::Material()
 {
 }
 
-Material::Material( const Shader&             a_shader,
-                    const util::vec::Vector4& a_colour,
-                          Texture*            a_texture,
-                          unsigned            flags )
+Material::Material( const Shader&    a_shader,
+                    const glm::vec4& a_colour,
+                          Texture*   a_texture,
+                          unsigned   flags )
     :
     shader     ( a_shader),
     colour     ( a_colour),

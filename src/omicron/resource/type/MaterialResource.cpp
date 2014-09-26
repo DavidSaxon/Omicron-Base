@@ -9,7 +9,7 @@ namespace omi {
 MaterialResource::MaterialResource(
                resource_group::ResourceGroup resourceGroup,
          const std::string&                  shader,
-         const util::vec::Vector4&           colour,
+         const glm::vec4&                    colour,
          const std::string&                  texture,
                unsigned                      flags )
     :

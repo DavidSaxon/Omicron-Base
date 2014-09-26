@@ -55,7 +55,7 @@ Geometry* geoFromWavefront(const std::string& filePath) {
             // TODO: check if valid floats
 
             // add to the list of all vertices
-            vertices.push_back(util::vec::Vector3(
+            vertices.push_back(glm::vec3(
                     static_cast<float>(atof(elements[1].c_str())),
                     static_cast<float>(atof(elements[2].c_str())),
                     static_cast<float>(atof(elements[3].c_str()))));
@@ -75,7 +75,7 @@ Geometry* geoFromWavefront(const std::string& filePath) {
             // TODO: check if valid floats
 
             // add to the list of all UV coordinates
-            uv.push_back(util::vec::Vector2(
+            uv.push_back(glm::vec2(
                     static_cast<float>(atof(elements[1].c_str())),
                     static_cast<float>(atof(elements[2].c_str()))));
         }
@@ -94,7 +94,7 @@ Geometry* geoFromWavefront(const std::string& filePath) {
             // TODO: check if valid floats
 
             // add to the list of all vertices
-            normals.push_back(util::vec::Vector3(
+            normals.push_back(glm::vec3(
                     static_cast<float>(atof(elements[1].c_str())),
                     static_cast<float>(atof(elements[2].c_str())),
                     static_cast<float>(atof(elements[3].c_str()))));

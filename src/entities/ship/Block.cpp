@@ -4,14 +4,14 @@
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Block::Block(const util::vec::Vector3& pos ) :
+Block::Block(const glm::vec3& pos ) :
     drawComponent( NULL )
 {
     // set up the initial transform using the given position
     m_transform = new omi::Transform(
         "", pos,
-        util::vec::Vector3(),
-        util::vec::Vector3( 1.0f, 1.0f, 1.0f )
+        glm::vec3(),
+        glm::vec3( 1.0f, 1.0f, 1.0f )
     );
 }
 

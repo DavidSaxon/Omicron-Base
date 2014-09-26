@@ -22,9 +22,9 @@ void BuilderEnvironment::initComponents()
     //----------------------------GENERIC TRANSFORMS----------------------------
     omi::Transform* m_zeroT = new omi::Transform(
         "",
-        util::vec::Vector3(),
-        util::vec::Vector3(),
-        util::vec::Vector3(1.0f, 1.0f, 1.0f)
+        glm::vec3(),
+        glm::vec3(),
+        glm::vec3(1.0f, 1.0f, 1.0f)
     );
     m_components.add(m_zeroT);
     //--------------------------------BACKGROUND--------------------------------

@@ -4,8 +4,6 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
-#include "lib/Utilitron/Vector.hpp"
-
 namespace omi {
 
 namespace tex {

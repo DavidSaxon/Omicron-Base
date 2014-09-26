@@ -3,15 +3,15 @@
 
 #include <vector>
 
-#include "lib/Utilitron/Vector.hpp"
+#include "lib/glm/glm.hpp"
 
 namespace omi {
 
 //-----------------------------------TYPEDEF------------------------------------
 
-typedef std::vector<util::vec::Vector3> t_VertexArray;
-typedef std::vector<util::vec::Vector2> t_UVArray;
-typedef std::vector<util::vec::Vector3> t_NormalArray;
+typedef std::vector<glm::vec3> t_VertexArray;
+typedef std::vector<glm::vec2> t_UVArray;
+typedef std::vector<glm::vec3> t_NormalArray;
 
 /****************************************************************************\
 | A collection of data that describes vertices, UV coordinates, and normals. |

@@ -1,8 +1,6 @@
 #ifndef OMICRON_RESOURCE_TYPE_MATERIAL_RESOURCE_H_
 #   define OMICRON_RESOURCE_TYPE_MATERIAL_RESOURCE_H_
 
-#include "lib/Utilitron/Vector.hpp"
-
 #include "src/omicron/resource/ResourceManager.hpp"
 
 class ResourceManager;
@@ -29,7 +27,7 @@ public:
     @param texture the resource id of the texture of the material */
     MaterialResource(      resource_group::ResourceGroup resourceGroup,
                      const std::string&                  shader,
-                     const util::vec::Vector4&           colour,
+                     const glm::vec4&                    colour,
                      const std::string&                  texture,
                            unsigned                      flags );
 
@@ -55,7 +53,7 @@ private:
     // the resource id of the shader
     std::string m_shader;
     // the colour
-    util::vec::Vector4 m_colour;
+    glm::vec4 m_colour;
     // the resource id of the texture
     std::string m_texture;
     // the flags of the material

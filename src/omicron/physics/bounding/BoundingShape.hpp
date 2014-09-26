@@ -1,7 +1,7 @@
 #ifndef OMICRON_PHSYICS_BOUNDING_BOUNDINGSHAPE_H_
 #   define OMICRON_PHSYICS_BOUNDING_BOUNDINGSHAPE_H_
 
-#include "lib/Utilitron/Vector.hpp"
+#include "lib/glm/glm.hpp"
 
 #include "src/omicron/component/Transform.hpp"
 
@@ -35,7 +35,7 @@ public:
     }
 
     BoundingShape(bounding::Type type,
-            Transform* transform, const util::vec::Vector3& offset) :
+            Transform* transform, const glm::vec3& offset) :
         m_type     (type),
         m_transform(transform),
         m_offset   (offset) {
@@ -67,7 +67,7 @@ public:
     }
 
     /** @return the offset of the position of the bounding shape */
-    const util::vec::Vector3& getOffset() const {
+    const glm::vec3& getOffset() const {
 
         return m_offset;
     }
@@ -83,7 +83,7 @@ private:
     // the transform defining the position of this bounding
     Transform* m_transform;
     // the offset of this bounding from the position of the transform
-    util::vec::Vector3 m_offset;
+    glm::vec3 m_offset;
 };
 
 } // namespace omi

@@ -4,8 +4,6 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
-#include "lib/glm/glm.hpp"
-
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/component/Transform.hpp"
@@ -40,20 +38,22 @@ public:
             const std::string& id,
                   int          layer,
                   Transform*   transform,
-            const Material     material)
+            const Material     material )
         :
-        Component  (id),
-        visible    (true),
-        m_layer    (layer),
-        m_transform(transform),
-        m_material (material) {
+        Component  ( id ),
+        visible    ( true ),
+        m_layer    ( layer ),
+        m_transform( transform ),
+        m_material ( material )
+    {
     }
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    virtual ~Renderable() {
+    virtual ~Renderable()
+    {
     }
 
     //--------------------------------------------------------------------------
@@ -61,28 +61,28 @@ public:
     //--------------------------------------------------------------------------
 
     /** #Override */
-    virtual component::Type getType() const {
-
+    virtual component::Type getType() const
+    {
         return component::RENDERABLE;
     }
 
     // TODO: setting layer (gets complicated)
 
     /** @return the layer of the renderable */
-    int getLayer() const {
-
+    int getLayer() const
+    {
         return m_layer;
     }
 
     /** @return the transform used for positioning this renderable */
-    Transform* getTransform() {
-
+    Transform* getTransform()
+    {
         return m_transform;
     }
 
     /** @return the material used for this renderable */
-    Material& getMaterial() {
-
+    Material& getMaterial()
+    {
         return m_material;
     }
 
@@ -108,41 +108,41 @@ protected:
     //--------------------------------------------------------------------------
 
     /** Applies transformations */
-    void applyTransformations() {
-
+    void applyTransformations()
+    {
         // do nothing if the transform is null
-        if (!m_transform) {
-
+        if ( !m_transform )
+        {
             return;
         }
 
         // apply translation
-        util::vec::Vector3 translation(m_transform->computeTranslation());
-        glTranslatef(translation.x, translation.y, translation.z);
+        glm::vec3 translation( m_transform->computeTranslation() );
+        glTranslatef( translation.x, translation.y, translation.z );
 
         // TODO: local and global shit
         // apply rotation
-        util::vec::Vector3 rotation(m_transform->computeRotation());
-        glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-        glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
-        glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
+        glm::vec3 rotation( m_transform->computeRotation() );
+        glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
+        glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
+        glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
 
         // apply scale
-        util::vec::Vector3 scale(m_transform->computeScale());
-        glScalef(scale.x, scale.y, scale.z);
+        glm::vec3 scale( m_transform->computeScale() );
+        glScalef( scale.x, scale.y, scale.z );
     }
 
     /** Sets up the shader for rendering and passes in all data */
-    void setShader() {
-
+    void setShader()
+    {
         // get the OpenGL program
         GLuint program = m_material.shader.getProgram();
         // use the shader
-        glUseProgram(program);
+        glUseProgram( program );
 
         // pass in colour to the shader
         glUniform4f(
-            glGetUniformLocation(program, "u_colour"),
+            glGetUniformLocation( program, "u_colour" ),
             m_material.colour.r,
             m_material.colour.g,
             m_material.colour.b,
@@ -150,15 +150,15 @@ protected:
         );
 
         // texture
-        if (m_material.texture != NULL) {
-
-            glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 1);
-            glBindTexture(GL_TEXTURE_2D, m_material.texture->getId());
+        if ( m_material.texture != NULL )
+        {
+            glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
+            glBindTexture( GL_TEXTURE_2D, m_material.texture->getId() );
         }
-        else {
-
-            glUniform1i(glGetUniformLocation(program, "u_hasTexture"), 0);
-            glBindTexture(GL_TEXTURE_2D, 0);
+        else
+        {
+            glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
+            glBindTexture( GL_TEXTURE_2D, 0 );
         }
 
         // lighting
@@ -173,7 +173,7 @@ protected:
             glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 0 );
 
             // pass in ambient light
-            util::vec::Vector3 ambientLight =
+            glm::vec3 ambientLight =
                 renderSettings.getAmbientColour() *
                 renderSettings.getAmbientStrength();
             glUniform3f(

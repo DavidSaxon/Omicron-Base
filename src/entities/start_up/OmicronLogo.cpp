@@ -76,7 +76,7 @@ void OmicronLogo::update() {
             if (m_flareLongT->scale.x >= 1.0f) {
 
                 m_flareLongT->scale.x   = 1.0f;
-                m_flareCentreT->scale   = 1.0f;
+                m_flareCentreT->scale   = glm::vec3( 1.0f );
                 m_stage = FLARE_FADE;
             }
             break;
@@ -147,17 +147,17 @@ void OmicronLogo::initComponents()
     //----------------------------------CAMERA----------------------------------
     m_camT = new omi::Transform(
         "",
-        util::vec::Vector3( 0.0f, 0.0f, -1.0f ),
-        util::vec::Vector3(),
-        util::vec::Vector3( 1.0f, 1.0f, 1.0f )
+        glm::vec3( 0.0f, 0.0f, -1.0f ),
+        glm::vec3(),
+        glm::vec3( 1.0f, 1.0f, 1.0f )
     );
     m_components.add( new omi::Camera( "", omi::cam::ORTHOGRAPHIC, m_camT ) );
     //-----------------------------LOGO TEXT BOTTOM-----------------------------
     m_textBottomT = new omi::Transform(
         "",
-        util::vec::Vector3( 3.5f, 0.0f, 0.0f ),
-        util::vec::Vector3(),
-        util::vec::Vector3( 1.0f, 1.0f, 1.0f )
+        glm::vec3( 3.5f, 0.0f, 0.0f ),
+        glm::vec3(),
+        glm::vec3( 1.0f, 1.0f, 1.0f )
     );
     m_components.add( m_textBottomT );
     m_components.add(omi::ResourceManager::getSprite(
@@ -165,9 +165,9 @@ void OmicronLogo::initComponents()
     //------------------------------LOGO TEXT TOP-------------------------------
     m_textTopT = new omi::Transform(
         "",
-        util::vec::Vector3( -3.5f, 0.0f, 0.0f ),
-        util::vec::Vector3(),
-        util::vec::Vector3( 1.0f, 1.0f, 1.0f )
+        glm::vec3( -3.5f, 0.0f, 0.0f ),
+        glm::vec3(),
+        glm::vec3( 1.0f, 1.0f, 1.0f )
     );
     m_components.add( m_textTopT );
     m_components.add( omi::ResourceManager::getSprite(
@@ -175,9 +175,9 @@ void OmicronLogo::initComponents()
     //-----------------------------LONG LENS FLARE------------------------------
     m_flareLongT = new omi::Transform(
         "",
-        util::vec::Vector3(),
-        util::vec::Vector3(),
-        util::vec::Vector3( 0.0f, 1.0f, 1.0f )
+        glm::vec3(),
+        glm::vec3(),
+        glm::vec3( 0.0f, 1.0f, 1.0f )
     );
     m_components.add( m_flareLongT );
     omi::Sprite* flareLongSprite = omi::ResourceManager::getSprite(
@@ -187,9 +187,9 @@ void OmicronLogo::initComponents()
     //----------------------------CENTRE LENS FLARE-----------------------------
     m_flareCentreT = new omi::Transform(
         "",
-        util::vec::Vector3(),
-        util::vec::Vector3(),
-        util::vec::Vector3( 0.0f, 0.0f, 0.0f )
+        glm::vec3(),
+        glm::vec3(),
+        glm::vec3( 0.0f, 0.0f, 0.0f )
     );
     m_components.add( m_flareCentreT );
     omi::Sprite* flareCentreSprite = omi::ResourceManager::getSprite(

@@ -3,7 +3,7 @@
 
 #include <SFML/Window.hpp>
 
-#include "lib/Utilitron/Vector.hpp"
+#include "lib/glm/glm.hpp"
 
 namespace omi
 {
@@ -141,7 +141,7 @@ enum Type {
 //------------------------------------------------------------------------------
 
 /** @return the mouse position */
-util::vec::Vector2 getMousePos();
+glm::vec2 getMousePos();
 
 /** @return if the given mouse button is being pressed */
 bool mousePressed( mouse_button::Type button );

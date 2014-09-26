@@ -28,7 +28,7 @@ public:
     @param transform the transform to use for the circle'S location
     @param offset the offset to use for the circles location*/
     BoundingCircle(float radius, Transform* transform,
-            const util::vec::Vector3& offset) :
+            const glm::vec3& offset) :
         BoundingShape(bounding::CIRCLE, transform, offset),
         m_radius     (radius) {
     }

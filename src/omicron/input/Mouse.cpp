@@ -1,23 +1,23 @@
 #include "Input.hpp"
 
 namespace omi {
-    
+
 namespace input {
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
-util::vec::Vector2 getMousePos()
+glm::vec2 getMousePos()
 {
     sf::Vector2i pos = sf::Mouse::getPosition();
-    return util::vec::Vector2( 
+    return glm::vec2(
         static_cast<float>( pos.x ),
         static_cast<float>( pos.y )
     );
 }
 
-bool mousePressed( mouse_button::Type button ) 
+bool mousePressed( mouse_button::Type button )
 {
     return sf::Mouse::isButtonPressed( sf::Mouse::Button( button ) );
 }

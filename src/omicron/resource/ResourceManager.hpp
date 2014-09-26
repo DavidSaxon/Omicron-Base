@@ -172,7 +172,7 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  texture,
               unsigned                      flags = 0 );
 
@@ -186,7 +186,7 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
               unsigned                      flags = 0 );
 
     /** Adds a material to the resource map using default white as the colour
@@ -238,7 +238,7 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  geometryPath,
               int                           layer,
               unsigned                      materialFlags = 0 );
@@ -309,7 +309,7 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  texturePath,
         const std::string&                  geometryPath,
               int                           layer,
@@ -332,7 +332,7 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  texturePath,
               unsigned                      frameRate,
               bool                          repeat,
@@ -356,9 +356,9 @@ public:
               resource_group::ResourceGroup resourceGroup,
               int                           layer,
         const std::string&                  material,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset );
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset );
 
     /** Adds a material and a sprite into the resource map, all with the same
     id. The sprite will use the created material
@@ -375,11 +375,11 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      materialFlags = 0 );
 
     /** Adds a texture, material, and sprite into the resource map, all with the
@@ -401,9 +401,9 @@ public:
         const std::string&                  shader,
         const std::string&                  texturePath,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags = 0,
               unsigned                      materialFlags = 0 );
 
@@ -435,9 +435,9 @@ public:
               unsigned                      begin,
               unsigned                      end,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags = 0,
               unsigned                      materialFlags = 0 );
 
@@ -459,12 +459,12 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  texturePath,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags = 0,
               unsigned                      materialFlags = 0 );
 
@@ -489,16 +489,16 @@ public:
         const std::string&                  id,
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  shader,
-        const util::vec::Vector4&           colour,
+        const glm::vec4&                    colour,
         const std::string&                  texturePath,
               unsigned                      frameRate,
               bool                          repeat,
               unsigned                      begin,
               unsigned                      end,
               int                           layer,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset,
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset,
               unsigned                      textureFlags = 0,
               unsigned                      materialFlags = 0 );
 

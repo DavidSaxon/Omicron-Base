@@ -82,7 +82,7 @@ void LogicManager::removeUpdatable(Updatable* updatable) {
 
     // search and remove updatable
     for (std::vector<Updatable*>::iterator it = m_components.begin();
-         it != m_components.end(); ++it) {
+         it != m_components.end(); ++it) { 
 
         if (*it == updatable) {
 

@@ -22,7 +22,7 @@ public:
 
     /** Creates a sprite resource
     @param resourceGroup the resource group of the sprite
-    @param layer the layer of sprite 
+    @param layer the layer of sprite
     @param material the resource id of the sprite's material
     @param size the size of the sprite
     @param texSize the size of the sprite's texture co-ordinates
@@ -31,15 +31,9 @@ public:
               resource_group::ResourceGroup resourceGroup,
               int                           layer,
         const std::string&                  material,
-        const util::vec::Vector2&           size,
-        const util::vec::Vector2&           texSize,
-        const util::vec::Vector2&           texOffset);
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~SpriteResource();
+        const glm::vec2&                    size,
+        const glm::vec2&                    texSize,
+        const glm::vec2&                    texOffset );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -54,7 +48,7 @@ public:
     /** @return the loaded sprite
     @param id the component identifier of the sprite
     @param transform the transform to use for the sprite*/
-    Sprite* get(const std::string& id, Transform* transform) const;
+    Sprite* get( const std::string& id, Transform* transform ) const;
 
 private:
 
@@ -69,11 +63,11 @@ private:
     // the resource id of the sprite's material
     std::string m_material;
     // the size of the sprite
-    util::vec::Vector2 m_size;
+    glm::vec2 m_size;
     // the size of the sprite's texture co-ordinates
-    util::vec::Vector2 m_texSize;
+    glm::vec2 m_texSize;
     // the offset of the sprite's texture co-ordinates
-    util::vec::Vector2 m_texOffset;
+    glm::vec2 m_texOffset;
 };
 
 } // namespace omi

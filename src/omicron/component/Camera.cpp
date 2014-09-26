@@ -91,7 +91,7 @@ void Camera::apply() {
     else {
 
         // set up the orthographic matrix
-        float aspectRatio = 
+        float aspectRatio =
             displaySettings.getSize().x / displaySettings.getSize().y;
         glOrtho(-aspectRatio, aspectRatio, -1.0f, 1.0f, m_nearClip, m_farClip);
     }
@@ -100,15 +100,15 @@ void Camera::apply() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     // scale
-    util::vec::Vector3 scale(m_transform->computeScale());
+    glm::vec3 scale(m_transform->computeScale());
     glScalef(scale.x, scale.y, scale.z);
     //rotation
-    util::vec::Vector3 rotation(m_transform->computeRotation());
+    glm::vec3 rotation(m_transform->computeRotation());
     glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
     glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
     glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
     // translation
-    util::vec::Vector3 translation = m_transform->computeTranslation();
+    glm::vec3 translation = m_transform->computeTranslation();
     glTranslatef(translation.x, translation.y, translation.z);
 }
 

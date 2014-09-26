@@ -32,12 +32,12 @@ struct RenderableDepthSorter {
     {
 
         // compared based on their distances from the camera
-        float distanceA = util::vec::distance(
+        float distanceA = glm::distance(
             a->getTransform()->translation,
             camera->getTransform()->translation
         );
 
-        float distanceB = util::vec::distance(
+        float distanceB = glm::distance(
             b->getTransform()->translation,
             camera->getTransform()->translation
         );

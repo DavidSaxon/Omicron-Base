@@ -22,9 +22,9 @@ void BuilderControl::initComponents()
     //----------------------------------CAMERA----------------------------------
     m_camT = new omi::Transform(
         "",
-        util::vec::Vector3( 0.0f, 0.0f, -1.0f ),
-        util::vec::Vector3(),
-        util::vec::Vector3( 0.2f, 0.2f, 0.2f )
+        glm::vec3( 0.0f, 0.0f, -1.0f ),
+        glm::vec3(),
+        glm::vec3( 0.2f, 0.2f, 0.2f )
     );
     m_components.add( new omi::Camera("", omi::cam::ORTHOGRAPHIC, m_camT ) );
 }

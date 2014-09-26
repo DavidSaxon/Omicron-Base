@@ -10,7 +10,6 @@
 
 #include "lib/Utilitron/FileUtil.hpp"
 #include "lib/Utilitron/StringUtil.hpp"
-#include "lib/Utilitron/Vector.hpp"
 
 #include "src/omicron/rendering/object_data/Geometry.hpp"
 #include "src/omicron/rendering/shading/Animation.hpp"
@@ -51,7 +50,7 @@ Texture* textureFromImage(
 /** Loads an animation from an image sequence
 @param filePath the path of the sequence (omitting the frame number)
 @param frameRate the playback speed of the animation
-@param repeat if the animation should repeat 
+@param repeat if the animation should repeat
 @param begin the beginning frame of the animation
 @param end the ending frame of the animation
 @param clamp whether to clamp the texture to the edge
@@ -59,18 +58,6 @@ Texture* textureFromImage(
 Texture* animationFromImage(
     const std::string& filePath, unsigned frameRate,
     bool repeat, unsigned begin, unsigned end, bool clamp, bool showPixels );
-
-//-------------------------------MATERIAL LOADER--------------------------------
-
-/** Loads a material using the given values
-@param colour the colour of the material
-@param texture the texture of the material
-@param shader the shader of the material
-@return the loaded material */
-Material materialFromValues(
-        const util::vec::Vector4& colour,
-              Texture             texture,
-              Shader              shader);
 
 //-------------------------------GEOMETRY LOADERS-------------------------------
 

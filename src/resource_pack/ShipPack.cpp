@@ -17,9 +17,9 @@ void buildShipPack()
         "res/gfx/texture/ship/hull/steel/steel.png",
         1, true, 1, 5,
         layer::SHIP_HULL,
-        util::vec::Vector2(1, 1),
-        util::vec::Vector2(1, 1),
-        util::vec::Vector2(0, 0),
+        glm::vec2( 1, 1 ),
+        glm::vec2( 1, 1 ),
+        glm::vec2( 0, 0 ),
         omi::texture::CLAMP | omi::texture::SHOW_PIXELS
     );
 }
