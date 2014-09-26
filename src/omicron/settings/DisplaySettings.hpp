@@ -3,9 +3,10 @@
 
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
+#include <string>
 
+#include "lib/glm/glm.hpp"
 #include "lib/Utilitron/MacroUtil.hpp"
-#include "lib/Utilitron/Vector.hpp"
 
 namespace omi {
 
@@ -20,7 +21,7 @@ private:
     //                                RESTRICTIONS
     //--------------------------------------------------------------------------
 
-    DISALLOW_COPY_AND_ASSIGN(DisplaySettings);
+    DISALLOW_COPY_AND_ASSIGN( DisplaySettings );
 
 public:
 
@@ -30,12 +31,6 @@ public:
 
     /** Creates new window settings initialised with the default values */
     DisplaySettings();
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRCUTOR
-    //--------------------------------------------------------------------------
-
-    ~DisplaySettings();
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -51,13 +46,13 @@ public:
     const std::string& getTitle() const;
 
     /** @return the size of the window */
-    const util::vec::Vector2& getSize() const;
-    
+    const glm::vec2& getSize() const;
+
     /** @return the position of the window */
-    const util::vec::Vector2& getPos() const;
+    const glm::vec2& getPos() const;
 
     /** @return the centre of the window */
-    const util::vec::Vector2 getCentre() const;
+    const glm::vec2& getCentre() const;
 
     /** @return if the window is in fullscreen */
     bool getFullscreen() const;
@@ -68,19 +63,19 @@ public:
     //---------------------------------SETTERS----------------------------------
 
     /** @param title the new title of the window */
-    void setTitle(const std::string& title);
+    void setTitle( const std::string& title );
 
     /** @param size the new size of the window */
-    void setSize(const util::vec::Vector2& size);
+    void setSize( const glm::vec2& size );
 
     /** @param pos the new position of the window */
-    void setPos(const util::vec::Vector2& pos);
+    void setPos( const glm::vec2& pos );
 
     /** @param fullscreen the new fullscreen mode of the window */
-    void setFullscreen(bool fullscreen);
+    void setFullscreen( bool fullscreen );
 
     /** @param vsync whether vsnyc should be enabled or not */
-    void setVsync(bool vsnyc);
+    void setVsync( bool vsnyc );
 
 private:
 
@@ -94,11 +89,11 @@ private:
     // the title of the window
     std::string m_title;
     // the size of the window
-    util::vec::Vector2 m_size;
+    glm::vec2 m_size;
     // the position of the window
-    util::vec::Vector2 m_pos;
+    glm::vec2 m_pos;
     // the centre of the window
-    util::vec::Vector2 m_centre;
+    glm::vec2 m_centre;
     // is true if the window is in fullscreen
     bool m_fullscreen;
     // is true to enable vertical sync
