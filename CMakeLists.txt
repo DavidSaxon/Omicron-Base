@@ -54,6 +54,7 @@ set(SRCS
     src/entities/start_up/OmicronLogo.cpp
 
     src/entities/ship/Block.cpp
+    src/entities/ship/draw_component/RandomStillDrawComp.cpp
 
     src/entities/builder/BuilderControl.cpp
     src/entities/builder/BuilderEnvironment.cpp

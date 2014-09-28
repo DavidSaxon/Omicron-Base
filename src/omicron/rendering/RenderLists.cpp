@@ -8,16 +8,6 @@ namespace omi {
 
 RenderLists::RenderLists()
 {
-    // TESTING: REMOVE ME
-    GLfloat vertexData[] = {
-        -1.0f, -1.0f, 0.0f,
-         1.0f, -1.0f, 0.0f,
-         0.0f,  1.0f, 0.0f
-    };
-    glGenBuffers( 1, &m_vertexBuffer );
-    glBindBuffer( GL_ARRAY_BUFFER, m_vertexBuffer );
-    glBufferData( GL_ARRAY_BUFFER, sizeof( vertexData ),
-                  vertexData, GL_STATIC_DRAW );
 }
 
 //------------------------------------------------------------------------------
@@ -48,24 +38,6 @@ void RenderLists::render( Camera* camera )
             ( *itr )->render();
         }
     }
-
-    // TESTING: REMOVE ME
-    // Shader shader = ResourceManager::getShader( "test_shader" );
-    // GLuint program = shader.getProgram();
-    // glUseProgram( program );
-
-    // glUniform4f( glGetUniformLocation( program, "u_colour" ),
-    //     1.0f, 0.3f, 0.2f, 1.0f );
-    // glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
-    // glBindTexture( GL_TEXTURE_2D, 0 );
-
-    // glEnableVertexAttribArray( 0 );
-    // glBindBuffer( GL_ARRAY_BUFFER, m_vertexBuffer );
-    // glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0 );
-    // glDrawArrays( GL_TRIANGLES, 0, 3 );
-    // glDisableVertexAttribArray( 0 );
-
-    // glUseProgram( 0 );
 }
 
 void RenderLists::clear()

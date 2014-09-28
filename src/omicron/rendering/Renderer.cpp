@@ -105,11 +105,6 @@ void Renderer::init() {
     glClearDepth(1.0f);
     glEnable(GL_TEXTURE_2D);
 
-    // set up the vertex array object
-    GLuint vertexArray;
-    glGenVertexArrays( 1, &vertexArray );
-    glBindVertexArray( vertexArray );
-
     // initialise DevIL
     ilInit();
 

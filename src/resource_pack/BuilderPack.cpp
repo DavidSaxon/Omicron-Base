@@ -11,7 +11,7 @@ void buildBuilderPack()
         "res/gfx/texture/builder/background.png",
         layer::BACKGROUND,
         glm::vec2( 96, 96 ),
-        glm::vec2( 6, 6 ),
+        glm::vec2( 2, 2 ),
         glm::vec2( 0, 0 ),
         omi::texture::SHOW_PIXELS,
         omi::material::SHADELESS
