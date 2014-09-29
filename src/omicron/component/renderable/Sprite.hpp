@@ -36,9 +36,6 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** #Override */
-    void render( Camera* camera );
-
     /** @return the size of the sprite */
     const glm::vec2& getSize() const;
 
@@ -56,6 +53,14 @@ public:
 
     /** @param texOffset the new offset of the sprite's texture co-ordinates */
     void setTexOffset( const glm::vec2& texOffset );
+
+protected:
+
+    //--------------------------------------------------------------------------
+    //                         PROTECTED MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    void draw();
 
 private:
 

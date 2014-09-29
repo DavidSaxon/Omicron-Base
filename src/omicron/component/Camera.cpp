@@ -75,44 +75,12 @@ component::Type Camera::getType() const
 
 void Camera::apply()
 {
-
-    // TODO: REMOVE ME
-    //--------------------------------------------------------------------------
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    if (m_mode == cam::PERSPECTIVE) {
-
-        // set up the projection matrix
-        gluPerspective(m_fov,
-            displaySettings.getSize().x / displaySettings.getSize().y,
-            m_nearClip, m_farClip);
-    }
-    else {
-
-        // set up the orthographic matrix
-        float aspectRatio =
-            displaySettings.getSize().x / displaySettings.getSize().y;
-        glOrtho(-aspectRatio, aspectRatio, -1.0f, 1.0f, m_nearClip, m_farClip);
-    }
-
-    // set up the model view matrix
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    // scale
-    glm::vec3 scale(m_transform->computeScale());
-    glScalef(scale.x, scale.y, scale.z);
-    //rotation
+    // get the computed transformations
+    glm::vec3 translation( m_transform->computeTranslation() );
     glm::vec3 rotation(m_transform->computeRotation());
-    glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-    glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
-    glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
-    // translation
-    glm::vec3 translation = m_transform->computeTranslation();
-    glTranslatef(translation.x, translation.y, translation.z);
-    //--------------------------------------------------------------------------
+    glm::vec3 scale(m_transform->computeScale());
 
-    //set up the projection matrix
+    // projection matrix
     float aspectRatio =
         displaySettings.getSize().x / displaySettings.getSize().y;
     if ( m_mode == cam::PERSPECTIVE )
@@ -126,24 +94,20 @@ void Camera::apply()
             -aspectRatio, aspectRatio, -1.0f, 1.0f, m_nearClip, m_farClip );
     }
 
-    // set up the view matrix
+    // view matrix
     m_viewMatrix = glm::lookAt(
         glm::vec3( 0, 0, 1 ),
         glm::vec3( 0, 0, 0 ),
         glm::vec3( 0, 1, 0 )
     );
-    // TODO: REMOVE BRACES
-    {
-    // apply transformations to the view matrix
-    glm::vec3 scale( m_transform->computeScale() );
+    // scale
     m_viewMatrix *= glm::scale( scale );
-    glm::vec3 rotation( m_transform->computeRotation() );
+    // rotation
     m_viewMatrix *= glm::rotate( rotation.x, glm::vec3( 1.0f, 0.0f, 0.0f ) );
     m_viewMatrix *= glm::rotate( rotation.y, glm::vec3( 0.0f, 1.0f, 0.0f ) );
     m_viewMatrix *= glm::rotate( rotation.z, glm::vec3( 0.0f, 0.0f, 1.0f ) );
-    glm::vec3 translation( m_transform->computeTranslation() );
+    // translation
     m_viewMatrix *= glm::translate( translation );
-    }
 }
 
 //-----------------------------------GETTERS------------------------------------

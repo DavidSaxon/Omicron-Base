@@ -16,6 +16,34 @@ RenderLists::RenderLists()
 
 void RenderLists::render( Camera* camera )
 {
+    //---------------------------SELECTABLE ELEMENTS----------------------------
+
+    // apply the camera
+    if ( camera != NULL )
+    {
+        camera->apply();
+    }
+    for ( t_RenderableMap::iterator it = m_renderables.begin();
+          it != m_renderables.end(); ++it )
+    {
+
+        // iterate over the renderables in this layer and render them
+        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+              itr != it->second.end(); ++itr)
+        {
+            if ( (* itr )->selectable )
+            {
+                ( *itr )->renderSelectable( camera );
+            }
+        }
+    }
+
+    // return;
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    //-----------------------------VISIBLE ELEMENTS-----------------------------
+
     // apply the camera
     if ( camera != NULL )
     {

@@ -28,60 +28,6 @@ Sprite::Sprite(
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Sprite::render( Camera* camera )
-{
-    // update the material
-    m_material.update();
-
-    // only render if the sprite is visible
-    if ( !visible || !m_material.isVisible() )
-    {
-        return;
-    }
-
-    glPushMatrix();
-
-    // apply the transform to the matrices
-    applyTransformations( camera );
-
-    // set the shader
-    setShader();
-
-    // TODO: use VBOS
-    // draw the sprite
-    glBegin(GL_TRIANGLES);
-
-        glTexCoord2f( m_texCoord.x, m_texCoord.y );
-        glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f(  m_half.x,  m_half.y, 0.0f );
-
-        glTexCoord2f( m_texOffset.x, m_texCoord.y );
-        glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f( -m_half.x,  m_half.y, 0.0f );
-
-        glTexCoord2f( m_texCoord.x, m_texOffset.y );
-        glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f(  m_half.x, -m_half.y, 0.0f );
-
-        glTexCoord2f( m_texOffset.x, m_texOffset.y );
-        glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f( -m_half.x, -m_half.y, 0.0f );
-
-        glTexCoord2f( m_texCoord.x, m_texOffset.y );
-        glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f(  m_half.x, -m_half.y, 0.0f );
-
-        glTexCoord2f( m_texOffset.x, m_texCoord.y );
-        glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f( -m_half.x,  m_half.y, 0.0f );
-
-    glEnd();
-
-    unsetShader();
-
-    glPopMatrix();
-}
-
 const glm::vec2& Sprite::getSize() const
 {
     return m_size;
@@ -116,6 +62,41 @@ void Sprite::setTexOffset( const glm::vec2& texOffset )
     m_texOffset = texOffset;
     m_texCoord.x = m_texOffset.x + m_texSize.x;
     m_texCoord.y = m_texOffset.y + m_texSize.y;
+}
+
+//------------------------------------------------------------------------------
+//                           PROTECTED MEMBER FUNCTIONS
+//------------------------------------------------------------------------------
+
+void Sprite::draw()
+{
+    glBegin(GL_TRIANGLES);
+
+        glTexCoord2f( m_texCoord.x, m_texCoord.y );
+        glNormal3f(  0.0f,      0.0f,     1.0f );
+        glVertex3f(  m_half.x,  m_half.y, 0.0f );
+
+        glTexCoord2f( m_texOffset.x, m_texCoord.y );
+        glNormal3f(  0.0f,      0.0f,     1.0f );
+        glVertex3f( -m_half.x,  m_half.y, 0.0f );
+
+        glTexCoord2f( m_texCoord.x, m_texOffset.y );
+        glNormal3f(  0.0f,      0.0f,     1.0f );
+        glVertex3f(  m_half.x, -m_half.y, 0.0f );
+
+        glTexCoord2f( m_texOffset.x, m_texOffset.y );
+        glNormal3f(  0.0f,      0.0f,     1.0f );
+        glVertex3f( -m_half.x, -m_half.y, 0.0f );
+
+        glTexCoord2f( m_texCoord.x, m_texOffset.y );
+        glNormal3f(  0.0f,      0.0f,     1.0f );
+        glVertex3f(  m_half.x, -m_half.y, 0.0f );
+
+        glTexCoord2f( m_texOffset.x, m_texCoord.y );
+        glNormal3f(  0.0f,      0.0f,     1.0f );
+        glVertex3f( -m_half.x,  m_half.y, 0.0f );
+
+    glEnd();
 }
 
 } // namespace omi

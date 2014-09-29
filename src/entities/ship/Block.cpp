@@ -35,20 +35,21 @@ void Block::init()
     // add the transform component
     m_components.add( m_transform );
 
-    // TESTING
-    // omi::Sprite* sprite = omi::ResourceManager::getSprite(
-    //     "ship_hull_steel", "", m_transform );
-    // omi::Animation* animation = dynamic_cast<omi::Animation*>(
-    //     sprite->getMaterial().texture);
-    // animation->setFrame( 3 );
-    // animation->pause();
-    // m_components.add( sprite );
-
     // get components from ship components
     if ( drawComponent )
     {
-        m_components.add( drawComponent->getComponent( m_transform ) );
+        drawComponent->init( m_transform );
+        for ( std::vector<omi::Renderable*>::const_iterator it =
+              drawComponent->getRenderables().begin();
+              it != drawComponent->getRenderables().end(); ++it )
+        {
+            m_components.add( *it );
+        }
+
     }
+
+    // TODO: this component should be created depending on mode
+    builderComponent = new BuilderComponent( drawComponent->getRenderables() );
 }
 
 void Block::update()

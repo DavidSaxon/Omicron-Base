@@ -11,6 +11,7 @@
 #include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/Transform.hpp"
 #include "src/omicron/rendering/shading/Material.hpp"
+#include "src/omicron/resource/loader/Loaders.hpp"
 
 namespace omi {
 
@@ -25,8 +26,13 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // the selection shader for renderables
+    static Shader selectionShader;
+
     //! is true if this component will be rendered
     bool visible;
+    // is true if the this renderable should render for selecting
+    bool selectable;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
@@ -72,7 +78,11 @@ public:
     /** #Hidden
     Render this component
     @param camera the camera used to render this */
-    virtual void render( Camera* camera ) = 0;
+    void render( Camera* camera );
+
+    /** #Hidden
+    Render this component for colour picking */
+    void renderSelectable( Camera* camera );
 
 protected:
 
@@ -105,6 +115,9 @@ protected:
 
     /** Cleans up the shader */
     void unsetShader();
+
+    /** Defines the geometry of the renderable */
+    virtual void draw() = 0;
 };
 
 } // namespace omi

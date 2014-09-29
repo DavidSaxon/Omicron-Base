@@ -23,7 +23,7 @@ public:
     //--------------------------------------------------------------------------
 
     /** #Override */
-    omi::Component* getComponent( omi::Transform* transform );
+    void init( omi::Transform* transform );
 
 private:
 

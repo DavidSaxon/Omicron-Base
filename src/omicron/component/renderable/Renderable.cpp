@@ -3,6 +3,12 @@
 namespace omi {
 
 //------------------------------------------------------------------------------
+//                                   VARIABLES
+//------------------------------------------------------------------------------
+
+Shader Renderable::selectionShader;
+
+//------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
@@ -14,6 +20,7 @@ Renderable::Renderable(
     :
     Component  ( id ),
     visible    ( true ),
+    selectable ( false ),
     m_layer    ( layer ),
     m_transform( transform ),
     m_material ( material )
@@ -23,6 +30,66 @@ Renderable::Renderable(
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+void Renderable::render( Camera* camera )
+{
+    // update the material
+    m_material.update();
+
+    // only render if the sprite is visible and the camera there is a camera
+    if ( !visible || !m_material.isVisible() || camera == NULL)
+    {
+        return;
+    }
+
+    applyTransformations( camera );
+    setShader();
+    draw();
+    unsetShader();
+}
+
+void Renderable::renderSelectable( Camera* camera )
+{
+    // don't bother rendering if there is no camera
+    if ( camera == NULL )
+    {
+
+        return;
+    }
+
+    //set up
+    applyTransformations( camera );
+
+    // shader shit
+    GLuint program = selectionShader.getProgram();
+    glUseProgram( program );
+    // matrix
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
+        1, GL_FALSE, &m_modelViewProjectionMatrix[0][0] );
+    // colour
+    glUniform4f(
+        glGetUniformLocation( program, "u_colour" ),
+        1.0f, 0.0f, 0.0f, 1.0f );
+    // texture
+    if ( m_material.texture != NULL )
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
+        glBindTexture( GL_TEXTURE_2D, m_material.texture->getId() );
+    }
+    else
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
+        glBindTexture( GL_TEXTURE_2D, 0 );
+    }
+
+    // draw
+    draw();
+
+    // clean up
+    glUseProgram( 0 );
+    glBindTexture( GL_TEXTURE_2D, 0 );
+}
 
 component::Type Renderable::getType() const
 {
@@ -56,41 +123,24 @@ void Renderable::applyTransformations( Camera* camera )
         return;
     }
 
-    // TODO REMOVE ME
-    //----------------------------------------------------------------------
-    // apply translation
+    // get the computed transformations
     glm::vec3 translation( m_transform->computeTranslation() );
-    glTranslatef( translation.x, translation.y, translation.z );
-
-    // TODO: local and global shit
-    // apply rotation
     glm::vec3 rotation( m_transform->computeRotation() );
-    glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
-    glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
-    glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
-
-    // apply scale
     glm::vec3 scale( m_transform->computeScale() );
-    glScalef( scale.x, scale.y, scale.z );
-    //----------------------------------------------------------------------
 
-    // TODO: REMOVE BRACES
-    {
+    // apply to matrices
     m_modelMatrix = glm::mat4( 1.0f );
-    glm::vec3 translation( m_transform->computeTranslation() );
     m_modelMatrix *= glm::translate( translation );
-    glm::vec3 rotation( m_transform->computeRotation() );
     m_modelMatrix *= glm::rotate( rotation.x, glm::vec3( 1.0f, 0.0f, 0.0f ) );
     m_modelMatrix *= glm::rotate( rotation.y, glm::vec3( 0.0f, 1.0f, 0.0f ) );
     m_modelMatrix *= glm::rotate( rotation.z, glm::vec3( 0.0f, 0.0f, 1.0f ) );
-    glm::vec3 scale( m_transform->computeScale() );
     m_modelMatrix *= glm::scale( scale );
+
     //calculate the model, view, projection matrix
     m_modelViewProjectionMatrix =
         camera->getProjectionMatrix() *
         camera->getViewMatrix() *
         m_modelMatrix;
-    }
 }
 
 void Renderable::setShader()

@@ -1,6 +1,7 @@
 #ifndef VOIDWALKER_SHIP_BLOCK_HPP_
 #    define VOIDWALKER_SHIP_BLOCK_HPP_
 
+#include "src/entities/ship/builder_component/BuilderComponent.hpp"
 #include "src/entities/ship/draw_component/DrawComponent.hpp"
 
 /***************************************************************************\
@@ -16,6 +17,9 @@ public:
 
     // the component used for drawing the block
     DrawComponent* drawComponent;
+
+    // the component used for controlling the block in builder mode
+    BuilderComponent* builderComponent;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR

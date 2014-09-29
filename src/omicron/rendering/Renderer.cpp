@@ -110,6 +110,12 @@ void Renderer::init() {
 
     // create the render lists
     m_renderLists = std::unique_ptr<RenderLists>(new RenderLists());
+
+    // load the selection shader for renderables
+    Renderable::selectionShader = loader::loadShaderFromFiles(
+        "res/gfx/shader/omicron/selection_vertex.glsl",
+        "res/gfx/shader/omicron/selection_fragment.glsl"
+    );
 }
 
 } // namespace omi

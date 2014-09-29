@@ -26,10 +26,10 @@ void main() {
 
     // the final colour
     vec4 finalColour = u_colour;
-    vec4 textureColour = texture2D(u_texture, v_texCoord);
+    vec4 textureColour = texture2D( u_texture, v_texCoord );
 
-    if (u_hasTexture > 0) {
-
+    if ( u_hasTexture > 0 )
+    {
         finalColour *= textureColour;
     }
 

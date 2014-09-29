@@ -13,7 +13,7 @@ RandomStillDrawComp::RandomStillDrawComp( const std::string& renderableName ) :
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-omi::Component* RandomStillDrawComp::getComponent( omi::Transform* transform )
+void RandomStillDrawComp::init( omi::Transform* transform )
 {
     // get the sprite
     omi::Sprite* sprite = omi::ResourceManager::getSprite(
@@ -25,5 +25,6 @@ omi::Component* RandomStillDrawComp::getComponent( omi::Transform* transform )
     animation->setFrame( 3 );
     animation->pause();
 
-    return sprite;
+    //add to the list of renderables
+    m_renderables.push_back( sprite );
 }

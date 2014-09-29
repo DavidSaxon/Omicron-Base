@@ -23,24 +23,20 @@ public:
     @param transform a pointer to a transform to use for the mesh's position
     @param geometry a pointer to the geometry to use for the mesh
     @param material the material to use for the mesh*/
-    Mesh(const std::string& id,
-               int          layer,
-               Transform*   transform,
-               Geometry*    geometry,
-               Material     material);
+    Mesh(
+            const std::string& id,
+                  int          layer,
+                  Transform*   transform,
+                  Geometry*    geometry,
+                  Material     material );
+
+protected:
 
     //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
+    //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    ~Mesh();
-
-    //--------------------------------------------------------------------------
-    //                          PUBLIC MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
-
-    /** #Override */
-    void render( Camera* camera );
+    void draw();
 
 private:
 

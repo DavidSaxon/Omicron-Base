@@ -18,8 +18,8 @@ varying vec3 v_normal;
 //                                 MAIN FUNCTION
 //------------------------------------------------------------------------------
 
-void main() {
-
+void main()
+{
     //set the vertex coord
     v_vertex = vec3( u_modelViewProjectionMatrix * gl_Vertex );
     //set the normal
