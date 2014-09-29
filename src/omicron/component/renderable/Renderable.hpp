@@ -1,11 +1,14 @@
 #ifndef OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 #   define OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 
+#define GLM_FORCE_RADIANS
+
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"
+#include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/Transform.hpp"
 #include "src/omicron/rendering/shading/Material.hpp"
 
@@ -38,15 +41,7 @@ public:
             const std::string& id,
                   int          layer,
                   Transform*   transform,
-            const Material     material )
-        :
-        Component  ( id ),
-        visible    ( true ),
-        m_layer    ( layer ),
-        m_transform( transform ),
-        m_material ( material )
-    {
-    }
+            const Material     material );
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -61,34 +56,23 @@ public:
     //--------------------------------------------------------------------------
 
     /** #Override */
-    virtual component::Type getType() const
-    {
-        return component::RENDERABLE;
-    }
+    virtual component::Type getType() const;
 
     // TODO: setting layer (gets complicated)
 
     /** @return the layer of the renderable */
-    int getLayer() const
-    {
-        return m_layer;
-    }
+    int getLayer() const;
 
     /** @return the transform used for positioning this renderable */
-    Transform* getTransform()
-    {
-        return m_transform;
-    }
+    Transform* getTransform();
 
     /** @return the material used for this renderable */
-    Material& getMaterial()
-    {
-        return m_material;
-    }
+    Material& getMaterial();
 
     /** #Hidden
-    Render this component */
-    virtual void render() = 0;
+    Render this component
+    @param camera the camera used to render this */
+    virtual void render( Camera* camera ) = 0;
 
 protected:
 
@@ -103,101 +87,24 @@ protected:
     // the material
     Material  m_material;
 
+    // the model matrix
+    glm::mat4 m_modelMatrix;
+    // the combined model, view, and projection matrix
+    glm::mat4 m_modelViewProjectionMatrix;
+
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** Applies transformations */
-    void applyTransformations()
-    {
-        // do nothing if the transform is null
-        if ( !m_transform )
-        {
-            return;
-        }
-
-        // apply translation
-        glm::vec3 translation( m_transform->computeTranslation() );
-        glTranslatef( translation.x, translation.y, translation.z );
-
-        // TODO: local and global shit
-        // apply rotation
-        glm::vec3 rotation( m_transform->computeRotation() );
-        glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
-        glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
-        glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
-
-        // apply scale
-        glm::vec3 scale( m_transform->computeScale() );
-        glScalef( scale.x, scale.y, scale.z );
-    }
+    /** Applies transformations
+    @param the camera to get the view and projection matrices from */
+    void applyTransformations( Camera* camera );
 
     /** Sets up the shader for rendering and passes in all data */
-    void setShader()
-    {
-        // get the OpenGL program
-        GLuint program = m_material.shader.getProgram();
-        // use the shader
-        glUseProgram( program );
-
-        // pass in colour to the shader
-        glUniform4f(
-            glGetUniformLocation( program, "u_colour" ),
-            m_material.colour.r,
-            m_material.colour.g,
-            m_material.colour.b,
-            m_material.colour.a
-        );
-
-        // texture
-        if ( m_material.texture != NULL )
-        {
-            glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
-            glBindTexture( GL_TEXTURE_2D, m_material.texture->getId() );
-        }
-        else
-        {
-            glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
-            glBindTexture( GL_TEXTURE_2D, 0 );
-        }
-
-        // lighting
-        if ( m_material.isShadeless() )
-        {
-            // material is not affected by light
-            glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 1 );
-        }
-        else
-        {
-            // material is affected by light
-            glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 0 );
-
-            // pass in ambient light
-            glm::vec3 ambientLight =
-                renderSettings.getAmbientColour() *
-                renderSettings.getAmbientStrength();
-            glUniform3f(
-                glGetUniformLocation( program, "u_ambientLight" ),
-                ambientLight.r, ambientLight.g, ambientLight.b
-            );
-
-            // pass in directional lights
-            // TODO:
-
-            // pass in point lights
-            // TODO:
-
-            // pass in spot lights
-            // TODO:
-        }
-    }
+    void setShader();
 
     /** Cleans up the shader */
-    void unsetShader()
-    {
-        glUseProgram( 0 );
-        glBindTexture( GL_TEXTURE_2D, 0 );
-    }
+    void unsetShader();
 };
 
 } // namespace omi

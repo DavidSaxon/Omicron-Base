@@ -28,7 +28,7 @@ Sprite::Sprite(
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Sprite::render()
+void Sprite::render( Camera* camera )
 {
     // update the material
     m_material.update();
@@ -42,7 +42,7 @@ void Sprite::render()
     glPushMatrix();
 
     // apply the transform to the matrices
-    applyTransformations();
+    applyTransformations( camera );
 
     // set the shader
     setShader();

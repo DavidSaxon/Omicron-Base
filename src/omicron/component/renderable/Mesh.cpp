@@ -26,7 +26,7 @@ Mesh::~Mesh() {
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Mesh::render() {
+void Mesh::render( Camera* camera ) {
 
     // update the material
     m_material.update();
@@ -40,7 +40,7 @@ void Mesh::render() {
     glPushMatrix();
 
     // apply the transform to matrices
-    applyTransformations();
+    applyTransformations( camera );
 
     // set the shader
     setShader();

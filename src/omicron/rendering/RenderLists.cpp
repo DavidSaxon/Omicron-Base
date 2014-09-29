@@ -35,7 +35,7 @@ void RenderLists::render( Camera* camera )
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
               itr != it->second.end(); ++itr)
         {
-            ( *itr )->render();
+            ( *itr )->render( camera );
         }
     }
 }

@@ -7,7 +7,6 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
-#include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 
 // TODO: REMOVE ME

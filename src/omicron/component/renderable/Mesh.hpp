@@ -39,9 +39,8 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** #Hidden
-    Render the mesh */
-    void render();
+    /** #Override */
+    void render( Camera* camera );
 
 private:
 

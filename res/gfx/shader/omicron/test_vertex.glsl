@@ -4,7 +4,10 @@
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
-// the vertex coords 
+// the model, view, projection matrix
+uniform mat4 u_modelViewProjectionMatrix;
+
+// the vertex coords
 varying vec3 v_vertex;
 // the texture coords
 varying vec2 v_texCoord;
@@ -16,14 +19,14 @@ varying vec3 v_normal;
 //------------------------------------------------------------------------------
 
 void main() {
-    
+
     //set the vertex coord
-    v_vertex = vec3(gl_ModelViewMatrix * gl_Vertex);
+    v_vertex = vec3( u_modelViewProjectionMatrix * gl_Vertex );
     //set the normal
-    v_normal = normalize(gl_NormalMatrix * gl_Normal);
+    v_normal = normalize( gl_NormalMatrix * gl_Normal );
     //set the texture coords
-    v_texCoord = vec2(gl_MultiTexCoord0);
+    v_texCoord = vec2( gl_MultiTexCoord0 );
 
     //set the position
-    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+    gl_Position = u_modelViewProjectionMatrix * gl_Vertex;
 }
