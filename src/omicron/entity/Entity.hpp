@@ -7,6 +7,7 @@
 #include "src/omicron/audio/SoundPool.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/entity/ComponentTable.hpp"
+#include "src/omicron/input/Input.hpp"
 #include "src/omicron/resource/ResourceManager.hpp"
 
 // here we are including all known components so the user doesn't have to

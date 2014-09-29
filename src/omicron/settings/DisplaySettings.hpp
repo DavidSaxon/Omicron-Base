@@ -49,7 +49,7 @@ public:
     const glm::vec2& getSize() const;
 
     /** @return the position of the window */
-    const glm::vec2& getPos() const;
+    const glm::vec2 getPos() const;
 
     /** @return the centre of the window */
     const glm::vec2& getCentre() const;

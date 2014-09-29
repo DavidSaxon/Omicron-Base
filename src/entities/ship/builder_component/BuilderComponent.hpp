@@ -33,7 +33,11 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // the list of renderables used by the block
     std::vector<omi::Renderable*> m_renerables;
+
+    // is true if the block is selected
+    bool m_selected;
 };
 
 #endif

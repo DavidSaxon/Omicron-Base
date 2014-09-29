@@ -24,6 +24,8 @@ Block::~Block()
     // delete existing components
     delete drawComponent;
     drawComponent = NULL;
+    delete builderComponent;
+    builderComponent = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -54,4 +56,5 @@ void Block::init()
 
 void Block::update()
 {
+    builderComponent->update();
 }

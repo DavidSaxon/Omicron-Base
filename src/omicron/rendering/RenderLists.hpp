@@ -3,14 +3,13 @@
 
 #include <algorithm>
 #include <map>
+#include <sstream>
 #include <vector>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
 #include "src/omicron/component/renderable/Renderable.hpp"
-
-// TODO: REMOVE ME
-#include "src/omicron/resource/ResourceManager.hpp"
+#include "src/omicron/input/Input.hpp"
 
 namespace omi {
 

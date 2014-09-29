@@ -33,6 +33,8 @@ public:
     bool visible;
     // is true if the this renderable should render for selecting
     bool selectable;
+    // is true if the renderable is currently selected
+    bool selected;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
@@ -82,7 +84,11 @@ public:
 
     /** #Hidden
     Render this component for colour picking */
-    void renderSelectable( Camera* camera );
+    void renderSelectable(
+            Camera* camera,
+            unsigned char red,
+            unsigned char green,
+            unsigned char blue );
 
 protected:
 

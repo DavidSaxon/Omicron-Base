@@ -21,6 +21,7 @@ Renderable::Renderable(
     Component  ( id ),
     visible    ( true ),
     selectable ( false ),
+    selected   ( false ),
     m_layer    ( layer ),
     m_transform( transform ),
     m_material ( material )
@@ -48,7 +49,11 @@ void Renderable::render( Camera* camera )
     unsetShader();
 }
 
-void Renderable::renderSelectable( Camera* camera )
+void Renderable::renderSelectable(
+        Camera* camera,
+        unsigned char red,
+        unsigned char green,
+        unsigned char blue )
 {
     // don't bother rendering if there is no camera
     if ( camera == NULL )
@@ -70,7 +75,11 @@ void Renderable::renderSelectable( Camera* camera )
     // colour
     glUniform4f(
         glGetUniformLocation( program, "u_colour" ),
-        1.0f, 0.0f, 0.0f, 1.0f );
+        static_cast<float>( red )   / 255.0f,
+        static_cast<float>( green ) / 255.0f,
+        static_cast<float>( blue )  / 255.0f,
+        1.0f
+    );
     // texture
     if ( m_material.texture != NULL )
     {

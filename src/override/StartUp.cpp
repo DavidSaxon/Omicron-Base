@@ -9,7 +9,7 @@ omi::Scene* init() {
 
     // display settings
     omi::displaySettings.setSize( glm::vec2( 960, 540 ) );
-    omi::displaySettings.setPos( glm::vec2( 10, 10 ) );
+    omi::displaySettings.setPos( glm::vec2( 250, 330 ) );
     omi::displaySettings.setTitle( "Voidwalker" );
     omi::displaySettings.setFullscreen( true );
     omi::displaySettings.setVsync( true );
