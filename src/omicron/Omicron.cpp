@@ -13,4 +13,6 @@ AudioSettings audioSettings;
 
 FPSManager fpsManager;
 
+glm::vec3 camScale;
+
 } // namespace omi

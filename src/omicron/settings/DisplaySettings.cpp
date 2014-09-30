@@ -42,10 +42,6 @@ const glm::vec2& DisplaySettings::getSize() const
 
 const glm::vec2 DisplaySettings::getPos() const
 {
-    if ( m_fullscreen )
-    {
-        return glm::vec2( 0, 0 );
-    }
     return m_pos;
 }
 

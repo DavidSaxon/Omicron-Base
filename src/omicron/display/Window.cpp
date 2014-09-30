@@ -47,6 +47,10 @@ Window::Window() :
             sf::VideoMode::getDesktopMode(),
             displaySettings.getTitle(), flags, settings)
         );
+        // update the display settings with the new resolution and position
+        displaySettings.setSize( glm::vec2(
+            m_window->getSize().x, m_window->getSize().y ) );
+        displaySettings.setPos( glm::vec2( 0 ) );
     }
 
     // set v sync

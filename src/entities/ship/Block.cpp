@@ -51,7 +51,10 @@ void Block::init()
     }
 
     // TODO: this component should be created depending on mode
-    builderComponent = new BuilderComponent( drawComponent->getRenderables() );
+    builderComponent = new BuilderComponent(
+        m_transform,
+        drawComponent->getRenderables()
+    );
 }
 
 void Block::update()

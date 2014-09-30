@@ -50,6 +50,7 @@ void Renderer::clear() {
 void Renderer::setCamera(Camera* camera) {
 
     m_camera = camera;
+    camScale = m_camera->getTransform()->scale;
 }
 
 void Renderer::removeCamera(Camera* camera) {

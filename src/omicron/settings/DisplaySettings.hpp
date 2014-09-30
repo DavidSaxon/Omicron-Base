@@ -1,6 +1,8 @@
 #ifndef OMICRON_SETTINGS_DISPLAYSETTINGS_H_
 #   define OMICRON_SETTINGS_DISPLAYSETTINGS_H_
 
+#define GLM_FORCE_RADIANS
+
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 #include <string>

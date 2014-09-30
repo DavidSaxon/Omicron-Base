@@ -1,6 +1,10 @@
 #ifndef OMICRON_OMICRON_H_
 #   define OMICRON_OMICRON_H_
 
+#define GLM_FORCE_RADIANS
+
+#include "lib/glm/glm.hpp"
+
 #include "src/omicron/logic/FPSManager.hpp"
 #include "src/omicron/settings/AudioSettings.hpp"
 #include "src/omicron/settings/DisplaySettings.hpp"
@@ -26,6 +30,9 @@ extern AudioSettings audioSettings;
 
 // the fps manager
 extern FPSManager fpsManager;
+
+// the scale of the current camera
+extern glm::vec3 camScale;
 
 } // namespace omi
 
