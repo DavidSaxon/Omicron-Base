@@ -81,6 +81,14 @@ void BuilderComponent::selection()
                 m_selected = true;
             }
         }
+        // calculate the selection offset if this has been selected
+        if ( m_selected )
+        {
+            // get the mouse in world space
+            glm::vec3 mousePos =
+                omi::util::screenToWorld2D( omi::input::getMousePos() );
+            m_selectOffset = mousePos - m_transform->translation;
+        }
     }
     else if ( !omi::input::mousePressed( omi::input::mouse_button::LEFT ) )
     {
@@ -98,8 +106,8 @@ void BuilderComponent::move()
     }
 
     // get the mouse co-ordinates in world space
-    glm::vec3 worldCoords =
+    glm::vec3 mousePos =
         omi::util::screenToWorld2D( omi::input::getMousePos() );
     // apply to the position of the block
-    m_transform->translation = worldCoords;
+    m_transform->translation = mousePos - m_selectOffset;
 }

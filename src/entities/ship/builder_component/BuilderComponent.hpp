@@ -41,10 +41,13 @@ private:
     // the list of renderables used by the block
     std::vector<omi::Renderable*> m_renerables;
 
+    //--------------------------------SELECTION---------------------------------
     // is true while the left mouse button is down
     bool m_mouseDown;
     // is true if the block is selected
     bool m_selected;
+    // the offset of the selection
+    glm::vec3 m_selectOffset;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

@@ -16,6 +16,8 @@ namespace util {
 @return the calculated world space co-ordinates */
 inline glm::vec3 screenToWorld2D( const glm::vec2& p )
 {
+    // TODO: take into account camera type
+
     // get screen size
     glm::vec2 screenSize = displaySettings.getSize();
     // calculate OpenGL world coordinates
