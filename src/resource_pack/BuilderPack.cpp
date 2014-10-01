@@ -5,7 +5,7 @@ namespace pack {
 void buildBuilderPack()
 {
     //---------------------------------SPRITES----------------------------------
-        omi::ResourceManager::addTextureMaterialSprite(
+    omi::ResourceManager::addTextureMaterialSprite(
         "builder_background", resource_group::BUILDER,
         "test_shader",
         "res/gfx/texture/builder/background.png",
