@@ -66,10 +66,11 @@ public:
     /** #Override */
     virtual component::Type getType() const;
 
-    // TODO: setting layer (gets complicated)
-
     /** @return the layer of the renderable */
     int getLayer() const;
+
+    /** @param layer the new render layer of renderable */
+    void setLayer( int layer );
 
     /** @return the transform used for positioning this renderable */
     Transform* getTransform();

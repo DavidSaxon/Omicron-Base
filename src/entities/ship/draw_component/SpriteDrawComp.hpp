@@ -1,22 +1,18 @@
-#ifndef VOIDWALKER_SHIP_DRAW_COMPONENT_RANDOMSTILLDRAWCOMP_HPP_
-#   define VOIDWALKER_SHIP_DRAW_COMPONENT_RANDOMSTILLDRAWCOMP_HPP_
+#ifndef VOIDWALKER_SHIP_DRAW_COMPONENT_SPRITEDRAWCOMP_H_
+#   define VOIDWALKER_SHIP_DRAW_COMPONENT_SPRITEDRAWCOMP_H_
 
 #include "DrawComponent.hpp"
 
-/*****************************************************************************\
-| A block draw component that shows a static sprite but uses an animation and |
-| randomly selects a single frame to use.                                     |
-\*****************************************************************************/
-class RandomStillDrawComp : public DrawComponent {
+class SpriteDrawComp : public DrawComponent {
 public:
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /** Creates a new random still draw component
+    /** Creates a new sprite draw component
     @param renderableName the name of the renderable to use for the component */
-    RandomStillDrawComp( const std::string& renderableName );
+    SpriteDrawComp( const std::string& renderableName );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS

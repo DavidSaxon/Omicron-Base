@@ -25,6 +25,6 @@ void RandomStillDrawComp::init( omi::Transform* transform )
     animation->setFrame( 3 );
     animation->pause();
 
-    //add to the list of renderables
+    // add to the list of renderables
     m_renderables.push_back( sprite );
 }

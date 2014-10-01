@@ -3,6 +3,7 @@
 
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/utilities/TransformUtil.hpp"
+#include "src/override/Values.hpp"
 
 class BuilderComponent {
 public:

@@ -95,6 +95,17 @@ void BuilderComponent::selection()
         m_mouseDown = false;
         m_selected = false;
     }
+
+    // update the layer of the renderables
+    for (std::vector<omi::Renderable*>::iterator it = m_renerables.begin();
+         it != m_renerables.end(); ++it )
+    {
+        if ( m_selected )
+        {
+            // need to store the original layer
+            // ( *it )->setLayer();
+        }
+    }
 }
 
 void BuilderComponent::move()

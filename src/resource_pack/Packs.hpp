@@ -3,25 +3,13 @@
 
 #include "src/omicron/resource/ResourceManager.hpp"
 #include "src/override/ResourceGroups.hpp"
+#include "src/override/Values.hpp"
 
 /************************************************************************\
 | Contains all resources packs that can be built to add resources to the |
 | resource manager.                                                      |
 \************************************************************************/
 namespace pack {
-
-//------------------------------------------------------------------------------
-//                                  ENUMERATORS
-//------------------------------------------------------------------------------
-
-namespace layer {
-
-enum Layer {
-    BACKGROUND,
-    SHIP_HULL
-};
-
-} // namespace builder
 
 //------------------------------------------------------------------------------
 //                                   PROTOTYPES

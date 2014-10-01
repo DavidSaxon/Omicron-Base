@@ -38,7 +38,11 @@ void BuilderScene::initEntities()
 
     // TESTING TODO: REMOVE ME
     addEntity( block_factory::hullSteel( glm::vec3() ) );
-    addEntity( block_factory::hullSteel( glm::vec3(-2.0f, 0.0f, 0.0f) ) );
-    addEntity( block_factory::hullSteel( glm::vec3(-2.0f, 2.0f, 0.0f) ) );
-    addEntity( block_factory::hullSteel( glm::vec3( 2.0f, 0.0f, 0.0f) ) );
+    addEntity( block_factory::hullSteel( glm::vec3( -2.0f,  0.0f, 0.0f) ) );
+    addEntity( block_factory::hullSteel( glm::vec3( -2.0f,  2.0f, 0.0f) ) );
+    addEntity( block_factory::hullSteel( glm::vec3(  2.0f,  0.0f, 0.0f) ) );
+    addEntity( block_factory::weaponRocketLauncher(
+        glm::vec3( -2.0f, -2.0f, 0.0f) ) );
+    addEntity( block_factory::engineCoal( glm::vec3(  0.0f,  2.0f, 0.0f) ) );
+
 }

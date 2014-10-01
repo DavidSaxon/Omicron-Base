@@ -110,6 +110,11 @@ int Renderable::getLayer() const
     return m_layer;
 }
 
+void Renderable::setLayer( int layer )
+{
+    m_layer = layer;
+}
+
 Transform* Renderable::getTransform()
 {
     return m_transform;
