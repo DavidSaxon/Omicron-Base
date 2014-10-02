@@ -8,6 +8,7 @@ set(SRCS
     src/omicron/component/physics/CollisionDetector.cpp
     src/omicron/component/Camera.cpp
     src/omicron/component/renderable/Mesh.cpp
+    src/omicron/component/renderable/Renderable.cpp
     src/omicron/component/renderable/Sprite.cpp
     src/omicron/component/updatable/audio/Music.cpp
     src/omicron/display/Window.cpp
@@ -54,7 +55,9 @@ set(SRCS
     src/entities/start_up/OmicronLogo.cpp
 
     src/entities/ship/Block.cpp
+    src/entities/ship/builder_component/BuilderComponent.cpp
     src/entities/ship/draw_component/RandomStillDrawComp.cpp
+    src/entities/ship/draw_component/SpriteDrawComp.cpp
 
     src/entities/builder/BuilderControl.cpp
     src/entities/builder/BuilderEnvironment.cpp
