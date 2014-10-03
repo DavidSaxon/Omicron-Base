@@ -9,6 +9,7 @@
 #include "src/entities/builder/BuilderControl.hpp"
 #include "src/entities/builder/BuilderEnvironment.hpp"
 #include "src/entities/builder/gui/BlockSelect.hpp"
+#include "src/entities/gui/Cursor.hpp"
 #include "src/entities/ship/BlockFactory.hpp"
 
 /*****************************************************\

@@ -10,6 +10,7 @@ enum Layer {
     SHIP_HULL,
     BUILDER_SELECT,
     BUILDER_SELECT_OUTLINE,
+    GUI_CURSOR
 };
 
 } // namespace layer

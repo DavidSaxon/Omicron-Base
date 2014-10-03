@@ -33,6 +33,7 @@ omi::Scene* BuilderScene::nextScene() const
 
 void BuilderScene::initEntities()
 {
+    addEntity( new Cursor() );
     addEntity( new BuilderControl() );
     addEntity( new BuilderEnvironment() );
     addEntity( new BlockSelect() );
