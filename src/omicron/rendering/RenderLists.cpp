@@ -16,6 +16,26 @@ RenderLists::RenderLists()
 
 void RenderLists::render( Camera* camera )
 {
+    //------------------------------LAYER SORTING-------------------------------
+
+    // iterate over all renderables and group them into a map by layer
+    t_RenderableMap renderLayers;
+    for ( std::vector<Renderable*>::iterator renderable = m_renderables.begin();
+          renderable != m_renderables.end(); ++ renderable )
+    {
+        // get the layer
+        int layer = ( *renderable )->getLayer();
+        //check if a list exists for this layer
+        if ( renderLayers.find( layer ) == renderLayers.end() )
+        {
+            // create a list for this layer
+            renderLayers.insert(
+                std::make_pair( layer, std::vector<Renderable*>() ) );
+        }
+        // add the renderable to the layer
+        renderLayers[layer].push_back( *renderable );
+    }
+
     //---------------------------SELECTABLE ELEMENTS----------------------------
 
     // apply the camera
@@ -30,8 +50,8 @@ void RenderLists::render( Camera* camera )
     // a mapping from colour to renderables
     std::map<std::string, Renderable*> colourMap;
     // render selectable renderables
-    for ( t_RenderableMap::iterator it = m_renderables.begin();
-          it != m_renderables.end(); ++it )
+    for ( t_RenderableMap::iterator it = renderLayers.begin();
+          it != renderLayers.end(); ++it )
     {
         // iterate over the renderables in this layer and render them
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
@@ -106,8 +126,8 @@ void RenderLists::render( Camera* camera )
     }
 
     // iterate over the layers
-    for ( t_RenderableMap::iterator it = m_renderables.begin();
-          it != m_renderables.end(); ++it )
+    for ( t_RenderableMap::iterator it = renderLayers.begin();
+          it != renderLayers.end(); ++it )
     {
         //sort the list of renderables based on their distance from the camera
         depthSorter.camera = camera;
@@ -130,40 +150,18 @@ void RenderLists::clear()
 
 void RenderLists::addRenderable( Renderable* renderable )
 {
-    // get the layer from the component
-    int layer = renderable->getLayer();
-
-    // check if a list exists for the given layer
-    if ( m_renderables.find( layer ) == m_renderables.end() )
-    {
-        // create a list for this layer
-        m_renderables.insert(
-            std::make_pair( layer, std::vector<Renderable*>() ) );
-    }
-
-    // add the renderable to the layer
-    m_renderables[layer].push_back( renderable );
+    m_renderables.push_back( renderable );
 }
 
 void RenderLists::removeRenderable( Renderable* renderable )
 {
-    // get the layer from the component
-    int layer = renderable->getLayer();
-
-    // check that the layer exists
-    if ( m_renderables.find( layer ) == m_renderables.end() )
-    {
-        // TODO: throw an exception
-        std::cout << "remove renderable from non-existent layer" << std::endl;
-    }
-
     // search the layer for the renderable
-    for ( std::vector<Renderable*>::iterator it = m_renderables[layer].begin();
-          it != m_renderables[layer].end(); )
+    for ( std::vector<Renderable*>::iterator it = m_renderables.begin();
+          it != m_renderables.end(); )
     {
         if ( *it == renderable )
         {
-            it = m_renderables[layer].erase( it );
+            it = m_renderables.erase( it );
         }
         else
         {

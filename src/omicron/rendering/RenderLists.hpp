@@ -91,15 +91,11 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // all renderable components grouped by layer
-    t_RenderableMap m_renderables;
+    // all to be rendered
+    std::vector<Renderable*> m_renderables;
 
     // the depth sorter
     RenderableDepthSorter depthSorter;
-
-
-    // TESTING
-    GLuint m_vertexBuffer;
 };
 
 } // namespace omi

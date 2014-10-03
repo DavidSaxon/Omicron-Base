@@ -58,7 +58,10 @@ Shader loadShaderFromFiles(
         log = new char[length];
         glGetProgramInfoLog(program, length, &result, log);
 
-        std::cout << "error compiling shader. Log:" << std::endl;
+        std::cout << "error compiling shader: " << std::endl;
+        std::cout << "vertex:   " << vertexPath << std::endl;
+        std::cout << "fragment: " << fragmentPath << std::endl;
+        std::cout << "error Log:" << std::endl;
         std::cout << log << std::endl;
 
         // clean up

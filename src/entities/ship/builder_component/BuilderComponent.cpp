@@ -9,17 +9,18 @@ BuilderComponent::BuilderComponent(
         const std::vector<omi::Renderable*>& renderables )
     :
     m_transform ( transform ),
-    m_renerables( renderables ),
+    m_renderables( renderables ),
     m_mouseDown ( false ),
     m_selected  ( false )
 {
     // TODO: this should potentially disable all other renderables other than
     // the first one
-    // set the renderables to be selectable
-    for (std::vector<omi::Renderable*>::iterator it = m_renerables.begin();
-         it != m_renerables.end(); ++it )
+    // set the renderables to be selectable and store their original layers
+    for (std::vector<omi::Renderable*>::iterator it = m_renderables.begin();
+         it != m_renderables.end(); ++it )
     {
         ( *it )->selectable = true;
+        m_layers.push_back( ( *it )->getLayer() );
     }
 }
 
@@ -30,8 +31,8 @@ BuilderComponent::BuilderComponent(
 BuilderComponent::~BuilderComponent()
 {
     // set the renderable components to not be selectable
-    for (std::vector<omi::Renderable*>::iterator it = m_renerables.begin();
-         it != m_renerables.end(); ++it )
+    for (std::vector<omi::Renderable*>::iterator it = m_renderables.begin();
+         it != m_renderables.end(); ++it )
     {
         ( *it )->selectable = false;
     }
@@ -45,20 +46,6 @@ void BuilderComponent::update()
 {
     selection();
     move();
-
-    // TODO: remove this
-    for (std::vector<omi::Renderable*>::iterator it = m_renerables.begin();
-         it != m_renerables.end(); ++it )
-    {
-        if ( m_selected )
-        {
-            ( *it )->getMaterial().colour = glm::vec4( 1.0f, 0.0f, 0.0f, 1.0f );
-        }
-        else
-        {
-            ( *it )->getMaterial().colour = glm::vec4( 1.0f, 1.0f, 1.0f, 1.0f );
-        }
-    }
 }
 
 //------------------------------------------------------------------------------
@@ -73,8 +60,8 @@ void BuilderComponent::selection()
         m_mouseDown = true;
         // check if any other renderables are selected
         m_selected = false;
-        for (std::vector<omi::Renderable*>::iterator it = m_renerables.begin();
-             it != m_renerables.end(); ++it )
+        for (std::vector<omi::Renderable*>::iterator it = m_renderables.begin();
+             it != m_renderables.end(); ++it )
         {
             if ( ( *it )->selected )
             {
@@ -97,13 +84,15 @@ void BuilderComponent::selection()
     }
 
     // update the layer of the renderables
-    for (std::vector<omi::Renderable*>::iterator it = m_renerables.begin();
-         it != m_renerables.end(); ++it )
+    for ( unsigned i = 0; i < m_renderables.size(); ++i )
     {
         if ( m_selected )
         {
-            // need to store the original layer
-            // ( *it )->setLayer();
+            m_renderables[i]->setLayer( layer::BUILDER_SELECT );
+        }
+        else
+        {
+            m_renderables[i]->setLayer( m_layers[i] );
         }
     }
 }

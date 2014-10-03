@@ -40,7 +40,9 @@ private:
     // the transform of the block
     omi::Transform* m_transform;
     // the list of renderables used by the block
-    std::vector<omi::Renderable*> m_renerables;
+    std::vector<omi::Renderable*> m_renderables;
+    // the original layers of the renderables
+    std::vector<int> m_layers;
 
     //--------------------------------SELECTION---------------------------------
     // is true while the left mouse button is down
