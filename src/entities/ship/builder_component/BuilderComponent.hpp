@@ -5,6 +5,8 @@
 #include "src/omicron/utilities/TransformUtil.hpp"
 #include "src/override/Values.hpp"
 
+#include "src/entities/builder/gui/BlockSelect.hpp"
+
 class BuilderComponent {
 public:
 

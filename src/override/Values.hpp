@@ -8,7 +8,8 @@ enum Layer {
     SHIP_ENGINE,
     SHIP_WEAPON,
     SHIP_HULL,
-    BUILDER_SELECT
+    BUILDER_SELECT,
+    BUILDER_SELECT_OUTLINE,
 };
 
 } // namespace layer

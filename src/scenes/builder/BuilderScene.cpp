@@ -35,6 +35,7 @@ void BuilderScene::initEntities()
 {
     addEntity( new BuilderControl() );
     addEntity( new BuilderEnvironment() );
+    addEntity( new BlockSelect() );
 
     // TESTING TODO: REMOVE ME
     addEntity( block_factory::hullSteel( glm::vec3() ) );

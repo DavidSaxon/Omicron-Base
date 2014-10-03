@@ -54,8 +54,9 @@ void BuilderComponent::update()
 
 void BuilderComponent::selection()
 {
+    // the mouse has been pressed
     if ( omi::input::mousePressed( omi::input::mouse_button::LEFT ) &&
-         !m_selected && !m_mouseDown)
+         !m_mouseDown)
     {
         m_mouseDown = true;
         // check if any other renderables are selected
@@ -66,6 +67,7 @@ void BuilderComponent::selection()
             if ( ( *it )->selected )
             {
                 m_selected = true;
+                BlockSelect::setVisibility( true );
             }
         }
         // calculate the selection offset if this has been selected
@@ -77,10 +79,16 @@ void BuilderComponent::selection()
             m_selectOffset = mousePos - m_transform->translation;
         }
     }
+    // the mouse has been released
     else if ( !omi::input::mousePressed( omi::input::mouse_button::LEFT ) )
     {
         m_mouseDown = false;
-        m_selected = false;
+        if ( m_selected )
+        {
+            // revert selection and hide selector
+            m_selected = false;
+            BlockSelect::setVisibility( false );
+        }
     }
 
     // update the layer of the renderables
@@ -108,6 +116,7 @@ void BuilderComponent::move()
     // get the mouse co-ordinates in world space
     glm::vec3 mousePos =
         omi::util::screenToWorld2D( omi::input::getMousePos() );
-    // apply to the position of the block
+    // apply to the position of the block and selector
     m_transform->translation = mousePos - m_selectOffset;
+    BlockSelect::setPosition( m_transform->translation );
 }
