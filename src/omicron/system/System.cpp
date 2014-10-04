@@ -135,6 +135,9 @@ void execute() {
     // sort the new components that have added or removed this cycle
     sortComponents();
 
+    // update collision detection
+    CollisionDetect::update();
+
     // render
     renderer->render();
 

@@ -101,7 +101,7 @@ void Scene::updateEntities() {
 
         // find components to be removed
         if ((*it)->shouldRemove()) {
-            
+
             (*it)->getComponents().copyToList(removeComponents);
         }
     }

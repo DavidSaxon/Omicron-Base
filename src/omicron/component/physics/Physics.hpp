@@ -17,15 +17,17 @@ public:
 
     /** Super constructor
     @ param id the identifier of the component */
-    Physics(const std::string& id) :
-        Component(id) {        
+    Physics( const std::string& id ) :
+        Component( id )
+    {
     }
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    virtual ~Physics() {
+    virtual ~Physics()
+    {
     }
 
     //--------------------------------------------------------------------------
@@ -33,8 +35,8 @@ public:
     //--------------------------------------------------------------------------
 
     /** #Override */
-    virtual component::Type getType() const {
-
+    virtual component::Type getType() const
+    {
         return component::PHYSICS;
     }
 };

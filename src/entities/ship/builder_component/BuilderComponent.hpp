@@ -30,8 +30,14 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** Initialises the builder component */
+    void init();
+
     /** Updates the builder component */
     void update();
+
+    /** @return the collision detector of this component */
+    omi::CollisionDetector* getCollisionDetector();
 
 private:
 
@@ -45,6 +51,9 @@ private:
     std::vector<omi::Renderable*> m_renderables;
     // the original layers of the renderables
     std::vector<int> m_layers;
+
+    // the collision detector of this block
+    omi::CollisionDetector* m_detector;
 
     //--------------------------------SELECTION---------------------------------
     // is true while the left mouse button is down

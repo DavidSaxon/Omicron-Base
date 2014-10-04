@@ -1,6 +1,8 @@
 #ifndef OMICRON_COMPONENT_TRANSFORM_H_
 #   define OMICRON_COMPONENT_TRANSFORM_H_
 
+#define GLM_FORCE_RADIANS
+
 #include "lib/glm/glm.hpp"
 
 #include "src/omicron/component/Component.hpp"

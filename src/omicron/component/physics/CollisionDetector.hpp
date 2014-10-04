@@ -1,6 +1,7 @@
 #ifndef OMICRON_COMPONENT_PHYSICS_COLLISIONDETECTOR_H_
 #   define OMICRON_COMPONENT_PHYSICS_COLLISIONDETECTOR_H_
 
+#include <algorithm>
 #include <memory>
 #include <vector>
 
@@ -15,7 +16,7 @@ namespace omi {
 | Contains an entity and a collision group |
 \******************************************/
 struct CollisionData {
-    Entity* entity;
+    void* entity;
     std::string group;
 };
 
@@ -43,7 +44,7 @@ public:
     CollisionDetector(
             const std::string& id,
             const std::string& group,
-                  void*      owner);
+                  void*      owner );
 
     /** Creates a new collision detector
     @param id the identifier of the component
@@ -51,36 +52,35 @@ public:
     @param boundings a list of boundings to be used by this detector
     @param owner the entity this is owned by*/
     CollisionDetector(
-            const std::string&                 id, 
+            const std::string&                 id,
             const std::string&                 group,
             const std::vector<BoundingShape*>& boundings,
-                  void*                      owner);
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~CollisionDetector();
+                  void*                      owner );
 
     //--------------------------------------------------------------------------
     //                               PUBLIC METHODS
     //--------------------------------------------------------------------------
 
     /** #Override */
-    virtual component::Type getType() const {
-
+    virtual component::Type getType() const
+    {
         return component::COLLISION;
     }
 
     /** Adds a bounding shape to this
     @param bounding a new bounding shape to add*/
-    void addBounding(BoundingShape* bounding);
+    void addBounding( BoundingShape* bounding );
 
-    /** @return the group of this */
+    /** @return the physics group of this */
     const std::string& getGroup() const;
 
+    void setGroup( const std::string& group );
+
+    /** @return the entity that owns this component */
+    Entity* getOwner();
+
     /** @return the collision data from this frame */
-    const std::vector<CollisionData>& getCollisionData();
+    std::vector<CollisionData>& getCollisionData();
 
     /** #Hidden
     Clears the collision data */
@@ -90,7 +90,7 @@ public:
     Alerts this of a collision that has occurred with an entity from a group
     @param entity the entity the collision occured with
     @param group the collision group the entity was from */
-    void detected(Entity* entity, const std::string& group);
+    void detected( Entity* entity, const std::string& group );
 
 private:
 

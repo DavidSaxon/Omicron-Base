@@ -23,7 +23,7 @@ public:
     }
 
     /** @return the list of renderable components to use for the block */
-    const std::vector<omi::Renderable*>& getRenderables(  )
+    const std::vector<omi::Renderable*>& getRenderables()
     {
         return m_renderables;
     }

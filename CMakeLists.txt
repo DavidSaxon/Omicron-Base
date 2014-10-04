@@ -52,15 +52,18 @@ set(SRCS
     src/scenes/builder/BuilderScene.cpp
     src/scenes/level/LevelScene.cpp
 
-    src/entities/start_up/OmicronLogo.cpp
+    src/entities/builder/BuilderControl.cpp
+    src/entities/builder/BuilderEnvironment.cpp
+    src/entities/builder/gui/BlockSelect.cpp
+
+    src/entities/gui/Cursor.cpp
 
     src/entities/ship/Block.cpp
     src/entities/ship/builder_component/BuilderComponent.cpp
     src/entities/ship/draw_component/RandomStillDrawComp.cpp
     src/entities/ship/draw_component/SpriteDrawComp.cpp
 
-    src/entities/builder/BuilderControl.cpp
-    src/entities/builder/BuilderEnvironment.cpp
+    src/entities/start_up/OmicronLogo.cpp
 )
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")

@@ -1,5 +1,5 @@
-#ifndef OMICRON_PHYSIC_BOUNDING_BOUNDINGCIRCLE_H_
-#   define OMICRON_PHYSIC_BOUNDING_BOUNDINGCIRCLE_H_
+#ifndef OMICRON_PHYSICS_BOUNDING_BOUNDINGCIRCLE_H_
+#   define OMICRON_PHYSICS_BOUNDING_BOUNDINGCIRCLE_H_
 
 #include "BoundingShape.hpp"
 
@@ -18,26 +18,21 @@ public:
     /** Creates a new bounding circle with no offset
     @param radius the radius of the circle
     @param transform the transform to use for the circle'S location */
-    BoundingCircle(float radius, Transform* transform) :
-        BoundingShape(bounding::CIRCLE, transform),
-        m_radius     (radius) {
+    BoundingCircle( float radius, Transform* transform ) :
+        BoundingShape( bounding::CIRCLE, transform ),
+        m_radius     ( radius )
+    {
     }
 
     /** Creates a new bounding circle
     @param radius the radius of the circle
     @param transform the transform to use for the circle'S location
     @param offset the offset to use for the circles location*/
-    BoundingCircle(float radius, Transform* transform,
-            const glm::vec3& offset) :
-        BoundingShape(bounding::CIRCLE, transform, offset),
-        m_radius     (radius) {
-    }
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~BoundingCircle() {
+    BoundingCircle( float radius, Transform* transform,
+            const glm::vec3& offset ) :
+        BoundingShape(bounding::CIRCLE, transform, offset ),
+        m_radius     ( radius )
+    {
     }
 
     //--------------------------------------------------------------------------
@@ -45,8 +40,8 @@ public:
     //--------------------------------------------------------------------------
 
     /** @return the radius of the circle */
-    float getRadius() const {
-
+    float getRadius() const
+    {
         return m_radius;
     }
 

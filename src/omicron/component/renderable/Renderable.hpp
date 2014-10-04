@@ -1,8 +1,6 @@
 #ifndef OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 #   define OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 
-#define GLM_FORCE_RADIANS
-
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
