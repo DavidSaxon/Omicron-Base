@@ -135,5 +135,10 @@ void BuilderComponent::move()
 
 void BuilderComponent::snap()
 {
-
+    // find the closest block this colliding with that has free space
+    // TOOD:
+    if ( m_detector->getCollisionData().size() > 0 )
+    {
+        std::cout << "collision" << std::endl;
+    }
 }
