@@ -54,7 +54,11 @@ void BuilderComponent::init( omi::Entity* owner )
 void BuilderComponent::update()
 {
     selection();
-    move();
+    if ( m_selected )
+    {
+        move();
+        snap();
+    }
 }
 
 omi::CollisionDetector* BuilderComponent::getCollisionDetector()
@@ -121,16 +125,15 @@ void BuilderComponent::selection()
 
 void BuilderComponent::move()
 {
-    // don't do anything if the block is not selected
-    if ( ! m_selected)
-    {
-        return;
-    }
-
     // get the mouse co-ordinates in world space
     glm::vec3 mousePos =
         omi::util::screenToWorld2D( omi::input::getMousePos() );
     // apply to the position of the block and selector
     m_transform->translation = mousePos - m_selectOffset;
     BlockSelect::setPosition( m_transform->translation );
+}
+
+void BuilderComponent::snap()
+{
+
 }

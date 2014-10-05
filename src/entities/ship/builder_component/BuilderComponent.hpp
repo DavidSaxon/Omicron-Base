@@ -73,6 +73,9 @@ private:
 
     /** Moves the block when it's selected */
     void move();
+
+    /** Snaps the block to other blocks */
+    void snap();
 };
 
 #endif
