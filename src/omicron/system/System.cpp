@@ -115,6 +115,7 @@ void execute() {
 
         // clear components
         renderer->clear();
+        CollisionDetect::clear();
     }
 
     // lock the mouse if enabled

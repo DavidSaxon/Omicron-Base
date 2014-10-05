@@ -7,8 +7,6 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 std::vector<CollisionDetector*> CollisionDetect::m_detectors;
-std::map<std::string, std::vector<CollisionDetector*>>
-        CollisionDetect::m_groups;
 std::vector<CheckPair> CollisionDetect::m_check;
 
 //------------------------------------------------------------------------------
@@ -26,9 +24,8 @@ void CollisionDetect::checkGroup( const std::string& a, const std::string& b )
 
 void CollisionDetect::update()
 {
-    m_groups.clear();
-
-    // clear collision data on all detectors
+    // sort the collision detectors into their groups
+    std::map<std::string, std::vector<CollisionDetector*>> groups;
     for ( std::vector<CollisionDetector*>::iterator detector =
          m_detectors.begin(); detector != m_detectors.end(); ++detector )
     {
@@ -36,12 +33,12 @@ void CollisionDetect::update()
         // sort into a map
         std::string group = ( *detector )->getGroup();
         // if the group doesn't already exist create it
-        if ( m_groups.find( group ) == m_groups.end() )
+        if ( groups.find( group ) == groups.end() )
         {
-            m_groups.insert(
+            groups.insert(
                 std::make_pair( group, std::vector<CollisionDetector*>() ) );
         }
-        m_groups[group].push_back( *detector );
+        groups[group].push_back( *detector );
     }
 
     // go over each check pair
@@ -50,13 +47,13 @@ void CollisionDetect::update()
 
         // go over each item in the first group
         for ( std::vector<CollisionDetector*>::iterator first =
-            m_groups[it->a].begin();
-            first != m_groups[it->a].end(); ++first )
+            groups[it->a].begin();
+            first != groups[it->a].end(); ++first )
         {
             // go over each item in the second groups
             for ( std::vector<CollisionDetector*>::iterator second =
-                m_groups[it->b].begin();
-                second != m_groups[it->b].end(); ++second )
+                groups[it->b].begin();
+                second != groups[it->b].end(); ++second )
             {
                 // perform collision detection
                 if ( first != second )
@@ -75,25 +72,24 @@ void CollisionDetect::addDetector( CollisionDetector* detector )
 
 void CollisionDetect::removeDetector( CollisionDetector* detector )
 {
-
-   for ( std::vector<CollisionDetector*>::iterator it = m_detectors.begin();
-        it != m_detectors.end(); )
-   {
-       if ( *it == detector )
-       {
-           it = m_detectors.erase( it );
-       }
-       else
-       {
-           ++it;
-       }
-   }
+    for ( std::vector<CollisionDetector*>::iterator it = m_detectors.begin();
+         it != m_detectors.end(); )
+    {
+        if ( *it == detector )
+        {
+            it = m_detectors.erase( it );
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }
 
 void CollisionDetect::clear()
 {
+    m_detectors.clear();
     m_check.clear();
-    m_groups.clear();
 }
 
 //------------------------------------------------------------------------------

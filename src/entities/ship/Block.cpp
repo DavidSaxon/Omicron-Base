@@ -55,6 +55,9 @@ void Block::init()
         m_transform,
         drawComponent->getRenderables()
     );
+    builderComponent->init( this );
+    m_detector = builderComponent->getCollisionDetector();
+    m_components.add( m_detector );
 }
 
 void Block::update()

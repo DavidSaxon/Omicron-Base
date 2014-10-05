@@ -7,6 +7,7 @@
 
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/entity/Entity.hpp"
+#include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
 #include "src/omicron/resource/ResourceManager.hpp"
 
 namespace omi {

@@ -6,6 +6,9 @@
 
 void BuilderScene::init()
 {
+    // set up collision groups
+    omi::CollisionDetect::checkGroup( "builder_block", "builder_block" );
+
     initEntities();
 }
 

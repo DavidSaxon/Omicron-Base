@@ -53,6 +53,9 @@ private:
 
     // the transform of the block
     omi::Transform* m_transform;
+
+    // the collision detector
+    omi::CollisionDetector* m_detector;
 };
 
 #endif

@@ -42,6 +42,7 @@ bool LogicManager::execute() {
 
         // get the next scene
         m_scene = std::unique_ptr<Scene>(m_scene->nextScene());
+        // clear the components of this scene
         //if the scene we get is null we're done
         if (!m_scene) {
 
@@ -82,7 +83,7 @@ void LogicManager::removeUpdatable(Updatable* updatable) {
 
     // search and remove updatable
     for (std::vector<Updatable*>::iterator it = m_components.begin();
-         it != m_components.end(); ++it) { 
+         it != m_components.end(); ++it) {
 
         if (*it == updatable) {
 

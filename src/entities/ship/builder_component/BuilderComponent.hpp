@@ -30,8 +30,9 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** Initialises the builder component */
-    void init();
+    /** Initialises the builder component
+    @param owner the owner of this component */
+    void init( omi::Entity* owner );
 
     /** Updates the builder component */
     void update();

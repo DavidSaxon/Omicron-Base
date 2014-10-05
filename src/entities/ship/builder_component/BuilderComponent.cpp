@@ -42,14 +42,13 @@ BuilderComponent::~BuilderComponent()
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void BuilderComponent::init()
+void BuilderComponent::init( omi::Entity* owner )
 {
-    // TODO: need to deal with cyclic inclusion since the component
-    // needs to know about block type
     // create the collision detector
-    m_collisionDetect = new omi::CollisionDetector( "", "builder_block", this );
-    m_collisionDetect->addBounding(new omi::BoundingCircle( 0.55f, m_transform ) );
-    m_components.add(m_collisionDetect);
+    m_detector = new omi::CollisionDetector(
+            "", "builder_block", owner );
+    m_detector->addBounding(
+            new omi::BoundingCircle( 0.55f, m_transform ) );
 }
 
 void BuilderComponent::update()
