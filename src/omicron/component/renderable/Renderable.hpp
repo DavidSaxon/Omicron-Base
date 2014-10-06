@@ -61,21 +61,6 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** #Override */
-    virtual component::Type getType() const;
-
-    /** @return the layer of the renderable */
-    int getLayer() const;
-
-    /** @param layer the new render layer of renderable */
-    void setLayer( int layer );
-
-    /** @return the transform used for positioning this renderable */
-    Transform* getTransform();
-
-    /** @return the material used for this renderable */
-    Material& getMaterial();
-
     /** #Hidden
     Render this component
     @param camera the camera used to render this */
@@ -88,6 +73,28 @@ public:
             unsigned char red,
             unsigned char green,
             unsigned char blue );
+
+    //---------------------------------GETTERS----------------------------------
+
+    /** #Override */
+    virtual component::Type getType() const;
+
+    /** @return the layer of the renderable */
+    int getLayer() const;
+
+    /** @return the transform used for positioning this renderable */
+    Transform* getTransform();
+
+    /** @return the material used for this renderable */
+    Material& getMaterial();
+
+    //---------------------------------SETTERS----------------------------------
+
+    /** @param layer the new render layer of renderable */
+    void setLayer( int layer );
+
+    /** @param transform the new transform of the renderable */
+    void setTransform( Transform* transform );
 
 protected:
 

@@ -1,6 +1,7 @@
 #ifndef VOIDWALKER_SHIP_BLOCK_HPP_
 #    define VOIDWALKER_SHIP_BLOCK_HPP_
 
+class BuilderComponent;
 #include "src/entities/ship/builder_component/BuilderComponent.hpp"
 #include "src/entities/ship/draw_component/DrawComponent.hpp"
 
@@ -44,6 +45,11 @@ public:
 
     /** #Override */
     void update();
+
+    //---------------------------------GETTERS----------------------------------
+
+    /** @return the position of the block */
+    const glm::vec3& getPos() const;
 
 private:
 

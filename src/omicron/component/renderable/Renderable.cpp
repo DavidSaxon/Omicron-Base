@@ -100,6 +100,8 @@ void Renderable::renderSelectable(
     glBindTexture( GL_TEXTURE_2D, 0 );
 }
 
+//-----------------------------------GETTERS------------------------------------
+
 component::Type Renderable::getType() const
 {
     return component::RENDERABLE;
@@ -110,11 +112,6 @@ int Renderable::getLayer() const
     return m_layer;
 }
 
-void Renderable::setLayer( int layer )
-{
-    m_layer = layer;
-}
-
 Transform* Renderable::getTransform()
 {
     return m_transform;
@@ -123,6 +120,18 @@ Transform* Renderable::getTransform()
 Material& Renderable::getMaterial()
 {
     return m_material;
+}
+
+//-----------------------------------SETTERS------------------------------------
+
+void Renderable::setLayer( int layer )
+{
+    m_layer = layer;
+}
+
+void Renderable::setTransform( Transform* transform )
+{
+    m_transform = transform;
 }
 
 //------------------------------------------------------------------------------

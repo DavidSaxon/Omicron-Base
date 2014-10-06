@@ -6,6 +6,7 @@
 #include "src/override/Values.hpp"
 
 #include "src/entities/builder/gui/BlockSelect.hpp"
+#include "src/entities/ship/Block.hpp"
 
 class BuilderComponent {
 public:
@@ -76,6 +77,9 @@ private:
 
     /** Snaps the block to other blocks */
     void snap();
+
+    /** Set the renderables to use the given transform */
+    void setRenderableTransform( omi::Transform* transform );
 };
 
 #endif

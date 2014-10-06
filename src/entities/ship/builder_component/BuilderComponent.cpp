@@ -59,6 +59,7 @@ void BuilderComponent::update()
         move();
         snap();
     }
+    // TODO: connect if snapping, need to make sure transforms are correct
 }
 
 omi::CollisionDetector* BuilderComponent::getCollisionDetector()
@@ -136,9 +137,47 @@ void BuilderComponent::move()
 void BuilderComponent::snap()
 {
     // find the closest block this colliding with that has free space
-    // TOOD:
-    if ( m_detector->getCollisionData().size() > 0 )
+    Block* nearest = NULL;
+    float distance = 1000000.0f;
+    for ( std::vector<omi::CollisionData>::iterator data =
+          m_detector->getCollisionData().begin();
+          data != m_detector->getCollisionData().end(); ++data )
     {
-        std::cout << "collision" << std::endl;
+        // cast as a block
+        Block* block = static_cast<Block*>( data->entity );
+        // TODO: need to check if block has space
+        // get distance
+        float d = glm::distance( m_transform->translation, block->getPos() );
+        // check if this is the nearest block
+        if ( d < distance )
+        {
+            nearest = block;
+        }
+    }
+
+    // snap to the block
+    if ( nearest != NULL )
+    {
+        glm::vec3 pos = nearest->getPos();
+        pos.x += vdwk::BLOCK_SIZE;
+        BlockSelect::setPosition( pos );
+        setRenderableTransform( new omi::Transform(
+            "", pos,
+            m_transform->rotation,
+            m_transform->scale
+        ) );
+    }
+    else
+    {
+        setRenderableTransform( m_transform );
+    }
+}
+
+void BuilderComponent::setRenderableTransform( omi::Transform* transform )
+{
+    for (std::vector<omi::Renderable*>::iterator it = m_renderables.begin();
+         it != m_renderables.end(); ++it )
+    {
+        ( *it )->setTransform( transform );
     }
 }

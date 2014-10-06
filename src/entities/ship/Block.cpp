@@ -64,3 +64,8 @@ void Block::update()
 {
     builderComponent->update();
 }
+
+const glm::vec3& Block::getPos() const
+{
+    return m_transform->translation;
+}
