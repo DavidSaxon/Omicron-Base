@@ -3,10 +3,11 @@
 
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/utilities/TransformUtil.hpp"
+#include "src/omicron/utilities/VectorUtil.hpp"
 #include "src/override/Values.hpp"
 
 #include "src/entities/builder/gui/BlockSelect.hpp"
-#include "src/entities/ship/Block.hpp"
+#include "src/entities/ship/connection_component/ConnectionComponent.hpp"
 
 class BuilderComponent {
 public:
@@ -16,9 +17,12 @@ public:
     //--------------------------------------------------------------------------
 
     /** Creates a new builder component
+    @param transform the transform of the block
+    @param connections the connections component of the block
     @param renderables a list of the renderable components of the block */
     BuilderComponent(
                   omi::Transform*                transform,
+                  ConnectionComponent*           connection,
             const std::vector<omi::Renderable*>& renderables );
 
     //--------------------------------------------------------------------------
@@ -49,6 +53,8 @@ private:
 
     // the transform of the block
     omi::Transform* m_transform;
+    // the connection component of the block
+    ConnectionComponent* m_connection;
     // the list of renderables used by the block
     std::vector<omi::Renderable*> m_renderables;
     // the original layers of the renderables

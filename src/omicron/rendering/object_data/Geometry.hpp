@@ -1,6 +1,9 @@
 #ifndef OMICRON_RENDERING_OBJECT_DATA_GEOMETRY_H_
 #   define OMICRON_RENDERING_OBJECT_DATA_GEOMETRY_H_
 
+#define GLM_FORCE_RADIANS
+#define GLM_SWIZZLE
+
 #include <vector>
 
 #include "lib/glm/glm.hpp"

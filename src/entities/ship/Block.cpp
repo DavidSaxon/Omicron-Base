@@ -53,6 +53,7 @@ void Block::init()
     // TODO: this component should be created depending on mode
     builderComponent = new BuilderComponent(
         m_transform,
+        connectionComponent,
         drawComponent->getRenderables()
     );
     builderComponent->init( this );

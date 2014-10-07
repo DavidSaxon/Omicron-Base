@@ -1,6 +1,9 @@
 #ifndef OMICRON_INPUT_INPUT_H_
 #   define OMICRON_INPUT_INPUT_H_
 
+#define GLM_FORCE_RADIANS
+#define GLM_SWIZZLE
+
 #include <SFML/Window.hpp>
 
 #include "lib/glm/glm.hpp"

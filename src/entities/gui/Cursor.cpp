@@ -31,7 +31,7 @@ void Cursor::update()
 {
     // move to the mouse position
     glm::vec3 mousePos =
-        omi::util::screenToWorld2D( omi::input::getMousePos() );
+        omi::transutil::screenToWorld2D( omi::input::getMousePos() );
     m_transform->translation = mousePos + ( OFFSET * CURSOR_SIZE );
 }
 

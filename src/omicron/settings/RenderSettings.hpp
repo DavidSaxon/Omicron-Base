@@ -1,6 +1,9 @@
 #ifndef OMICRON_SETTINGS_RENDERSETTINGS_H_
 #   define OMICRON_SETTINGS_RENDERSETTINGS_H_
 
+#define GLM_FORCE_RADIANS
+#define GLM_SWIZZLE
+
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 

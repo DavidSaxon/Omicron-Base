@@ -1,6 +1,7 @@
 // #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 #define GLM_FORCE_RADIANS
+#define GLM_SWIZZLE
 
 #include <GL/glew.h>
 

@@ -1,6 +1,9 @@
 #ifndef OMICRON_RENDERING_SHADING_MATERIAL_H_
 #   define OMICRON_RENDERING_SHADING_MATERIAL_H_
 
+#define GLM_FORCE_RADIANS
+#define GLM_SWIZZLE
+
 #include "lib/glm/glm.hpp"
 
 #include "src/omicron/rendering/shading/Shader.hpp"

@@ -6,12 +6,14 @@
 
 BuilderComponent::BuilderComponent(
               omi::Transform*                transform,
+              ConnectionComponent*           connection,
         const std::vector<omi::Renderable*>& renderables )
     :
-    m_transform ( transform ),
+    m_transform  ( transform ),
+    m_connection ( connection ),
     m_renderables( renderables ),
-    m_mouseDown ( false ),
-    m_selected  ( false )
+    m_mouseDown  ( false ),
+    m_selected   ( false )
 {
     // TODO: this should potentially disable all other renderables other than
     // the first one
@@ -94,7 +96,7 @@ void BuilderComponent::selection()
         {
             // get the mouse in world space
             glm::vec3 mousePos =
-                omi::util::screenToWorld2D( omi::input::getMousePos() );
+                omi::transutil::screenToWorld2D( omi::input::getMousePos() );
             m_selectOffset = mousePos - m_transform->translation;
         }
     }
@@ -128,7 +130,7 @@ void BuilderComponent::move()
 {
     // get the mouse co-ordinates in world space
     glm::vec3 mousePos =
-        omi::util::screenToWorld2D( omi::input::getMousePos() );
+        omi::transutil::screenToWorld2D( omi::input::getMousePos() );
     // apply to the position of the block and selector
     m_transform->translation = mousePos - m_selectOffset;
     BlockSelect::setPosition( m_transform->translation );
@@ -139,38 +141,81 @@ void BuilderComponent::snap()
     // find the closest block this colliding with that has free space
     Block* nearest = NULL;
     float distance = 1000000.0f;
+    connection::Direction direction = connection::TOP;
     for ( std::vector<omi::CollisionData>::iterator data =
           m_detector->getCollisionData().begin();
           data != m_detector->getCollisionData().end(); ++data )
     {
         // cast as a block
         Block* block = static_cast<Block*>( data->entity );
-        // TODO: need to check if block has space
+        // get the side of the block we are closet to and check if we can
+        // connect
+        float dir = omi::vecutil::angleBetween(
+            m_transform->translation.xy, block->getPos().xy
+        );
+        if ( dir >= 315.0f && dir < 45.0f )
+        {
+            if ( !block->connectionComponent->isAvailable( connection::RIGHT )
+                            || !m_connection->isAvailable( connection::LEFT ) )
+            {
+                continue;
+            }
+            direction = connection::RIGHT;
+        }
+        else if ( dir >= 45.0f && dir < 135.0f )
+        {
+            if ( !block->connectionComponent->isAvailable( connection::TOP )
+                           || !m_connection->isAvailable( connection::BOTTOM ) )
+            {
+                continue;
+            }
+            direction = connection::TOP;
+        }
+        else if ( dir >= 135.0f && dir < 225.0f )
+        {
+            if ( !block->connectionComponent->isAvailable( connection::LEFT )
+                            || !m_connection->isAvailable( connection::RIGHT ) )
+            {
+                continue;
+            }
+            direction = connection::LEFT;
+        }
+        else
+        {
+            if ( !block->connectionComponent->isAvailable( connection::BOTTOM )
+                            || !m_connection->isAvailable( connection::TOP ) )
+            {
+                continue;
+            }
+            direction = connection::BOTTOM;
+        }
+        // check if we can connect to the closet edge of the block
         // get distance
-        float d = glm::distance( m_transform->translation, block->getPos() );
+        float dis = glm::distance( m_transform->translation, block->getPos() );
         // check if this is the nearest block
-        if ( d < distance )
+        if ( dis < distance )
         {
             nearest = block;
         }
     }
 
-    // snap to the block
-    if ( nearest != NULL )
-    {
-        glm::vec3 pos = nearest->getPos();
-        pos.x += vdwk::BLOCK_SIZE;
-        BlockSelect::setPosition( pos );
-        setRenderableTransform( new omi::Transform(
-            "", pos,
-            m_transform->rotation,
-            m_transform->scale
-        ) );
-    }
-    else
-    {
-        setRenderableTransform( m_transform );
-    }
+    // TODO:
+    // // snap to the block
+    // if ( nearest != NULL )
+    // {
+    //     glm::vec3 pos = nearest->getPos();
+    //     pos.x += vdwk::BLOCK_SIZE;
+    //     BlockSelect::setPosition( pos );
+    //     setRenderableTransform( new omi::Transform(
+    //         "", pos,
+    //         m_transform->rotation,
+    //         m_transform->scale
+    //     ) );
+    // }
+    // else
+    // {
+    //     setRenderableTransform( m_transform );
+    // }
 }
 
 void BuilderComponent::setRenderableTransform( omi::Transform* transform )

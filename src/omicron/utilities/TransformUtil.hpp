@@ -5,7 +5,7 @@
 
 namespace omi {
 
-namespace util {
+namespace transutil {
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
@@ -42,7 +42,7 @@ inline glm::vec3 screenToWorld2D( const glm::vec2& p )
     return worldCoords;
 }
 
-} // namespace util
+} // namespace transutil
 
 } // namespace omi
 

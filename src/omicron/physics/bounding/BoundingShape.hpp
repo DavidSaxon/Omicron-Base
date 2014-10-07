@@ -2,6 +2,7 @@
 #   define OMICRON_PHSYICS_BOUNDING_BOUNDINGSHAPE_H_
 
 #define GLM_FORCE_RADIANS
+#define GLM_SWIZZLE
 
 #include "lib/glm/glm.hpp"
 
