@@ -13,7 +13,8 @@ BuilderComponent::BuilderComponent(
     m_connection ( connection ),
     m_renderables( renderables ),
     m_mouseDown  ( false ),
-    m_selected   ( false )
+    m_selected   ( false ),
+    m_released   ( false )
 {
     // TODO: this should potentially disable all other renderables other than
     // the first one
@@ -61,7 +62,11 @@ void BuilderComponent::update()
         move();
         snap();
     }
-    // TODO: connect if snapping, need to make sure transforms are correct
+    else if ( m_released )
+    {
+        release();
+        m_released = false;
+    }
 }
 
 omi::CollisionDetector* BuilderComponent::getCollisionDetector()
@@ -109,6 +114,7 @@ void BuilderComponent::selection()
             // revert selection and hide selector
             m_selected = false;
             BlockSelect::setVisibility( false );
+            m_released = true;
         }
     }
 
@@ -153,7 +159,7 @@ void BuilderComponent::snap()
         float dir = omi::vecutil::angleBetween(
             m_transform->translation.xy, block->getPos().xy
         );
-        if ( dir >= 315.0f && dir < 45.0f )
+        if ( dir >= 315.0f || dir < 45.0f )
         {
             if ( !block->connectionComponent->isAvailable( connection::RIGHT )
                             || !m_connection->isAvailable( connection::LEFT ) )
@@ -199,23 +205,49 @@ void BuilderComponent::snap()
         }
     }
 
-    // TODO:
-    // // snap to the block
-    // if ( nearest != NULL )
-    // {
-    //     glm::vec3 pos = nearest->getPos();
-    //     pos.x += vdwk::BLOCK_SIZE;
-    //     BlockSelect::setPosition( pos );
-    //     setRenderableTransform( new omi::Transform(
-    //         "", pos,
-    //         m_transform->rotation,
-    //         m_transform->scale
-    //     ) );
-    // }
-    // else
-    // {
-    //     setRenderableTransform( m_transform );
-    // }
+    // snap to the block
+    if ( nearest != NULL )
+    {
+        std::cout << direction << std::endl;
+        glm::vec3 pos = nearest->getPos() + connection::vecFromDir( direction );
+        BlockSelect::setPosition( pos );
+        setRenderableTransform( new omi::Transform(
+            "", pos,
+            m_transform->rotation,
+            m_transform->scale
+        ) );
+    }
+    else
+    {
+        setRenderableTransform( m_transform );
+    }
+}
+
+void BuilderComponent::release()
+{
+    // TODO: if snapped
+    // place the block onto the nearest grid cell
+    glm::vec3 pos = m_transform->translation;
+    float xDec = pos.x - int( pos.x );
+    if ( xDec <= 0.5f )
+    {
+        pos.x -= xDec;
+    }
+    else
+    {
+        pos.x += 1.0f - xDec;
+    }
+    float yDec = pos.y - int( pos.y );
+    if ( yDec <= 0.5f )
+    {
+        pos.y -= yDec;
+    }
+    else
+    {
+        pos.y += 1.0f - yDec;
+    }
+    m_transform->translation = pos;
+    setRenderableTransform( m_transform );
 }
 
 void BuilderComponent::setRenderableTransform( omi::Transform* transform )
