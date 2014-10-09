@@ -5,7 +5,9 @@
 //------------------------------------------------------------------------------
 
 Block::Block(const glm::vec3& pos ) :
-    drawComponent( NULL )
+    drawComponent       ( NULL ),
+    connectionComponent ( NULL ),
+    builderComponent    ( NULL )
 {
     // set up the initial transform using the given position
     m_transform = new omi::Transform(
@@ -24,6 +26,8 @@ Block::~Block()
     // delete existing components
     delete drawComponent;
     drawComponent = NULL;
+    delete connectionComponent;
+    connectionComponent = NULL;
     delete builderComponent;
     builderComponent = NULL;
 }
@@ -37,7 +41,7 @@ void Block::init()
     // add the transform component
     m_components.add( m_transform );
 
-    // get components from ship components
+    // draw
     if ( drawComponent )
     {
         drawComponent->init( m_transform );
@@ -50,20 +54,26 @@ void Block::init()
 
     }
 
-    // TODO: this component should be created depending on mode
-    builderComponent = new BuilderComponent(
-        m_transform,
-        connectionComponent,
-        drawComponent->getRenderables()
-    );
-    builderComponent->init( this );
-    m_detector = builderComponent->getCollisionDetector();
-    m_components.add( m_detector );
+    // builder
+    if ( builderComponent )
+    {
+        builderComponent->init(
+            this,
+            m_transform,
+            connectionComponent,
+            drawComponent->getRenderables()
+        );
+        m_detector = builderComponent->getCollisionDetector();
+        m_components.add( m_detector );
+    }
 }
 
 void Block::update()
 {
-    builderComponent->update();
+    if ( builderComponent )
+    {
+        builderComponent->update();
+    }
 }
 
 const glm::vec3& Block::getPos() const

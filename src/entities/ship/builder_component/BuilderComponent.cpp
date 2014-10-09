@@ -4,27 +4,14 @@
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-BuilderComponent::BuilderComponent(
-              omi::Transform*                transform,
-              ConnectionComponent*           connection,
-        const std::vector<omi::Renderable*>& renderables )
+BuilderComponent::BuilderComponent()
     :
-    m_transform  ( transform ),
-    m_connection ( connection ),
-    m_renderables( renderables ),
+    m_transform  ( NULL ),
+    m_connection ( NULL ),
     m_mouseDown  ( false ),
     m_selected   ( false ),
     m_released   ( false )
 {
-    // TODO: this should potentially disable all other renderables other than
-    // the first one
-    // set the renderables to be selectable and store their original layers
-    for (std::vector<omi::Renderable*>::iterator it = m_renderables.begin();
-         it != m_renderables.end(); ++it )
-    {
-        ( *it )->selectable = true;
-        m_layers.push_back( ( *it )->getLayer() );
-    }
 }
 
 //------------------------------------------------------------------------------
@@ -45,8 +32,27 @@ BuilderComponent::~BuilderComponent()
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void BuilderComponent::init( omi::Entity* owner )
+void BuilderComponent::init(
+          omi::Entity*                   owner,
+          omi::Transform*                transform,
+          ConnectionComponent*           connection,
+    const std::vector<omi::Renderable*>& renderables )
 {
+    // set variables
+    m_transform   = transform;
+    m_connection  = connection;
+    m_renderables = renderables;
+
+    // TODO: this should potentially disable all other renderables other than
+    // the first one
+    // set the renderables to be selectable and store their original layers
+    for (std::vector<omi::Renderable*>::iterator it = m_renderables.begin();
+         it != m_renderables.end(); ++it )
+    {
+        ( *it )->selectable = true;
+        m_layers.push_back( ( *it )->getLayer() );
+    }
+
     // create the collision detector
     m_detector = new omi::CollisionDetector(
             "", "builder_block", owner );

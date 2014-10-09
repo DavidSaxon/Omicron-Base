@@ -33,6 +33,22 @@ static const unsigned DEFAULT_ENGINE_CONNECTIONS =
 } // namespace anonymous
 
 //------------------------------------------------------------------------------
+//                                 TYPE FUNCTIONS
+//------------------------------------------------------------------------------
+
+inline Block* builderBlock(
+    Block* ( *blockFunc )( const glm::vec3& ),
+    const glm::vec3& pos )
+{
+    // call the function to get the block
+    Block* block = blockFunc( pos );
+    // add the builder component
+    block->builderComponent = new BuilderComponent();
+
+    return block;
+}
+
+//------------------------------------------------------------------------------
 //                                     HULLS
 //------------------------------------------------------------------------------
 

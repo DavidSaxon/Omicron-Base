@@ -20,10 +20,7 @@ public:
     @param transform the transform of the block
     @param connections the connections component of the block
     @param renderables a list of the renderable components of the block */
-    BuilderComponent(
-                  omi::Transform*                transform,
-                  ConnectionComponent*           connection,
-            const std::vector<omi::Renderable*>& renderables );
+    BuilderComponent();
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -37,7 +34,11 @@ public:
 
     /** Initialises the builder component
     @param owner the owner of this component */
-    void init( omi::Entity* owner );
+    void init(
+              omi::Entity*                   owner,
+              omi::Transform*                transform,
+              ConnectionComponent*           connection,
+        const std::vector<omi::Renderable*>& renderables );
 
     /** Updates the builder component */
     void update();
@@ -70,6 +71,8 @@ private:
     bool m_selected;
     // the offset of the selection
     glm::vec3 m_selectOffset;
+    // is true if block was just released
+    bool m_released;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
@@ -81,8 +84,11 @@ private:
     /** Moves the block when it's selected */
     void move();
 
-    /** Snaps the block to other blocks */
+    /** Snaps the block to other blocks while dragging */
     void snap();
+
+    /** Release the block and places it back on the grid */
+    void release();
 
     /** Set the renderables to use the given transform */
     void setRenderableTransform( omi::Transform* transform );
