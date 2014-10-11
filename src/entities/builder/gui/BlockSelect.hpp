@@ -22,6 +22,12 @@ public:
     /** Sets the position of the block select */
     static void setPosition( const glm::vec3& pos );
 
+    /** Sets the colour of the selector to be the valid colour */
+    static void setValidColour();
+
+    /** Sets the colour of the selector to be the invalid colour */
+    static void setInvalidColour();
+
 private:
 
     //--------------------------------------------------------------------------

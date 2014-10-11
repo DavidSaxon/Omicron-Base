@@ -110,6 +110,7 @@ void BuilderComponent::selection()
                 m_selected = true;
                 m_preSelectPos = m_transform->translation;
                 BlockSelect::setVisibility( true );
+                BlockSelect::setValidColour();
                 // TODO: needs a special case if this is a new block
                 // remove this block from the grid
                 m_grid->set( m_preSelectPos.x, m_preSelectPos.y, NULL );
@@ -159,7 +160,20 @@ void BuilderComponent::move()
         omi::transutil::screenToWorld2D( omi::input::getMousePos() );
     // apply to the position of the block and selector
     m_transform->translation = mousePos - m_selectOffset;
-    BlockSelect::setPosition( m_transform->translation );
+    // check if the position is valid
+    if ( m_grid->get( m_transform->translation.x, m_transform->translation.y ) )
+    {
+        BlockSelect::setInvalidColour();
+    }
+    else
+    {
+        BlockSelect::setValidColour();
+    }
+    // get the block position on the grid and set the selector position to it
+    glm::vec3 gridPos = m_transform->translation;
+    gridPos.x = util::math::round( gridPos.x );
+    gridPos.y = util::math::round( gridPos.y );
+    BlockSelect::setPosition( gridPos );
 }
 
 void BuilderComponent::release()

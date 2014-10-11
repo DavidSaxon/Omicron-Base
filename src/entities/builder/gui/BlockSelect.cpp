@@ -44,3 +44,13 @@ void BlockSelect::setPosition( const glm::vec3& pos )
 {
     m_transform->translation = pos;
 }
+
+void BlockSelect::setValidColour()
+{
+    m_sprite->getMaterial().colour = glm::vec4( 0.0f, 1.0f, 0.0f, 1.0f );
+}
+
+void BlockSelect::setInvalidColour()
+{
+    m_sprite->getMaterial().colour = glm::vec4( 1.0f, 0.0f, 0.0f, 1.0f );
+}
