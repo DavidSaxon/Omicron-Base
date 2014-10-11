@@ -38,12 +38,13 @@ static const unsigned DEFAULT_ENGINE_CONNECTIONS =
 
 inline Block* builderBlock(
     Block* ( *blockFunc )( const glm::vec3& ),
-    const glm::vec3& pos )
+    const glm::vec3& pos,
+          BuilderGrid* grid )
 {
     // call the function to get the block
     Block* block = blockFunc( pos );
     // add the builder component
-    block->builderComponent = new BuilderComponent();
+    block->builderComponent = new BuilderComponent( grid );
 
     return block;
 }

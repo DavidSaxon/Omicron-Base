@@ -6,6 +6,9 @@
 #include "src/omicron/utilities/VectorUtil.hpp"
 #include "src/override/Values.hpp"
 
+class BuilderGrid;
+#include "src/scenes/builder/grid/BuilderGrid.hpp"
+
 #include "src/entities/builder/gui/BlockSelect.hpp"
 #include "src/entities/ship/connection_component/ConnectionComponent.hpp"
 
@@ -17,10 +20,8 @@ public:
     //--------------------------------------------------------------------------
 
     /** Creates a new builder component
-    @param transform the transform of the block
-    @param connections the connections component of the block
-    @param renderables a list of the renderable components of the block */
-    BuilderComponent();
+    @param grid the builder grid to build on */
+    BuilderComponent( BuilderGrid* grid );
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -52,6 +53,11 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // the block that this component is part of
+    Block* m_owner;
+    // the grid to build on
+    BuilderGrid* m_grid;
+
     // the transform of the block
     omi::Transform* m_transform;
     // the connection component of the block
@@ -71,6 +77,8 @@ private:
     bool m_selected;
     // the offset of the selection
     glm::vec3 m_selectOffset;
+    // the position which the block was grabbed at
+    glm::vec3 m_preSelectPos;
     // is true if block was just released
     bool m_released;
 
@@ -83,9 +91,6 @@ private:
 
     /** Moves the block when it's selected */
     void move();
-
-    /** Snaps the block to other blocks while dragging */
-    void snap();
 
     /** Release the block and places it back on the grid */
     void release();

@@ -21,6 +21,14 @@ static const float RADIANS_TO_DEGREES = 57.2957795f;
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
+/** Rounds the value to the nearest integer
+@param value the value to round
+@return the round value */
+inline float round( float value )
+{
+    return floor( value + 0.5f );
+}
+
 /** Clamps a value between two thresholds
 @param v the value to clamp
 @param lower the lower threshold

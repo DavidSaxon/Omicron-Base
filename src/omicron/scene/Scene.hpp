@@ -56,7 +56,7 @@ public:
     virtual bool update() = 0;
 
     /** @return the next scene to be executed */
-    virtual Scene* nextScene() const = 0;
+    virtual Scene* nextScene() = 0;
 
     // TODO: input
 

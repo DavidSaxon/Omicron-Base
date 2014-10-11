@@ -27,7 +27,7 @@ public:
     virtual bool update();
 
     /** #Override */
-    virtual omi::Scene* nextScene() const;
+    virtual omi::Scene* nextScene();
 };
 
-#endif 
+#endif

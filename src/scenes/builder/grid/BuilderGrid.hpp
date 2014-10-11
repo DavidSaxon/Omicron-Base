@@ -2,6 +2,9 @@
 #   define VOIDWALKER_SCENES_BUILDER_GRID_BUILDERGRID_HPP_
 
 #include <map>
+#include <sstream>
+
+#include "lib/Utilitron/MathUtil.hpp"
 
 #include "src/entities/ship/Block.hpp"
 
@@ -28,7 +31,7 @@ public:
     @param x the x position to place the block at
     @param y the y position to place the block at
     @param block the block to add to the grid */
-    Block* set( float x, float y, Block* block );
+    void set( float x, float y, Block* block );
 
     // TODO: neighbours
 

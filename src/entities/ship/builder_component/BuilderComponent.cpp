@@ -4,8 +4,10 @@
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-BuilderComponent::BuilderComponent()
+BuilderComponent::BuilderComponent( BuilderGrid* grid )
     :
+    m_owner      ( NULL ),
+    m_grid       ( grid ),
     m_transform  ( NULL ),
     m_connection ( NULL ),
     m_mouseDown  ( false ),
@@ -39,9 +41,17 @@ void BuilderComponent::init(
     const std::vector<omi::Renderable*>& renderables )
 {
     // set variables
+    m_owner       = static_cast<Block*>(owner);
     m_transform   = transform;
     m_connection  = connection;
     m_renderables = renderables;
+
+    // place into the grid
+    m_grid->set(
+        m_transform->translation.x,
+        m_transform->translation.y,
+        m_owner
+    );
 
     // TODO: this should potentially disable all other renderables other than
     // the first one
@@ -66,7 +76,6 @@ void BuilderComponent::update()
     if ( m_selected )
     {
         move();
-        snap();
     }
     else if ( m_released )
     {
@@ -99,7 +108,12 @@ void BuilderComponent::selection()
             if ( ( *it )->selected )
             {
                 m_selected = true;
+                m_preSelectPos = m_transform->translation;
                 BlockSelect::setVisibility( true );
+                // TODO: needs a special case if this is a new block
+                // remove this block from the grid
+                m_grid->set( m_preSelectPos.x, m_preSelectPos.y, NULL );
+
             }
         }
         // calculate the selection offset if this has been selected
@@ -148,112 +162,27 @@ void BuilderComponent::move()
     BlockSelect::setPosition( m_transform->translation );
 }
 
-void BuilderComponent::snap()
-{
-    // find the closest block this colliding with that has free space
-    Block* nearest = NULL;
-    float distance = 1000000.0f;
-    connection::Direction direction = connection::TOP;
-    for ( std::vector<omi::CollisionData>::iterator data =
-          m_detector->getCollisionData().begin();
-          data != m_detector->getCollisionData().end(); ++data )
-    {
-        // cast as a block
-        Block* block = static_cast<Block*>( data->entity );
-        // get the side of the block we are closet to and check if we can
-        // connect
-        float dir = omi::vecutil::angleBetween(
-            m_transform->translation.xy, block->getPos().xy
-        );
-        if ( dir >= 315.0f || dir < 45.0f )
-        {
-            if ( !block->connectionComponent->isAvailable( connection::RIGHT )
-                            || !m_connection->isAvailable( connection::LEFT ) )
-            {
-                continue;
-            }
-            direction = connection::RIGHT;
-        }
-        else if ( dir >= 45.0f && dir < 135.0f )
-        {
-            if ( !block->connectionComponent->isAvailable( connection::TOP )
-                           || !m_connection->isAvailable( connection::BOTTOM ) )
-            {
-                continue;
-            }
-            direction = connection::TOP;
-        }
-        else if ( dir >= 135.0f && dir < 225.0f )
-        {
-            if ( !block->connectionComponent->isAvailable( connection::LEFT )
-                            || !m_connection->isAvailable( connection::RIGHT ) )
-            {
-                continue;
-            }
-            direction = connection::LEFT;
-        }
-        else
-        {
-            if ( !block->connectionComponent->isAvailable( connection::BOTTOM )
-                            || !m_connection->isAvailable( connection::TOP ) )
-            {
-                continue;
-            }
-            direction = connection::BOTTOM;
-        }
-        // check if we can connect to the closet edge of the block
-        // get distance
-        float dis = glm::distance( m_transform->translation, block->getPos() );
-        // check if this is the nearest block
-        if ( dis < distance )
-        {
-            nearest = block;
-        }
-    }
-
-    // snap to the block
-    if ( nearest != NULL )
-    {
-        std::cout << direction << std::endl;
-        glm::vec3 pos = nearest->getPos() + connection::vecFromDir( direction );
-        BlockSelect::setPosition( pos );
-        setRenderableTransform( new omi::Transform(
-            "", pos,
-            m_transform->rotation,
-            m_transform->scale
-        ) );
-    }
-    else
-    {
-        setRenderableTransform( m_transform );
-    }
-}
-
 void BuilderComponent::release()
 {
-    // TODO: if snapped
-    // place the block onto the nearest grid cell
     glm::vec3 pos = m_transform->translation;
-    float xDec = pos.x - int( pos.x );
-    if ( xDec <= 0.5f )
+    // check that the nearest grid cell is empty
+    if ( m_grid->get( pos.x, pos.y ) == NULL )
     {
-        pos.x -= xDec;
+        // place the block onto the nearest grid cell and update it's position to
+        // match
+        m_grid->set( pos.x, pos.y, m_owner );
+        pos.x = util::math::round( pos.x );
+        pos.y = util::math::round( pos.y );
+        m_transform->translation = pos;
+        setRenderableTransform( m_transform );
     }
     else
     {
-        pos.x += 1.0f - xDec;
+        // TODO: needs a special case if this is a new block
+        // send the piece back to it's original position
+        m_grid->set( m_preSelectPos.x, m_preSelectPos.y, m_owner );
+        glm::vec3 pos = m_transform->translation = m_preSelectPos;
     }
-    float yDec = pos.y - int( pos.y );
-    if ( yDec <= 0.5f )
-    {
-        pos.y -= yDec;
-    }
-    else
-    {
-        pos.y += 1.0f - yDec;
-    }
-    m_transform->translation = pos;
-    setRenderableTransform( m_transform );
 }
 
 void BuilderComponent::setRenderableTransform( omi::Transform* transform )
@@ -264,3 +193,84 @@ void BuilderComponent::setRenderableTransform( omi::Transform* transform )
         ( *it )->setTransform( transform );
     }
 }
+
+// void BuilderComponent::snap()
+// {
+//     // find the closest block this colliding with that has free space
+//     Block* nearest = NULL;
+//     float distance = 1000000.0f;
+//     connection::Direction direction = connection::TOP;
+//     for ( std::vector<omi::CollisionData>::iterator data =
+//           m_detector->getCollisionData().begin();
+//           data != m_detector->getCollisionData().end(); ++data )
+//     {
+//         // cast as a block
+//         Block* block = static_cast<Block*>( data->entity );
+//         // get the side of the block we are closet to and check if we can
+//         // connect
+//         float dir = omi::vecutil::angleBetween(
+//             m_transform->translation.xy, block->getPos().xy
+//         );
+//         if ( dir >= 315.0f || dir < 45.0f )
+//         {
+//             if ( !block->connectionComponent->isAvailable( connection::RIGHT )
+//                             || !m_connection->isAvailable( connection::LEFT ) )
+//             {
+//                 continue;
+//             }
+//             direction = connection::RIGHT;
+//         }
+//         else if ( dir >= 45.0f && dir < 135.0f )
+//         {
+//             if ( !block->connectionComponent->isAvailable( connection::TOP )
+//                            || !m_connection->isAvailable( connection::BOTTOM ) )
+//             {
+//                 continue;
+//             }
+//             direction = connection::TOP;
+//         }
+//         else if ( dir >= 135.0f && dir < 225.0f )
+//         {
+//             if ( !block->connectionComponent->isAvailable( connection::LEFT )
+//                             || !m_connection->isAvailable( connection::RIGHT ) )
+//             {
+//                 continue;
+//             }
+//             direction = connection::LEFT;
+//         }
+//         else
+//         {
+//             if ( !block->connectionComponent->isAvailable( connection::BOTTOM )
+//                             || !m_connection->isAvailable( connection::TOP ) )
+//             {
+//                 continue;
+//             }
+//             direction = connection::BOTTOM;
+//         }
+//         // check if we can connect to the closet edge of the block
+//         // get distance
+//         float dis = glm::distance( m_transform->translation, block->getPos() );
+//         // check if this is the nearest block
+//         if ( dis < distance )
+//         {
+//             nearest = block;
+//         }
+//     }
+
+//     // snap to the block
+//     if ( nearest != NULL )
+//     {
+//         std::cout << direction << std::endl;
+//         glm::vec3 pos = nearest->getPos() + connection::vecFromDir( direction );
+//         BlockSelect::setPosition( pos );
+//         setRenderableTransform( new omi::Transform(
+//             "", pos,
+//             m_transform->rotation,
+//             m_transform->scale
+//         ) );
+//     }
+//     else
+//     {
+//         setRenderableTransform( m_transform );
+//     }
+// }

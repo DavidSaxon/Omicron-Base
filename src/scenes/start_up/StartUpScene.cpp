@@ -33,7 +33,7 @@ bool StartUpScene::update() {
     return false;
 }
 
-omi::Scene* StartUpScene::nextScene() const {
+omi::Scene* StartUpScene::nextScene() {
 
     // release resources
     omi::ResourceManager::release(resource_group::START_UP);

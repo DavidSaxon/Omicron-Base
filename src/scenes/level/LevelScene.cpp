@@ -29,7 +29,7 @@ bool LevelScene::update()
     return false;
 }
 
-omi::Scene* LevelScene::nextScene() const
+omi::Scene* LevelScene::nextScene()
 {
     // TODO
     return 0;

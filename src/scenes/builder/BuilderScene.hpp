@@ -28,9 +28,16 @@ class BuilderScene : public omi::Scene {
     virtual bool update();
 
     /** #Override */
-    virtual omi::Scene* nextScene() const;
+    virtual omi::Scene* nextScene();
 
 private:
+
+    //--------------------------------------------------------------------------
+    //                                 VARIABLES
+    //--------------------------------------------------------------------------
+
+    // the grid used for building the ship
+    BuilderGrid* m_grid;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
