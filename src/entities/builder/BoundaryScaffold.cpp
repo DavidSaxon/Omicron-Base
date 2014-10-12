@@ -1,5 +1,18 @@
 #include "BoundaryScaffold.hpp"
 
+namespace {
+
+//------------------------------------------------------------------------------
+//                                   CONSTANTS
+//------------------------------------------------------------------------------
+
+// the move speed of the scaffolding
+static const float MOVE_SPEED   = 0.025f;
+// the extra room to add around the furtherest blocks
+static const float ROOM_TO_MOVE = 3.0f;
+
+} // namespace anonymous
+
 //------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
@@ -16,63 +29,99 @@ BoundaryScaffold::BoundaryScaffold( BuilderGrid* grid )
 
 void BoundaryScaffold::init()
 {
-    // top boundary
-    m_topT = new omi::Transform(
-        "",
-        glm::vec3( 0.0f, 5.0f, 0.0f ),
-        glm::vec3(),
-        glm::vec3(1.0f, 1.0f, 1.0f)
-    );
-    m_components.add(m_topT);
-    m_components.add(omi::ResourceManager::getSprite(
-        "builder_boundary_scaffold_horizontal", "", m_topT));
-    // bottom boundary
-    m_bottomT = new omi::Transform(
-        "",
-        glm::vec3( 0.0f, -5.0f, 0.0f ),
-        glm::vec3(),
-        glm::vec3(1.0f, 1.0f, 1.0f)
-    );
-    m_components.add(m_bottomT);
-    m_components.add(omi::ResourceManager::getSprite(
-        "builder_boundary_scaffold_horizontal", "", m_bottomT));
-    // left boundary
-    m_leftT = new omi::Transform(
-        "",
-        glm::vec3( -5.0f, 0.0f, 0.0f ),
-        glm::vec3(),
-        glm::vec3(1.0f, 1.0f, 1.0f)
-    );
-    m_components.add(m_leftT);
-    m_components.add(omi::ResourceManager::getSprite(
-        "builder_boundary_scaffold_vertical", "", m_leftT));
-    // right boundary
-    m_rightT = new omi::Transform(
-        "",
-        glm::vec3( 5.0f, 0.0f, 0.0f ),
-        glm::vec3(),
-        glm::vec3(1.0f, 1.0f, 1.0f)
-    );
-    m_components.add(m_rightT);
-    m_components.add(omi::ResourceManager::getSprite(
-        "builder_boundary_scaffold_vertical", "", m_rightT));
+    // set the initial interpolation points
+    getInterpolationPoints();
+
+    initComponents();
 }
 
 void BoundaryScaffold::update()
 {
-    // get the distances of the grid
-    float minX = 0.0f;
-    float maxX = 0.0f;
-    float minY = 0.0f;
-    float maxY = 0.0f;
-    m_grid->getSize( minX, maxX, minY, maxY );
-    m_topT->translation.y    = maxY + 3.0f;
-    m_bottomT->translation.y = minY - 3.0f;
-    m_leftT->translation.x   = minX - 3.0f;
-    m_rightT->translation.x  = maxX + 3.0f;
-    std::cout << "minX: " << minX << std::endl;
-    std::cout << "maxX: " << maxX << std::endl;
-    std::cout << "minY: " << minY << std::endl;
-    std::cout << "maxY: " << maxY << std::endl;
+    // get the interpolation points
+    getInterpolationPoints();
+    // interpolate scaffolding
+    m_topT->translation.y = util::math::interpolate(
+        m_topT->translation.y,
+        m_topTo,
+        MOVE_SPEED * omi::fpsManager.getTimeScale()
+    );
+    m_bottomT->translation.y = util::math::interpolate(
+        m_bottomT->translation.y,
+        m_bottomTo,
+        MOVE_SPEED * omi::fpsManager.getTimeScale()
+    );
+    m_leftT->translation.x = util::math::interpolate(
+        m_leftT->translation.x,
+        m_leftTo,
+        MOVE_SPEED * omi::fpsManager.getTimeScale()
+    );
+    m_rightT->translation.x = util::math::interpolate(
+        m_rightT->translation.x,
+        m_rightTo,
+        MOVE_SPEED * omi::fpsManager.getTimeScale()
+    );
  }
 
+//------------------------------------------------------------------------------
+//                            PRIVATE MEMBER FUNCTIONS
+//------------------------------------------------------------------------------
+
+void BoundaryScaffold::getInterpolationPoints()
+{
+    // reset to zero
+    m_topTo    = 0.0f;
+    m_bottomTo = 0.0f;
+    m_leftTo   = 0.0f;
+    m_rightTo  = 0.0f;
+    // get distances
+    m_grid->getSize( m_leftTo, m_rightTo, m_bottomTo, m_topTo );
+    // add room to move
+    m_topTo    += ROOM_TO_MOVE;
+    m_bottomTo -= ROOM_TO_MOVE;
+    m_leftTo   -= ROOM_TO_MOVE;
+    m_rightTo  += ROOM_TO_MOVE;
+}
+
+void BoundaryScaffold::initComponents()
+{
+//-------------------------------TOP BOUNDARY-------------------------------
+m_topT = new omi::Transform(
+    "",
+    glm::vec3( 0.0f, 5.0f, 0.0f ),
+    glm::vec3(),
+    glm::vec3(1.0f, 1.0f, 1.0f)
+);
+m_components.add(m_topT);
+m_components.add(omi::ResourceManager::getSprite(
+    "builder_boundary_scaffold_horizontal", "", m_topT));
+//-----------------------------BOTTOM BOUNDARY------------------------------
+m_bottomT = new omi::Transform(
+    "",
+    glm::vec3( 0.0f, -5.0f, 0.0f ),
+    glm::vec3(),
+    glm::vec3(1.0f, 1.0f, 1.0f)
+);
+m_components.add(m_bottomT);
+m_components.add(omi::ResourceManager::getSprite(
+    "builder_boundary_scaffold_horizontal", "", m_bottomT));
+//------------------------------LEFT BOUNDARY-------------------------------
+m_leftT = new omi::Transform(
+    "",
+    glm::vec3( -5.0f, 0.0f, 0.0f ),
+    glm::vec3(),
+    glm::vec3(1.0f, 1.0f, 1.0f)
+);
+m_components.add(m_leftT);
+m_components.add(omi::ResourceManager::getSprite(
+    "builder_boundary_scaffold_vertical", "", m_leftT));
+//------------------------------RIGHT BOUNDARY------------------------------
+m_rightT = new omi::Transform(
+    "",
+    glm::vec3( 5.0f, 0.0f, 0.0f ),
+    glm::vec3(),
+    glm::vec3(1.0f, 1.0f, 1.0f)
+);
+m_components.add(m_rightT);
+m_components.add(omi::ResourceManager::getSprite(
+    "builder_boundary_scaffold_vertical", "", m_rightT));
+}

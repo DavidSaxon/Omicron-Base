@@ -117,6 +117,24 @@ inline bool withinDistance(double a, double b, double distance) {
     return fabs(a - b) <= distance;
 }
 
+/** Moves the given values towards the goal by the speed
+@param value the value to interpolate
+@param goal the desired value
+@param speed the speed at which to interpolate at
+@return the value interpolate by one cycle towards the goal */
+inline float interpolate( float value, float goal, float speed )
+{
+    if ( withinDistance( value, goal, speed ) )
+    {
+        return goal;
+    }
+    if ( value < goal )
+    {
+        return value + speed;
+    }
+    return value - speed;
+}
+
 /** Returns the sine of the given angle being in degrees
 @param angle the angle in degrees to compute the sine of */
 inline float sind(float angle) {
