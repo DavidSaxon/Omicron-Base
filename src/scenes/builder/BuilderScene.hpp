@@ -6,6 +6,7 @@
 
 #include "src/scenes/level/LevelScene.hpp"
 
+#include "src/entities/builder/BoundaryScaffold.hpp"
 #include "src/entities/builder/BuilderControl.hpp"
 #include "src/entities/builder/BuilderEnvironment.hpp"
 #include "src/entities/builder/gui/BlockSelect.hpp"

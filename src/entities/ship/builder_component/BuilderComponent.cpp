@@ -111,10 +111,6 @@ void BuilderComponent::selection()
                 m_preSelectPos = m_transform->translation;
                 BlockSelect::setVisibility( true );
                 BlockSelect::setValidColour();
-                // TODO: needs a special case if this is a new block
-                // remove this block from the grid
-                m_grid->set( m_preSelectPos.x, m_preSelectPos.y, NULL );
-
             }
         }
         // calculate the selection offset if this has been selected
@@ -160,20 +156,71 @@ void BuilderComponent::move()
         omi::transutil::screenToWorld2D( omi::input::getMousePos() );
     // apply to the position of the block and selector
     m_transform->translation = mousePos - m_selectOffset;
+    // check which connection's are available
+    glm::vec3 gridPos = m_transform->translation;
+    // top connection
+    BlockSelect::setTopVisibility( false );
+    Block* top = m_grid->get( gridPos.x, gridPos.y, connection::TOP );
+    if ( top != NULL && top != m_owner )
+    {
+        if ( top->connectionComponent->isAvailable( connection::BOTTOM ) &&
+             m_connection->isAvailable( connection::TOP ) )
+        {
+            BlockSelect::setTopVisibility( true );
+        }
+    }
+    // bottom connection
+    BlockSelect::setBottomVisibility( false );
+    Block* bottom = m_grid->get( gridPos.x, gridPos.y, connection::BOTTOM );
+    if ( bottom != NULL && bottom != m_owner )
+    {
+        if ( bottom->connectionComponent->isAvailable( connection::TOP ) &&
+             m_connection->isAvailable( connection::BOTTOM ) )
+        {
+            BlockSelect::setBottomVisibility( true );
+        }
+    }
+    // left connection
+    BlockSelect::setLeftVisibility( false );
+    Block* left = m_grid->get( gridPos.x, gridPos.y, connection::LEFT );
+    if ( left != NULL && left != m_owner )
+    {
+        if ( left->connectionComponent->isAvailable( connection::RIGHT ) &&
+             m_connection->isAvailable( connection::LEFT ) )
+        {
+            BlockSelect::setLeftVisibility( true );
+        }
+    }
+    // right connection
+    BlockSelect::setRightVisibility( false );
+    Block* right = m_grid->get( gridPos.x, gridPos.y, connection::RIGHT );
+    if ( right != NULL && right != m_owner )
+    {
+        if ( right->connectionComponent->isAvailable( connection::LEFT ) &&
+             m_connection->isAvailable( connection::RIGHT ) )
+        {
+            BlockSelect::setRightVisibility( true );
+        }
+    }
     // check if the position is valid
-    if ( m_grid->get( m_transform->translation.x, m_transform->translation.y ) )
+    if ( m_grid->get( gridPos.x, gridPos.y ) != NULL &&
+         m_grid->get( gridPos.x, gridPos.y ) != m_owner )
     {
         BlockSelect::setInvalidColour();
+        BlockSelect::setTopVisibility( false );
+        BlockSelect::setBottomVisibility( false );
+        BlockSelect::setLeftVisibility( false );
+        BlockSelect::setRightVisibility( false );
     }
     else
     {
         BlockSelect::setValidColour();
     }
     // get the block position on the grid and set the selector position to it
-    glm::vec3 gridPos = m_transform->translation;
     gridPos.x = util::math::round( gridPos.x );
     gridPos.y = util::math::round( gridPos.y );
     BlockSelect::setPosition( gridPos );
+
 }
 
 void BuilderComponent::release()
@@ -182,6 +229,9 @@ void BuilderComponent::release()
     // check that the nearest grid cell is empty
     if ( m_grid->get( pos.x, pos.y ) == NULL )
     {
+        // TODO: needs a special case if this is a new block
+        // remove this block from the grid
+        m_grid->set( m_preSelectPos.x, m_preSelectPos.y, NULL );
         // place the block onto the nearest grid cell and update it's position to
         // match
         m_grid->set( pos.x, pos.y, m_owner );
@@ -207,84 +257,3 @@ void BuilderComponent::setRenderableTransform( omi::Transform* transform )
         ( *it )->setTransform( transform );
     }
 }
-
-// void BuilderComponent::snap()
-// {
-//     // find the closest block this colliding with that has free space
-//     Block* nearest = NULL;
-//     float distance = 1000000.0f;
-//     connection::Direction direction = connection::TOP;
-//     for ( std::vector<omi::CollisionData>::iterator data =
-//           m_detector->getCollisionData().begin();
-//           data != m_detector->getCollisionData().end(); ++data )
-//     {
-//         // cast as a block
-//         Block* block = static_cast<Block*>( data->entity );
-//         // get the side of the block we are closet to and check if we can
-//         // connect
-//         float dir = omi::vecutil::angleBetween(
-//             m_transform->translation.xy, block->getPos().xy
-//         );
-//         if ( dir >= 315.0f || dir < 45.0f )
-//         {
-//             if ( !block->connectionComponent->isAvailable( connection::RIGHT )
-//                             || !m_connection->isAvailable( connection::LEFT ) )
-//             {
-//                 continue;
-//             }
-//             direction = connection::RIGHT;
-//         }
-//         else if ( dir >= 45.0f && dir < 135.0f )
-//         {
-//             if ( !block->connectionComponent->isAvailable( connection::TOP )
-//                            || !m_connection->isAvailable( connection::BOTTOM ) )
-//             {
-//                 continue;
-//             }
-//             direction = connection::TOP;
-//         }
-//         else if ( dir >= 135.0f && dir < 225.0f )
-//         {
-//             if ( !block->connectionComponent->isAvailable( connection::LEFT )
-//                             || !m_connection->isAvailable( connection::RIGHT ) )
-//             {
-//                 continue;
-//             }
-//             direction = connection::LEFT;
-//         }
-//         else
-//         {
-//             if ( !block->connectionComponent->isAvailable( connection::BOTTOM )
-//                             || !m_connection->isAvailable( connection::TOP ) )
-//             {
-//                 continue;
-//             }
-//             direction = connection::BOTTOM;
-//         }
-//         // check if we can connect to the closet edge of the block
-//         // get distance
-//         float dis = glm::distance( m_transform->translation, block->getPos() );
-//         // check if this is the nearest block
-//         if ( dis < distance )
-//         {
-//             nearest = block;
-//         }
-//     }
-
-//     // snap to the block
-//     if ( nearest != NULL )
-//     {
-//         std::cout << direction << std::endl;
-//         glm::vec3 pos = nearest->getPos() + connection::vecFromDir( direction );
-//         BlockSelect::setPosition( pos );
-//         setRenderableTransform( new omi::Transform(
-//             "", pos,
-//             m_transform->rotation,
-//             m_transform->scale
-//         ) );
-//     }
-//     else
-//     {
-//         setRenderableTransform( m_transform );
-//     }
-// }

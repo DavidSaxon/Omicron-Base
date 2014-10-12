@@ -46,7 +46,9 @@ void BuilderScene::initEntities()
     addEntity( new Cursor() );
     addEntity( new BuilderControl() );
     addEntity( new BuilderEnvironment() );
+    addEntity( new BoundaryScaffold( m_grid ) );
     addEntity( new BlockSelect() );
+
 
     // TESTING TODO: REMOVE ME
     addEntity( block_factory::builderBlock(

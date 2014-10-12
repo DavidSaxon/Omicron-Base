@@ -44,6 +44,9 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    //! the parent transformations
+    Transform* parent;
+
     //! the translation of the entity
     glm::vec3 translation;
     //! the rotation of the entity
@@ -68,6 +71,29 @@ public:
               const glm::vec3&            s,
                     axis_space::AxisSpace axisSpace = axis_space::LOCAL ) :
         Component  ( id ),
+        parent     ( NULL ),
+        translation( t ),
+        rotation   ( r ),
+        scale      ( s )
+    {
+    }
+
+    /** Creates a new transform component with a parent
+    @param id the identifier of the component
+    @param p the parent transform
+    @param t the initial translation
+    @param r the initial rotation
+    @param s the initial scale
+    @param axisSpace the axis space to use for computing the transform */
+    Transform(
+              const std::string           id,
+                    Transform*            p,
+              const glm::vec3&            t,
+              const glm::vec3&            r,
+              const glm::vec3&            s,
+                    axis_space::AxisSpace axisSpace = axis_space::LOCAL ) :
+        Component  ( id ),
+        parent     ( p ),
         translation( t ),
         rotation   ( r ),
         scale      ( s )
@@ -80,6 +106,7 @@ public:
     @param other the other component to copy from */
     Transform( const std::string& id, const Transform& other ) :
         Component  ( id ),
+        parent     ( other.parent ),
         translation( other.translation ),
         rotation   ( other.rotation ),
         scale      ( other.scale )
@@ -101,8 +128,15 @@ public:
     @return the computed translation */
     glm::vec3 computeTranslation() const
     {
-        // TODO:
-        glm::vec3 computed( translation );
+        glm::vec3 computed( 0.0f, 0.0f, 0.0f );
+        // compute from parent
+        if ( parent != NULL )
+        {
+            // TODO: axis spaces
+            computed = parent->computeTranslation();
+        }
+        // add this translation
+        computed += translation;
 
         return computed;
     }
@@ -112,8 +146,15 @@ public:
     @return the computed rotation */
     glm::vec3 computeRotation() const
     {
-        // TODO:
-        glm::vec3 computed( rotation );
+        glm::vec3 computed( 0.0f, 0.0f, 0.0f );
+        // compute from parent
+        if ( parent != NULL )
+        {
+            // TODO: axis spaces
+            computed = parent->computeRotation();
+        }
+        // add this rotation
+        computed += rotation;
 
         return computed;
     }
@@ -123,10 +164,17 @@ public:
     @return the computed scale */
     glm::vec3 computeScale() const
     {
-        // TODO:
-        glm::vec3 computed( scale );
+        glm::vec3 computed( 1.0f, 1.0f, 1.0f );
+        // compute from parent
+        if ( parent != NULL )
+        {
+            // TODO: axis spaces
+            computed = parent->computeScale();
+        }
+        // add this scale
+        computed *= scale;
 
-        return scale;
+        return computed;
     }
 
 private:

@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
+#include "lib/Utilitron/MathUtil.hpp"
+
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/component/Camera.hpp"

@@ -7,6 +7,7 @@
 #include "lib/Utilitron/MathUtil.hpp"
 
 #include "src/entities/ship/Block.hpp"
+#include "src/override/Values.hpp"
 
 /**************************************************************\
 | A collection that stores the layout of blocks in a 1x1 grid. |
@@ -27,13 +28,17 @@ public:
     /** @return the block at the given position */
     Block* get( float x, float y );
 
+    /** @return the block in the direction from the given position */
+    Block* get( float x, float y, connection::Direction direction );
+
+    /** Gets the min and max distances of the grid */
+    void getSize( float& minX, float& maxX, float& minY, float& maxY );
+
     /** Sets the block at the given position
     @param x the x position to place the block at
     @param y the y position to place the block at
     @param block the block to add to the grid */
     void set( float x, float y, Block* block );
-
-    // TODO: neighbours
 
 private:
 
@@ -53,6 +58,12 @@ private:
     @param y the y value to use in the grid key
     @return the grid key */
     std::string posToKey( float x, float y ) const;
+
+    /** Converts the given key to x and y floating point numbers
+    @param key the key to convert
+    @param x the converted x value
+    @param y the converted y value */
+    void keyToPos( const std::string& key, float& x, float& y );
 };
 
 #endif
