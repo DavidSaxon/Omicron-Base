@@ -46,9 +46,6 @@ void BuilderScene::initEntities()
     addEntity( new Cursor() );
     addEntity( new BuilderControl() );
     addEntity( new BuilderEnvironment() );
-    addEntity( new BoundaryScaffold( m_grid ) );
-    addEntity( new BlockSelect() );
-
 
     // TESTING TODO: REMOVE ME
     addEntity( block_factory::builderBlock(
@@ -81,4 +78,10 @@ void BuilderScene::initEntities()
         glm::vec3(  0.0f,  2.0f, 0.0f ),
         m_grid
     ) );
+
+    addEntity( new BoundaryScaffold( m_grid ) );
+    addEntity( new BlockSelect() );
+
+
+
 }

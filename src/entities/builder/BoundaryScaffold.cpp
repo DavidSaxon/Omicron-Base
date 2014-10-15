@@ -60,6 +60,11 @@ void BoundaryScaffold::update()
         m_rightTo,
         MOVE_SPEED * omi::fpsManager.getTimeScale()
     );
+    // update cogs
+    m_topCogHolderT->translation.x = m_leftT->translation.x + 1.0f;
+    m_topCogHolderT->translation.y = m_topT->translation.y  - 1.0f;
+    // TODO: fix me
+    m_topCogT->rotation.z = m_leftT->translation.x * -90.0f;
  }
 
 //------------------------------------------------------------------------------
@@ -87,7 +92,7 @@ void BoundaryScaffold::initComponents()
 //-------------------------------TOP BOUNDARY-------------------------------
 m_topT = new omi::Transform(
     "",
-    glm::vec3( 0.0f, 5.0f, 0.0f ),
+    glm::vec3( 0.0f, m_topTo, 0.0f ),
     glm::vec3(),
     glm::vec3(1.0f, 1.0f, 1.0f)
 );
@@ -97,7 +102,7 @@ m_components.add(omi::ResourceManager::getSprite(
 //-----------------------------BOTTOM BOUNDARY------------------------------
 m_bottomT = new omi::Transform(
     "",
-    glm::vec3( 0.0f, -5.0f, 0.0f ),
+    glm::vec3( 0.0f, m_bottomTo, 0.0f ),
     glm::vec3(),
     glm::vec3(1.0f, 1.0f, 1.0f)
 );
@@ -107,7 +112,7 @@ m_components.add(omi::ResourceManager::getSprite(
 //------------------------------LEFT BOUNDARY-------------------------------
 m_leftT = new omi::Transform(
     "",
-    glm::vec3( -5.0f, 0.0f, 0.0f ),
+    glm::vec3( m_leftTo, 0.0f, 0.0f ),
     glm::vec3(),
     glm::vec3(1.0f, 1.0f, 1.0f)
 );
@@ -117,11 +122,30 @@ m_components.add(omi::ResourceManager::getSprite(
 //------------------------------RIGHT BOUNDARY------------------------------
 m_rightT = new omi::Transform(
     "",
-    glm::vec3( 5.0f, 0.0f, 0.0f ),
+    glm::vec3( m_rightTo, 0.0f, 0.0f ),
     glm::vec3(),
     glm::vec3(1.0f, 1.0f, 1.0f)
 );
 m_components.add(m_rightT);
 m_components.add(omi::ResourceManager::getSprite(
     "builder_boundary_scaffold_vertical", "", m_rightT));
+//---------------------------------TOP LEFT COG---------------------------------
+m_topCogHolderT = new omi::Transform(
+    "",
+    glm::vec3( m_leftTo + 1, m_topTo - 1, 0.0f ),
+    glm::vec3(),
+    glm::vec3(1.0f, 1.0f, 1.0f)
+);
+m_components.add(m_topCogHolderT);
+m_components.add(omi::ResourceManager::getSprite(
+    "builder_boundary_scaffold_cog_holder", "", m_topCogHolderT));
+m_topCogT = new omi::Transform(
+    "", m_topCogHolderT,
+    glm::vec3( ),
+    glm::vec3(),
+    glm::vec3(1.0f, 1.0f, 1.0f)
+);
+m_components.add(m_topCogT);
+m_components.add(omi::ResourceManager::getSprite(
+    "builder_boundary_scaffold_cog", "", m_topCogT));
 }

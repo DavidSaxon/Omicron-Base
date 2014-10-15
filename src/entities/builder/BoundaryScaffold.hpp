@@ -44,6 +44,10 @@ private:
     omi::Transform* m_leftT;
     omi::Transform* m_rightT;
 
+    // transforms of the scaffold cogs
+    omi::Transform* m_topCogHolderT;
+    omi::Transform* m_topCogT;
+
     // the positions which the scaffold should be moving too
     float m_topTo;
     float m_bottomTo;
