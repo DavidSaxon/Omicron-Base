@@ -1,5 +1,15 @@
 #include "BuilderControl.hpp"
 
+namespace {
+
+//------------------------------------------------------------------------------
+//                                   CONSTANTS
+//------------------------------------------------------------------------------
+
+static const float ZOOM_SPEED = 0.1f;
+
+} // namespace anonymous
+
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
@@ -21,7 +31,8 @@ void BuilderControl::update()
 void BuilderControl::zoom()
 {
     float zoom = m_camT->scale.x;
-    zoom += static_cast<float>( omi::input::getMouseScroll() ) * 0.01f;
+    zoom += static_cast<float>( omi::input::getMouseScroll() ) *
+            ( ZOOM_SPEED * zoom );
     m_camT->scale = glm::vec3( zoom );
 }
 

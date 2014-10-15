@@ -64,6 +64,17 @@ void buildBuilderPack()
         glm::vec2( 0, 0 ),
         omi::texture::SHOW_PIXELS
     );
+    // scaffold cog
+    omi::ResourceManager::addTextureMaterialSprite(
+        "builder_boundary_scaffold_cog", resource_group::BUILDER,
+        "test_shader",
+        "res/gfx/texture/builder/scaffold_cog.png",
+        layer::BOUNDARY,
+        glm::vec2( 1, 1 ),
+        glm::vec2( 1, 1 ),
+        glm::vec2( 0, 0 ),
+        omi::texture::SHOW_PIXELS
+    );
 }
 
 } // namespace pack
