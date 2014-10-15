@@ -11,11 +11,19 @@ void BuilderControl::init()
 
 void BuilderControl::update()
 {
+    zoom();
 }
 
 //------------------------------------------------------------------------------
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+void BuilderControl::zoom()
+{
+    float zoom = m_camT->scale.x;
+    zoom += static_cast<float>( omi::input::getMouseScroll() ) * 0.01f;
+    m_camT->scale = glm::vec3( zoom );
+}
 
 void BuilderControl::initComponents()
 {

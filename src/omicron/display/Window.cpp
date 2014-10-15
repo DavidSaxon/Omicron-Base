@@ -65,6 +65,8 @@ Window::Window() :
 
 void Window::update()
 {
+    m_window->setVisible(true);
+
     // check if there has been a change in settings
     if ( displaySettings.check() )
     {
@@ -88,6 +90,8 @@ void Window::update()
 
     // check events
     sf::Event event;
+    // is true if we get a mouse wheel event
+    bool mouseWheel = false;
     while ( m_window->pollEvent( event ) )
     {
         // TODO: this should be override able
@@ -96,6 +100,17 @@ void Window::update()
         {
             exit( 0 );
         }
+        // mouse scrolling
+        if ( event.type == sf::Event::MouseWheelMoved )
+        {
+            mouseWheel = true;
+            input::setMouseScroll( event.mouseWheel.delta );
+        }
+    }
+    // there has been no mouse scrolling
+    if ( !mouseWheel )
+    {
+        input::setMouseScroll( 0 );
     }
 
     // redisplay the window

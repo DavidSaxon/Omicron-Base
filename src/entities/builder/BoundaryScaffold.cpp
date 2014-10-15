@@ -7,7 +7,7 @@ namespace {
 //------------------------------------------------------------------------------
 
 // the move speed of the scaffolding
-static const float MOVE_SPEED   = 0.025f;
+static const float MOVE_SPEED   = 0.05f;
 // the extra room to add around the furtherest blocks
 static const float ROOM_TO_MOVE = 3.0f;
 

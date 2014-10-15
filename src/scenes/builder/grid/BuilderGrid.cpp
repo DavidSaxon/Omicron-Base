@@ -36,8 +36,6 @@ Block* BuilderGrid::get( float x, float y, connection::Direction direction )
 
 void BuilderGrid::getSize( float& minX, float& maxX, float& minY, float& maxY )
 {
-    std::cout << "start minx: " << minX << std::endl;
-
     // search over the map for
     bool first = true;
     for ( std::map<std::string, Block*>::iterator it = m_grid.begin();
@@ -82,8 +80,6 @@ void BuilderGrid::getSize( float& minX, float& maxX, float& minY, float& maxY )
             }
         }
     }
-
-    std::cout << "get minx: " << minX << std::endl;
 }
 
 // TODO: positions need to be able to contain multiple blocks ( do as extension)

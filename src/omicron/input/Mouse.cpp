@@ -4,6 +4,16 @@ namespace omi {
 
 namespace input {
 
+namespace {
+
+//------------------------------------------------------------------------------
+//                                   VARIABLES
+//------------------------------------------------------------------------------
+
+static int mouseScroll = 0;
+
+} // namespace anonymous
+
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
@@ -20,6 +30,16 @@ glm::vec2 getMousePos()
 bool mousePressed( mouse_button::Type button )
 {
     return sf::Mouse::isButtonPressed( sf::Mouse::Button( button ) );
+}
+
+void setMouseScroll( int scroll )
+{
+    mouseScroll = scroll;
+}
+
+int getMouseScroll()
+{
+    return mouseScroll;
 }
 
 } // namespace input

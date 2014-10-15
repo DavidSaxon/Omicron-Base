@@ -149,7 +149,13 @@ glm::vec2 getMousePos();
 /** @return if the given mouse button is being pressed */
 bool mousePressed( mouse_button::Type button );
 
-// TODO: make omicron key enum
+/** #Hidden
+Sets the amount the mouse has scrolled this frame */
+void setMouseScroll( int scroll );
+
+/** @return the amount scrolled by the mouse wheel since the last frame */
+int getMouseScroll();
+
 /** Check if the given is being pressed
 #NOTE: this does not take into consideration upper and lower case
 @param key the key to check for

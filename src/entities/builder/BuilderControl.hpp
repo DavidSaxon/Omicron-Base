@@ -2,6 +2,7 @@
 #    define VOIDWALKER_BUILDER_BUILDERCONTROL_H_
 
 #include "src/omicron/entity/Entity.hpp"
+#include "src/omicron/input/Input.hpp"
 
 /************************************************************************\
 | The entity that handles control elements in the builder scene: such as |
@@ -32,6 +33,9 @@ private:
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    /** Controls camera zooming */
+    void zoom();
 
     /** Initialises the components */
     void initComponents();

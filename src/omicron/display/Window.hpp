@@ -11,6 +11,7 @@
 class DisplaySettings;
 
 #include "src/omicron/Omicron.hpp"
+#include "src/omicron/input/Input.hpp"
 
 namespace omi {
 
