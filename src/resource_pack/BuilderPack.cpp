@@ -73,7 +73,7 @@ void buildBuilderPack()
         glm::vec2( 1, 1 ),
         glm::vec2( 1, 1 ),
         glm::vec2( 0, 0 ),
-        omi::texture::SHOW_PIXELS
+        omi::texture::CLAMP | omi::texture::SHOW_PIXELS
     );
     // scaffold cog
     omi::ResourceManager::addTextureMaterialSprite(
@@ -84,7 +84,7 @@ void buildBuilderPack()
         glm::vec2( 1, 1 ),
         glm::vec2( 1, 1 ),
         glm::vec2( 0, 0 ),
-        omi::texture::SHOW_PIXELS
+        omi::texture::CLAMP | omi::texture::SHOW_PIXELS
     );
 }
 
