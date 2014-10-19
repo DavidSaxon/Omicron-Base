@@ -17,8 +17,8 @@ static const float CAM_DESHAKE         = 0.035f;
 //                             PUBLIC MEMBER FUNCTION
 //------------------------------------------------------------------------------
 
-void OmicronLogo::init() {
-
+void OmicronLogo::init()
+{
     // set up variables
     m_stage = WAIT_ONE;
     m_timer = 0.0f;
@@ -28,36 +28,36 @@ void OmicronLogo::init() {
 
     // play sound
     omi::SoundPool::play(
-        omi::ResourceManager::getSound("omicron_intro"), false, 1.0f);
+        omi::ResourceManager::getSound( "omicron_intro" ), false, 1.0f );
 }
 
-void OmicronLogo::update() {
-
+void OmicronLogo::update()
+{
     // update based on the cinematic stage
-    switch (m_stage) {
-
-        case WAIT_ONE: {
-
+    switch ( m_stage )
+    {
+        case WAIT_ONE:
+        {
             // update the timer
             m_timer += TIMER_SPEED * omi::fpsManager.getTimeScale();
             //move to the next stage
-            if (m_timer >= 1.0f) {
-
+            if ( m_timer >= 1.0f )
+            {
                 m_stage = TEXT_ENTER;
                 m_timer = 0.0f;
             }
             break;
         }
-        case TEXT_ENTER: {
-
+        case TEXT_ENTER:
+        {
             // move the text
             float textMove =
                 TEXT_ENTRANCE_SPEED * omi::fpsManager.getTimeScale();
             m_textBottomT->translation.x -= textMove;
-            m_textTopT->translation.x += textMove;
+            m_textTopT->translation.x    += textMove;
             // move to next stage
-            if (m_textBottomT->translation.x <= 0.0f) {
-
+            if ( m_textBottomT->translation.x <= 0.0f )
+            {
                 m_textBottomT->translation.x = 0.0f;
                 m_textTopT->translation.x = 0.0f;
                 m_stage = FLARE_EXPAND;
@@ -65,47 +65,47 @@ void OmicronLogo::update() {
             }
             break;
         }
-        case FLARE_EXPAND: {
-
+        case FLARE_EXPAND:
+        {
             // scale up the flare
             m_flareLongT->scale.x +=
                 FLARE_EXPAND_SPEED * omi::fpsManager.getTimeScale();
             m_flareCentreT->scale +=
                 FLARE_EXPAND_SPEED * omi::fpsManager.getTimeScale();
             // move to the next stage
-            if (m_flareLongT->scale.x >= 1.0f) {
-
+            if ( m_flareLongT->scale.x >= 1.0f )
+            {
                 m_flareLongT->scale.x   = 1.0f;
                 m_flareCentreT->scale   = glm::vec3( 1.0f );
                 m_stage = FLARE_FADE;
             }
             break;
         }
-        case FLARE_FADE: {
-
+        case FLARE_FADE:
+        {
             // fade out the flare materials
             float fadeSpeed =
                 FLARE_FADE_SPEED  * omi::fpsManager.getTimeScale();
             m_flareLongMat->colour.a   -= fadeSpeed;
             m_flareCentreMat->colour.a -= fadeSpeed;
             // move to the next stage
-            if (m_flareLongMat->colour.a <= 0.0f) {
-
+            if ( m_flareLongMat->colour.a <= 0.0f )
+            {
                 m_flareLongMat->colour.a   = 0.0f;
                 m_flareCentreMat->colour.a = 0.0f;
                 m_stage = GLOW;
             }
             break;
         }
-        case GLOW: {
-
+        case GLOW:
+        {
             // fade in glow and text
             float glowSpeed = GLOW_SPEED * omi::fpsManager.getTimeScale();
             m_glowMat->colour.a      += glowSpeed;
             m_poweredByMat->colour.a += glowSpeed;
             // move to next stage
-            if (m_glowMat->colour.a >= 1.0f) {
-
+            if ( m_glowMat->colour.a >= 1.0f )
+            {
                 m_glowMat->colour.a      = 1.0f;
                 m_poweredByMat->colour.a = 1.0f;
                 m_stage = DONE;
@@ -115,25 +115,27 @@ void OmicronLogo::update() {
     }
 
     // shake the camera
-    if (m_camShake > 0.0f) {
-
+    if ( m_camShake > 0.0f )
+    {
         // shift the cam
         m_camT->translation.x = static_cast<float>(
-            ((((rand() % 1000) / 1000.0f) * 0.025) - 0.0125) * m_camShake);
+            ( ( ( ( rand() % 1000 ) / 1000.0f ) *
+            0.025 ) - 0.0125 ) * m_camShake );
         m_camT->translation.y = static_cast<float>(
-            ((((rand() % 1000) / 1000.0f) * 0.05) - 0.025) * m_camShake);
+            ( ( ( ( rand() % 1000 ) / 1000.0f ) *
+            0.05) - 0.025) * m_camShake );
         // decrease shake
         m_camShake -= CAM_DESHAKE * omi::fpsManager.getTimeScale();
     }
-    else {
-
+    else
+    {
         m_camT->translation.x = 0.0f;
         m_camT->translation.y = 0.0f;
     }
 }
 
-bool OmicronLogo::done() {
-
+bool OmicronLogo::done()
+{
     // return true;
     return m_stage == DONE;
 }
