@@ -3,8 +3,6 @@
 
 #include "src/omicron/scene/Scene.hpp"
 
-#include "src/scenes/builder/BuilderScene.hpp"
-
 #include "src/entities/start_up/OmicronLogo.hpp"
 
 /*************************************************************\

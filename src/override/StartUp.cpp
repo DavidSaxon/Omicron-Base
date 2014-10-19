@@ -10,18 +10,18 @@ omi::Scene* init() {
     // display settings
     omi::displaySettings.setSize( glm::vec2( 960, 540 ) );
     omi::displaySettings.setPos( glm::vec2( 250, 330 ) );
-    omi::displaySettings.setTitle( "Voidwalker" );
+    omi::displaySettings.setTitle( "The Reverie" );
     omi::displaySettings.setFullscreen( true );
     omi::displaySettings.setVsync( true );
 
     // render settings
     omi::renderSettings.setDepthTest( true );
-    omi::renderSettings.setBackFaceCulling( false );
+    omi::renderSettings.setBackFaceCulling( true );
     omi::renderSettings.setClearColour( glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 
     //audio settings
-    omi::audioSettings.setSoundDisabled( true );
-    omi::audioSettings.setMusicDisabled( true );
+    omi::audioSettings.setSoundDisabled( false );
+    omi::audioSettings.setMusicDisabled( false );
     omi::audioSettings.setSoundVolume( 1.0f );
     omi::audioSettings.setMusicVolume( 1.0f );
 

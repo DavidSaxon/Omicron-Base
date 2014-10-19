@@ -140,9 +140,18 @@ void Renderable::setTransform( Transform* transform )
 
 void Renderable::applyTransformations( Camera* camera )
 {
+    // apply identity to model matrix
+    m_modelMatrix = glm::mat4( 1.0f );
+
     // do nothing if the transform is null
     if ( !m_transform )
     {
+        // make just apply default model matrix if no transform has been
+        // provided
+        m_modelViewProjectionMatrix =
+            camera->getProjectionMatrix() *
+            camera->getViewMatrix() *
+            m_modelMatrix;
         return;
     }
 
@@ -155,7 +164,6 @@ void Renderable::applyTransformations( Camera* camera )
     glm::vec3 scale( m_transform->computeScale() );
 
     // apply to matrices
-    m_modelMatrix = glm::mat4( 1.0f );
     m_modelMatrix *= glm::translate( translation );
     m_modelMatrix *= glm::rotate( rotation.x, glm::vec3( 1.0f, 0.0f, 0.0f ) );
     m_modelMatrix *= glm::rotate( rotation.y, glm::vec3( 0.0f, 1.0f, 0.0f ) );

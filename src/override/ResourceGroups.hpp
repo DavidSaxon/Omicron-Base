@@ -7,8 +7,7 @@ enum ResourceGroup {
 
     ALL,
     START_UP,
-    SHIP,
-    BUILDER
+    TEST
 };
 
 } // namespace resource_group

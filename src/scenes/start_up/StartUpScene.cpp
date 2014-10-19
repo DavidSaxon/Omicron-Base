@@ -24,8 +24,7 @@ bool StartUpScene::update() {
     if (m_omicronLogo->done()) {
 
         // load the next resources we'll need
-        omi::ResourceManager::load(resource_group::SHIP);
-        omi::ResourceManager::load(resource_group::BUILDER);
+        // TODO:
         // start up finished
         return true;
     }
@@ -36,7 +35,11 @@ bool StartUpScene::update() {
 omi::Scene* StartUpScene::nextScene() {
 
     // release resources
-    omi::ResourceManager::release(resource_group::START_UP);
+    // TODO: release
+    // omi::ResourceManager::release(resource_group::START_UP);
 
-    return new BuilderScene();
+    // revert settings
+    omi::renderSettings.setDepthTest( true );
+
+    return new StartUpScene();
 }

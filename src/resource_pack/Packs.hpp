@@ -21,10 +21,6 @@ void buildAllPack();
 
 void buildStartUpPack();
 
-void buildShipPack();
-
-void buildBuilderPack();
-
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
@@ -34,8 +30,6 @@ inline void build()
 {
     buildAllPack();
     buildStartUpPack();
-    buildShipPack();
-    buildBuilderPack();
 }
 
 } // namespace pack
