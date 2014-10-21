@@ -24,7 +24,7 @@ bool StartUpScene::update() {
     if (m_omicronLogo->done()) {
 
         // load the next resources we'll need
-        // TODO:
+        omi::ResourceManager::load(resource_group::TEST);
         // start up finished
         return true;
     }
@@ -41,5 +41,5 @@ omi::Scene* StartUpScene::nextScene() {
     // revert settings
     omi::renderSettings.setDepthTest( true );
 
-    return new StartUpScene();
+    return new TestScene();
 }

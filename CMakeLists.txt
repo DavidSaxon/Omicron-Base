@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(VoidWalker)
+project(TestRun)
 
 set(SRCS
 
@@ -45,27 +45,8 @@ set(SRCS
 
     src/resource_pack/AllPack.cpp
     src/resource_pack/StartUpPack.cpp
-    src/resource_pack/ShipPack.cpp
-    src/resource_pack/BuilderPack.cpp
-
-    src/scenes/builder/BuilderScene.cpp
-    src/scenes/builder/grid/BuilderGrid.cpp
 
     src/scenes/start_up/StartUpScene.cpp
-    src/scenes/level/LevelScene.cpp
-
-    src/entities/builder/BoundaryScaffold.cpp
-    src/entities/builder/BuilderControl.cpp
-    src/entities/builder/BuilderEnvironment.cpp
-    src/entities/builder/gui/BlockSelect.cpp
-
-    src/entities/gui/Cursor.cpp
-
-    src/entities/ship/Block.cpp
-    src/entities/ship/builder_component/BuilderComponent.cpp
-    src/entities/ship/connection_component/ConnectionComponent.cpp
-    src/entities/ship/draw_component/RandomStillDrawComp.cpp
-    src/entities/ship/draw_component/SpriteDrawComp.cpp
 
     src/entities/start_up/OmicronLogo.cpp
 )
@@ -78,9 +59,9 @@ include_directories("${BASEPATH}" ${INCLUDE_DIRECTORIES})
 
 link_directories(${LINK_DIRECTORIES})
 
-add_executable(VoidWalker ${SRCS})
+add_executable(TestRun ${SRCS})
 
-target_link_libraries(VoidWalker
+target_link_libraries(TestRun
 
     -lGL
     -lGLU
