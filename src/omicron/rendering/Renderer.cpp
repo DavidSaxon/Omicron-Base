@@ -71,6 +71,16 @@ void Renderer::removeRenderable(Renderable* renderable) {
     m_renderLists->removeRenderable(renderable);
 }
 
+void Renderer::addLight( Light* light )
+{
+    m_renderLists->addLight( light );
+}
+
+void Renderer::removeLight( Light* light )
+{
+    m_renderLists->removeLight( light );
+}
+
 //------------------------------------------------------------------------------
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------

@@ -22,6 +22,11 @@ PointLight::PointLight(
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
+light::Type PointLight::getLightType() const
+{
+    return light::POINT;
+}
+
 float PointLight::getDistance() const
 {
     return m_distance;

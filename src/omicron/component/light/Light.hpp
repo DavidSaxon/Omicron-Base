@@ -10,6 +10,17 @@
 
 namespace omi {
 
+namespace light {
+
+//! the different possible types of lights
+enum Type {
+    DIRECTIONAL,
+    POINT,
+    SPOT
+};
+
+} // namespace light
+
 /**********************************************************\
 | Base class that represents a component that casts light. |
 \**********************************************************/
@@ -39,6 +50,9 @@ public:
 
     /** #Override */
     virtual component::Type getType() const;
+
+    /** @return the type of light this is */
+    virtual light::Type getLightType() const = 0;
 
     /** @return the value of the light ( colour * strength ) */
     glm::vec3 getValue() const;

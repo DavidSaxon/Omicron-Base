@@ -10,6 +10,7 @@
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/component/Camera.hpp"
 #include "src/omicron/component/Transform.hpp"
+#include "src/omicron/component/light/PointLight.hpp"
 #include "src/omicron/rendering/shading/Material.hpp"
 #include "src/omicron/resource/loader/Loaders.hpp"
 
@@ -65,8 +66,11 @@ public:
 
     /** #Hidden
     Render this component
-    @param camera the camera used to render this */
-    void render( Camera* camera );
+    @param camera the camera used to render this
+    @param pointLights the list of point lights to use to render this */
+    void render(
+                  Camera* camera,
+            const std::vector<PointLight*>& pointLights );
 
     /** #Hidden
     Render this component for colour picking */
@@ -125,7 +129,7 @@ protected:
     void applyTransformations( Camera* camera );
 
     /** Sets up the shader for rendering and passes in all data */
-    void setShader();
+    void setShader( const std::vector<PointLight*>& pointLights );
 
     /** Cleans up the shader */
     void unsetShader();

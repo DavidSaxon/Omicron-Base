@@ -8,6 +8,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/component/light/PointLight.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/input/Input.hpp"
 
@@ -85,17 +86,39 @@ public:
     @param renderable the renderable to remove */
     void removeRenderable( Renderable* renderable );
 
+    /** Adds a light to render lists
+    @param light the light to add */
+    void addLight( Light* light );
+
+    /** Removes a light from the render lists
+    @param light  the light remove */
+    void removeLight( Light* light );
+
 private:
 
     //--------------------------------------------------------------------------
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    // all to be rendered
+    // the list of renderables
     std::vector<Renderable*> m_renderables;
+    // the list of point lights
+    std::vector<PointLight*> m_pointLights;
 
     // the depth sorter
     RenderableDepthSorter depthSorter;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** Adds a point light to the render lists
+    @param light the point light to add */
+    void addPointLight( PointLight* light );
+
+    /** Removes a point light from the render lists
+    @param light the point light to remove */
+    void removePointLight( PointLight* light );
 };
 
 } // namespace omi

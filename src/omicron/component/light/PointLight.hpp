@@ -33,6 +33,9 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** #Override */
+    light::Type getLightType() const;
+
     /** @return the distance of the light can reach */
     float getDistance() const;
 

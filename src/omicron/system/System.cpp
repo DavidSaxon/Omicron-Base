@@ -60,8 +60,13 @@ void sortComponents() {
         }
         else if ((*it)->getType() & component::CAMERA) {
 
-                // pass on to the renderer
-                renderer->removeCamera(dynamic_cast<Camera*>(*it));
+            // pass on to the renderer
+            renderer->removeCamera(dynamic_cast<Camera*>(*it));
+        }
+        else if ((*it)->getType() & component::LIGHT) {
+
+            // pass on to the renderer
+            renderer->removeLight(dynamic_cast<Light*>(*it));
         }
         else if ((*it)->getType() & component::PHYSICS) {
 
@@ -92,8 +97,13 @@ void sortComponents() {
         }
         else if ((*it)->getType() & component::CAMERA) {
 
-                // pass on to the renderer
-                renderer->setCamera(dynamic_cast<Camera*>(*it));
+            // pass on to the renderer
+            renderer->setCamera(dynamic_cast<Camera*>(*it));
+        }
+        else if ((*it)->getType() & component::LIGHT) {
+
+            // pass on to the renderer
+            renderer->addLight(dynamic_cast<Light*>(*it));
         }
         else if ((*it)->getType() & component::PHYSICS) {
 

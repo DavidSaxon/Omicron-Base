@@ -2,6 +2,13 @@
 
 namespace omi {
 
+namespace {
+
+// the maximum number of point lights
+static const unsigned MAX_POINT_LIGHTS = 8;
+
+} // namespace anonymous
+
 //------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
@@ -138,7 +145,7 @@ void RenderLists::render( Camera* camera )
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
               itr != it->second.end(); ++itr)
         {
-            ( *itr )->render( camera );
+            ( *itr )->render( camera, m_pointLights );
         }
     }
 }
@@ -155,18 +162,93 @@ void RenderLists::addRenderable( Renderable* renderable )
 
 void RenderLists::removeRenderable( Renderable* renderable )
 {
-    // search the layer for the renderable
     for ( std::vector<Renderable*>::iterator it = m_renderables.begin();
           it != m_renderables.end(); )
     {
         if ( *it == renderable )
         {
             it = m_renderables.erase( it );
+            return;
         }
-        else
+        ++it;
+    }
+}
+
+void RenderLists::addLight( Light* light )
+{
+    // add the light based on it's type
+    switch( light->getLightType() )
+    {
+        case light::DIRECTIONAL:
         {
-            ++it;
+            // TODO:
+            break;
         }
+        case light::POINT:
+        {
+            addPointLight( dynamic_cast<PointLight*>( light ) );
+            break;
+        }
+        case light::SPOT:
+        {
+            // TODO:
+            break;
+        }
+    }
+}
+
+void RenderLists::removeLight( Light* light )
+{
+    // remove the light based on it's type
+    switch( light->getLightType() )
+    {
+        case light::DIRECTIONAL:
+        {
+            // TODO:
+            break;
+        }
+        case light::POINT:
+        {
+            removePointLight( dynamic_cast<PointLight*>( light ) );
+            break;
+        }
+        case light::SPOT:
+        {
+            // TODO:
+            break;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+//                            PRIVATE MEMBER FUNCTIONS
+//------------------------------------------------------------------------------
+
+void RenderLists::addPointLight( PointLight* light )
+{
+    // don't add the light if over the max point light limit
+    if ( m_pointLights.size() >= MAX_POINT_LIGHTS )
+    {
+        // TODO: some sort of warning if in designer mode
+        // don't add the light
+        return;
+    }
+
+    // add to the list of point lights
+    m_pointLights.push_back( light );
+}
+
+void RenderLists::removePointLight( PointLight* light )
+{
+    for ( std::vector<PointLight*>::iterator it = m_pointLights.begin();
+          it != m_pointLights.end(); )
+    {
+        if ( *it == light )
+        {
+            it = m_pointLights.erase( it );
+            return;
+        }
+        ++it;
     }
 }
 
