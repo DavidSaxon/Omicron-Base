@@ -186,6 +186,9 @@ void Renderable::setShader()
 
     // pass in the matrices to the shader
     glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelMatrix" ),
+        1, GL_FALSE, &m_modelMatrix[0][0] );
+    glUniformMatrix4fv(
         glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
         1, GL_FALSE, &m_modelViewProjectionMatrix[0][0] );
 

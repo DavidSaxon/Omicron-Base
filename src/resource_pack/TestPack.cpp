@@ -19,6 +19,13 @@ void buildTestPack()
         "res/gfx/geometry/test/floor_1.obj",
         1
     );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_tunnel_1", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/wall_1.png",
+        "res/gfx/geometry/test/tunnel_1.obj",
+        1
+    );
     omi::ResourceManager::addMaterialGeometryMesh(
         "test_monkey", resource_group::TEST,
         "default_shader",

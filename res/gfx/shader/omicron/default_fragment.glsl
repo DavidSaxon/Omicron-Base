@@ -52,17 +52,23 @@ void main() {
         // apply ambient light
         vec3 light = u_ambientLight;
 
-        // apply point lights
-        // TODO: vec3(0.0) = light pos
-        vec3 L = normalize(vec3(0.0, -1.0, 0.0) - v_vertex);
-        vec3 E = normalize(-v_vertex);
-        vec3 R = normalize(-reflect(L, v_normal));
+        vec3 pointPos = vec3( 0.0, 1.0, 0.0 );
 
-        // TODO: vec3(1.0) = diffuse
-        vec3 diffuse = vec3(1.5) * max(dot(v_normal, L), 0.0);
+        // apply point lights
+        // calculate the distance from the light
+        float distance = length( pointPos - v_vertex ) / 1.0; // TODO: distance
+        // calculate the direction from the light
+        vec3 lightVector = normalize( pointPos - v_vertex );
+        // calculate the dot product between the normal and light vector
+        float diffuse = max( dot( v_normal, lightVector ), 0.0 );
+        // add attenuation
+        diffuse = diffuse * ( 1.0 / ( 1.0 + ( 0.25 * distance * distance ) ) );
+        // calculate the diffuse vector
+        vec3 diffuseVector = vec3( diffuse, diffuse, diffuse );
+        // TODO: add colour
 
         // TODO:
-        light += diffuse;
+        light += diffuseVector;
 
         gl_FragColor = material * vec4(light, 1.0);
     }

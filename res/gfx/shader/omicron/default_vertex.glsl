@@ -4,6 +4,8 @@
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
+// the model matrix
+uniform mat4 u_modelMatrix;
 // the model, view, projection matrix
 uniform mat4 u_modelViewProjectionMatrix;
 
@@ -21,7 +23,7 @@ varying vec3 v_normal;
 void main()
 {
     //set the vertex coord
-    v_vertex = vec3( u_modelViewProjectionMatrix * gl_Vertex );
+    v_vertex = vec3( u_modelMatrix * gl_Vertex );
     //set the normal
     v_normal = normalize( gl_NormalMatrix * gl_Normal );
     //set the texture coords
