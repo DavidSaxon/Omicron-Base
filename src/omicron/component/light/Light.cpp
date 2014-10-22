@@ -7,15 +7,15 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 Light::Light(
-        const std::string& id,
-        const glm::vec3&   position,
-              float        strength,
-        const glm::vec3&   colour )
+        const std::string&    id,
+              omi::Transform* transform,
+              float           strength,
+        const glm::vec3&      colour )
     :
-    Component ( id ),
-    m_position( position ),
-    m_strength( strength ),
-    m_colour  ( colour )
+    Component  ( id ),
+    m_transform( transform ),
+    m_strength ( strength ),
+    m_colour   ( colour )
 {
 }
 
@@ -35,9 +35,9 @@ glm::vec3 Light::getValue() const
     return m_colour * m_strength;
 }
 
-const glm::vec3& Light::getPosition() const
+omi::Transform* Light::getTransform()
 {
-    return m_position;
+    return m_transform;
 }
 
 float Light::getStrength() const
@@ -52,9 +52,9 @@ const glm::vec3& Light::getColour() const
 
 //-----------------------------------SETTERS------------------------------------
 
-void Light::setPosition( const glm::vec3& position )
+void Light::setTransform( omi::Transform* transform )
 {
-    m_position = position;
+    m_transform = transform;
 }
 
 void Light::setStrength( float strength )

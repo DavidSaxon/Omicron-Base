@@ -18,16 +18,16 @@ public:
 
     /** Creates a new point light
     @param id the identifier of the component
-    @param position the position of the point
+    @param transform the transform of the light
     @param strength the strength of the light
     @param distance the distance the light casts over
     @param colour the colour of the light */
     PointLight(
-            const std::string& id,
-            const glm::vec3&   position,
-                  float        strength,
-                  float        distance,
-            const glm::vec3&   colour );
+            const std::string&    id,
+                  omi::Transform* transform,
+                  float           strength,
+                  float           distance,
+            const glm::vec3&      colour );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS

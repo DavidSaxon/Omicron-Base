@@ -7,6 +7,7 @@
 #include "lib/glm/glm.hpp"
 
 #include "src/omicron/component/Component.hpp"
+#include "src/omicron/component/Transform.hpp"
 
 namespace omi {
 
@@ -33,14 +34,14 @@ public:
 
     /** Super constructor for lights
     @param id the identifier of the component
-    @param position the position of the light
+    @param transform the transform to use for the light
     @param strength the strength of the light
     @param colour the colour of the light */
     Light(
-            const std::string& id,
-            const glm::vec3&   position,
-                  float        strength,
-            const glm::vec3&   colour );
+            const std::string&    id,
+                  omi::Transform* transform,
+                  float           strength,
+            const glm::vec3&      colour );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -57,8 +58,8 @@ public:
     /** @return the value of the light ( colour * strength ) */
     glm::vec3 getValue() const;
 
-    /** @return the position of the light */
-    const glm::vec3& getPosition() const;
+    /** @return the transform of the light */
+    omi::Transform* getTransform();
 
     /** @return the strength of the light */
     float getStrength() const;
@@ -68,8 +69,8 @@ public:
 
     //---------------------------------SETTERS----------------------------------
 
-    /** @param position the new position of the light */
-    void setPosition( const glm::vec3& position );
+    /** @param transform the new transform of the light */
+    void setTransform( omi::Transform* transform );
 
     /** @param strength the new strength of the light */
     void setStrength( float strength );
@@ -84,7 +85,7 @@ protected:
     //--------------------------------------------------------------------------
 
     // the position of the light
-    glm::vec3 m_position;
+    omi::Transform* m_transform;
     // the strength of the light
     float m_strength;
     // the colour of the light

@@ -7,13 +7,13 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 PointLight::PointLight(
-        const std::string& id,
-        const glm::vec3&   position,
-              float        strength,
-              float        distance,
-        const glm::vec3&   colour )
+        const std::string&    id,
+              omi::Transform* transform,
+              float           strength,
+              float           distance,
+        const glm::vec3&      colour )
     :
-    Light     ( id, position, strength, colour ),
+    Light     ( id, transform, strength, colour ),
     m_distance( distance )
 {
 }

@@ -33,8 +33,8 @@ Renderable::Renderable(
 //------------------------------------------------------------------------------
 
 void Renderable::render(
-              Camera* camera,
-        const std::vector<PointLight*>& pointLights )
+        Camera* camera,
+        std::vector<PointLight*>& pointLights )
 {
     // update the material
     m_material.update();
@@ -45,7 +45,8 @@ void Renderable::render(
         return;
     }
 
-    applyTransformations( camera );
+    applyTransformations();
+    calculateMatrices( camera );
     setShader( pointLights );
     draw();
     unsetShader();
@@ -65,7 +66,8 @@ void Renderable::renderSelectable(
     }
 
     //set up
-    applyTransformations( camera );
+    applyTransformations();
+    calculateMatrices( camera );
 
     // shader shit
     GLuint program = selectionShader.getProgram();
@@ -140,7 +142,7 @@ void Renderable::setTransform( Transform* transform )
 //                           PROTECTED MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Renderable::applyTransformations( Camera* camera )
+void Renderable::applyTransformations()
 {
     // apply identity to model matrix
     m_modelMatrix = glm::mat4( 1.0f );
@@ -148,12 +150,6 @@ void Renderable::applyTransformations( Camera* camera )
     // do nothing if the transform is null
     if ( !m_transform )
     {
-        // make just apply default model matrix if no transform has been
-        // provided
-        m_modelViewProjectionMatrix =
-            camera->getProjectionMatrix() *
-            camera->getViewMatrix() *
-            m_modelMatrix;
         return;
     }
 
@@ -171,7 +167,16 @@ void Renderable::applyTransformations( Camera* camera )
     m_modelMatrix *= glm::rotate( rotation.y, glm::vec3( 0.0f, 1.0f, 0.0f ) );
     m_modelMatrix *= glm::rotate( rotation.z, glm::vec3( 0.0f, 0.0f, 1.0f ) );
     m_modelMatrix *= glm::scale( scale );
+}
 
+void Renderable::calculateMatrices( Camera* camera )
+{
+    // get the view matrix from the camera
+    m_viewMatrix = camera->getViewMatrix();
+    // calculate the model, view matrix
+    m_modelViewMatrix = camera->getViewMatrix() * m_modelMatrix;
+    // calcaulate the normal matrix
+    m_normalMatrix = glm::transpose( glm::inverse( m_modelViewMatrix ) );
     //calculate the model, view, projection matrix
     m_modelViewProjectionMatrix =
         camera->getProjectionMatrix() *
@@ -179,7 +184,7 @@ void Renderable::applyTransformations( Camera* camera )
         m_modelMatrix;
 }
 
-void Renderable::setShader( const std::vector<PointLight*>& pointLights )
+void Renderable::setShader( std::vector<PointLight*>& pointLights )
 {
     // get the OpenGL program
     GLuint program = m_material.shader.getProgram();
@@ -190,6 +195,15 @@ void Renderable::setShader( const std::vector<PointLight*>& pointLights )
     glUniformMatrix4fv(
         glGetUniformLocation( program, "u_modelMatrix" ),
         1, GL_FALSE, &m_modelMatrix[0][0] );
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_viewMatrix" ),
+        1, GL_FALSE, &m_viewMatrix[0][0] );
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelViewMatrix" ),
+        1, GL_FALSE, &m_modelViewMatrix[0][0] );
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_normalMatrix" ),
+        1, GL_FALSE, &m_normalMatrix[0][0] );
     glUniformMatrix4fv(
         glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
         1, GL_FALSE, &m_modelViewProjectionMatrix[0][0] );
@@ -244,13 +258,16 @@ void Renderable::setShader( const std::vector<PointLight*>& pointLights )
         std::vector<float> pointPositions;
         std::vector<float> pointDistances;
         std::vector<float> pointColours;
-        for ( std::vector<PointLight*>::const_iterator light =
-              pointLights.begin(); light != pointLights.end(); ++light )
+        for ( std::vector<PointLight*>::iterator light = pointLights.begin();
+              light != pointLights.end(); ++light )
         {
             // positions
-            pointPositions.push_back( ( *light )->getPosition().x );
-            pointPositions.push_back( ( *light )->getPosition().y );
-            pointPositions.push_back( ( *light )->getPosition().z );
+            pointPositions.push_back(
+                ( *light )->getTransform()->translation.x );
+            pointPositions.push_back(
+                ( *light )->getTransform()->translation.y );
+            pointPositions.push_back(
+                ( *light )->getTransform()->translation.z );
             // distances
             pointDistances.push_back( ( *light )->getDistance() );
             // colours

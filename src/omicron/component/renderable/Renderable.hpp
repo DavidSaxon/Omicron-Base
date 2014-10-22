@@ -69,8 +69,8 @@ public:
     @param camera the camera used to render this
     @param pointLights the list of point lights to use to render this */
     void render(
-                  Camera* camera,
-            const std::vector<PointLight*>& pointLights );
+            Camera* camera,
+            std::vector<PointLight*>& pointLights );
 
     /** #Hidden
     Render this component for colour picking */
@@ -117,6 +117,12 @@ protected:
 
     // the model matrix
     glm::mat4 m_modelMatrix;
+    // the view matrix
+    glm::mat4 m_viewMatrix;
+    // the combined model, and view matrix
+    glm::mat4 m_modelViewMatrix;
+    // the transpose inverse of the modelView matrix
+    glm::mat4 m_normalMatrix;
     // the combined model, view, and projection matrix
     glm::mat4 m_modelViewProjectionMatrix;
 
@@ -126,10 +132,13 @@ protected:
 
     /** Applies transformations
     @param the camera to get the view and projection matrices from */
-    void applyTransformations( Camera* camera );
+    void applyTransformations();
+
+    /** Calculates matrices */
+    void calculateMatrices( Camera* camera );
 
     /** Sets up the shader for rendering and passes in all data */
-    void setShader( const std::vector<PointLight*>& pointLights );
+    void setShader( std::vector<PointLight*>& pointLights );
 
     /** Cleans up the shader */
     void unsetShader();
