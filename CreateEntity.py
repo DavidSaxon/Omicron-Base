@@ -79,6 +79,7 @@ class CreateEntity(QtGui.QWidget):
 
         # include guard
         include_guard = str(self._project_name).upper()
+        include_guard += "_ENTITIES"
         for group in str(self._sub_groups).split('/'):
             if group == '' or group == ' ':
                 continue
@@ -184,7 +185,7 @@ class CreateEntity(QtGui.QWidget):
             self._write_title(file, 0, 'CONSTRUCTOR')
             self._write_line(file, '')
             self._write_line(file, str(self._entity_name) + '::' +
-                str(self._entity_name) + '() {')
+                str(self._entity_name) + '()\n{')
             self._write_line(file, '}')
             self._write_line(file, '')
 
@@ -193,18 +194,18 @@ class CreateEntity(QtGui.QWidget):
             self._write_title(file, 0, 'DESTRUCTOR')
             self._write_line(file, '')
             self._write_line(file, str(self._entity_name) + '::~' +
-                str(self._entity_name) + '() {')
+                str(self._entity_name) + '()\n{')
             self._write_line(file, '}')
             self._write_line(file, '')
 
         # public member functions
         self._write_title(file, 0, 'PUBLIC MEMBER FUNCTIONS')
         self._write_line(file, '')
-        self._write_line(file, 'void ' + str(self._entity_name) + '::init() {')
+        self._write_line(file, 'void ' + str(self._entity_name) + '::init()\n{')
         self._write_line(file, '}')
         self._write_line(file, '')
         self._write_line(
-            file, 'void ' + str(self._entity_name) + '::update() {')
+            file, 'void ' + str(self._entity_name) + '::update()\n{')
         self._write_line(file, '}')
         self._write_line(file, '')
 

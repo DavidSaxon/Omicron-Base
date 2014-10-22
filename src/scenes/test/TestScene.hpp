@@ -4,6 +4,8 @@
 #include "src/omicron/input/Input.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
+#include "src/entities/test/Human.hpp"
+#include "src/entities/test/Monkey.hpp"
 #include "src/entities/test/TestEnvironment.hpp"
 #include "src/entities/test/TestPlayer.hpp"
 

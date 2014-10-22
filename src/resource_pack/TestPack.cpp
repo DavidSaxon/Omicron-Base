@@ -6,7 +6,7 @@ void buildTestPack()
 {
     omi::ResourceManager::addTextureMaterialGeometryMesh(
         "test_skybox", resource_group::TEST,
-        "test_shader",
+        "default_shader",
         "res/gfx/texture/test/skybox.png",
         "res/gfx/geometry/test/skybox.obj",
         0

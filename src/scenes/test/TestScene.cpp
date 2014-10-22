@@ -12,8 +12,10 @@ void TestScene::init()
         omi::displaySettings.getCentre() );
 
     // add entities
-    addEntity( new TestEnvironment() );
     addEntity( new TestPlayer() );
+    addEntity( new TestEnvironment() );
+    addEntity( new Human() );
+    addEntity( new Monkey() );
 }
 
 bool TestScene::update()

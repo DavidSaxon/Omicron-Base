@@ -16,7 +16,7 @@ void TestPlayer::init()
     // create the camera
     m_camT = new omi::Transform(
             "",
-            glm::vec3( 0.0f, 0.0f, -1.0f ),
+            glm::vec3( 0.0f, 0.0f, -10.0f ),
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
