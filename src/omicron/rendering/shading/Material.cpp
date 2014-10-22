@@ -85,7 +85,7 @@ bool Material::isShadeless() const
 
 void Material::parseFlags()
 {
-    m_shadeless = ( m_flags | material::SHADELESS ) != 0;
+    m_shadeless = ( m_flags & material::SHADELESS ) != 0;
 }
 
 } // namespace omi

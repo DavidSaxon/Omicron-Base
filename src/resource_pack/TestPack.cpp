@@ -9,7 +9,8 @@ void buildTestPack()
         "default_shader",
         "res/gfx/texture/test/skybox.png",
         "res/gfx/geometry/test/skybox.obj",
-        0
+        0, 0,
+        omi::material::SHADELESS
     );
     omi::ResourceManager::addTextureMaterialGeometryMesh(
         "test_floor_1", resource_group::TEST,

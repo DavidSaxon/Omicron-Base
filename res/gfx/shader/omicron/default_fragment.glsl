@@ -11,6 +11,8 @@ uniform int u_hasTexture;
 // the texture
 uniform sampler2D u_texture;
 
+// if the material is shadeless
+uniform int u_shadeless;
 //the ambient light
 uniform vec3 u_ambientLight;
 
@@ -41,22 +43,27 @@ void main() {
 
     //---------------------------------LIGHTING---------------------------------
 
-    // apply ambient light
-    vec3 light = u_ambientLight;
+    if ( u_shadeless != 0 )
+    {
+        gl_FragColor = material;
+    }
+    else
+    {
+        // apply ambient light
+        vec3 light = u_ambientLight;
 
-    // apply point lights
-    // TODO: vec3(0.0) = light pos
-    vec3 L = normalize(vec3(0.0, -1.0, 0.0) - v_vertex);
-    vec3 E = normalize(-v_vertex);
-    vec3 R = normalize(-reflect(L, v_normal));
+        // apply point lights
+        // TODO: vec3(0.0) = light pos
+        vec3 L = normalize(vec3(0.0, -1.0, 0.0) - v_vertex);
+        vec3 E = normalize(-v_vertex);
+        vec3 R = normalize(-reflect(L, v_normal));
 
-    // TODO: vec3(1.0) = diffuse
-    vec3 diffuse = vec3(1.5) * max(dot(v_normal, L), 0.0);
+        // TODO: vec3(1.0) = diffuse
+        vec3 diffuse = vec3(1.5) * max(dot(v_normal, L), 0.0);
 
-    // TODO:
-    light += diffuse;
+        // TODO:
+        light += diffuse;
 
-    //----------------------------------OUTPUT----------------------------------
-
-    gl_FragColor = material * vec4(light, 1.0);
+        gl_FragColor = material * vec4(light, 1.0);
+    }
 }

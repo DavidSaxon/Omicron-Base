@@ -13,14 +13,6 @@ void buildAllPack()
         "res/gfx/shader/omicron/default_vertex.glsl",
         "res/gfx/shader/omicron/default_fragment.glsl"
     );
-
-    // testing shader
-    omi::ResourceManager::addShader(
-        "test_shader",
-        resource_group::ALL,
-        "res/gfx/shader/omicron/test_vertex.glsl",
-        "res/gfx/shader/omicron/test_fragment.glsl"
-    );
 }
 
 } // namespace pack
