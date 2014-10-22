@@ -6,10 +6,10 @@
 
 void TestEnvironment::init()
 {
-    std::cout << "what the fuck?" << std::endl;
     m_components.add(
             omi::ResourceManager::getMesh( "test_skybox", "", NULL ) );
-    // omi::ResourceManager::getMesh( "test_skybox", "", NULL );
+    m_components.add(
+            omi::ResourceManager::getMesh( "test_floor_1", "", NULL ) );
 }
 
 void TestEnvironment::update()

@@ -86,7 +86,12 @@ void Camera::apply()
     if ( m_mode == cam::PERSPECTIVE )
     {
         m_projectionMatrix =
-            glm::perspective( m_fov, aspectRatio, m_nearClip, m_farClip );
+            glm::perspective(
+                m_fov * util::math::DEGREES_TO_RADIANS,
+                aspectRatio,
+                m_nearClip,
+                m_farClip
+            );
     }
     else
     {
@@ -96,16 +101,25 @@ void Camera::apply()
 
     // view matrix
     m_viewMatrix = glm::lookAt(
-        glm::vec3( 0, 0, 1 ),
+        glm::vec3( 0, 0, m_nearClip ),
         glm::vec3( 0, 0, 0 ),
         glm::vec3( 0, 1, 0 )
     );
     // scale
     m_viewMatrix *= glm::scale( scale );
     // rotation
-    m_viewMatrix *= glm::rotate( rotation.x, glm::vec3( 1.0f, 0.0f, 0.0f ) );
-    m_viewMatrix *= glm::rotate( rotation.y, glm::vec3( 0.0f, 1.0f, 0.0f ) );
-    m_viewMatrix *= glm::rotate( rotation.z, glm::vec3( 0.0f, 0.0f, 1.0f ) );
+    m_viewMatrix *= glm::rotate(
+        rotation.x * util::math::DEGREES_TO_RADIANS,
+        glm::vec3( 1.0f, 0.0f, 0.0f )
+    );
+    m_viewMatrix *= glm::rotate(
+        rotation.y * util::math::DEGREES_TO_RADIANS,
+        glm::vec3( 0.0f, 1.0f, 0.0f )
+    );
+    m_viewMatrix *= glm::rotate(
+        rotation.z * util::math::DEGREES_TO_RADIANS,
+        glm::vec3( 0.0f, 0.0f, 1.0f )
+    );
     // translation
     m_viewMatrix *= glm::translate( translation );
 }

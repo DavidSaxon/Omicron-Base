@@ -11,6 +11,9 @@
 #include "lib/glm/glm.hpp"
 #include "lib/glm/gtx/transform.hpp"
 
+#include "lib/Utilitron/MathUtil.hpp"
+
+
 #include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/Component.hpp"
 #include "src/omicron/component/Transform.hpp"
