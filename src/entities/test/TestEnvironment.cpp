@@ -14,7 +14,7 @@ void TestEnvironment::init()
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
     m_components.add( new omi::PointLight(
-        "", t_1, 1.0f, 3.0f, glm::vec3( 1.0f, 0.5f, 0.5f )
+        "", t_1, 1.0f, 3.0f, glm::vec3( 1.0f, 1.0f, 1.0f )
     ) );
     omi::Transform* t_2 = new omi::Transform(
             "",
@@ -29,6 +29,11 @@ void TestEnvironment::init()
     // meshes
     m_components.add(
             omi::ResourceManager::getMesh( "test_tunnel_1", "", NULL ) );
+    m_components.add(
+            omi::ResourceManager::getMesh( "test_tunnel_pipe_1", "", NULL ) );
+    m_components.add(
+            omi::ResourceManager::getMesh(
+            "test_tunnel_pipe_holder_1", "", NULL ) );
     m_components.add(
             omi::ResourceManager::getMesh( "test_floor_1", "", NULL ) );
 }

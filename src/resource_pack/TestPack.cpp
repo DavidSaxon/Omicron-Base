@@ -26,6 +26,20 @@ void buildTestPack()
         "res/gfx/geometry/test/tunnel_1.obj",
         1
     );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_tunnel_pipe_1", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/pipe_1.png",
+        "res/gfx/geometry/test/tunnel_pipe_1.obj",
+        1
+    );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_tunnel_pipe_holder_1", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/pipe_holder_1.png",
+        "res/gfx/geometry/test/tunnel_pipe_holder_1.obj",
+        1
+    );
     omi::ResourceManager::addMaterialGeometryMesh(
         "test_monkey", resource_group::TEST,
         "default_shader",
