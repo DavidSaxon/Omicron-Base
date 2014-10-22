@@ -58,6 +58,9 @@ void main()
     //---------------------------------LIGHTING---------------------------------
     // TODO: these should come from material/light
     float shininess = 128.0;
+    vec3 materialSpecular = vec3( 1.0, 1.0, 1.0 );
+    // TODO: this should just ben light colour??
+    vec3 lightSpecular = u_PointColour[0];
 
     // transform the normal into eye space
     vec3 normal = normalize( vec3( u_normalMatrix * vec4( gl_Normal, 0.0 ) ) );
@@ -76,17 +79,20 @@ void main()
 
     // compute the cosine of the angle between the normal and light direction
     float cosThetha = max( dot( normal, lightDir), 0.0 );
+    // compute the diffuse colour
+    vec3 diffuse = u_PointColour[0] * cosThetha;
 
     // specular
-    float specular = 0.0;
+    vec3 specular = vec3( 0.0, 0.0, 0.0 );
     if ( cosThetha > 0.0 )
     {
         float cosAlpha = max( dot( normal, half ), 0.0 );
-        specular = pow( cosAlpha, shininess );
+        specular =
+            materialSpecular * lightSpecular * pow( cosAlpha, shininess );
     }
 
-    vec3 colour = cosThetha * u_PointColour[0];
-    colour += vec3( specular, specular, specular );
+    vec3 colour = diffuse;
+    colour += specular;
     v_colour = u_colour * vec4( colour, 1.0 );
 
     //set the position
