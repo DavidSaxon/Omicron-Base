@@ -8,6 +8,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/component/light/DirectionalLight.hpp"
 #include "src/omicron/component/light/PointLight.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/input/Input.hpp"
@@ -102,8 +103,8 @@ private:
 
     // the list of renderables
     std::vector<Renderable*> m_renderables;
-    // the list of point lights
-    std::vector<PointLight*> m_pointLights;
+    // the list of lights
+    std::vector<Light*> m_lights;
 
     // the depth sorter
     RenderableDepthSorter depthSorter;
@@ -112,13 +113,9 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /** Adds a point light to the render lists
-    @param light the point light to add */
-    void addPointLight( PointLight* light );
+    /** Builds light data */
+    void buildLightData( Camera* camera, LightData& lightData );
 
-    /** Removes a point light from the render lists
-    @param light the point light to remove */
-    void removePointLight( PointLight* light );
 };
 
 } // namespace omi

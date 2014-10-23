@@ -9,12 +9,12 @@ namespace omi {
 Light::Light(
         const std::string&    id,
               omi::Transform* transform,
-              float           strength,
+              float           power,
         const glm::vec3&      colour )
     :
     Component  ( id ),
     m_transform( transform ),
-    m_strength ( strength ),
+    m_power ( power ),
     m_colour   ( colour )
 {
 }
@@ -32,7 +32,7 @@ component::Type Light::getType() const
 
 glm::vec3 Light::getValue() const
 {
-    return m_colour * m_strength;
+    return m_colour * m_power;
 }
 
 omi::Transform* Light::getTransform()
@@ -40,9 +40,9 @@ omi::Transform* Light::getTransform()
     return m_transform;
 }
 
-float Light::getStrength() const
+float Light::getPower() const
 {
-    return m_strength;
+    return m_power;
 }
 
 const glm::vec3& Light::getColour() const
@@ -57,9 +57,9 @@ void Light::setTransform( omi::Transform* transform )
     m_transform = transform;
 }
 
-void Light::setStrength( float strength )
+void Light::setPower( float power )
 {
-    m_strength = strength;
+    m_power = power;
 }
 
 void Light::setColour( const glm::vec3& colour )

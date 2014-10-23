@@ -34,13 +34,12 @@ uniform vec4 u_colour;
 
 // the texture coords
 varying vec2 v_texCoord;
-// TESTING
-varying vec4 v_colour;
+// the normal
+varying vec3 v_normal;
 
 // // the vertex coords
 // varying vec3 v_vertex;
-// // the normals
-// varying vec3 v_normal;
+
 
 //------------------------------------------------------------------------------
 //                                 MAIN FUNCTION
@@ -50,6 +49,11 @@ void main()
 {
     //set the texture coords
     v_texCoord = vec2( gl_MultiTexCoord0 );
+    // transform the normal into eye space
+    v_normal = normalize( vec3( u_normalMatrix * vec4( gl_Normal, 0.0 ) ) );
+    //
+
+
     // //set the vertex coord
     // v_vertex = vec3( u_modelMatrix * gl_Vertex );
     // //set the normal
@@ -57,43 +61,43 @@ void main()
 
     //---------------------------------LIGHTING---------------------------------
     // TODO: these should come from material/light
-    float shininess = 128.0;
-    vec3 materialSpecular = vec3( 1.0, 1.0, 1.0 );
-    // TODO: this should just ben light colour??
-    vec3 lightSpecular = u_PointColour[0];
+    // float shininess = 128.0;
+    // vec3 materialSpecular = vec3( 1.0, 1.0, 1.0 );
+    // // TODO: this should just ben light colour??
+    // vec3 lightSpecular = u_PointColour[0];
 
-    // transform the normal into eye space
-    vec3 normal = normalize( vec3( u_normalMatrix * vec4( gl_Normal, 0.0 ) ) );
+    // // transform the normal into eye space
+    // vec3 normal = normalize( vec3( u_normalMatrix * vec4( gl_Normal, 0.0 ) ) );
 
-    // get the eye position
-    // TODO: should this just use model view?????
-    vec3 eyePos = -vec3( u_modelViewProjectionMatrix * gl_Vertex );
+    // // get the eye position
+    // // TODO: should this just use model view?????
+    // vec3 eyePos = -vec3( u_modelViewProjectionMatrix * gl_Vertex );
 
-    // transform the light position into eye space
-    vec3 lightPos = vec3( u_viewMatrix * vec4( u_PointPos[0], 0.0 ) );
-    // get the direction of the light
-    vec3 lightDir = normalize( lightPos );
+    // // transform the light position into eye space
+    // vec3 lightPos = vec3( u_viewMatrix * vec4( u_PointPos[0], 0.0 ) );
+    // // get the direction of the light
+    // vec3 lightDir = normalize( lightPos );
 
-    // half vector
-    vec3 half = normalize( lightPos + eyePos );
+    // // half vector
+    // vec3 half = normalize( lightPos + eyePos );
 
-    // compute the cosine of the angle between the normal and light direction
-    float cosThetha = max( dot( normal, lightDir), 0.0 );
-    // compute the diffuse colour
-    vec3 diffuse = u_PointColour[0] * cosThetha;
+    // // compute the cosine of the angle between the normal and light direction
+    // float cosThetha = max( dot( normal, lightDir), 0.0 );
+    // // compute the diffuse colour
+    // vec3 diffuse = u_PointColour[0] * cosThetha;
 
-    // specular
-    vec3 specular = vec3( 0.0, 0.0, 0.0 );
-    if ( cosThetha > 0.0 )
-    {
-        float cosAlpha = max( dot( normal, half ), 0.0 );
-        specular =
-            materialSpecular * lightSpecular * pow( cosAlpha, shininess );
-    }
+    // // specular
+    // vec3 specular = vec3( 0.0, 0.0, 0.0 );
+    // if ( cosThetha > 0.0 )
+    // {
+    //     float cosAlpha = max( dot( normal, half ), 0.0 );
+    //     specular =
+    //         materialSpecular * lightSpecular * pow( cosAlpha, shininess );
+    // }
 
-    vec3 colour = diffuse;
-    colour += specular;
-    v_colour = u_colour * vec4( colour, 1.0 );
+    // vec3 colour = diffuse;
+    // colour += specular;
+    // v_colour = u_colour * vec4( colour, 1.0 );
 
     //set the position
     gl_Position = u_modelViewProjectionMatrix * gl_Vertex;

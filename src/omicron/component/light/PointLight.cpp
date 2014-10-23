@@ -9,11 +9,11 @@ namespace omi {
 PointLight::PointLight(
         const std::string&    id,
               omi::Transform* transform,
-              float           strength,
+              float           power,
               float           distance,
         const glm::vec3&      colour )
     :
-    Light     ( id, transform, strength, colour ),
+    Light     ( id, transform, power, colour ),
     m_distance( distance )
 {
 }

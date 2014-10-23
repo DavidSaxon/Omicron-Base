@@ -32,9 +32,7 @@ Renderable::Renderable(
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Renderable::render(
-        Camera* camera,
-        std::vector<PointLight*>& pointLights )
+void Renderable::render( Camera* camera, const LightData& lightData )
 {
     // update the material
     m_material.update();
@@ -47,7 +45,7 @@ void Renderable::render(
 
     applyTransformations();
     calculateMatrices( camera );
-    setShader( pointLights );
+    setShader( lightData );
     draw();
     unsetShader();
 }
@@ -184,7 +182,7 @@ void Renderable::calculateMatrices( Camera* camera )
         m_modelMatrix;
 }
 
-void Renderable::setShader( std::vector<PointLight*>& pointLights )
+void Renderable::setShader( const LightData& lightData )
 {
     // get the OpenGL program
     GLuint program = m_material.shader.getProgram();
@@ -249,58 +247,32 @@ void Renderable::setShader( std::vector<PointLight*>& pointLights )
             ambientLight.r, ambientLight.g, ambientLight.b
         );
 
-        // pass in directional lights
-        // TODO:
-
-        // pass in point lights
-        // TODO: this only needs to be done once and can be passed in via struct
-        // create the needed vectors
-        std::vector<float> pointPositions;
-        std::vector<float> pointDistances;
-        std::vector<float> pointColours;
-        for ( std::vector<PointLight*>::iterator light = pointLights.begin();
-              light != pointLights.end(); ++light )
-        {
-            // positions
-            pointPositions.push_back(
-                ( *light )->getTransform()->translation.x );
-            pointPositions.push_back(
-                ( *light )->getTransform()->translation.y );
-            pointPositions.push_back(
-                ( *light )->getTransform()->translation.z );
-            // distances
-            pointDistances.push_back( ( *light )->getDistance() );
-            // colours
-            pointColours.push_back( ( *light )->getValue().r );
-            pointColours.push_back( ( *light )->getValue().g );
-            pointColours.push_back( ( *light )->getValue().b );
-        }
-        // the number of point lights
+        // the number of lights
         glUniform1i(
-            glGetUniformLocation( program, "u_PointCount" ),
-            pointLights.size()
+            glGetUniformLocation( program, "u_lightCount" ),
+            lightData.types.size()
         );
-        // the positions of point lights
-        glUniform3fv(
-            glGetUniformLocation( program, "u_PointPos" ),
-            pointLights.size(),
-            &pointPositions[0]
-        );
-        // the distances of point lights
-        glUniform1fv(
-            glGetUniformLocation( program, "u_PointDis" ),
-            pointLights.size(),
-            &pointDistances[0]
-        );
-        // the colours of point lights
-        glUniform3fv(
-            glGetUniformLocation( program, "u_PointColour" ),
-            pointLights.size(),
-            &pointColours[0]
-        );
-
-        // pass in spot lights
-        // TODO:
+        if ( lightData.types.size() > 0 )
+        {
+            // the types of lights
+            glUniform1iv(
+                glGetUniformLocation( program, "u_lightType" ),
+                lightData.types.size(),
+                &lightData.types[0]
+            );
+            // the positions of lights
+            glUniform3fv(
+                glGetUniformLocation( program, "u_lightPos" ),
+                lightData.types.size(),
+                &lightData.positions[0]
+            );
+            // the colours of lights
+            glUniform3fv(
+                glGetUniformLocation( program, "u_lightColour" ),
+                lightData.types.size(),
+                &lightData.colours[0]
+            );
+        }
     }
 }
 

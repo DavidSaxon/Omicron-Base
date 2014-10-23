@@ -5,7 +5,7 @@ namespace omi {
 namespace {
 
 // the maximum number of point lights
-static const unsigned MAX_POINT_LIGHTS = 8;
+static const unsigned MAX_LIGHTS = 8;
 
 } // namespace anonymous
 
@@ -126,10 +126,15 @@ void RenderLists::render( Camera* camera )
 
     //-----------------------------VISIBLE ELEMENTS-----------------------------
 
+
+    LightData lightData;
+
     // apply the camera
     if ( camera != NULL )
     {
         camera->apply();
+        // build lighting data
+        buildLightData( camera, lightData );
     }
 
     // iterate over the layers
@@ -145,7 +150,7 @@ void RenderLists::render( Camera* camera )
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
               itr != it->second.end(); ++itr)
         {
-            ( *itr )->render( camera, m_pointLights );
+            ( *itr )->render( camera, lightData );
         }
     }
 }
@@ -176,47 +181,29 @@ void RenderLists::removeRenderable( Renderable* renderable )
 
 void RenderLists::addLight( Light* light )
 {
-    // add the light based on it's type
-    switch( light->getLightType() )
+    // don't add the light if over the max light limit
+    if ( m_lights.size() >= MAX_LIGHTS )
     {
-        case light::DIRECTIONAL:
-        {
-            // TODO:
-            break;
-        }
-        case light::POINT:
-        {
-            addPointLight( dynamic_cast<PointLight*>( light ) );
-            break;
-        }
-        case light::SPOT:
-        {
-            // TODO:
-            break;
-        }
+        // TODO: some sort of warning if in designer mode
+        // don't add the light
+        return;
     }
+
+    // add to the list of lights
+    m_lights.push_back( light );
 }
 
 void RenderLists::removeLight( Light* light )
 {
-    // remove the light based on it's type
-    switch( light->getLightType() )
+    for ( std::vector<Light*>::iterator it = m_lights.begin();
+          it != m_lights.end(); )
     {
-        case light::DIRECTIONAL:
+        if ( *it == light )
         {
-            // TODO:
-            break;
+            it = m_lights.erase( it );
+            return;
         }
-        case light::POINT:
-        {
-            removePointLight( dynamic_cast<PointLight*>( light ) );
-            break;
-        }
-        case light::SPOT:
-        {
-            // TODO:
-            break;
-        }
+        ++it;
     }
 }
 
@@ -224,31 +211,26 @@ void RenderLists::removeLight( Light* light )
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void RenderLists::addPointLight( PointLight* light )
+void RenderLists::buildLightData( Camera* camera, LightData& lightData )
 {
-    // don't add the light if over the max point light limit
-    if ( m_pointLights.size() >= MAX_POINT_LIGHTS )
+    for ( std::vector<Light*>::iterator it = m_lights.begin();
+          it != m_lights.end(); ++it )
     {
-        // TODO: some sort of warning if in designer mode
-        // don't add the light
-        return;
-    }
+        Light* light = *it;
+        // add generic data
+        lightData.types.push_back(
+            static_cast<int>( light->getLightType() ) );
+        // transform the light into eye space
+        glm::vec3 pos( light->getTransform()->translation );
+        pos = glm::vec3( camera->getViewMatrix() * glm::vec4( pos, 0.0f ) );
+        lightData.positions.push_back( pos.x );
+        lightData.positions.push_back( pos.y );
+        lightData.positions.push_back( pos.z );
+        lightData.colours.push_back( light->getValue().r );
+        lightData.colours.push_back( light->getValue().g );
+        lightData.colours.push_back( light->getValue().b );
 
-    // add to the list of point lights
-    m_pointLights.push_back( light );
-}
-
-void RenderLists::removePointLight( PointLight* light )
-{
-    for ( std::vector<PointLight*>::iterator it = m_pointLights.begin();
-          it != m_pointLights.end(); )
-    {
-        if ( *it == light )
-        {
-            it = m_pointLights.erase( it );
-            return;
-        }
-        ++it;
+        // TODO: type specific
     }
 }
 

@@ -30,12 +30,7 @@ uniform vec3 u_PointColour[8];
 
 //the texture coords
 varying vec2 v_texCoord;
-// TESTING
-varying vec4 v_colour;
-
-//the vertex coords
-varying vec3 v_vertex;
-//the normals
+//the normal
 varying vec3 v_normal;
 
 // // the vertex position in camera space
@@ -55,7 +50,7 @@ void main() {
 
     // the colour of the material
     // vec4 material = u_colour;
-    vec4 material = v_colour;
+    vec4 material = u_colour;
 
     //apply texturing
     vec4 textureColour = texture2D(u_texture, v_texCoord);
