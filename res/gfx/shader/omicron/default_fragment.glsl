@@ -19,19 +19,21 @@ uniform int u_shadeless;
 //the ambient light
 uniform vec3 u_ambientLight;
 
-// the number of point lights
-uniform int u_PointCount;
-// the point light positions
-uniform vec3 u_PointPos[8];
-// the point light distances
-uniform float u_PointDis[8];
-// the point light colours
-uniform vec3 u_PointColour[8];
+// the number of lights
+uniform int u_lightCount;
+// the light types
+uniform int u_lightType[8];
+// the light positions
+uniform vec3 u_lightPos[8];
+// the light colours
+uniform vec3 u_lightColour[8];
 
 //the texture coords
 varying vec2 v_texCoord;
 //the normal
 varying vec3 v_normal;
+// the eye position
+varying vec3 v_eyePos;
 
 // // the vertex position in camera space
 // varying vec3 v_vertexCameraSpace;
@@ -61,7 +63,41 @@ void main() {
 
     //---------------------------------LIGHTING---------------------------------
 
-    gl_FragColor = material;
+    if ( u_shadeless != 0 )
+    {
+        gl_FragColor = material;
+    }
+    else
+    {
+        // TODO: these should come from material
+        float shininess = 128.0;
+        vec3 materialSpecular = vec3( 1.0, 1.0, 1.0 );
+
+        // the light value
+        vec3 light = u_ambientLight;
+
+        // normalize the normal
+        vec3 N = normalize( v_normal );
+        // compute the light position
+        vec3 lightDir = normalize( u_lightPos[0] );
+        // compute the dot product between the normal and light direction
+        float cosThetha = max( dot( N, lightDir ), 0.0 );
+        // compute and add diffuse colour
+        light += u_lightColour[0] * cosThetha;
+        // compute specular
+        if ( cosThetha > 0.0 )
+        {
+            // calculate the half vector
+            vec3 half = normalize( u_lightPos[0] +  v_eyePos );
+            float cosAlpha = max( dot( N, half ), 0.0 );
+            light += materialSpecular * u_lightColour[0] *
+                    pow( cosAlpha, shininess );
+        }
+
+        gl_FragColor = material * vec4( light, 1.0 );
+    }
+
+
 
     // if ( u_shadeless != 0 )
     // {

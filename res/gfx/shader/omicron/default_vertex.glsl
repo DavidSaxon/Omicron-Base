@@ -36,6 +36,8 @@ uniform vec4 u_colour;
 varying vec2 v_texCoord;
 // the normal
 varying vec3 v_normal;
+// the eye position
+varying vec3 v_eyePos;
 
 // // the vertex coords
 // varying vec3 v_vertex;
@@ -51,7 +53,8 @@ void main()
     v_texCoord = vec2( gl_MultiTexCoord0 );
     // transform the normal into eye space
     v_normal = normalize( vec3( u_normalMatrix * vec4( gl_Normal, 0.0 ) ) );
-    //
+    // calculate the eye position
+    v_eyePos = -vec3( u_modelViewMatrix * gl_Vertex );
 
 
     // //set the vertex coord

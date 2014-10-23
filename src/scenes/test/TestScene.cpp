@@ -12,8 +12,8 @@ void TestScene::init()
         omi::displaySettings.getCentre() );
 
     // ambient lighting
-    omi::renderSettings.setAmbientStrength( 0.0f );
-    omi::renderSettings.setAmbientColour( glm::vec3( 0.3f, 0.3f, 1.0f ) );
+    omi::renderSettings.setAmbientStrength( 0.15f );
+    omi::renderSettings.setAmbientColour( glm::vec3( 1.0f, 1.0f, 1.0f ) );
 
     // add entities
     addEntity( new TestPlayer() );
