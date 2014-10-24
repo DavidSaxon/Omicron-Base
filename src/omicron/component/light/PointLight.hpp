@@ -20,13 +20,14 @@ public:
     @param id the identifier of the component
     @param transform the transform of the light
     @param power the power of the light
-    @param distance the distance the light casts over
+    @param attenuation the distance the light travels before falling off
+           completely
     @param colour the colour of the light */
     PointLight(
             const std::string&    id,
                   omi::Transform* transform,
                   float           power,
-                  float           distance,
+                  float           attenuation,
             const glm::vec3&      colour );
 
     //--------------------------------------------------------------------------
@@ -36,11 +37,11 @@ public:
     /** #Override */
     light::Type getLightType() const;
 
-    /** @return the distance of the light can reach */
-    float getDistance() const;
+    /** @return the attenuation of the light can reach */
+    float getAttenuation() const;
 
-    /** @param distance the new distance the light can reach */
-    void setDistance( float distance );
+    /** @param attenuation the new attenuation of the light */
+    void setAttenuation( float attenuation );
 
 private:
 
@@ -48,7 +49,7 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    float m_distance;
+    float m_attenuation;
 };
 
 } // namespace omi

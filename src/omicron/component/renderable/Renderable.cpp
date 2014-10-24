@@ -174,7 +174,7 @@ void Renderable::calculateMatrices( Camera* camera )
     // calculate the model, view matrix
     m_modelViewMatrix = camera->getViewMatrix() * m_modelMatrix;
     // calcaulate the normal matrix
-    m_normalMatrix = glm::transpose( glm::inverse( m_modelViewMatrix ) );
+    m_normalMatrix = glm::mat3( glm::transpose( glm::inverse( m_modelViewMatrix ) ) );
     //calculate the model, view, projection matrix
     m_modelViewProjectionMatrix =
         camera->getProjectionMatrix() *
@@ -199,7 +199,7 @@ void Renderable::setShader( const LightData& lightData )
     glUniformMatrix4fv(
         glGetUniformLocation( program, "u_modelViewMatrix" ),
         1, GL_FALSE, &m_modelViewMatrix[0][0] );
-    glUniformMatrix4fv(
+    glUniformMatrix3fv(
         glGetUniformLocation( program, "u_normalMatrix" ),
         1, GL_FALSE, &m_normalMatrix[0][0] );
     glUniformMatrix4fv(

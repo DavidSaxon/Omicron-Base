@@ -120,7 +120,7 @@ protected:
     // the combined model, and view matrix
     glm::mat4 m_modelViewMatrix;
     // the transpose inverse of the modelView matrix
-    glm::mat4 m_normalMatrix;
+    glm::mat3 m_normalMatrix;
     // the combined model, view, and projection matrix
     glm::mat4 m_modelViewProjectionMatrix;
 

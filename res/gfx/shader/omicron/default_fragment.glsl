@@ -75,90 +75,31 @@ void main() {
 
         // the light value
         vec3 light = u_ambientLight;
+        // vec3 light = vec3( 0.0, 0.0, 0.0 );
 
         // normalize the normal
         vec3 N = normalize( v_normal );
-        // compute the light position
-        vec3 lightDir = normalize( u_lightPos[0] );
-        // compute the dot product between the normal and light direction
-        float cosThetha = max( dot( N, lightDir ), 0.0 );
-        // compute and add diffuse colour
-        light += u_lightColour[0] * cosThetha;
-        // compute specular
-        if ( cosThetha > 0.0 )
+
+        for ( int i = 0; i < u_lightCount; ++i )
         {
-            // calculate the half vector
-            vec3 half = normalize( u_lightPos[0] +  v_eyePos );
-            float cosAlpha = max( dot( N, half ), 0.0 );
-            light += materialSpecular * u_lightColour[0] *
-                    pow( cosAlpha, shininess );
+
+            // compute the light position
+            vec3 lightDir = normalize( u_lightPos[i] );
+            // compute the dot product between the normal and light direction
+            float cosThetha = max( dot( N, lightDir ), 0.0 );
+            if ( cosThetha > 0.0 )
+            {
+                // compute and add diffuse colour
+                light += u_lightColour[i] * cosThetha;
+                // calculate the half vector
+                vec3 half = normalize( normalize( v_eyePos ) + u_lightPos[i] );
+                // compute specular
+                float cosAlpha = max( dot( N, half ), 0.0 );
+                light += materialSpecular * u_lightColour[i] *
+                        pow( cosAlpha, shininess );
+            }
         }
 
         gl_FragColor = material * vec4( light, 1.0 );
     }
-
-
-
-    // if ( u_shadeless != 0 )
-    // {
-    //     gl_FragColor = material;
-    // }
-    // else
-    // {
-    //     // normalize normal
-    //     vec3 N = normalize( v_normal );
-
-    //     // apply ambient light
-    //     vec3 light = u_ambientLight;
-
-    //     // apply point lights
-    //     for ( int i = 0; i < u_PointCount; ++i )
-    //     {
-    //         vec3 L = normalize( u_PointPos[i] - v_vertex );
-    //         vec3 E = normalize( -v_vertex );
-    //         vec3 R = normalize( -reflect( L, N ) );
-
-    //         // calculate diffuse
-    //         vec3 diffuse = u_PointColour[i] * max( dot( N, L ), 0.0 );
-    //         diffuse = clamp( diffuse, 0.0, 1.0 );
-
-    //         // calculate specular
-    //         vec3 specular = vec3( 1.0 ) * pow( max( dot( R, E ), 0.0 ), 50.0 );
-    //         specular = clamp( specular, 0.0, 1.0 );
-
-    //         light += diffuse + specular;
-
-    //         // // calculate the distance from the light
-    //         // float distance = length( u_PointPos[i] - v_vertex ) / u_PointDis[i];
-    //         // // calculate the direction from the light
-    //         // vec3 lightVector = normalize( u_PointPos[i] - v_vertex );
-    //         // // calculate the dot product between the normal and light vector
-    //         // float diffuse = max( dot( v_normal, lightVector ), 0.0 );
-    //         // // add attenuation
-    //         // float attenuation =
-    //         //     ( 1.0 / ( 1.0 + ( 0.25 * distance * distance ) ) );
-    //         // diffuse *= attenuation;
-    //         // // add colour
-    //         // vec3 diffuseVector = vec3( diffuse, diffuse, diffuse );
-    //         // diffuseVector *= u_PointColour[i];
-
-    //         // // specular component
-    //         // // vec3 lightDirection =
-    //         // //     ( u_viewMatrix * vec4( u_PointPos[i], 1.0 ) ).xyz;
-    //         // // lightDirection = lightDirection + v_eyeDirection;
-    //         // // vec3 R = reflect( -lightDirection, normalize( lightDirection ) );
-    //         // // float specular = clamp( dot( v_eyeDirection, R ), 0.0, 1.0 );
-    //         // // specular = pow( specular, 5 ) / ( distance * distance );
-    //         // // vec3 specularVector = vec3( specular, specular, specular );
-
-    //         // // vec3 R = reflect( -lightVector, v_normalCameraSpace );
-    //         // // vec3 viewDirection
-
-    //         // // add to total light
-    //         // // light += diffuseVector + specularVector;
-    //         // light += diffuseVector;
-    //     }
-
-    //     gl_FragColor = material * vec4(light, 1.0);
-    // }
 }

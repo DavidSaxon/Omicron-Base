@@ -10,11 +10,11 @@ PointLight::PointLight(
         const std::string&    id,
               omi::Transform* transform,
               float           power,
-              float           distance,
+              float           attenuation,
         const glm::vec3&      colour )
     :
     Light     ( id, transform, power, colour ),
-    m_distance( distance )
+    m_attenuation( attenuation )
 {
 }
 
@@ -27,14 +27,14 @@ light::Type PointLight::getLightType() const
     return light::POINT;
 }
 
-float PointLight::getDistance() const
+float PointLight::getAttenuation() const
 {
-    return m_distance;
+    return m_attenuation;
 }
 
-void PointLight::setDistance( float distance )
+void PointLight::setAttenuation( float attenuation )
 {
-    m_distance = distance;
+    m_attenuation = attenuation;
 }
 
 } // namespace omi
