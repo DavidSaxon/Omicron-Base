@@ -15,6 +15,8 @@ struct LightData {
     std::vector<float> positions;
     // the colour of the lights
     std::vector<float> colours;
+    // the attenuation of the lights
+    std::vector<float> attenuations;
 };
 
 } // namespace omi

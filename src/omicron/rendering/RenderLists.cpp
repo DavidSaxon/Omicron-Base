@@ -217,20 +217,43 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
           it != m_lights.end(); ++it )
     {
         Light* light = *it;
+        glm::vec3 pos( light->getTransform()->translation );
         // add generic data
         lightData.types.push_back(
             static_cast<int>( light->getLightType() ) );
-        // transform the light into eye space
-        glm::vec3 pos( light->getTransform()->translation );
-        pos = glm::vec3( camera->getViewMatrix() * glm::vec4( pos, 0.0f ) );
-        lightData.positions.push_back( pos.x );
-        lightData.positions.push_back( pos.y );
-        lightData.positions.push_back( pos.z );
         lightData.colours.push_back( light->getValue().r );
         lightData.colours.push_back( light->getValue().g );
         lightData.colours.push_back( light->getValue().b );
 
-        // TODO: type specific
+        // light type specific data
+        switch ( light->getLightType() )
+        {
+            case light::DIRECTIONAL:
+            {
+                pos = glm::vec3(
+                        camera->getViewMatrix() * glm::vec4( pos, 0.0f ) );
+                lightData.attenuations.push_back( 0.0f );
+                break;
+            }
+            case light::POINT:
+            {
+                PointLight* point = dynamic_cast<PointLight*>( light );
+                pos = glm::vec3(
+                        camera->getViewMatrix() * glm::vec4( pos, 1.0f ) );
+                lightData.attenuations.push_back( point->getAttenuation() );
+                break;
+            }
+            case light::SPOT:
+            {
+                // TODO:
+                break;
+            }
+        }
+
+        // positions
+        lightData.positions.push_back( pos.x );
+        lightData.positions.push_back( pos.y );
+        lightData.positions.push_back( pos.z );
     }
 }
 

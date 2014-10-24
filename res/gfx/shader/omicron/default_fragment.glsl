@@ -27,6 +27,8 @@ uniform int u_lightType[8];
 uniform vec3 u_lightPos[8];
 // the light colours
 uniform vec3 u_lightColour[8];
+// the light attenuations
+uniform float u_lightAttenuation[8];
 
 //the texture coords
 varying vec2 v_texCoord;
@@ -75,28 +77,47 @@ void main() {
 
         // the light value
         vec3 light = u_ambientLight;
-        // vec3 light = vec3( 0.0, 0.0, 0.0 );
 
         // normalize the normal
         vec3 N = normalize( v_normal );
 
         for ( int i = 0; i < u_lightCount; ++i )
         {
-
-            // compute the light position
-            vec3 lightDir = normalize( u_lightPos[i] );
-            // compute the dot product between the normal and light direction
-            float cosThetha = max( dot( N, lightDir ), 0.0 );
-            if ( cosThetha > 0.0 )
+            // directional light
+            if ( u_lightType[i] == 0 )
             {
-                // compute and add diffuse colour
-                light += u_lightColour[i] * cosThetha;
-                // calculate the half vector
-                vec3 half = normalize( normalize( v_eyePos ) + u_lightPos[i] );
-                // compute specular
-                float cosAlpha = max( dot( N, half ), 0.0 );
-                light += materialSpecular * u_lightColour[i] *
-                        pow( cosAlpha, shininess );
+                // compute the light position
+                vec3 lightDir = normalize( u_lightPos[i] );
+                // compute angle between normal and light
+                float cosThetha = max( dot( N, lightDir ), 0.0 );
+                if ( cosThetha > 0.0 )
+                {
+                    // compute and add diffuse colour
+                    light += u_lightColour[i] * cosThetha;
+                    // calculate the half vector
+                    vec3 half =
+                        normalize( normalize( v_eyePos ) + u_lightPos[i] );
+                    // compute specular
+                    float cosAlpha = max( dot( N, half ), 0.0 );
+                    light += materialSpecular * u_lightColour[i] *
+                            pow( cosAlpha, shininess );
+                }
+            }
+            // point light
+            else if ( u_lightType[i] == 1 )
+            {
+                // compute the light position
+                vec3 lightDir = u_lightPos[i] + v_eyePos;
+                // the distance to the light source
+                float distance = length( lightDir );
+                // compute angle between normal and light
+                float cosThetha = max( dot( N, normalize( lightDir ) ), 0.0 );
+                if ( cosThetha > 0.0 )
+                {
+                    float attenuation =
+                        1.0 / ( ( 0.25 * distance ) + ( 0.1 * distance * distance ) );
+                    light += attenuation * u_lightColour[i] * cosThetha;
+                }
             }
         }
 
