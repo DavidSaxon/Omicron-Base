@@ -273,7 +273,7 @@ void Renderable::setShader( const LightData& lightData )
                 &lightData.colours[0]
             );
             // the attenuation of lights
-            glUniform1fv(
+            glUniform3fv(
                 glGetUniformLocation( program, "u_lightAttenuation" ),
                 lightData.types.size(),
                 &lightData.attenuations[0]

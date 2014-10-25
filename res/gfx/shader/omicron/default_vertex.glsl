@@ -49,7 +49,7 @@ void main()
     //set the texture coords
     v_texCoord = vec2( gl_MultiTexCoord0 );
     // transform the normal into eye space
-    // v_normal = normalize( vec3( u_normalMatrix * vec4( gl_Normal, 0.0 ) ) );
+    // v_normal = normalize( vec3( u_modelViewMatrix * vec4( gl_Normal, 0.0 ) ) );
     v_normal = normalize( u_normalMatrix * gl_Normal );
     // calculate the eye position
     v_eyePos = -vec3( u_modelViewMatrix * gl_Vertex );

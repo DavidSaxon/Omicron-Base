@@ -6,17 +6,20 @@
 
 void Monkey::init()
 {
-    omi::Transform* t = new omi::Transform(
+    m_move = 0.0f;
+    m_transform = new omi::Transform(
             "",
             glm::vec3( 4.0f, 0.0f, 0.0f ),
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
     m_components.add(
-            omi::ResourceManager::getMesh( "test_monkey", "", t ) );
+            omi::ResourceManager::getMesh( "test_monkey", "", m_transform ) );
 }
 
 void Monkey::update()
 {
+    m_move += 0.2f * omi::fpsManager.getTimeScale();
+    m_transform->translation.z = 11.0f * util::math::sind( m_move );
 }
 

@@ -36,7 +36,7 @@ void TestEnvironment::init()
         );
     m_components.add( t_2 );
     m_components.add( new omi::PointLight(
-        "", t_2, 0.8f, 2.0f, glm::vec3( 1.0f, 1.0f, 1.0f )
+        "", t_2, 1.0f, 0.05f, 0.5f, 0.0025f, glm::vec3( 1.0f, 1.0f, 1.0f )
     ) );
 
     // omi::Transform* t_1 = new omi::Transform(

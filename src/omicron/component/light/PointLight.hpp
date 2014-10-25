@@ -20,14 +20,17 @@ public:
     @param id the identifier of the component
     @param transform the transform of the light
     @param power the power of the light
-    @param attenuation the distance the light travels before falling off
-           completely
+    @param constantAtt the constant attenuation value of the light
+    @param linearAtt the linear attenuation value of the light
+    @param quadraticAtt the quadratic attenuation of the light
     @param colour the colour of the light */
     PointLight(
             const std::string&    id,
                   omi::Transform* transform,
                   float           power,
-                  float           attenuation,
+                  float           constantAtt,
+                  float           linearAtt,
+                  float           quadraticAtt,
             const glm::vec3&      colour );
 
     //--------------------------------------------------------------------------
@@ -37,11 +40,23 @@ public:
     /** #Override */
     light::Type getLightType() const;
 
-    /** @return the attenuation of the light can reach */
-    float getAttenuation() const;
+    /** @return the constant attenuation of the light */
+    float getConstantAtt() const;
 
-    /** @param attenuation the new attenuation of the light */
-    void setAttenuation( float attenuation );
+    /** @return the linear attenuation of the light */
+    float getLinearAtt() const;
+
+    /** @return the quadratic attenuation of the light */
+    float getQuadraticAtt() const;
+
+    /** @param constantAtt the new constant attenuation of the light */
+    void setConstantAtt( float constantAtt );
+
+    /** @param linearAtt the new linear attenuation of the light */
+    void setLinearAtt( float linearAtt );
+
+    /** @param quadraticAtt the new quadratic attenuation of the light */
+    void setQuadraticAtt( float quadraticAtt );
 
 private:
 
@@ -49,7 +64,9 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
-    float m_attenuation;
+    float m_constantAtt;
+    float m_linearAtt;
+    float m_quadraticAtt;
 };
 
 } // namespace omi

@@ -20,8 +20,8 @@ omi::Scene* init() {
     omi::renderSettings.setClearColour( glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 
     //audio settings
-    omi::audioSettings.setSoundDisabled( false );
-    omi::audioSettings.setMusicDisabled( false );
+    omi::audioSettings.setSoundDisabled( true );
+    omi::audioSettings.setMusicDisabled( true );
     omi::audioSettings.setSoundVolume( 1.0f );
     omi::audioSettings.setMusicVolume( 1.0f );
 

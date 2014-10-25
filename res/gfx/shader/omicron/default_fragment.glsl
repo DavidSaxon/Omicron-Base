@@ -28,7 +28,7 @@ uniform vec3 u_lightPos[8];
 // the light colours
 uniform vec3 u_lightColour[8];
 // the light attenuations
-uniform float u_lightAttenuation[8];
+uniform vec3 u_lightAttenuation[8];
 
 //the texture coords
 varying vec2 v_texCoord;
@@ -83,6 +83,8 @@ void main() {
 
         for ( int i = 0; i < u_lightCount; ++i )
         {
+            // calculate the half vector
+
             // directional light
             if ( u_lightType[i] == 0 )
             {
@@ -94,11 +96,11 @@ void main() {
                 {
                     // compute and add diffuse colour
                     light += u_lightColour[i] * cosThetha;
-                    // calculate the half vector
-                    vec3 half =
+                    // compute half vector
+                    vec3 H =
                         normalize( normalize( v_eyePos ) + u_lightPos[i] );
                     // compute specular
-                    float cosAlpha = max( dot( N, half ), 0.0 );
+                    float cosAlpha = max( dot( N, H ), 0.0 );
                     light += materialSpecular * u_lightColour[i] *
                             pow( cosAlpha, shininess );
                 }
@@ -114,9 +116,20 @@ void main() {
                 float cosThetha = max( dot( N, normalize( lightDir ) ), 0.0 );
                 if ( cosThetha > 0.0 )
                 {
-                    float attenuation =
-                        1.0 / ( ( 0.25 * distance ) + ( 0.1 * distance * distance ) );
+                    // calculate attenuation
+                    float attenuation = 1.0 / (
+                        u_lightAttenuation[i].x +
+                        ( u_lightAttenuation[i].y * distance ) +
+                        ( u_lightAttenuation[i].z * distance * distance ) );
+                    // apply diffuse
                     light += attenuation * u_lightColour[i] * cosThetha;
+                    // compute half vector
+                    vec3 H =
+                        normalize( normalize( v_eyePos ) + normalize( lightDir ) );
+                    // compute specular
+                    float cosAlpha = max( dot ( N, H ), 0.0 );
+                    light += attenuation * materialSpecular * u_lightColour[i] *
+                            pow( cosAlpha, shininess );
                 }
             }
         }

@@ -233,6 +233,8 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
                 pos = glm::vec3(
                         camera->getViewMatrix() * glm::vec4( pos, 0.0f ) );
                 lightData.attenuations.push_back( 0.0f );
+                lightData.attenuations.push_back( 0.0f );
+                lightData.attenuations.push_back( 0.0f );
                 break;
             }
             case light::POINT:
@@ -240,7 +242,9 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
                 PointLight* point = dynamic_cast<PointLight*>( light );
                 pos = glm::vec3(
                         camera->getViewMatrix() * glm::vec4( pos, 1.0f ) );
-                lightData.attenuations.push_back( point->getAttenuation() );
+                lightData.attenuations.push_back( point->getConstantAtt() );
+                lightData.attenuations.push_back( point->getLinearAtt() );
+                lightData.attenuations.push_back( point->getQuadraticAtt() );
                 break;
             }
             case light::SPOT:

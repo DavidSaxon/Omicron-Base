@@ -5,6 +5,9 @@ set(SRCS
 
     src/omicron/Omicron.cpp
     src/omicron/audio/SoundPool.cpp
+    src/omicron/component/light/DirectionalLight.cpp
+    src/omicron/component/light/Light.cpp
+    src/omicron/component/light/PointLight.cpp
     src/omicron/component/physics/CollisionDetector.cpp
     src/omicron/component/Camera.cpp
     src/omicron/component/renderable/Mesh.cpp
@@ -45,10 +48,19 @@ set(SRCS
 
     src/resource_pack/AllPack.cpp
     src/resource_pack/StartUpPack.cpp
+    src/resource_pack/TestPack.cpp
 
     src/scenes/start_up/StartUpScene.cpp
 
     src/entities/start_up/OmicronLogo.cpp
+
+    src/scenes/test/TestScene.cpp
+
+    src/entities/test/Human.cpp
+    src/entities/test/Monkey.cpp
+    src/entities/test/TestEnvironment.cpp
+    src/entities/test/TestPlayer.cpp
+
 )
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")
