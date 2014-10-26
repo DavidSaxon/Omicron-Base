@@ -10,10 +10,10 @@ PointLight::PointLight(
         const std::string&    id,
               omi::Transform* transform,
               float           power,
+        const glm::vec3&      colour,
               float           constantAtt,
               float           linearAtt,
-              float           quadraticAtt,
-        const glm::vec3&      colour )
+              float           quadraticAtt )
     :
     Light         ( id, transform, power, colour ),
     m_constantAtt ( constantAtt ),
@@ -25,6 +25,8 @@ PointLight::PointLight(
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+//-----------------------------------GETTERS------------------------------------
 
 light::Type PointLight::getLightType() const
 {
@@ -45,6 +47,8 @@ float PointLight::getQuadraticAtt() const
 {
     return m_quadraticAtt;
 }
+
+//-----------------------------------SETTERS------------------------------------
 
 void PointLight::setConstantAtt( float constantAtt )
 {
