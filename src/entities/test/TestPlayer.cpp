@@ -16,22 +16,27 @@ void TestPlayer::init()
     // create the camera
     m_camT = new omi::Transform(
             "",
-            glm::vec3( 0.0f, 0.0f, -10.0f ),
+            glm::vec3( 0.0f, 0.0f, 10.0f ),
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
     m_components.add( m_camT );
     m_components.add(
         new omi::Camera( "", omi::cam::PERSPECTIVE, m_camT ) );
+    // create spot light
+    m_components.add( new omi::SpotLight(
+        "", m_camT, 1.0f, glm::vec3( 1.0f, 1.0f, 1.0f ),
+        0.0f, 0.4f, 0.025f, 40.0f, 30.0f
+    ) );
 }
 
 void TestPlayer::update()
 {
     // look
-    m_camT->rotation.x -=
+    m_camT->rotation.x +=
         ( omi::displaySettings.getCentre().y - omi::input::getMousePos().y ) *
         LOOK_SPEED * omi::fpsManager.getTimeScale();
-    m_camT->rotation.y -=
+    m_camT->rotation.y +=
         ( omi::displaySettings.getCentre().x - omi::input::getMousePos().x ) *
         LOOK_SPEED * omi::fpsManager.getTimeScale();
 
@@ -39,14 +44,14 @@ void TestPlayer::update()
     float moveSpeed = MOVE_SPEED * omi::fpsManager.getTimeScale();
     if ( omi::input::isKeyPressed( omi::input::key::W ) )
     {
-        m_camT->translation.z +=
+        m_camT->translation.z -=
             util::math::cosd( m_camT->rotation.y ) * moveSpeed;
         m_camT->translation.x -=
             util::math::sind( m_camT->rotation.y ) * moveSpeed;
     }
     if ( omi::input::isKeyPressed( omi::input::key::S ) )
     {
-        m_camT->translation.z -=
+        m_camT->translation.z +=
             util::math::cosd( m_camT->rotation.y ) * moveSpeed;
         m_camT->translation.x +=
             util::math::sind( m_camT->rotation.y ) * moveSpeed;
@@ -55,14 +60,14 @@ void TestPlayer::update()
     {
         m_camT->translation.z +=
             util::math::sind( m_camT->rotation.y ) * moveSpeed;
-        m_camT->translation.x +=
+        m_camT->translation.x -=
             util::math::cosd( m_camT->rotation.y ) * moveSpeed;
     }
     if ( omi::input::isKeyPressed( omi::input::key::D ) )
     {
         m_camT->translation.z -=
             util::math::sind( m_camT->rotation.y ) * moveSpeed;
-        m_camT->translation.x -=
+        m_camT->translation.x +=
             util::math::cosd( m_camT->rotation.y ) * moveSpeed;
     }
 }

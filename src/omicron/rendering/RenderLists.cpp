@@ -218,7 +218,22 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
     {
         Light* light = *it;
         glm::vec3 pos( light->getTransform()->translation );
-        glm::vec3 rot( light->getTransform()->rotation );
+        // calculate rotation
+        glm::mat4 rotMat = glm::mat4( 1.0f );
+        rotMat *= glm::rotate(
+            light->getTransform()->rotation.z * util::math::DEGREES_TO_RADIANS,
+            glm::vec3( 0.0f, 0.0f, 1.0f )
+        );
+        rotMat *= glm::rotate(
+            light->getTransform()->rotation.y * util::math::DEGREES_TO_RADIANS,
+            glm::vec3( 0.0f, 1.0f, 0.0f )
+        );
+        rotMat *= glm::rotate(
+            light->getTransform()->rotation.x * util::math::DEGREES_TO_RADIANS,
+            glm::vec3( 1.0f, 0.0f, 0.0f )
+        );
+        glm::vec3 rot( 0.0f, 0.0f, -1.0f );
+        rot = glm::vec3( rotMat * glm::vec4( rot, 0.0f ) );
         // add generic data
         lightData.types.push_back(
             static_cast<int>( light->getLightType() ) );

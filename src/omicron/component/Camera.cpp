@@ -109,19 +109,19 @@ void Camera::apply()
     m_viewMatrix *= glm::scale( scale );
     // rotation
     m_viewMatrix *= glm::rotate(
-        rotation.x * util::math::DEGREES_TO_RADIANS,
+        -rotation.x * util::math::DEGREES_TO_RADIANS,
         glm::vec3( 1.0f, 0.0f, 0.0f )
     );
     m_viewMatrix *= glm::rotate(
-        rotation.y * util::math::DEGREES_TO_RADIANS,
+        -rotation.y * util::math::DEGREES_TO_RADIANS,
         glm::vec3( 0.0f, 1.0f, 0.0f )
     );
     m_viewMatrix *= glm::rotate(
-        rotation.z * util::math::DEGREES_TO_RADIANS,
+        -rotation.z * util::math::DEGREES_TO_RADIANS,
         glm::vec3( 0.0f, 0.0f, 1.0f )
     );
     // translation
-    m_viewMatrix *= glm::translate( translation );
+    m_viewMatrix *= glm::translate( -translation );
 }
 
 //-----------------------------------GETTERS------------------------------------
