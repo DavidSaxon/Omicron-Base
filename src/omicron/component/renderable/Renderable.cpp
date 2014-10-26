@@ -266,6 +266,12 @@ void Renderable::setShader( const LightData& lightData )
                 lightData.types.size(),
                 &lightData.positions[0]
             );
+            // the rotations of lights
+            glUniform3fv(
+                glGetUniformLocation( program, "u_lightRot" ),
+                lightData.types.size(),
+                &lightData.rotations[0]
+            );
             // the colours of lights
             glUniform3fv(
                 glGetUniformLocation( program, "u_lightColour" ),
@@ -277,6 +283,12 @@ void Renderable::setShader( const LightData& lightData )
                 glGetUniformLocation( program, "u_lightAttenuation" ),
                 lightData.types.size(),
                 &lightData.attenuations[0]
+            );
+            // the arcs of lights
+            glUniform2fv(
+                glGetUniformLocation( program, "u_lightArc" ),
+                lightData.types.size(),
+                &lightData.arcs[0]
             );
         }
     }

@@ -13,10 +13,14 @@ struct LightData {
     std::vector<int> types;
     // the positions of the lights in eye space
     std::vector<float> positions;
+    // the rotations of the lights
+    std::vector<float> rotations;
     // the colour of the lights
     std::vector<float> colours;
     // the attenuation of the lights
     std::vector<float> attenuations;
+    // the arcs of the lights
+    std::vector<float> arcs;
 };
 
 } // namespace omi

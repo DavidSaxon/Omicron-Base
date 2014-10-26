@@ -1,4 +1,4 @@
-#version 120
+#version 130
 
 // the colour
 uniform vec4 u_colour;

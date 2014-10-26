@@ -10,6 +10,7 @@
 
 #include "src/omicron/component/light/DirectionalLight.hpp"
 #include "src/omicron/component/light/PointLight.hpp"
+#include "src/omicron/component/light/SpotLight.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/input/Input.hpp"
 

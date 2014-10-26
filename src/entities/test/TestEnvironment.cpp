@@ -48,7 +48,7 @@ void TestEnvironment::init()
     m_components.add( t_3 );
     m_components.add( new omi::SpotLight(
         "", t_3, 1.0f, glm::vec3( 1.0f, 1.0f, 1.0f ),
-        0.0f, 0.2f, 0.025f, 45.0f, 0.0f
+        0.0f, 0.1f, 0.025f, 45.0f, 35.0f
     ) );
 
     // meshes

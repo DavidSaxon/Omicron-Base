@@ -218,6 +218,7 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
     {
         Light* light = *it;
         glm::vec3 pos( light->getTransform()->translation );
+        glm::vec3 rot( light->getTransform()->rotation );
         // add generic data
         lightData.types.push_back(
             static_cast<int>( light->getLightType() ) );
@@ -232,9 +233,13 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
             {
                 pos = glm::vec3(
                         camera->getViewMatrix() * glm::vec4( pos, 0.0f ) );
+                rot = glm::vec3(
+                        camera->getViewMatrix()* glm::vec4( rot, 0.0f ) );
+                lightData.attenuations.push_back( 1.0f );
                 lightData.attenuations.push_back( 0.0f );
                 lightData.attenuations.push_back( 0.0f );
-                lightData.attenuations.push_back( 0.0f );
+                lightData.arcs.push_back( 0.0f );
+                lightData.arcs.push_back( 0.0f );
                 break;
             }
             case light::POINT:
@@ -242,14 +247,29 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
                 PointLight* point = dynamic_cast<PointLight*>( light );
                 pos = glm::vec3(
                         camera->getViewMatrix() * glm::vec4( pos, 1.0f ) );
+                rot = glm::vec3(
+                        camera->getViewMatrix() * glm::vec4( rot, 1.0f ) );
                 lightData.attenuations.push_back( point->getConstantAtt() );
                 lightData.attenuations.push_back( point->getLinearAtt() );
                 lightData.attenuations.push_back( point->getQuadraticAtt() );
+                lightData.arcs.push_back( 0.0f );
+                lightData.arcs.push_back( 0.0f );
                 break;
             }
             case light::SPOT:
             {
-                // TODO:
+                SpotLight* spot = dynamic_cast<SpotLight*>( light );
+                pos = glm::vec3(
+                        camera->getViewMatrix() * glm::vec4( pos, 1.0f ) );
+                rot = glm::vec3(
+                        camera->getViewMatrix() * glm::vec4( rot, 0.0f ) );
+                lightData.attenuations.push_back( spot->getConstantAtt() );
+                lightData.attenuations.push_back( spot->getLinearAtt() );
+                lightData.attenuations.push_back( spot->getQuadraticAtt() );
+                lightData.arcs.push_back(
+                        util::math::cosd( spot->getOuterArc() ) );
+                lightData.arcs.push_back(
+                        util::math::cosd( spot->getInnerArc() ) );
                 break;
             }
         }
@@ -258,6 +278,10 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
         lightData.positions.push_back( pos.x );
         lightData.positions.push_back( pos.y );
         lightData.positions.push_back( pos.z );
+        // rotations
+        lightData.rotations.push_back( rot.x );
+        lightData.rotations.push_back( rot.y );
+        lightData.rotations.push_back( rot.z );
     }
 }
 

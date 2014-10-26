@@ -25,8 +25,8 @@ public:
     @param linearAtt the linear attenuation value of the light
     @param quadraticAtt the quadratic attenuation of the light
     @param outerArc the angle which determines the maximum size of the cone
-    @param decay the rate at which the light decays to the outer edge of the
-                 cone */
+    @param innerArc the angle which determines the size of the cone at which
+           the light is at maximum intensity */
     SpotLight(
         const std::string&    id,
               omi::Transform* transform,
@@ -35,8 +35,8 @@ public:
               float           constantAtt,
               float           linearAtt,
               float           quadraticAtt,
-              float           arc,
-              float           decay );
+              float           outerArc,
+              float           innerArc );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -56,11 +56,11 @@ public:
     /** @return the quadratic attenuation of the light */
     float getQuadraticAtt() const;
 
-    /** @return the arc of the light */
-    float getArc() const;
+    /** @return the outer arc of the light */
+    float getOuterArc() const;
 
-    /** @return the decay of the light */
-    float getDecay() const;
+    /** @return the inner arc of the light */
+    float getInnerArc() const;
 
     //---------------------------------SETTERS----------------------------------
 
@@ -73,11 +73,11 @@ public:
     /** @param quadraticAtt the new quadratic attenuation of the light */
     void setQuadraticAtt( float quadraticAtt );
 
-    /** @param arc the new arc of the light */
-    void setArc( float arc );
+    /** @param outerArc the new outer arc of the light */
+    void setOuterArc( float outerArc );
 
-    /** @param decay the new decay of the light */
-    void setDecay( float decay );
+    /** @param innerArc the new inner arc of the light */
+    void setInnerArc( float innerArc );
 
 private:
 
@@ -88,8 +88,8 @@ private:
     float m_constantAtt;
     float m_linearAtt;
     float m_quadraticAtt;
-    float m_arc;
-    float m_decay;
+    float m_outerArc;
+    float m_innerArc;
 };
 
 } // namespace omi

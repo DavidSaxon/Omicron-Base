@@ -1,4 +1,4 @@
-#version 120
+#version 130
 
 //------------------------------------------------------------------------------
 //                                   VARIABLES
@@ -25,10 +25,14 @@ uniform int u_lightCount;
 uniform int u_lightType[8];
 // the light positions
 uniform vec3 u_lightPos[8];
+// the light rotations
+uniform vec3 u_lightRot[8];
 // the light colours
 uniform vec3 u_lightColour[8];
 // the light attenuations
 uniform vec3 u_lightAttenuation[8];
+// the light arcs
+uniform vec2 u_lightArc[8];
 
 //the texture coords
 varying vec2 v_texCoord;
@@ -125,11 +129,49 @@ void main() {
                     light += attenuation * u_lightColour[i] * cosThetha;
                     // compute half vector
                     vec3 H =
-                        normalize( normalize( v_eyePos ) + normalize( lightDir ) );
+                        normalize( normalize( v_eyePos ) +
+                                   normalize( lightDir ) );
                     // compute specular
                     float cosAlpha = max( dot ( N, H ), 0.0 );
                     light += attenuation * materialSpecular * u_lightColour[i] *
                             pow( cosAlpha, shininess );
+                }
+            }
+            // spot light
+            else if ( u_lightType[i] == 2 )
+            {
+                // compute the light position
+                vec3 lightDir = u_lightPos[i] + v_eyePos;
+                // the distance to the light source
+                float distance = length( lightDir );
+                // compute angle between normal and light
+                float cosThetha = max( dot( N, normalize( lightDir ) ), 0.0 );
+                if ( cosThetha > 0.0 )
+                {
+                    // calculate the spot light effect
+                    float spotEffect =
+                        dot( normalize( u_lightRot[i] ),
+                             normalize( -lightDir ) );
+                    if ( spotEffect > u_lightArc[i].x )
+                    {
+                        spotEffect = smoothstep( u_lightArc[i].x, u_lightArc[i].y, spotEffect );
+                        // calculate attenuation
+                        float attenuation = spotEffect / (
+                            u_lightAttenuation[i].x +
+                            ( u_lightAttenuation[i].y * distance ) +
+                            ( u_lightAttenuation[i].z * distance * distance ) );
+                        // apply diffuse
+                        light += attenuation * u_lightColour[i] * cosThetha;
+                        // compute half vector
+                        vec3 H =
+                            normalize( normalize( v_eyePos ) +
+                                        normalize( lightDir ) );
+                        // compute specular
+                        float cosAlpha = max( dot ( N, H ), 0.0 );
+                        light += attenuation * materialSpecular *
+                                u_lightColour[i] *
+                                pow( cosAlpha, shininess );
+                    }
                 }
             }
         }

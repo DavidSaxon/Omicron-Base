@@ -1,4 +1,4 @@
-#version 120
+#version 130
 
 // the model, view, projection matrix
 uniform mat4 u_modelViewProjectionMatrix;
