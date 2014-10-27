@@ -24,10 +24,10 @@ void TestPlayer::init()
     m_components.add(
         new omi::Camera( "", omi::cam::PERSPECTIVE, m_camT ) );
     // create spot light
-    m_components.add( new omi::SpotLight(
-        "", m_camT, 1.0f, glm::vec3( 1.0f, 1.0f, 1.0f ),
-        0.0f, 0.4f, 0.025f, 40.0f, 30.0f
-    ) );
+    // m_components.add( new omi::SpotLight(
+    //     "", m_camT, 1.0f, glm::vec3( 1.0f, 1.0f, 1.0f ),
+    //     0.0f, 0.4f, 0.025f, 40.0f, 30.0f
+    // ) );
 }
 
 void TestPlayer::update()

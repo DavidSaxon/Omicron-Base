@@ -111,7 +111,7 @@ protected:
     // the transform
     Transform* m_transform;
     // the material
-    Material  m_material;
+    Material m_material;
 
     // the model matrix
     glm::mat4 m_modelMatrix;

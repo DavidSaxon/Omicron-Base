@@ -8,6 +8,7 @@ set(SRCS
     src/omicron/component/light/DirectionalLight.cpp
     src/omicron/component/light/Light.cpp
     src/omicron/component/light/PointLight.cpp
+    src/omicron/component/light/SpotLight.cpp
     src/omicron/component/physics/CollisionDetector.cpp
     src/omicron/component/Camera.cpp
     src/omicron/component/renderable/Mesh.cpp

@@ -292,6 +292,28 @@ void Renderable::setShader( const LightData& lightData )
             );
         }
     }
+
+    //--------------------------------PROPERTIES--------------------------------
+
+    // specular property
+    Specular* specular = m_material.specular;
+    float shininess = 0.0f;
+    glm::vec3 specularColour;
+    if ( specular != NULL )
+    {
+        shininess = specular->getShininess();
+        specularColour = specular->getColour();
+    }
+    glUniform1f(
+        glGetUniformLocation( program, "u_shininess" ),
+        shininess
+    );
+    glUniform3f(
+        glGetUniformLocation( program, "u_specularColour" ),
+        specularColour.r,
+        specularColour.g,
+        specularColour.b
+    );
 }
 
 void Renderable::unsetShader()

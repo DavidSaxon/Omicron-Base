@@ -11,6 +11,7 @@ Material::Material()
     shader     (),
     colour     ( 1.0f, 1.0f, 1.0f, 1.0f ),
     texture    (),
+    specular   ( NULL ),
     m_shadeless( false )
 {
 }
@@ -23,6 +24,7 @@ Material::Material( const Shader&    a_shader,
     shader     ( a_shader),
     colour     ( a_colour),
     texture    ( a_texture),
+    specular   ( NULL ),
     m_flags    ( flags ),
     m_shadeless( false )
 {
@@ -33,8 +35,18 @@ Material::Material( const Material& other ) :
     colour     ( other.colour ),
     texture    ( other.texture ),
     shader     ( other.shader ),
+    specular   ( other.specular ),
     m_shadeless( other.m_shadeless )
 {
+}
+
+//------------------------------------------------------------------------------
+//                                   DESTRUCTOR
+//------------------------------------------------------------------------------
+
+Material::~Material()
+{
+    delete specular;
 }
 
 //------------------------------------------------------------------------------
@@ -46,6 +58,7 @@ const Material& Material::operator=( const Material& other )
     shader      = other.shader;
     colour      = other.colour;
     texture     = other.texture;
+    specular    = other.specular;
     m_shadeless = other.m_shadeless;
 
     return *this;

@@ -12,7 +12,6 @@ namespace component {
 
 //! the different possible types of component
 enum Type {
-
     SIMPLE     = 1,   // a component that requires no updating
     UPDATABLE  = 2,   // a component that should be updated once per logic cycle
     RENDERABLE = 4,   // a component that is visible

@@ -13,8 +13,11 @@ void Monkey::init()
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
-    m_components.add(
-            omi::ResourceManager::getMesh( "test_monkey", "", m_transform ) );
+    omi::Mesh* mesh =
+        omi::ResourceManager::getMesh( "test_monkey", "", m_transform );
+    mesh->getMaterial().specular =
+        new Specular( 128.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
+    m_components.add( mesh );
 }
 
 void Monkey::update()

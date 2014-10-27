@@ -14,6 +14,11 @@ uniform int u_hasTexture;
 // the texture
 uniform sampler2D u_texture;
 
+// shininess
+uniform float u_shininess;
+// specular colour
+uniform vec3 u_specularColour;
+
 // if the material is shadeless
 uniform int u_shadeless;
 //the ambient light
@@ -41,13 +46,6 @@ varying vec3 v_normal;
 // the eye position
 varying vec3 v_eyePos;
 
-// // the vertex position in camera space
-// varying vec3 v_vertexCameraSpace;
-// // the direction of the eye
-// varying vec3 v_eyeDirection;
-// // the normal in camera space
-// varying vec3 v_normalCameraSpace;
-
 //------------------------------------------------------------------------------
 //                                 MAIN FUNCTION
 //------------------------------------------------------------------------------
@@ -61,9 +59,9 @@ void main() {
     vec4 material = u_colour;
 
     //apply texturing
-    vec4 textureColour = texture2D(u_texture, v_texCoord);
-    if (u_hasTexture != 0) {
-
+    vec4 textureColour = texture2D( u_texture, v_texCoord );
+    if ( u_hasTexture != 0 )
+    {
         material *= textureColour;
     }
 
@@ -75,10 +73,6 @@ void main() {
     }
     else
     {
-        // TODO: these should come from material
-        float shininess = 128.0;
-        vec3 materialSpecular = vec3( 1.0, 1.0, 1.0 );
-
         // the light value
         vec3 light = u_ambientLight;
 
@@ -105,8 +99,8 @@ void main() {
                         normalize( normalize( v_eyePos ) + u_lightPos[i] );
                     // compute specular
                     float cosAlpha = max( dot( N, H ), 0.0 );
-                    light += materialSpecular * u_lightColour[i] *
-                            pow( cosAlpha, shininess );
+                    light += u_specularColour * u_lightColour[i] *
+                            pow( cosAlpha, u_shininess );
                 }
             }
             // point light
@@ -133,8 +127,8 @@ void main() {
                                    normalize( lightDir ) );
                     // compute specular
                     float cosAlpha = max( dot ( N, H ), 0.0 );
-                    light += attenuation * materialSpecular * u_lightColour[i] *
-                            pow( cosAlpha, shininess );
+                    light += attenuation * u_specularColour * u_lightColour[i] *
+                            pow( cosAlpha, u_shininess );
                 }
             }
             // spot light
@@ -168,9 +162,9 @@ void main() {
                                         normalize( lightDir ) );
                         // compute specular
                         float cosAlpha = max( dot ( N, H ), 0.0 );
-                        light += attenuation * materialSpecular *
+                        light += attenuation * u_specularColour *
                                 u_lightColour[i] *
-                                pow( cosAlpha, shininess );
+                                pow( cosAlpha, u_shininess );
                     }
                 }
             }

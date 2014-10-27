@@ -8,6 +8,7 @@
 
 #include "src/omicron/rendering/shading/Shader.hpp"
 #include "src/omicron/rendering/shading/Texture.hpp"
+#include "src/omicron/rendering/shading/material_property/Specular.hpp"
 
 namespace omi {
 
@@ -35,6 +36,8 @@ public:
     glm::vec4 colour;
     //! a pointer to the texture of the material
     Texture* texture;
+    //! the specular property of the material
+    Specular* specular;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTORS
@@ -43,7 +46,6 @@ public:
     /** Creates a material with the default set up */
     Material();
 
-    // TODO:
     /** Creates a material using the given values
     @param a_shader the shader of the material
     @param a_colour the colour of the material
@@ -57,6 +59,12 @@ public:
     /** Creates a copy of the given material
     @param other the material to copy from */
     Material( const Material& other );
+
+    //--------------------------------------------------------------------------
+    //                                 DESTRUCTOR
+    //--------------------------------------------------------------------------
+
+    ~Material();
 
     //--------------------------------------------------------------------------
     //                                 OPERATORS
