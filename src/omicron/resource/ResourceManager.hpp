@@ -119,7 +119,6 @@ public:
 
     //------------------------------ADD FUNCTIONS-------------------------------
 
-
     /** Adds a shader to the resource map
     @param id the identifier of the shader resource
     @param resourceGroup the resource group of the shader

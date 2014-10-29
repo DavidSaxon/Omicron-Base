@@ -28,6 +28,7 @@ set(SRCS
     src/omicron/rendering/shading/Material.cpp
     src/omicron/rendering/shading/Shader.cpp
     src/omicron/rendering/shading/Texture.cpp
+    src/omicron/rendering/shading/material_property/Specular.cpp
     src/omicron/resource/loader/GeometryLoader.cpp
     src/omicron/resource/loader/ShaderLoader.cpp
     src/omicron/resource/loader/TextureLoader.cpp
