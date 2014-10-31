@@ -85,17 +85,22 @@ void RenderTexture::init()
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
 
     // set up the frame buffer to render to our texture
-    glFramebufferTexture(
+    glFramebufferTexture2D(
         GL_FRAMEBUFFER,
         GL_COLOR_ATTACHMENT0,
+        GL_TEXTURE_2D,
         m_texture,
         0
     );
+    // TODO: do we need this??
     GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
     glDrawBuffers( 1, drawBuffers );
 
     // load shaders for the render texture
-    // TODO:
+    m_shader = loader::loadShaderFromFiles(
+        "res/gfx/shader/omicron/render_texture_vertex.glsl",
+        "res/gfx/shader/omicron/render_texture_fragment.glsl"
+    );
 
     // unbind
     glBindFramebuffer ( GL_FRAMEBUFFER,  0 );

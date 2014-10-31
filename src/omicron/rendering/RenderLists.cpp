@@ -137,6 +137,9 @@ void RenderLists::render( Camera* camera )
         buildLightData( camera, lightData );
     }
 
+    // bind the render texture
+    m_finalRenTex.bind();
+
     // iterate over the layers
     for ( t_RenderableMap::iterator it = renderLayers.begin();
           it != renderLayers.end(); ++it )
@@ -153,6 +156,9 @@ void RenderLists::render( Camera* camera )
             ( *itr )->render( camera, lightData );
         }
     }
+
+    // render the render texture
+    m_finalRenTex.render();
 }
 
 void RenderLists::clear()

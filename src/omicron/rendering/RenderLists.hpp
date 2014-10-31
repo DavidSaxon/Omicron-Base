@@ -13,6 +13,7 @@
 #include "src/omicron/component/light/SpotLight.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/input/Input.hpp"
+#include "src/omicron/rendering/render_texture/RenderTexture.hpp"
 
 namespace omi {
 
@@ -106,6 +107,8 @@ private:
     std::vector<Renderable*> m_renderables;
     // the list of lights
     std::vector<Light*> m_lights;
+    // the final render texture
+    RenderTexture m_finalRenTex;
 
     // the depth sorter
     RenderableDepthSorter depthSorter;
