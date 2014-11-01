@@ -157,7 +157,9 @@ void RenderLists::render( Camera* camera )
         }
     }
 
-    // render the render texture
+    // unbind the render texture
+    m_finalRenTex.unbind();
+    // render the results of the render texture
     m_finalRenTex.render();
 }
 

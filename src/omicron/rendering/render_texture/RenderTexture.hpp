@@ -35,6 +35,9 @@ public:
     /** Binds this as the texture to render to */
     void bind();
 
+    /** Reverts OpenGL to default to-screen rendering */
+    void unbind();
+
     /** Renders this texture to a quad in front of the screen */
     void render();
 

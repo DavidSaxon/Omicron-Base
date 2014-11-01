@@ -30,13 +30,68 @@ void RenderTexture::bind()
     glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
 }
 
+void RenderTexture::unbind()
+{
+    glBindFramebuffer ( GL_FRAMEBUFFER,  0 );
+    glBindRenderbuffer( GL_RENDERBUFFER, 0 );
+    glBindTexture     ( GL_TEXTURE_2D,   0 );
+}
+
 void RenderTexture::render()
 {
     // TODO: move this out ?
     //redraw background colour
     glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
 
-    // set up matrices
+    // set up matrices'
+    float aspectRatio =
+        displaySettings.getSize().x / displaySettings.getSize().y;
+    glm::mat4 projection = glm::ortho(
+        -aspectRatio, aspectRatio, -1.0f, 1.0f, 0.01f, 1000.0f );
+    glm::mat4 view = glm::lookAt(
+        glm::vec3( 0, 0, 1.0f ),
+        glm::vec3( 0, 0, 0 ),
+        glm::vec3( 0, 1, 0 )
+    );
+    view *= glm::translate( glm::vec3( 0.0f, 0.0f, 0.0f ) );
+    glm::mat4 mvp = projection * view;
+
+    // get the OpenGL program
+    GLuint program = m_shader.getProgram();
+    // use the shader
+    glUseProgram( program );
+
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
+        1, GL_FALSE, &mvp[0][0] );
+
+    glBindTexture( GL_TEXTURE_2D, m_texture );
+
+    // draw geometry
+    glBegin(GL_TRIANGLES);
+
+        glTexCoord2f( 1.0f, 1.0f );
+        glVertex3f(  aspectRatio,  1.0, 0.0f );
+
+        glTexCoord2f( 0.0f, 1.0f );
+        glVertex3f( -aspectRatio,  1.0, 0.0f );
+
+        glTexCoord2f( 1.0f, 0.0f );
+        glVertex3f(  aspectRatio, -1.0, 0.0f );
+
+        glTexCoord2f( 0.0f, 0.0f );
+        glVertex3f( -aspectRatio, -1.0, 0.0f );
+
+        glTexCoord2f( 1.0f, 0.0f );
+        glVertex3f(  aspectRatio, -1.0, 0.0f );
+
+        glTexCoord2f( 0.0f, 1.0f );
+        glVertex3f( -aspectRatio,  1.0, 0.0f );
+
+    glEnd();
+
+    glUseProgram( 0 );
+    glBindTexture( GL_TEXTURE_2D, 0 );
 }
 
 //------------------------------------------------------------------------------
