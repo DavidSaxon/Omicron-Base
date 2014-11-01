@@ -56,6 +56,8 @@ protected:
 
     // the shader to render with
     Shader m_shader;
+    // the current resolution of the texture
+    glm::vec2 m_resolution;
 
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS

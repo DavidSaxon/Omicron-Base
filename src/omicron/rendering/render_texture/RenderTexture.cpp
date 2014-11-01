@@ -22,6 +22,12 @@ RenderTexture::RenderTexture()
 
 void RenderTexture::bind()
 {
+    // if the resolution has changed rebuild the render texture
+    if ( m_resolution != renderSettings.getResolution() )
+    {
+        init();
+    }
+
     // bind the frame buffer
     glBindFramebuffer( GL_FRAMEBUFFER, m_frameBuffer );
     // bind teh depth buffer
@@ -114,6 +120,9 @@ void RenderTexture::render()
 
 void RenderTexture::init()
 {
+    // store the resolution
+    m_resolution = renderSettings.getResolution();
+
     // generate the frame buffer
     glGenFramebuffers( 1, &m_frameBuffer );
     glBindFramebuffer( GL_FRAMEBUFFER, m_frameBuffer );
