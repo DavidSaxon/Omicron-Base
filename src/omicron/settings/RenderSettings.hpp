@@ -52,11 +52,15 @@ public:
     /** @return the clear colour */
     const glm::vec4& getClearColour() const;
 
+    /** @return the resolution being rendered to */
+    const glm::vec2& getResolution() const;
+
     /** @return the strength of the ambient light */
     float getAmbientStrength() const;
 
     /** @return the colour of the ambient light */
     const glm::vec3& getAmbientColour() const;
+
 
     //---------------------------------SETTERS----------------------------------
 
@@ -68,6 +72,9 @@ public:
 
     /** @param clearColour the new clear colour */
     void setClearColour( const glm::vec4& clearColour );
+
+    /** @param resolution the new resolution to be rendered to */
+    void setResolution( const glm::vec2& resolution );
 
     /** @param strength the new strength of ambient light */
     void setAmbientStrength( float strength );
@@ -90,6 +97,9 @@ private:
     bool m_backFaceCulling;
     // the clear colour
     glm::vec4 m_clearColour;
+
+    // the resolution being rendered to
+    glm::vec2 m_resolution;
 
     // the strength of ambient light
     float m_ambientStrength;

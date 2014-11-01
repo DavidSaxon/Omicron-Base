@@ -10,6 +10,7 @@ RenderSettings::RenderSettings() :
     m_change         ( true ),
     m_depthTest      ( true ),
     m_backFaceCulling( true ),
+    m_resolution     ( 1920, 1080 ),
     m_clearColour    ( 0.0f, 0.0f, 0.0f, 1.0f )
 {
 }
@@ -33,6 +34,11 @@ bool RenderSettings::getBackFaceCulling() const
 const glm::vec4& RenderSettings::getClearColour() const
 {
     return m_clearColour;
+}
+
+const glm::vec2& RenderSettings::getResolution() const
+{
+    return m_resolution;
 }
 
 float RenderSettings::getAmbientStrength() const
@@ -64,6 +70,13 @@ void RenderSettings::setClearColour( const glm::vec4& clearColour )
     m_change = true;
     m_clearColour = clearColour;
 }
+
+void RenderSettings::setResolution( const glm::vec2& resolution )
+{
+    m_change = true;
+    m_resolution = resolution;
+}
+
 
 void RenderSettings::setAmbientStrength( float strength )
 {

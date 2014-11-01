@@ -82,7 +82,7 @@ void Camera::apply()
 
     // projection matrix
     float aspectRatio =
-        displaySettings.getSize().x / displaySettings.getSize().y;
+        renderSettings.getResolution().x / renderSettings.getResolution().y;
     if ( m_mode == cam::PERSPECTIVE )
     {
         m_projectionMatrix =

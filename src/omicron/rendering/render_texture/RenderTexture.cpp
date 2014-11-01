@@ -28,6 +28,13 @@ void RenderTexture::bind()
     glBindRenderbuffer( GL_RENDERBUFFER, m_depthRenderBuffer );
     //redraw background colour
     glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
+    // set the view port to the size of the render texture
+    glViewport(
+        0,
+        0,
+        renderSettings.getResolution().x,
+        renderSettings.getResolution().y
+    );
 }
 
 void RenderTexture::unbind()
@@ -35,6 +42,13 @@ void RenderTexture::unbind()
     glBindFramebuffer ( GL_FRAMEBUFFER,  0 );
     glBindRenderbuffer( GL_RENDERBUFFER, 0 );
     glBindTexture     ( GL_TEXTURE_2D,   0 );
+    // revert the view port to screen size
+    glViewport(
+        0,
+        0,
+        displaySettings.getSize().x,
+        displaySettings.getSize().y
+    );
 }
 
 void RenderTexture::render()
@@ -110,8 +124,8 @@ void RenderTexture::init()
     glRenderbufferStorage(
         GL_RENDERBUFFER,
         GL_DEPTH_COMPONENT,
-        static_cast<GLsizei>( displaySettings.getSize().x ),
-        static_cast<GLsizei>( displaySettings.getSize().y )
+        static_cast<GLsizei>( renderSettings.getResolution().x ),
+        static_cast<GLsizei>( renderSettings.getResolution().y )
     );
     glFramebufferRenderbuffer(
         GL_FRAMEBUFFER,
@@ -128,8 +142,8 @@ void RenderTexture::init()
         GL_TEXTURE_2D,
         0,
         GL_RGB,
-        static_cast<GLsizei>( displaySettings.getSize().x ),
-        static_cast<GLsizei>( displaySettings.getSize().y ),
+        static_cast<GLsizei>( renderSettings.getResolution().x ),
+        static_cast<GLsizei>( renderSettings.getResolution().y ),
         0,
         GL_RGB,
         GL_UNSIGNED_BYTE,
