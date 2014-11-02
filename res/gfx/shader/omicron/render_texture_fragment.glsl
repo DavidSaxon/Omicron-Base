@@ -1,11 +1,11 @@
-#version 130
+#version 150
 
 //------------------------------------------------------------------------------
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
 // the texture
-uniform sampler2D u_texture;
+uniform sampler2DMS u_texture;
 
 //the texture coords
 varying vec2 v_texCoord;
@@ -17,5 +17,5 @@ varying vec2 v_texCoord;
 void main() {
 
     // set colour
-    gl_FragColor = texture2D( u_texture, v_texCoord );
+    gl_FragColor = texelFetch( u_texture, v_texCoord, 4 );
 }

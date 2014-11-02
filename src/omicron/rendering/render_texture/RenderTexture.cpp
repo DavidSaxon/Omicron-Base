@@ -147,16 +147,24 @@ void RenderTexture::init()
     glGenTextures( 1, &m_texture );
     glBindTexture( GL_TEXTURE_2D, m_texture );
     // create an empty texture
-    glTexImage2D(
-        GL_TEXTURE_2D,
-        0,
+    // glTexImage2D(
+    //     GL_TEXTURE_2D,
+    //     0,
+    //     GL_RGB,
+    //     static_cast<GLsizei>( renderSettings.getResolution().x ),
+    //     static_cast<GLsizei>( renderSettings.getResolution().y ),
+    //     0,
+    //     GL_RGB,
+    //     GL_UNSIGNED_BYTE,
+    //     0
+    // );
+    glTexImage2DMultisample(
+        GL_TEXTURE_2D_MULTISAMPLE,
+        3,
         GL_RGB,
         static_cast<GLsizei>( renderSettings.getResolution().x ),
         static_cast<GLsizei>( renderSettings.getResolution().y ),
-        0,
-        GL_RGB,
-        GL_UNSIGNED_BYTE,
-        0
+        GL_TRUE
     );
     // set texture parameters
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
