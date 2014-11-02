@@ -14,6 +14,9 @@ RenderTexture::RenderTexture()
 {
     // initialise
     init();
+
+    // REMOVE ME
+    srand( static_cast<unsigned>( time( NULL ) ) );
 }
 
 //------------------------------------------------------------------------------
@@ -86,6 +89,11 @@ void RenderTexture::render()
     glUniformMatrix4fv(
         glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
         1, GL_FALSE, &mvp[0][0] );
+
+    // REMOVE ME
+    float randMul = static_cast<float>( rand() % 1000 ) / 100.0f;
+    glUniform1f(
+        glGetUniformLocation( program, "u_randMul" ), randMul );
 
     glBindTexture( GL_TEXTURE_2D, m_texture );
 

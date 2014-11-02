@@ -5,6 +5,8 @@
 #define GLM_SWIZZLE
 
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
