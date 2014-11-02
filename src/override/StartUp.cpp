@@ -18,7 +18,7 @@ omi::Scene* init() {
     omi::renderSettings.setDepthTest( true );
     omi::renderSettings.setBackFaceCulling( true );
     omi::renderSettings.setClearColour( glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
-    omi::renderSettings.setResolution( glm::vec2( 192, 108 ) );
+    omi::renderSettings.setResolution( glm::vec2( 1920, 1080 ) );
 
     //audio settings
     omi::audioSettings.setSoundDisabled( true );

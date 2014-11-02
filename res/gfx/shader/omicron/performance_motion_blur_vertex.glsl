@@ -4,22 +4,25 @@
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
-// the texture
-uniform sampler2D u_texture;
+//-----------------------------------UNIFORM------------------------------------
 
-//the texture coords
+// the model, view, projection matrix
+uniform mat4 u_modelViewProjectionMatrix;
+
+//-----------------------------------VARYING------------------------------------
+
+// the texture coords
 varying vec2 v_texCoord;
 
 //------------------------------------------------------------------------------
 //                                 MAIN FUNCTION
 //------------------------------------------------------------------------------
 
-void main() {
+void main()
+{
+    //set the texture coords
+    v_texCoord = vec2( gl_MultiTexCoord0 );
 
-    // get texture
-    vec4 texCol = texture2D( u_texture, v_texCoord );
-    // set performance motion blur transperancy
-    texCol.a = 0.5;
-    // set colour
-    gl_FragColor = texCol;
+    //set the position
+    gl_Position = u_modelViewProjectionMatrix * gl_Vertex;
 }

@@ -51,11 +51,16 @@ protected:
     GLuint m_frameBuffer;
     // the depth buffer
     GLuint m_depthRenderBuffer;
-    // the id of the texture to render to
-    GLuint m_texture;
+
+    // the ids of the texture to render to
+    GLuint m_texture[2];
+    // the texture currently begin rendered to
+    unsigned m_currentTexture;
 
     // the shader to render with
     Shader m_shader;
+    // the shader to render performance motion blur with
+    Shader m_performanceMotionBlurShader;
     // the current resolution of the texture
     glm::vec2 m_resolution;
 
@@ -65,6 +70,10 @@ protected:
 
     /** Initialises this render texture */
     void init();
+
+    /** Sets up a texture for rendering to
+    @ param index the index of the texture */
+    void initTextre( unsigned index ); 
 };
 
 } // namespace omi
