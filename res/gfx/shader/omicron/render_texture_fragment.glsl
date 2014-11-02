@@ -16,10 +16,6 @@ varying vec2 v_texCoord;
 
 void main() {
 
-    // get texture
-    vec4 texCol = texture2D( u_texture, v_texCoord );
-    // set performance motion blur transperancy
-    texCol.a = 0.5;
     // set colour
-    gl_FragColor = texCol;
+    gl_FragColor = texture2D( u_texture, v_texCoord );
 }

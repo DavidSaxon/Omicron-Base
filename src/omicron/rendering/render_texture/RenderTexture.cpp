@@ -2,15 +2,6 @@
 
 namespace omi {
 
-namespace {
-
-// TODO: variables titles
-
-// the number of textures being rendered to
-static const unsigned TEXTURE_COUNT = 2;
-
-} // namespace anonymous
-
 //------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
@@ -19,7 +10,7 @@ RenderTexture::RenderTexture()
     :
     m_frameBuffer      ( 0 ),
     m_depthRenderBuffer( 0 ),
-    m_currentTexture   ( 0 )
+    m_texture          ( 0 )
 {
     // initialise
     init();
@@ -39,15 +30,6 @@ void RenderTexture::bind()
 
     // bind the frame buffer
     glBindFramebuffer( GL_FRAMEBUFFER, m_frameBuffer );
-    // switch the texture we're rendering to
-    m_currentTexture = ( m_currentTexture + 1 ) % TEXTURE_COUNT;
-    glFramebufferTexture2D(
-        GL_FRAMEBUFFER,
-        GL_COLOR_ATTACHMENT0,
-        GL_TEXTURE_2D,
-        m_texture[ m_currentTexture ],
-        0
-    );
     // bind teh depth buffer
     glBindRenderbuffer( GL_RENDERBUFFER, m_depthRenderBuffer );
     //redraw background colour
@@ -56,8 +38,8 @@ void RenderTexture::bind()
     glViewport(
         0,
         0,
-        renderSettings.getResolution().x,
-        renderSettings.getResolution().y
+        static_cast<GLsizei>( renderSettings.getResolution().x ),
+        static_cast<GLsizei>( renderSettings.getResolution().y )
     );
 }
 
@@ -70,8 +52,8 @@ void RenderTexture::unbind()
     glViewport(
         0,
         0,
-        displaySettings.getSize().x,
-        displaySettings.getSize().y
+        static_cast<GLsizei>( displaySettings.getSize().x ),
+        static_cast<GLsizei>( displaySettings.getSize().y )
     );
 }
 
@@ -96,52 +78,8 @@ void RenderTexture::render()
     view *= glm::translate( glm::vec3( 0.0f, 0.0f, 0.0f ) );
     glm::mat4 mvp = projection * view;
 
-    // TODO: clean up into functions
-
-    // Render the motion blur textures
-
-    GLuint program = m_performanceMotionBlurShader.getProgram();
-    // use the shader
-    glUseProgram( program );
-
-    glUniformMatrix4fv(
-        glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
-        1, GL_FALSE, &mvp[0][0] );
-
-    unsigned motionBlurIndex =
-        ( m_currentTexture + 1 ) % TEXTURE_COUNT;
-    glBindTexture( GL_TEXTURE_2D, m_texture[motionBlurIndex] );
-
-    // draw geometry
-    glBegin(GL_TRIANGLES);
-
-        glTexCoord2f( 1.0f, 1.0f );
-        glVertex3f(  aspectRatio,  1.0, 0.0f );
-
-        glTexCoord2f( 0.0f, 1.0f );
-        glVertex3f( -aspectRatio,  1.0, 0.0f );
-
-        glTexCoord2f( 1.0f, 0.0f );
-        glVertex3f(  aspectRatio, -1.0, 0.0f );
-
-        glTexCoord2f( 0.0f, 0.0f );
-        glVertex3f( -aspectRatio, -1.0, 0.0f );
-
-        glTexCoord2f( 1.0f, 0.0f );
-        glVertex3f(  aspectRatio, -1.0, 0.0f );
-
-        glTexCoord2f( 0.0f, 1.0f );
-        glVertex3f( -aspectRatio,  1.0, 0.0f );
-
-    glEnd();
-
-    glUseProgram( 0 );
-    glBindTexture( GL_TEXTURE_2D, 0 );
-
-    // Render the standard render texture
-
     // get the OpenGL program
-    program = m_shader.getProgram();
+    GLuint program = m_shader.getProgram();
     // use the shader
     glUseProgram( program );
 
@@ -149,7 +87,7 @@ void RenderTexture::render()
         glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
         1, GL_FALSE, &mvp[0][0] );
 
-    glBindTexture( GL_TEXTURE_2D, m_texture[m_currentTexture] );
+    glBindTexture( GL_TEXTURE_2D, m_texture );
 
     // draw geometry
     glBegin(GL_TRIANGLES);
@@ -213,43 +151,8 @@ void RenderTexture::init()
     );
 
     // generate the textures we will render to
-    glGenTextures( 2, &m_texture[0] );
-    for ( unsigned i = 0; i < TEXTURE_COUNT; ++i )
-    {
-        initTextre( i );
-    }
-
-    // set up the frame buffer to render to our texture
-    glFramebufferTexture2D(
-        GL_FRAMEBUFFER,
-        GL_COLOR_ATTACHMENT0,
-        GL_TEXTURE_2D,
-        m_texture[ m_currentTexture ],
-        0
-    );
-    // TODO: do we need this??
-    GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-    glDrawBuffers( 1, drawBuffers );
-
-    // load shaders for the render texture
-    m_shader = loader::loadShaderFromFiles(
-        "res/gfx/shader/omicron/render_texture_vertex.glsl",
-        "res/gfx/shader/omicron/render_texture_fragment.glsl"
-    );
-    m_performanceMotionBlurShader = loader::loadShaderFromFiles(
-        "res/gfx/shader/omicron/performance_motion_blur_vertex.glsl",
-        "res/gfx/shader/omicron/performance_motion_blur_fragment.glsl"
-    );
-
-    // unbind
-    glBindFramebuffer ( GL_FRAMEBUFFER,  0 );
-    glBindRenderbuffer( GL_RENDERBUFFER, 0 );
-    glBindTexture     ( GL_TEXTURE_2D,   0 );
-}
-
-void RenderTexture::initTextre( unsigned index )
-{
-    glBindTexture( GL_TEXTURE_2D, m_texture[index] );
+    glGenTextures( 1, &m_texture );
+    glBindTexture( GL_TEXTURE_2D, m_texture );
     // create an empty texture
     glTexImage2D(
         GL_TEXTURE_2D,
@@ -262,17 +165,31 @@ void RenderTexture::initTextre( unsigned index )
         GL_UNSIGNED_BYTE,
         0
     );
-    // glTexImage2DMultisample(
-    //     GL_TEXTURE_2D_MULTISAMPLE,
-    //     3,
-    //     GL_RGB,
-    //     static_cast<GLsizei>( renderSettings.getResolution().x ),
-    //     static_cast<GLsizei>( renderSettings.getResolution().y ),
-    //     GL_TRUE
-    // );
-    // set texture parameters
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+
+    // set up the frame buffer to render to our texture
+    glFramebufferTexture2D(
+        GL_FRAMEBUFFER,
+        GL_COLOR_ATTACHMENT0,
+        GL_TEXTURE_2D,
+        m_texture,
+        0
+    );
+    // TODO: do we need this??
+    GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers( 1, drawBuffers );
+
+    // load shaders for the render texture
+    m_shader = loader::loadShaderFromFiles(
+        "res/gfx/shader/omicron/render_texture_vertex.glsl",
+        "res/gfx/shader/omicron/render_texture_fragment.glsl"
+    );
+
+    // unbind
+    glBindFramebuffer ( GL_FRAMEBUFFER,  0 );
+    glBindRenderbuffer( GL_RENDERBUFFER, 0 );
+    glBindTexture     ( GL_TEXTURE_2D,   0 );
 }
 
 
