@@ -41,6 +41,20 @@ void buildTestPack()
         1
     );
     omi::ResourceManager::addMaterialGeometryMesh(
+        "test_tunnel_light_bulb_1", resource_group::TEST,
+        "default_shader",
+        glm::vec4( 1.0f, 1.0f, 0.9f, 1.0f ),
+        "res/gfx/geometry/test/light_bulb_1.obj",
+        1
+    );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_tunnel_light_socket_1", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/light_socket_1.png",
+        "res/gfx/geometry/test/light_socket_1.obj",
+        1
+    );
+    omi::ResourceManager::addMaterialGeometryMesh(
         "test_monkey", resource_group::TEST,
         "default_shader",
         glm::vec4( 1.0f, 0.0f, 0.0f, 1.0f ),

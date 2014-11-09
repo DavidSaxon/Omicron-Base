@@ -30,13 +30,13 @@ void TestEnvironment::init()
     // point lights
     omi::Transform* t_2 = new omi::Transform(
             "",
-            glm::vec3( 0.0f, 0.0f, 0.0f ),
+            glm::vec3( 0.0f, 0.33f, 0.0f ),
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
     m_components.add( t_2 );
     m_components.add( new omi::PointLight(
-        "", t_2, 1.0f, glm::vec3( 0.4f, 1.0f, 0.4f ), 0.05f, 0.5f, 0.0025f
+        "", t_2, 1.0f, glm::vec3( 1.0f, 1.0f, 0.9f ), 0.05f, 0.8f, 0.025f
     ) );
     // spot lights
     omi::Transform* t_3 = new omi::Transform(
@@ -54,13 +54,37 @@ void TestEnvironment::init()
     // meshes
     m_components.add(
             omi::ResourceManager::getMesh( "test_tunnel_1", "", NULL ) );
-    m_components.add(
-            omi::ResourceManager::getMesh( "test_tunnel_pipe_1", "", NULL ) );
+
+    omi::Mesh* pipeMesh =
+            omi::ResourceManager::getMesh( "test_tunnel_pipe_1", "", NULL );
+    pipeMesh->getMaterial().specular =
+        new Specular( 64.0f, glm::vec3( 0.5f, 0.5f, 0.5f ) );
+    m_components.add( pipeMesh );
+
+    omi::Mesh* pipeHolderMesh =
+            omi::ResourceManager::getMesh(
+                "test_tunnel_pipe_holder_1", "", NULL );
+    pipeHolderMesh->getMaterial().specular =
+        new Specular( 12.0f, glm::vec3( 0.3f, 0.3f, 0.3f ) );
+    m_components.add( pipeHolderMesh );
+
     m_components.add(
             omi::ResourceManager::getMesh(
-            "test_tunnel_pipe_holder_1", "", NULL ) );
-    m_components.add(
-            omi::ResourceManager::getMesh( "test_floor_1", "", NULL ) );
+            "test_tunnel_light_bulb_1", "", NULL ) );
+
+    omi::Mesh* lightSocketMesh =
+            omi::ResourceManager::getMesh(
+                "test_tunnel_light_socket_1", "", NULL );
+    lightSocketMesh->getMaterial().specular =
+        new Specular( 64.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
+    m_components.add( lightSocketMesh );
+
+    omi::Mesh* floorMesh =
+            omi::ResourceManager::getMesh(
+                "test_floor_1", "", NULL );
+    floorMesh->getMaterial().specular =
+        new Specular( 128.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
+    m_components.add( floorMesh );
 }
 
 void TestEnvironment::update()
