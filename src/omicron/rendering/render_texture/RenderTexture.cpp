@@ -6,11 +6,15 @@ namespace omi {
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-RenderTexture::RenderTexture()
+RenderTexture::RenderTexture(
+        const std::string& vertexShader,
+        const std::string& fragmentShader )
     :
     m_frameBuffer      ( 0 ),
     m_depthRenderBuffer( 0 ),
-    m_texture          ( 0 )
+    m_texture          ( 0 ),
+    m_vertexShader     ( vertexShader ),
+    m_fragmentShader   ( fragmentShader )
 {
     // initialise
     init();
@@ -90,10 +94,8 @@ void RenderTexture::render()
         glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
         1, GL_FALSE, &mvp[0][0] );
 
-    // REMOVE ME
-    float randMul = static_cast<float>( rand() % 1000 ) / 100.0f;
-    glUniform1f(
-        glGetUniformLocation( program, "u_randMul" ), randMul );
+    // pass in custom shader parameters
+    shaderParameters( program );
 
     glBindTexture( GL_TEXTURE_2D, m_texture );
 
@@ -130,8 +132,9 @@ void RenderTexture::render()
 }
 
 //------------------------------------------------------------------------------
-//                           PROTECTED MEMBER FUNCTIONS
+//                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
 
 void RenderTexture::init()
 {
@@ -190,15 +193,12 @@ void RenderTexture::init()
 
     // load shaders for the render texture
     m_shader = loader::loadShaderFromFiles(
-        "res/gfx/shader/omicron/render_texture_vertex.glsl",
-        "res/gfx/shader/omicron/render_texture_fragment.glsl"
-    );
+        m_vertexShader, m_fragmentShader );
 
     // unbind
     glBindFramebuffer ( GL_FRAMEBUFFER,  0 );
     glBindRenderbuffer( GL_RENDERBUFFER, 0 );
     glBindTexture     ( GL_TEXTURE_2D,   0 );
 }
-
 
 } // namespace omi

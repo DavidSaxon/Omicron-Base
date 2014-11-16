@@ -20,6 +20,9 @@
 
 namespace omi {
 
+/*******************************************************************\
+| Abstract base class that all custom render textures inherit from. |
+\*******************************************************************/
 class RenderTexture {
 public:
 
@@ -27,8 +30,12 @@ public:
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /** Super constructor */
-    RenderTexture();
+    /** Super constructor
+    @param vertexShader the path to the vertex shader to use
+    @param fragmentShader the path to the fragment shader to use */
+    RenderTexture(
+            const std::string& vertexShader,
+            const std::string& fragmentShader );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -46,6 +53,15 @@ public:
 protected:
 
     //--------------------------------------------------------------------------
+    //                         PROTECTED MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** Override to pass parameters in the shader */
+    virtual void shaderParameters( GLuint program ) = 0;
+
+private:
+
+    //--------------------------------------------------------------------------
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
@@ -57,13 +73,16 @@ protected:
     // the ids of the texture to render to
     GLuint m_texture;
 
+    // the path to the shaders
+    std::string m_vertexShader;
+    std::string m_fragmentShader;
     // the shader to render with
     Shader m_shader;
     // the current resolution of the texture
     glm::vec2 m_resolution;
 
     //--------------------------------------------------------------------------
-    //                         PROTECTED MEMBER FUNCTIONS
+    //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     /** Initialises this render texture */
