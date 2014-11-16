@@ -15,6 +15,10 @@ void TestScene::init()
     omi::renderSettings.setAmbientStrength( 0.0f );
     omi::renderSettings.setAmbientColour( glm::vec3( 1.0f, 1.0f, 1.0f ) );
 
+    // effects
+    omi::renderSettings.setFilmGrain( 0.075f );
+
+
     // add entities
     addEntity( new TestPlayer() );
     addEntity( new TestEnvironment() );

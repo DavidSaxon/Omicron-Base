@@ -61,6 +61,8 @@ public:
     /** @return the colour of the ambient light */
     const glm::vec3& getAmbientColour() const;
 
+    /** @return the amount of film grain */
+    float getFilmGrain() const;
 
     //---------------------------------SETTERS----------------------------------
 
@@ -81,6 +83,10 @@ public:
 
     /** @param colour the new colour of ambient light */
     void setAmbientColour( const glm::vec3& colour );
+
+    /**@param filmGrain the amount of film grain to be applied to the final
+              output */
+    void setFilmGrain( float filmGrain );
 
 private:
 
@@ -105,6 +111,9 @@ private:
     float m_ambientStrength;
     // the colour of ambient light
     glm::vec3 m_ambientColour;
+
+    // the amount of film grain to be applied to the final output
+    float m_filmGrain;
 };
 
 } // namespace omi

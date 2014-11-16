@@ -126,6 +126,7 @@ void RenderLists::render( Camera* camera )
 
     //-----------------------------VISIBLE ELEMENTS-----------------------------
 
+    // TODO: glow pass
 
     LightData lightData;
 
@@ -137,8 +138,9 @@ void RenderLists::render( Camera* camera )
         buildLightData( camera, lightData );
     }
 
-    // bind the render texture
-    m_finalRenTex.bind();
+    // TODO: move up
+    // bind glow render texture
+    m_glowRenTex.bind();
 
     // iterate over the layers
     for ( t_RenderableMap::iterator it = renderLayers.begin();
@@ -157,6 +159,14 @@ void RenderLists::render( Camera* camera )
         }
     }
 
+    // TODO: move up
+    // unbind glow texture
+    m_glowRenTex.unbind();
+    // TODO: move up
+    // bind the final render texture
+    m_finalRenTex.bind();
+    // render out glow texture
+    m_glowRenTex.render();
     // unbind the render texture
     m_finalRenTex.unbind();
     // render the results of the render texture
