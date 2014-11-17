@@ -6,6 +6,10 @@
 
 #include "lib/glm/glm.hpp"
 
+/**********************************************************************\
+| The specular property defines the existence and behavior of material |
+| specularity.                                                         |
+\**********************************************************************/
 class Specular {
 public:
 

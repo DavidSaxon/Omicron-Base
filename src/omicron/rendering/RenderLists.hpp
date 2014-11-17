@@ -15,6 +15,8 @@
 #include "src/omicron/input/Input.hpp"
 #include "src/omicron/rendering/render_texture/FinalRenderTexture.hpp"
 #include "src/omicron/rendering/render_texture/GlowRenderTexture.hpp"
+#include "src/omicron/rendering/render_texture/GlowFirstPassRenderTexture.hpp"
+
 
 namespace omi {
 
@@ -109,7 +111,8 @@ private:
     // the list of lights
     std::vector<Light*> m_lights;
 
-    // glow render texture
+    // glow render textures
+    GlowFirstPassRenderTexture m_glowFirstPassRenTex;
     GlowRenderTexture m_glowRenTex;
     // the final render texture
     FinalRenderTexture m_finalRenTex;

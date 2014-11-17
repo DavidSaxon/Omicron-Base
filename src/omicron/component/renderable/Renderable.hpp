@@ -27,6 +27,8 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // glow shaders for the renderables
+    static Shader glowShader;
     // the selection shader for renderables
     static Shader selectionShader;
 
@@ -69,6 +71,10 @@ public:
     @param camera the camera used to render this
     @param pointLights the list of point lights to use to render this */
     void render( Camera* camera, const LightData& lightData );
+
+    /** #Hidden
+    Render this component for the glow pass */
+    void renderGlow( Camera* camera );
 
     /** #Hidden
     Render this component for colour picking */

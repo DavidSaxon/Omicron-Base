@@ -6,6 +6,7 @@ namespace omi {
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
+Shader Renderable::glowShader;
 Shader Renderable::selectionShader;
 
 //------------------------------------------------------------------------------
@@ -34,10 +35,28 @@ Renderable::Renderable(
 
 void Renderable::render( Camera* camera, const LightData& lightData )
 {
+    // TODO: this might need to be done elsewhere since glow passes will be
+    // behind
     // update the material
     m_material.update();
 
-    // only render if the sprite is visible and the camera there is a camera
+    // only render if visible and there is a camera
+    if ( !visible || !m_material.isVisible() || camera == NULL)
+    {
+        return;
+    }
+
+    applyTransformations();
+
+    calculateMatrices( camera );
+    setShader( lightData );
+    draw();
+    unsetShader();
+}
+
+void Renderable::renderGlow( Camera* camera )
+{
+    // only render if visible and there is a camera
     if ( !visible || !m_material.isVisible() || camera == NULL)
     {
         return;
@@ -45,7 +64,34 @@ void Renderable::render( Camera* camera, const LightData& lightData )
 
     applyTransformations();
     calculateMatrices( camera );
-    setShader( lightData );
+
+    // get the OpenGL program
+    GLuint program = glowShader.getProgram();
+    // use the shader
+    glUseProgram( program );
+
+    // pass in the matrices to the shader
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
+        1, GL_FALSE, &m_modelViewProjectionMatrix[0][0] );
+
+    // get the colour based on glow component
+    glm::vec3 colour( 0.0f, 0.0f, 0.0f );
+    if ( m_material.glow != NULL )
+    {
+        colour = m_material.glow->getColour();
+    }
+
+    // pass in colour to the shader
+    glUniform4f(
+        glGetUniformLocation( program, "u_colour" ),
+        colour.r,
+        colour.g,
+        colour.b,
+        1.0
+    );
+
+    // draw
     draw();
     unsetShader();
 }

@@ -43,7 +43,7 @@ void RenderLists::render( Camera* camera )
         renderLayers[layer].push_back( *renderable );
     }
 
-    //---------------------------SELECTABLE ELEMENTS----------------------------
+    //------------------------------SELECTION PASS------------------------------
 
     // apply the camera
     if ( camera != NULL )
@@ -124,12 +124,10 @@ void RenderLists::render( Camera* camera )
     // clear for normal rendering
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //-----------------------------VISIBLE ELEMENTS-----------------------------
+    //------------------------------VISIBLE PASSES------------------------------
 
-    // TODO: glow pass
-
+    // calculate light data
     LightData lightData;
-
     // apply the camera
     if ( camera != NULL )
     {
@@ -138,19 +136,37 @@ void RenderLists::render( Camera* camera )
         buildLightData( camera, lightData );
     }
 
-    // TODO: move up
-    // bind glow render texture
-    m_glowRenTex.bind();
+    //--------------------------------GLOW PASS---------------------------------
+
+    // // bind the first pass glow render texture
+    m_glowFirstPassRenTex.bind();
 
     // iterate over the layers
     for ( t_RenderableMap::iterator it = renderLayers.begin();
           it != renderLayers.end(); ++it )
     {
-        //sort the list of renderables based on their distance from the camera
-        depthSorter.camera = camera;
-        // TODO: sorting should only happen on transparent/requested renderables
-        // std::sort( it->second.begin(), it->second.end(), depthSorter );
+        // iterate over the renderables in this layer and render them or glow
+        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+              itr != it->second.end(); ++itr)
+        {
+            ( *itr )->renderGlow( camera );
+        }
+    }
 
+    // // unbind the first pass glow render texture
+    m_glowFirstPassRenTex.unbind();
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    //-----------------------------MAIN RENDER PASS-----------------------------
+
+    // bind final pass render texture
+    m_finalRenTex.bind();
+
+    // iterate over the layers
+    for ( t_RenderableMap::iterator it = renderLayers.begin();
+          it != renderLayers.end(); ++it )
+    {
         // iterate over the renderables in this layer and render them
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
               itr != it->second.end(); ++itr)
@@ -159,15 +175,11 @@ void RenderLists::render( Camera* camera )
         }
     }
 
-    // TODO: move up
-    // unbind glow texture
-    m_glowRenTex.unbind();
-    // TODO: move up
-    // bind the final render texture
-    m_finalRenTex.bind();
-    // render out glow texture
-    m_glowRenTex.render();
-    // unbind the render texture
+    // TODO: should be glow vert blur
+    // render the glow pass
+    m_glowFirstPassRenTex.render();
+
+    // unbind final pass
     m_finalRenTex.unbind();
     // render the results of the render texture
     m_finalRenTex.render();

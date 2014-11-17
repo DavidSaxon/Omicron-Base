@@ -68,9 +68,12 @@ void TestEnvironment::init()
         new Specular( 12.0f, glm::vec3( 0.3f, 0.3f, 0.3f ) );
     m_components.add( pipeHolderMesh );
 
-    m_components.add(
+    omi::Mesh* lightBulbMesh =
             omi::ResourceManager::getMesh(
-            "test_tunnel_light_bulb_1", "", NULL ) );
+                "test_tunnel_light_bulb_1", "", NULL );
+    lightBulbMesh->getMaterial().glow =
+        new Glow( glm::vec3( 1.0f, 1.0f, 0.7f ) );
+    m_components.add( lightBulbMesh );
 
     omi::Mesh* lightSocketMesh =
             omi::ResourceManager::getMesh(

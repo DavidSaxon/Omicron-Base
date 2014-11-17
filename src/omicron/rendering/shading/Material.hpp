@@ -8,6 +8,7 @@
 
 #include "src/omicron/rendering/shading/Shader.hpp"
 #include "src/omicron/rendering/shading/Texture.hpp"
+#include "src/omicron/rendering/shading/material_property/Glow.hpp"
 #include "src/omicron/rendering/shading/material_property/Specular.hpp"
 
 namespace omi {
@@ -38,6 +39,8 @@ public:
     Texture* texture;
     //! the specular property of the material
     Specular* specular;
+    //! the glow property of the material
+    Glow* glow;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTORS

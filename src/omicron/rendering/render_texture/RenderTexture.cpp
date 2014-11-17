@@ -70,7 +70,7 @@ void RenderTexture::render()
     glDisable( GL_DEPTH_TEST );
 
     //redraw background colour
-    glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
+    // glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
 
     // set up matrices
     float aspectRatio =

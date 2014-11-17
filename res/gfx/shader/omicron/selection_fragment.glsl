@@ -9,8 +9,8 @@ uniform sampler2D u_texture;
 //the texture coords
 varying vec2 v_texCoord;
 
-void main() {
-
+void main()
+{
     // the final colour
     vec4 finalColour = u_colour;
     vec4 textureColour = texture2D( u_texture, v_texCoord );

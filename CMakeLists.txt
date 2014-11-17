@@ -25,6 +25,7 @@ set(SRCS
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
     src/omicron/rendering/render_texture/FinalRenderTexture.cpp
+    src/omicron/rendering/render_texture/GlowRenderTexture.cpp
     src/omicron/rendering/render_texture/RenderTexture.cpp
     src/omicron/rendering/shading/Animation.cpp
     src/omicron/rendering/shading/Material.cpp
