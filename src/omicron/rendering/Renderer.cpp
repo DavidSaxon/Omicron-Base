@@ -100,7 +100,8 @@ void Renderer::applySettings() {
             renderSettings.getClearColour().r,
             renderSettings.getClearColour().g,
             renderSettings.getClearColour().b,
-            renderSettings.getClearColour().a);
+            renderSettings.getClearColour().a
+        );
     }
 }
 

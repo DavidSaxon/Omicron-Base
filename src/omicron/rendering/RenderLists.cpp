@@ -153,10 +153,13 @@ void RenderLists::render( Camera* camera )
         }
     }
 
-    // // unbind the first pass glow render texture
+    // unbind the first pass glow render texture
     m_glowFirstPassRenTex.unbind();
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // blur the glow render
+    m_glowBlurRenTex.bind();
+    m_glowFirstPassRenTex.render();
+    m_glowBlurRenTex.unbind();
 
     //-----------------------------MAIN RENDER PASS-----------------------------
 
@@ -175,9 +178,8 @@ void RenderLists::render( Camera* camera )
         }
     }
 
-    // TODO: should be glow vert blur
-    // render the glow pass
-    m_glowFirstPassRenTex.render();
+    // render glow
+    m_glowBlurRenTex.render();
 
     // unbind final pass
     m_finalRenTex.unbind();

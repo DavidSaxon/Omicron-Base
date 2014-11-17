@@ -35,18 +35,30 @@ void RenderTexture::bind()
         init();
     }
 
+    // clear background
+    glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     // bind the frame buffer
     glBindFramebuffer( GL_FRAMEBUFFER, m_frameBuffer );
     // bind teh depth buffer
     glBindRenderbuffer( GL_RENDERBUFFER, m_depthRenderBuffer );
-    //redraw background colour
-    glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
+    // clear the render buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // set the view port to the size of the render texture
     glViewport(
         0,
         0,
         static_cast<GLsizei>( renderSettings.getResolution().x ),
         static_cast<GLsizei>( renderSettings.getResolution().y )
+    );
+
+    // reset the background colour
+    glClearColor(
+        renderSettings.getClearColour().r,
+        renderSettings.getClearColour().g,
+        renderSettings.getClearColour().b,
+        renderSettings.getClearColour().a
     );
 }
 
@@ -168,11 +180,11 @@ void RenderTexture::init()
     glTexImage2D(
         GL_TEXTURE_2D,
         0,
-        GL_RGB,
+        GL_RGBA,
         static_cast<GLsizei>( renderSettings.getResolution().x ),
         static_cast<GLsizei>( renderSettings.getResolution().y ),
         0,
-        GL_RGB,
+        GL_RGBA,
         GL_UNSIGNED_BYTE,
         0
     );

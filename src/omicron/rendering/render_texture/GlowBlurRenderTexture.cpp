@@ -1,4 +1,4 @@
-#include "GlowRenderTexture.hpp"
+#include "GlowBlurRenderTexture.hpp"
 
 namespace omi {
 
@@ -6,10 +6,10 @@ namespace omi {
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-GlowRenderTexture::GlowRenderTexture() :
+GlowBlurRenderTexture::GlowBlurRenderTexture() :
     RenderTexture(
         "res/gfx/shader/omicron/render_texture_vertex.glsl",
-        "res/gfx/shader/omicron/glow_render_texture_fragment.glsl"
+        "res/gfx/shader/omicron/glow_blur_render_texture_fragment.glsl"
     )
 {
 }
@@ -18,7 +18,7 @@ GlowRenderTexture::GlowRenderTexture() :
 //                           PROTECTED MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void GlowRenderTexture::shaderParameters( GLuint program )
+void GlowBlurRenderTexture::shaderParameters( GLuint program )
 {
     // do nothing
 }
