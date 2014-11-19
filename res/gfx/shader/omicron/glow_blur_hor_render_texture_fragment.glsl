@@ -20,7 +20,7 @@ varying vec2 v_texCoord;
 void main()
 {
     // where we will store the final colour
-    vec4 finalColour;
+    vec4 finalColour = vec4( 0.0, 0.0, 0.0, 0.0 );
 
     // calculate the size of a pixel
     float blur = 1.0 / u_resolution;
@@ -61,6 +61,7 @@ void main()
 
     finalColour += texture2D( u_texture,
         vec2( v_texCoord.x, v_texCoord.y ) ) * 0.044256;
+
 
     finalColour += texture2D( u_texture,
         vec2( v_texCoord.x + 16.0 * blur, v_texCoord.y ) ) * 0.012318;

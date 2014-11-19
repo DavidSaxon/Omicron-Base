@@ -25,7 +25,9 @@ set(SRCS
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
     src/omicron/rendering/render_texture/FinalRenderTexture.cpp
-    src/omicron/rendering/render_texture/GlowBlurRenderTexture.cpp
+    src/omicron/rendering/render_texture/GlowBlurHorRenderTexture.cpp
+    src/omicron/rendering/render_texture/GlowBlurVertRenderTexture.cpp
+    src/omicron/rendering/render_texture/GlowCollateRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowFirstPassRenderTexture.cpp
     src/omicron/rendering/render_texture/RenderTexture.cpp
     src/omicron/rendering/shading/Animation.cpp
