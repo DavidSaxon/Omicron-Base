@@ -8,13 +8,15 @@ namespace omi {
 
 RenderTexture::RenderTexture(
         const std::string& vertexShader,
-        const std::string& fragmentShader )
+        const std::string& fragmentShader,
+        float resScale )
     :
     m_frameBuffer      ( 0 ),
     m_depthRenderBuffer( 0 ),
     m_texture          ( 0 ),
     m_vertexShader     ( vertexShader ),
-    m_fragmentShader   ( fragmentShader )
+    m_fragmentShader   ( fragmentShader ),
+    m_resScale         ( resScale )
 {
     // initialise
     init();
@@ -41,7 +43,7 @@ void RenderTexture::bind()
 
     // bind the frame buffer
     glBindFramebuffer( GL_FRAMEBUFFER, m_frameBuffer );
-    // bind teh depth buffer
+    // bind the depth buffer
     glBindRenderbuffer( GL_RENDERBUFFER, m_depthRenderBuffer );
     // clear the render buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -49,8 +51,8 @@ void RenderTexture::bind()
     glViewport(
         0,
         0,
-        static_cast<GLsizei>( renderSettings.getResolution().x ),
-        static_cast<GLsizei>( renderSettings.getResolution().y )
+        static_cast<GLsizei>( renderSettings.getResolution().x * m_resScale ),
+        static_cast<GLsizei>( renderSettings.getResolution().y * m_resScale )
     );
 
     // reset the background colour
@@ -144,9 +146,8 @@ void RenderTexture::render()
 }
 
 //------------------------------------------------------------------------------
-//                            PRIVATE MEMBER FUNCTIONS
+//                           PROTECTED MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
-
 
 void RenderTexture::init()
 {
@@ -163,8 +164,8 @@ void RenderTexture::init()
     glRenderbufferStorage(
         GL_RENDERBUFFER,
         GL_DEPTH_COMPONENT,
-        static_cast<GLsizei>( renderSettings.getResolution().x ),
-        static_cast<GLsizei>( renderSettings.getResolution().y )
+        static_cast<GLsizei>( renderSettings.getResolution().x * m_resScale ),
+        static_cast<GLsizei>( renderSettings.getResolution().y * m_resScale )
     );
     glFramebufferRenderbuffer(
         GL_FRAMEBUFFER,
@@ -181,8 +182,8 @@ void RenderTexture::init()
         GL_TEXTURE_2D,
         0,
         GL_RGBA,
-        static_cast<GLsizei>( renderSettings.getResolution().x ),
-        static_cast<GLsizei>( renderSettings.getResolution().y ),
+        static_cast<GLsizei>( renderSettings.getResolution().x * m_resScale ),
+        static_cast<GLsizei>( renderSettings.getResolution().y * m_resScale ),
         0,
         GL_RGBA,
         GL_UNSIGNED_BYTE,
@@ -190,6 +191,8 @@ void RenderTexture::init()
     );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 
     // set up the frame buffer to render to our texture
     glFramebufferTexture2D(

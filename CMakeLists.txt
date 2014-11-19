@@ -25,12 +25,14 @@ set(SRCS
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
     src/omicron/rendering/render_texture/FinalRenderTexture.cpp
-    src/omicron/rendering/render_texture/GlowRenderTexture.cpp
+    src/omicron/rendering/render_texture/GlowBlurRenderTexture.cpp
+    src/omicron/rendering/render_texture/GlowFirstPassRenderTexture.cpp
     src/omicron/rendering/render_texture/RenderTexture.cpp
     src/omicron/rendering/shading/Animation.cpp
     src/omicron/rendering/shading/Material.cpp
     src/omicron/rendering/shading/Shader.cpp
     src/omicron/rendering/shading/Texture.cpp
+    src/omicron/rendering/shading/material_property/Glow.cpp
     src/omicron/rendering/shading/material_property/Specular.cpp
     src/omicron/resource/loader/GeometryLoader.cpp
     src/omicron/resource/loader/ShaderLoader.cpp
