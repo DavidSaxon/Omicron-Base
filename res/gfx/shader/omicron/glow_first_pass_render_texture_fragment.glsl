@@ -22,6 +22,9 @@ void main() {
     // filter out colours below threshold
     if ( texCol.r + texCol.g + texCol.b < 0.05 )
     {
+        texCol.r = 1.0;
+        texCol.g = 1.0;
+        texCol.b = 1.0;
         texCol.a = 0.0;
     }
 

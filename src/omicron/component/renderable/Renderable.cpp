@@ -77,9 +77,11 @@ void Renderable::renderGlow( Camera* camera )
 
     // get the colour based on glow component
     glm::vec3 colour( 0.0f, 0.0f, 0.0f );
+    float brightness = 1.0f;
     if ( m_material.glow != NULL )
     {
-        colour = m_material.glow->getColour();
+        colour     = m_material.glow->getColour();
+        brightness = m_material.glow->getBrightness();
     }
 
     // pass in colour to the shader
@@ -88,7 +90,7 @@ void Renderable::renderGlow( Camera* camera )
         colour.r,
         colour.g,
         colour.b,
-        1.0
+        brightness
     );
 
     // draw

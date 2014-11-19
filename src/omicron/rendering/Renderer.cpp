@@ -112,6 +112,7 @@ void Renderer::init() {
 
     // apply non changeable settings
     glEnable(GL_BLEND);
+    glBlendEquation( GL_FUNC_ADD );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glCullFace(GL_BACK);
     glClearDepth(1.0f);

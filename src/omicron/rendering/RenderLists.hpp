@@ -14,7 +14,9 @@
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/input/Input.hpp"
 #include "src/omicron/rendering/render_texture/FinalRenderTexture.hpp"
-#include "src/omicron/rendering/render_texture/GlowBlurRenderTexture.hpp"
+#include "src/omicron/rendering/render_texture/GlowBlurHorRenderTexture.hpp"
+#include "src/omicron/rendering/render_texture/GlowBlurVertRenderTexture.hpp"
+#include "src/omicron/rendering/render_texture/GlowCollateRenderTexture.hpp"
 #include "src/omicron/rendering/render_texture/GlowFirstPassRenderTexture.hpp"
 
 
@@ -113,7 +115,9 @@ private:
 
     // glow render textures
     GlowFirstPassRenderTexture m_glowFirstPassRenTex;
-    GlowBlurRenderTexture m_glowBlurRenTex;
+    GlowBlurHorRenderTexture m_glowBlurHorRenTex;
+    GlowBlurVertRenderTexture m_glowBlurVertRenTex;
+    GlowCollateRenderTexture m_glowCollateRenTex;
     // the final render texture
     FinalRenderTexture m_finalRenTex;
 

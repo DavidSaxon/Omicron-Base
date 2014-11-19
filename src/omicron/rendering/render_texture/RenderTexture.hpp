@@ -32,10 +32,12 @@ public:
 
     /** Super constructor
     @param vertexShader the path to the vertex shader to use
-    @param fragmentShader the path to the fragment shader to use */
+    @param fragmentShader the path to the fragment shader to use
+    @param resScale the scale of the resolution this texture should be */
     RenderTexture(
             const std::string& vertexShader,
-            const std::string& fragmentShader );
+            const std::string& fragmentShader,
+            float resScale = 1.0f );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -51,15 +53,6 @@ public:
     void render();
 
 protected:
-
-    //--------------------------------------------------------------------------
-    //                         PROTECTED MEMBER FUNCTIONS
-    //--------------------------------------------------------------------------
-
-    /** Override to pass parameters in the shader */
-    virtual void shaderParameters( GLuint program ) = 0;
-
-private:
 
     //--------------------------------------------------------------------------
     //                                 VARIABLES
@@ -78,15 +71,20 @@ private:
     std::string m_fragmentShader;
     // the shader to render with
     Shader m_shader;
+    // the scale of the resolution
+    float m_resScale;
     // the current resolution of the texture
     glm::vec2 m_resolution;
 
     //--------------------------------------------------------------------------
-    //                          PRIVATE MEMBER FUNCTIONS
+    //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     /** Initialises this render texture */
     void init();
+
+    /** Override to pass parameters in the shader */
+    virtual void shaderParameters( GLuint program ) = 0;
 };
 
 } // namespace omi

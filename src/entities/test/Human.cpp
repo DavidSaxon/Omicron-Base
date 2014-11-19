@@ -12,8 +12,9 @@ void Human::init()
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
-    m_components.add(
-            omi::ResourceManager::getMesh( "test_human", "", m_transform ) );
+    omi::Mesh* humanMesh =
+        omi::ResourceManager::getMesh( "test_human", "", m_transform );
+    m_components.add( humanMesh );
 }
 
 void Human::update()

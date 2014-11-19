@@ -156,15 +156,25 @@ void RenderLists::render( Camera* camera )
     // unbind the first pass glow render texture
     m_glowFirstPassRenTex.unbind();
 
-    // blur the glow render
-    m_glowBlurRenTex.bind();
+    // blur the glow render onto the collate texture
+    m_glowBlurHorRenTex.bind();
     m_glowFirstPassRenTex.render();
-    m_glowBlurRenTex.unbind();
+    m_glowBlurHorRenTex.unbind();
+
+    m_glowBlurVertRenTex.bind();
+    m_glowBlurHorRenTex.render();
+    m_glowBlurVertRenTex.unbind();
+
+    m_glowCollateRenTex.bind();
+    m_glowBlurVertRenTex.render();
+    m_glowCollateRenTex.unbind();
 
     //-----------------------------MAIN RENDER PASS-----------------------------
 
     // bind final pass render texture
     m_finalRenTex.bind();
+
+    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // iterate over the layers
     for ( t_RenderableMap::iterator it = renderLayers.begin();
@@ -178,8 +188,12 @@ void RenderLists::render( Camera* camera )
         }
     }
 
+    // used additive blending for glow
+    glBlendFunc( GL_ONE, GL_ONE );
     // render glow
-    m_glowBlurRenTex.render();
+    m_glowCollateRenTex.render();
+    // revert normal blending mode
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
     // unbind final pass
     m_finalRenTex.unbind();
