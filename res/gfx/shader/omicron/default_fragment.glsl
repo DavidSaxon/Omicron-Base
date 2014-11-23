@@ -55,7 +55,6 @@ void main() {
     //---------------------------------MATERIAL---------------------------------
 
     // the colour of the material
-    // vec4 material = u_colour;
     vec4 material = u_colour;
 
     //apply texturing

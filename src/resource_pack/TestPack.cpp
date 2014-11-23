@@ -69,6 +69,13 @@ void buildTestPack()
         "res/gfx/geometry/test/human.obj",
         2
     );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "glow_cube", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/glow_cube.png",
+        "res/gfx/geometry/test/glow_cube.obj",
+        2, 0, omi::material::SHADELESS
+    );
 }
 
 } // namespace pack

@@ -80,8 +80,8 @@ void Renderable::renderGlow( Camera* camera )
     float brightness = 1.0f;
     if ( m_material.glow != NULL )
     {
-        colour     = m_material.glow->getColour();
-        brightness = m_material.glow->getBrightness();
+        colour =
+                m_material.glow->getColour() * m_material.glow->getBrightness();
     }
 
     // pass in colour to the shader
@@ -90,8 +90,21 @@ void Renderable::renderGlow( Camera* camera )
         colour.r,
         colour.g,
         colour.b,
-        brightness
+        1.0f
     );
+
+    // texture
+    if ( m_material.glow != NULL && m_material.glow->getTexture() != NULL )
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
+        glBindTexture( GL_TEXTURE_2D,
+                m_material.glow->getTexture()->getId() );
+    }
+    else
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
+        glBindTexture( GL_TEXTURE_2D, 0 );
+    }
 
     // draw
     draw();

@@ -24,6 +24,7 @@ void TestScene::init()
     addEntity( new TestEnvironment() );
     addEntity( new Human() );
     addEntity( new Monkey() );
+    addEntity( new GlowCube() );
 }
 
 bool TestScene::update()

@@ -72,7 +72,7 @@ void TestEnvironment::init()
             omi::ResourceManager::getMesh(
                 "test_tunnel_light_bulb_1", "", NULL );
     lightBulbMesh->getMaterial().glow =
-        new Glow( glm::vec3( 0.5f, 0.25f, 1.0f ), 1.0f );
+        new omi::Glow( glm::vec3( 0.5f, 0.25f, 1.0f ), 1.0f );
     m_components.add( lightBulbMesh );
 
     omi::Mesh* lightSocketMesh =

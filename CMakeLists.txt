@@ -65,6 +65,7 @@ set(SRCS
 
     src/scenes/test/TestScene.cpp
 
+    src/entities/test/GlowCube.cpp
     src/entities/test/Human.cpp
     src/entities/test/Monkey.cpp
     src/entities/test/TestEnvironment.cpp

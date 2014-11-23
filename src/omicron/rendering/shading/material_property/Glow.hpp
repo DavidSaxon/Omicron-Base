@@ -6,6 +6,10 @@
 
 #include "lib/glm/glm.hpp"
 
+#include "src/omicron/rendering/shading/Texture.hpp"
+
+namespace omi {
+
 /******************************************************************************\
 | The glow property defines the existence and behavior of a material's glowing |
 | radius.                                                                      |
@@ -20,8 +24,9 @@ public:
     /** Creates a new glow property
     @param colour the colour of the glow halo which must have a combined rgb
                   value of 0.05
-    @param brightness the brightness of the glow */
-    Glow( const glm::vec3& colour, float brightness );
+    @param brightness the brightness of the glow
+    @param texture the texture of the glow */
+    Glow( const glm::vec3& colour, float brightness, Texture* texture = NULL );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -35,6 +40,9 @@ public:
     /** @return the brightness of the glow */
     float getBrightness() const;
 
+    /** @return the texture of the colour */
+    Texture* getTexture();
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param colour the colour of the glow halo */
@@ -42,6 +50,8 @@ public:
 
     /** @param brightness the brightness of the glow */
     void setBrightness( float brightness );
+
+    void setTexture( Texture* texture );
 
 private:
 
@@ -53,8 +63,11 @@ private:
     glm::vec3 m_colour;
     // the brightness of the glow
     float m_brightness;
-
+    // the texture of the glow
+    Texture* m_texture;
 };
+
+} // namespace omi
 
 #endif
 

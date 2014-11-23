@@ -11,6 +11,15 @@ varying vec2 v_texCoord;
 
 void main()
 {
-    // TODO: textures
-    gl_FragColor = u_colour;
+    // the colour of the material
+    vec4 material = u_colour;
+
+    //apply texturing
+    vec4 textureColour = texture2D( u_texture, v_texCoord );
+    if ( u_hasTexture != 0 )
+    {
+        material *= textureColour;
+    }
+
+    gl_FragColor = material;
 }
