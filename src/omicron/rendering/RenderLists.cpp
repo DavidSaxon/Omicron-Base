@@ -199,6 +199,10 @@ void RenderLists::render( Camera* camera )
     m_finalRenTex.unbind();
     // render the results of the render texture
     m_finalRenTex.render();
+
+    //-----------------------------------GUI------------------------------------
+
+    // TODO:
 }
 
 void RenderLists::clear()

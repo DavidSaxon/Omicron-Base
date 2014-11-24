@@ -16,6 +16,7 @@
 #include "src/omicron/component/light/DirectionalLight.hpp"
 #include "src/omicron/component/light/PointLight.hpp"
 #include "src/omicron/component/light/SpotLight.hpp"
+#include "src/omicron/component/physics/CollisionChecker.hpp"
 #include "src/omicron/component/physics/CollisionDetector.hpp"
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"

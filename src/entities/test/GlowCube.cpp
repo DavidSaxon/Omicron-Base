@@ -16,7 +16,7 @@ GlowCube::GlowCube() :
 
 void GlowCube::init()
 {
-    // add mesh
+    // transformation
     m_transform = new omi::Transform(
             "",
             glm::vec3( -6.0f, 0.0f, 0.0f ),
@@ -25,12 +25,18 @@ void GlowCube::init()
         );
     m_components.add( m_transform );
 
+    // add collision detector
+    m_collisionDetect = new omi::CollisionDetector( "", "block", this );
+    m_collisionDetect->addBounding(
+            new omi::BoundingCircle( 0.50f, m_transform ) );
+    m_components.add( m_collisionDetect );
+
     // add mesh
     m_mesh =
         omi::ResourceManager::getMesh( "glow_cube", "", m_transform );
     m_mesh->getMaterial().colour = m_colour;
     m_mesh->getMaterial().glow =
-        new omi::Glow( glm::vec3( m_colour + 0.2f ), 0.5f,
+        new omi::Glow( glm::vec3( m_colour + 0.2f ), 1.0f,
         omi::ResourceManager::getTexture( "glow_cube" ) );
     m_components.add( m_mesh );
 

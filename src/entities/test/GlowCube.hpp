@@ -30,6 +30,8 @@ private:
 
     // the position of the cube
     omi::Transform* m_transform;
+    // the collision detector of the cube
+    omi::CollisionDetector* m_collisionDetect;
     // the mesh of the cube
     omi::Mesh* m_mesh;
     // the light source of the cube

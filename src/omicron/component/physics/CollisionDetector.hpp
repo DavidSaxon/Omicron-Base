@@ -30,6 +30,7 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // TODO: should this be public, could just have getter
     // the boundings within this
     std::vector<std::unique_ptr<BoundingShape>> m_boundings;
 
@@ -58,7 +59,7 @@ public:
                   void*                      owner );
 
     //--------------------------------------------------------------------------
-    //                               PUBLIC METHODS
+    //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
     /** #Override */
@@ -68,8 +69,10 @@ public:
     }
 
     /** Adds a bounding shape to this
-    @param bounding a new bounding shape to add*/
+    @param bounding a new bounding shape to add */
     void addBounding( BoundingShape* bounding );
+
+    // TODO: remove bounding
 
     /** @return the physics group of this */
     const std::string& getGroup() const;

@@ -25,6 +25,8 @@ private:
 
     // the transform of the camera
     omi::Transform* m_camT;
+    // the collision checker of the player
+    omi::CollisionChecker* m_collisionChecker;
 };
 
 #endif
