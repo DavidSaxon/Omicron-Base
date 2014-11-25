@@ -27,7 +27,7 @@ void TestPlayer::init()
     // create collision detector
     m_collisionChecker = new omi::CollisionChecker( "" );
     m_collisionChecker->addBounding(
-            new omi::BoundingCircle( 0.50f, m_camT ) );
+            new omi::BoundingCircle( 0.3f, m_camT ) );
     m_components.add( m_collisionChecker );
 
     // create spot light
@@ -47,34 +47,33 @@ void TestPlayer::update()
         ( omi::displaySettings.getCentre().x - omi::input::getMousePos().x ) *
         LOOK_SPEED * omi::fpsManager.getTimeScale();
 
-    // move
+    // calculate the amount to move
+    glm::vec3 move;
     float moveSpeed = MOVE_SPEED * omi::fpsManager.getTimeScale();
     if ( omi::input::isKeyPressed( omi::input::key::W ) )
     {
-        m_camT->translation.z -=
-            util::math::cosd( m_camT->rotation.y ) * moveSpeed;
-        m_camT->translation.x -=
-            util::math::sind( m_camT->rotation.y ) * moveSpeed;
+        move.z = -util::math::cosd( m_camT->rotation.y ) * moveSpeed;
+        move.x = -util::math::sind( m_camT->rotation.y ) * moveSpeed;
     }
     if ( omi::input::isKeyPressed( omi::input::key::S ) )
     {
-        m_camT->translation.z +=
-            util::math::cosd( m_camT->rotation.y ) * moveSpeed;
-        m_camT->translation.x +=
-            util::math::sind( m_camT->rotation.y ) * moveSpeed;
+        move.z = util::math::cosd( m_camT->rotation.y ) * moveSpeed;
+        move.x = util::math::sind( m_camT->rotation.y ) * moveSpeed;
     }
     if ( omi::input::isKeyPressed( omi::input::key::A ) )
     {
-        m_camT->translation.z +=
-            util::math::sind( m_camT->rotation.y ) * moveSpeed;
-        m_camT->translation.x -=
-            util::math::cosd( m_camT->rotation.y ) * moveSpeed;
+        move.z =  util::math::sind( m_camT->rotation.y ) * moveSpeed;
+        move.x = -util::math::cosd( m_camT->rotation.y ) * moveSpeed;
     }
     if ( omi::input::isKeyPressed( omi::input::key::D ) )
     {
-        m_camT->translation.z -=
-            util::math::sind( m_camT->rotation.y ) * moveSpeed;
-        m_camT->translation.x +=
-            util::math::cosd( m_camT->rotation.y ) * moveSpeed;
+        move.z = -util::math::sind( m_camT->rotation.y ) * moveSpeed;
+        move.x =  util::math::cosd( m_camT->rotation.y ) * moveSpeed;
+    }
+
+    // check for collisions
+    if ( !m_collisionChecker->forwardCheck( move, "block" ) )
+    {
+        m_camT->translation += move;
     }
 }

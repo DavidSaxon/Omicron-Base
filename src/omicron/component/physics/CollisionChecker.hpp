@@ -5,6 +5,7 @@
 
 #include "src/omicron/component/physics/Physics.hpp"
 #include "src/omicron/physics/bounding/BoundingShape.hpp"
+#include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
 
 namespace omi {
 
@@ -49,7 +50,12 @@ public:
 
     // TODO: remove bounding
 
-    // TODO: forward checking
+    /** Checks if the detector at the given position will collide with any
+    boundings in the given group
+    @param move the vector to move the boundings by
+    @param group the group to check for collisions against
+    @return whether this bounding is colliding at the position */
+    bool forwardCheck( const glm::vec3& move, const std::string& group );
 
     // TODO: forward best
 

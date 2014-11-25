@@ -6,6 +6,7 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+class CollisionDetector;
 #include "src/omicron/component/physics/CollisionDetector.hpp"
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/physics/bounding/BoundingCircle.hpp"
@@ -55,6 +56,16 @@ public:
     /** Clears all bounding groups  */
     static void clear();
 
+    /** Returns a list of bounding shapes the given bounding is colliding with
+    in the given group
+    @param bounding the bounding to check against the group
+    @param group the group to check against
+    @return the list of boundings from the group the first bounding is colliding
+    with */
+    static const std::vector<BoundingShape*> checkAgainstGroup(
+            BoundingShape* bounding,
+            const std::string& group );
+
 private:
 
     //--------------------------------------------------------------------------
@@ -66,6 +77,9 @@ private:
     // groups to check
     static std::vector<CheckPair> m_check;
 
+    // the collision detectors sorted by group, is updated once per cycle
+    static std::map<std::string, std::vector<CollisionDetector*>> m_groups;
+
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
@@ -73,10 +87,10 @@ private:
     /** Process collision detection between two detectors */
     static void processDetectors(CollisionDetector* a, CollisionDetector* b);
 
-    /** Checks if two boundings are colliding */
+    /** @return if the two bounding circles are colliding */
     static bool checkCollision(BoundingShape* a, BoundingShape* b);
 
-    /** Checks if two bounding circles are colliding */
+    /** @return if the two bounding circles are colliding */
     static bool checkCircleCircle(BoundingCircle* a, BoundingCircle* b);
 };
 

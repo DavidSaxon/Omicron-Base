@@ -34,4 +34,35 @@ void CollisionChecker::addBounding( BoundingShape* bounding )
     m_boundings.push_back( bounding );
 }
 
+bool CollisionChecker::forwardCheck(
+        const glm::vec3& move,
+        const std::string& group )
+{
+    bool collision = false;
+    // check each bounding
+    for ( std::vector<BoundingShape*>::iterator it = m_boundings.begin();
+          it != m_boundings.end(); ++it )
+    {
+        BoundingShape* bounding = *it;
+
+        // change the position of the transform of the bounding
+        glm::vec3 orginalPos = bounding->getTransform()->translation;
+        glm::vec3 newPos = orginalPos + move;
+        bounding->getTransform()->translation = newPos;
+
+        if ( !CollisionDetect::checkAgainstGroup( bounding, group ).empty() )
+        {
+            collision = true;
+            // reset position
+            bounding->getTransform()->translation = orginalPos;
+            break;
+        }
+
+        // reset position
+        bounding->getTransform()->translation = orginalPos;
+    }
+
+    return collision;
+}
+
 } // namespace omi
