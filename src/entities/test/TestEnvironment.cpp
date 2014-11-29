@@ -15,7 +15,7 @@ void TestEnvironment::init()
     //     );
     // m_components.add( t_0 );
     // m_components.add( new omi::DirectionalLight(
-    //     "", t_0, 0.8f, glm::vec3( 1.0f, 0.3f, 0.3f )
+    //     "", t_0, 0.8f, glm::vec3( 1.0f, 1.0f, 1.0f )
     // ) );
     // omi::Transform* t_1 = new omi::Transform(
     //         "",
@@ -33,7 +33,7 @@ void TestEnvironment::init()
             glm::vec3( 0.0f, 0.33f, 0.0f ),
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
-        );
+    );
     m_components.add( t_2 );
     m_components.add( new omi::PointLight(
         "", t_2, 1.0f, glm::vec3( 0.75f, 0.5f, 0.9f ), 0.05f, 0.8f, 0.025f
@@ -88,6 +88,12 @@ void TestEnvironment::init()
     floorMesh->getMaterial().specular =
         new Specular( 128.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
     m_components.add( floorMesh );
+
+
+    // m_components.add(
+    //         omi::ResourceManager::getMesh( "lounge_floor", "", NULL ) );
+    // m_components.add(
+    //         omi::ResourceManager::getMesh( "lounge_wall", "", NULL ) );
 }
 
 void TestEnvironment::update()

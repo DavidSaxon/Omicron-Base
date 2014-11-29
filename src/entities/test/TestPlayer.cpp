@@ -24,10 +24,10 @@ void TestPlayer::init()
     m_components.add(
         new omi::Camera( "", omi::cam::PERSPECTIVE, m_camT ) );
 
-    // create collision detector
+    // create collision checker
     m_collisionChecker = new omi::CollisionChecker( "" );
     m_collisionChecker->addBounding(
-            new omi::BoundingCircle( 0.3f, m_camT ) );
+            new omi::BoundingRect( glm::vec2( 1.0f, 1.0f ), m_camT ) );
     m_components.add( m_collisionChecker );
 
     // create spot light

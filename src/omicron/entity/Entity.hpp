@@ -24,6 +24,7 @@
 
 // some other useful things
 #include "src/omicron/physics/bounding/BoundingCircle.hpp"
+#include "src/omicron/physics/bounding/BoundingRect.hpp"
 
 namespace omi {
 

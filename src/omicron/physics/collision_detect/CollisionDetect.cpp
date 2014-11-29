@@ -150,21 +150,60 @@ void CollisionDetect::processDetectors(
 
 bool CollisionDetect::checkCollision( BoundingShape* a, BoundingShape* b )
 {
-    // TODO: need to do type checks here
-    return checkCircleCircle(
-        dynamic_cast<BoundingCircle*>( a ),
-        dynamic_cast<BoundingCircle*>( b )
-    );
+    if ( a->getType() == bounding::CIRCLE &&
+         b->getType() == bounding::CIRCLE )
+    {
+        return checkCircleCircle(
+            dynamic_cast<BoundingCircle*>( a ),
+            dynamic_cast<BoundingCircle*>( b )
+        );
+    }
+    else if ( a->getType() == bounding::RECTANGLE &&
+              b->getType() == bounding::RECTANGLE )
+    {
+        return checkRectRect(
+            dynamic_cast<BoundingRect*>( a ),
+            dynamic_cast<BoundingRect*>( b )
+        );
+    }
+
+    std::cout << "ERROR: unrecognised collision type" << std::endl;
 }
 
 bool CollisionDetect::checkCircleCircle( BoundingCircle* a, BoundingCircle* b )
 {
-    // TODO: offset
+    // TODO: scaling
+    glm::vec2 aPos = ( a->getTransform()->translation + a->getOffset() ).xz();
+    glm::vec2 bPos = ( b->getTransform()->translation + b->getOffset() ).xz();
     // check if circles are colliding
-    float distance = glm::distance(
-        a->getTransform()->translation, b->getTransform()->translation );
+    float distance = glm::distance( aPos, bPos );
 
     return distance <= a->getRadius() + b->getRadius();
 }
+
+bool CollisionDetect::checkRectRect( BoundingRect* a, BoundingRect* b )
+{
+    // TODO: rotation
+    // TODO: scaling
+    glm::vec2 aPos = ( a->getTransform()->translation + a->getOffset() ).xz();
+    glm::vec2 bPos = ( b->getTransform()->translation + b->getOffset() ).xz();
+
+    // short-hand
+    float a1x = aPos.x - ( a->getSize().x / 2.0f );
+    float a2x = aPos.x + ( a->getSize().x / 2.0f );
+    float a1y = aPos.y - ( a->getSize().y / 2.0f );
+    float a2y = aPos.y + ( a->getSize().y / 2.0f );
+    float b1x = bPos.x - ( b->getSize().x / 2.0f );
+    float b2x = bPos.x + ( b->getSize().x / 2.0f );
+    float b1y = bPos.y - ( b->getSize().y / 2.0f );
+    float b2y = bPos.y + ( b->getSize().y / 2.0f );
+
+    return
+        a1x < b2x &&
+        a2x > b1x &&
+        a1y < b2y &&
+        a2y > b1y;
+}
+
 
 } // namespace omi

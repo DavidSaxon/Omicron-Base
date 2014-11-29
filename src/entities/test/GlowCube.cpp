@@ -5,8 +5,9 @@
 //------------------------------------------------------------------------------
 
 GlowCube::GlowCube() :
-    m_colour      ( 1.0f, 0.0f, 0.0f, 1.0f ),
-    m_colourChange( 0.0f )
+    m_colour        ( 1.0f, 0.0f, 0.0f, 1.0f ),
+    m_colourChange  ( 0.0f ),
+    m_flickerCounter( 0.0f )
 {
 }
 
@@ -28,7 +29,7 @@ void GlowCube::init()
     // add collision detector
     m_collisionDetect = new omi::CollisionDetector( "", "block", this );
     m_collisionDetect->addBounding(
-            new omi::BoundingCircle( 0.50f, m_transform ) );
+            new omi::BoundingRect( glm::vec2( 0.5f, 0.5f ), m_transform ) );
     m_components.add( m_collisionDetect );
 
     // add mesh
@@ -51,7 +52,7 @@ void GlowCube::init()
 void GlowCube::update()
 {
     // change colour
-    m_colourChange += 0.005 * omi::fpsManager.getTimeScale();
+    m_colourChange += 0.005f * omi::fpsManager.getTimeScale();
     if ( m_colourChange > 3.0f )
     {
         m_colourChange -= 3.0f;
@@ -84,9 +85,18 @@ void GlowCube::update()
     m_light->setColour( glm::vec3( m_colour ) );
 
     // apply light flicker
-    float flicker = static_cast<float>( rand() % 1000 ) / 4000.0f;
-    m_mesh->getMaterial().glow->setBrightness( 0.5f + ( flicker / 3.0f ) );
-    flicker += 0.75f;
-    m_light->setPower( flicker );
+    if ( m_flickerCounter > 1.0f )
+    {
+        m_flickerCounter -= 1.0f;
+        float flicker = static_cast<float>( rand() % 1000 ) / 4000.0f;
+        m_mesh->getMaterial().glow->setBrightness( 0.5f + ( flicker / 3.0f ) );
+        flicker += 0.75f;
+        m_light->setPower( flicker );
+    }
+    else
+    {
+        m_flickerCounter += 0.25f * omi::fpsManager.getTimeScale();
+    }
+
 }
 

@@ -41,6 +41,8 @@ private:
     glm::vec4 m_colour;
     // counter for changing
     float m_colourChange;
+    // counter for flickering
+    float m_flickerCounter;
 };
 
 #endif

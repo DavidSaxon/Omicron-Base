@@ -76,6 +76,21 @@ void buildTestPack()
         "res/gfx/geometry/test/glow_cube.obj",
         2, 0, omi::material::SHADELESS
     );
+
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "lounge_floor", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/carpet_lounge.png",
+        "res/gfx/geometry/test/lounge_floor.obj",
+        1
+    );
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "lounge_wall", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/wall_lounge.png",
+        "res/gfx/geometry/test/lounge_wall.obj",
+        1
+    );
 }
 
 } // namespace pack
