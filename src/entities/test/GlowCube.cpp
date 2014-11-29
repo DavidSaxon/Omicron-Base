@@ -29,7 +29,7 @@ void GlowCube::init()
     // add collision detector
     m_collisionDetect = new omi::CollisionDetector( "", "block", this );
     m_collisionDetect->addBounding(
-            new omi::BoundingRect( glm::vec2( 0.5f, 0.5f ), m_transform ) );
+            new omi::BoundingRect( glm::vec2( 1.0f, 1.0f ), m_transform ) );
     m_components.add( m_collisionDetect );
 
     // add mesh

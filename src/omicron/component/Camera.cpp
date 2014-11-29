@@ -75,11 +75,6 @@ component::Type Camera::getType() const
 
 void Camera::apply()
 {
-    // get the computed transformations
-    glm::vec3 translation( m_transform->computeTranslation() );
-    glm::vec3 rotation(m_transform->computeRotation());
-    glm::vec3 scale(m_transform->computeScale());
-
     // projection matrix
     float aspectRatio =
         renderSettings.getResolution().x / renderSettings.getResolution().y;
@@ -105,6 +100,18 @@ void Camera::apply()
         glm::vec3( 0, 0, 0 ),
         glm::vec3( 0, 1, 0 )
     );
+
+    // don't transform if no tranform has been given
+    if ( m_transform == NULL )
+    {
+        return;
+    }
+
+    // get the computed transformations
+    glm::vec3 translation( m_transform->computeTranslation() );
+    glm::vec3 rotation(m_transform->computeRotation());
+    glm::vec3 scale(m_transform->computeScale());
+
     // scale
     m_viewMatrix *= glm::scale( scale );
     // rotation

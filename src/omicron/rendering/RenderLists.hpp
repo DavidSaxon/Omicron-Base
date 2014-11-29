@@ -128,6 +128,15 @@ private:
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** Renders if a selectable element */
+    void renderSelectable(
+            Renderable* renderable,
+            Camera* camera,
+            std::map<std::string, Renderable*>& colourMap,
+            unsigned char& red,
+            unsigned char& green,
+            unsigned char& blue );
+
     /** Builds light data */
     void buildLightData( Camera* camera, LightData& lightData );
 

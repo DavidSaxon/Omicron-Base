@@ -21,6 +21,7 @@ Renderable::Renderable(
     :
     Component  ( id ),
     visible    ( true ),
+    gui        ( false ),
     selectable ( false ),
     selected   ( false ),
     m_layer    ( layer ),

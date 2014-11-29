@@ -34,9 +34,11 @@ public:
 
     //! is true if this component will be rendered
     bool visible;
-    // is true if the this renderable should render for selecting
+    //! is true if this should be rendered as a GUI element
+    bool gui;
+    //! is true if the this renderable should render for selecting
     bool selectable;
-    // is true if the renderable is currently selected
+    //! is true if the renderable is currently selected
     bool selected;
 
     //--------------------------------------------------------------------------

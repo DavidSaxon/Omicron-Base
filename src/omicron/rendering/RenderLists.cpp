@@ -25,25 +25,38 @@ void RenderLists::render( Camera* camera )
 {
     //------------------------------LAYER SORTING-------------------------------
 
-    // iterate over all renderables and group them into a map by layer
+    // iterate over all renderables and group them into a map by layer and
+    // separate gui renderables
     t_RenderableMap renderLayers;
+    t_RenderableMap guiLayers;
     for ( std::vector<Renderable*>::iterator renderable = m_renderables.begin();
           renderable != m_renderables.end(); ++ renderable )
     {
+        // decide which list to add this to
+        t_RenderableMap* currentList = &renderLayers;
+        if ( ( *renderable )->gui )
+        {
+            currentList = &guiLayers;
+        }
+
         // get the layer
         int layer = ( *renderable )->getLayer();
         //check if a list exists for this layer
-        if ( renderLayers.find( layer ) == renderLayers.end() )
+        if ( currentList->find( layer ) == currentList->end() )
         {
             // create a list for this layer
-            renderLayers.insert(
+            currentList->insert(
                 std::make_pair( layer, std::vector<Renderable*>() ) );
         }
         // add the renderable to the layer
-        renderLayers[layer].push_back( *renderable );
+        ( *currentList )[layer].push_back( *renderable );
     }
 
     //------------------------------SELECTION PASS------------------------------
+
+    // create a camera for rendering gui
+    Camera guiCamera( "", omi::cam::ORTHOGRAPHIC, NULL );
+    guiCamera.apply();
 
     // apply the camera
     if ( camera != NULL )
@@ -60,35 +73,19 @@ void RenderLists::render( Camera* camera )
     for ( t_RenderableMap::iterator it = renderLayers.begin();
           it != renderLayers.end(); ++it )
     {
-        // iterate over the renderables in this layer and render them
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
               itr != it->second.end(); ++itr)
         {
-            if ( (* itr )->selectable )
-            {
-                // increment selection colour
-                ++red;
-                if ( red == 255 )
-                {
-                    red = 0;
-                    ++green;
-                    if ( green == 255 )
-                    {
-                        green = 0;
-                        ++blue;
-                        // TODO: if blue is 255 flip shit
-                    }
-                }
-
-                // assign to map and render
-                std::stringstream ss;
-                ss << static_cast<unsigned>( red )   << ":";
-                ss << static_cast<unsigned>( green ) << ":";
-                ss << static_cast<unsigned>( blue );
-                colourMap.insert( std::make_pair( ss.str(), *itr ) );
-                ( *itr )->renderSelectable(
-                    camera, red, green, blue );
-            }
+            renderSelectable( *itr, camera, colourMap, red, green, blue );
+        }
+    }
+    for ( t_RenderableMap::iterator it = guiLayers.begin();
+          it != guiLayers.end(); ++it )
+    {
+        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+              itr != it->second.end(); ++itr)
+        {
+            renderSelectable( *itr, &guiCamera, colourMap, red, green, blue );
         }
     }
 
@@ -152,6 +149,7 @@ void RenderLists::render( Camera* camera )
             ( *itr )->renderGlow( camera );
         }
     }
+    // TODO: GUI glow?
 
     // unbind the first pass glow render texture
     m_glowFirstPassRenTex.unbind();
@@ -202,7 +200,16 @@ void RenderLists::render( Camera* camera )
 
     //-----------------------------------GUI------------------------------------
 
-    // TODO:
+    for ( t_RenderableMap::iterator it = guiLayers.begin();
+          it != guiLayers.end(); ++it )
+    {
+        // iterate over the renderables in this layer and render them
+        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+              itr != it->second.end(); ++itr)
+        {
+            ( *itr )->render( &guiCamera, lightData );
+        }
+    }
 }
 
 void RenderLists::clear()
@@ -260,6 +267,42 @@ void RenderLists::removeLight( Light* light )
 //------------------------------------------------------------------------------
 //                            PRIVATE MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+void RenderLists::renderSelectable(
+        Renderable* renderable,
+        Camera* camera,
+        std::map<std::string, Renderable*>& colourMap,
+        unsigned char& red,
+        unsigned char& green,
+        unsigned char& blue )
+{
+    // check if this is a selectable
+    if ( renderable->selectable )
+    {
+        // increment selection colour
+        ++red;
+        if ( red == 255 )
+        {
+            red = 0;
+            ++green;
+            if ( green == 255 )
+            {
+                green = 0;
+                ++blue;
+                // TODO: if blue is 255 flip shit
+            }
+        }
+
+        // assign to map and render
+        std::stringstream ss;
+        ss << static_cast<unsigned>( red )   << ":";
+        ss << static_cast<unsigned>( green ) << ":";
+        ss << static_cast<unsigned>( blue );
+        colourMap.insert( std::make_pair( ss.str(), renderable ) );
+        renderable->renderSelectable(
+            camera, red, green, blue );
+    }
+}
 
 void RenderLists::buildLightData( Camera* camera, LightData& lightData )
 {

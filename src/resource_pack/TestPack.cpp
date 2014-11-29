@@ -91,6 +91,17 @@ void buildTestPack()
         "res/gfx/geometry/test/lounge_wall.obj",
         1
     );
+
+    omi::ResourceManager::addTextureMaterialSprite(
+        "test_gui", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/chesterfield.png",
+        1,
+        glm::vec2( 0.5f, 0.5f ),
+        glm::vec2( 1.0f, 1.0f ),
+        glm::vec2( 0.0f, 0.0f ),
+        0, omi::material::SHADELESS
+    );
 }
 
 } // namespace pack
