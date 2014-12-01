@@ -60,6 +60,7 @@ protected:
     //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** #Override */
     void draw();
 
 private:

@@ -85,6 +85,7 @@ private:
 
     // the render lists containing all things to be rendered
     std::unique_ptr<RenderLists> m_renderLists;
+
     // the camera the used for perspective
     Camera* m_camera;
 

@@ -15,6 +15,7 @@ set(SRCS
     src/omicron/component/renderable/Mesh.cpp
     src/omicron/component/renderable/Renderable.cpp
     src/omicron/component/renderable/Sprite.cpp
+    src/omicron/component/renderable/Text.cpp
     src/omicron/component/updatable/audio/Music.cpp
     src/omicron/display/Window.cpp
     src/omicron/entity/ComponentTable.cpp
@@ -37,15 +38,18 @@ set(SRCS
     src/omicron/rendering/shading/Texture.cpp
     src/omicron/rendering/shading/material_property/Glow.cpp
     src/omicron/rendering/shading/material_property/Specular.cpp
+    src/omicron/resource/loader/FontLoader.cpp
     src/omicron/resource/loader/GeometryLoader.cpp
     src/omicron/resource/loader/ShaderLoader.cpp
     src/omicron/resource/loader/TextureLoader.cpp
+    src/omicron/resource/type/FontResource.cpp
     src/omicron/resource/type/GeometryResource.cpp
     src/omicron/resource/type/MaterialResource.cpp
     src/omicron/resource/type/MeshResource.cpp
     src/omicron/resource/type/ShaderResource.cpp
     src/omicron/resource/type/SpriteResource.cpp
     src/omicron/resource/type/SoundResource.cpp
+    src/omicron/resource/type/TextResource.cpp
     src/omicron/resource/type/TextureResource.cpp
     src/omicron/resource/ResourceManager.cpp
     src/omicron/scene/Scene.cpp
@@ -78,7 +82,8 @@ set(BASEPATH "${CMAKE_SOURCE_DIR}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++0x -DGL_GLEXT_PROTOTYPES")
 
-include_directories("${BASEPATH}" ${INCLUDE_DIRECTORIES})
+find_package(Freetype REQUIRED)
+include_directories("${BASEPATH}" ${INCLUDE_DIRECTORIES} ${FREETYPE_INCLUDE_DIRS})
 
 link_directories(${LINK_DIRECTORIES})
 
@@ -95,4 +100,5 @@ target_link_libraries(TestRun
     -lsfml-graphics
     -lsfml-window
     -lsfml-audio
+    ${FREETYPE_LIBRARIES}
 )

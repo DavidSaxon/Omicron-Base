@@ -89,10 +89,15 @@ void TestEnvironment::init()
         new Specular( 128.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
     m_components.add( floorMesh );
 
-    omi::Sprite* guiTest =
-            omi::ResourceManager::getSprite( "test_gui", "", NULL );
-    guiTest->gui = true;
-    m_components.add( guiTest );
+    // omi::Sprite* guiTest =
+    //         omi::ResourceManager::getSprite( "test_gui", "", NULL );
+    // guiTest->gui = true;
+    // m_components.add( guiTest );
+
+    omi::Text* textTest =
+            omi::ResourceManager::getText( "test_text_1", "", NULL );
+    textTest->gui = true;
+    m_components.add( textTest );
 
     // m_components.add(
     //         omi::ResourceManager::getMesh( "lounge_floor", "", NULL ) );

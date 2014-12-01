@@ -58,8 +58,6 @@ private:
 
     // the layer of the sprite
     int m_layer;
-    // the resource id of the sprite's geometry
-    std::string m_geometry;
     // the resource id of the sprite's material
     std::string m_material;
     // the size of the sprite

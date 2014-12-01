@@ -175,6 +175,9 @@ void init() {
     // create the renderer
     renderer = std::unique_ptr<Renderer>(new Renderer());
 
+    // initialise the resource manager
+    ResourceManager::init();
+
     // build the resource packs
     pack::build();
 
@@ -198,8 +201,8 @@ int main(int argc, char** argv) {
     omi::init();
 
     // begin
-    while (true) {
-
+    while ( true )
+    {
         omi::execute();
     }
 

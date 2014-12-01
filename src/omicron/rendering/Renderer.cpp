@@ -7,8 +7,8 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 Renderer::Renderer() :
-    m_camera(NULL) {
-
+    m_camera(NULL)
+{
     // initialise
     init();
 }
@@ -117,6 +117,7 @@ void Renderer::init() {
     glCullFace(GL_BACK);
     glClearDepth(1.0f);
     glEnable(GL_TEXTURE_2D);
+    glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 
     // initialise DevIL
     ilInit();

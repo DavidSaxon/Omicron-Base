@@ -4,6 +4,11 @@ namespace pack {
 
 void buildTestPack()
 {
+    omi::ResourceManager::addFont(
+        "test_font_1", resource_group::TEST,
+        "res/gfx/fonts/test/ClearSans-Regular.ttf"
+    );
+
     omi::ResourceManager::addTextureMaterialGeometryMesh(
         "test_skybox", resource_group::TEST,
         "default_shader",
@@ -101,6 +106,16 @@ void buildTestPack()
         glm::vec2( 1.0f, 1.0f ),
         glm::vec2( 0.0f, 0.0f ),
         0, omi::material::SHADELESS
+    );
+
+    omi::ResourceManager::addMaterialText(
+        "test_text_1", resource_group::TEST,
+        "default_shader", // TODO: text shader
+        glm::vec4( 1.0f, 0.0f, 0.0f, 1.0f ),
+        2,
+        "test_font_1",
+        "Fuck",
+        48
     );
 }
 

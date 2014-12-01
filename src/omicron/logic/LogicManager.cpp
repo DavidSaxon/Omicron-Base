@@ -60,7 +60,6 @@ bool LogicManager::execute() {
         }
     }
 
-
     return false;
 }
 

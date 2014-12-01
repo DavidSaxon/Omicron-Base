@@ -7,14 +7,23 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 t_ResourceMap ResourceManager::m_resources;
+FT_Library ResourceManager::m_freeType;
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
+void ResourceManager::init()
+{
+    // initialise free type
+    if ( FT_Init_FreeType( &m_freeType ) )
+    {
+        // TODO: throw exception
+        std::cout << "Free Type initialisation failed" << std::endl;
+    }
+}
 
 //--------------------------------LOAD FUNCTIONS--------------------------------
-
 
 void ResourceManager::load (resource_group::ResourceGroup resourceGroup )
 {
@@ -54,6 +63,20 @@ void ResourceManager::release(resource_group::ResourceGroup resourceGroup) {
 
 //--------------------------------GET FUNCTIONS---------------------------------
 
+Font* ResourceManager::getFont( const std::string& id )
+{
+    // create the font group if we need to
+    createGroup( FONT );
+    // check if the font is in the map
+    if ( m_resources[FONT].find( id ) == m_resources[FONT].end() )
+    {
+        std::cout << "unable to find font in resource manager" << std::endl;
+        // TODO: throw an exception
+    }
+    // cast the resource and return
+    return dynamic_cast<FontResource*>(
+            m_resources[FONT][id].get() )->get();
+}
 
 Shader ResourceManager::getShader( const std::string& id )
 {
@@ -149,6 +172,24 @@ Sprite* ResourceManager::getSprite( const std::string& id,
             m_resources[SPRITE][id].get() )->get( componentId, transform );
 }
 
+Text* ResourceManager::getText(
+        const std::string& id,
+        const std::string& componentId,
+        Transform* transform )
+{
+    // create the text group if we need to
+    createGroup( TEXT );
+    // check if the sprite is in the map
+    if ( m_resources[TEXT].find( id ) == m_resources[TEXT].end() )
+    {
+        std::cout << "unable to find text in resource manager" << std::endl;
+        // TODO: throw an exception
+    }
+    // cast the resource and return
+    return dynamic_cast<TextResource*>(
+            m_resources[TEXT][id].get() )->get( componentId, transform );
+}
+
 unsigned ResourceManager::getSound( const std::string& id )
 {
     // create the sound group if we need to
@@ -166,6 +207,25 @@ unsigned ResourceManager::getSound( const std::string& id )
 
 //--------------------------------ADD FUNCTIONS---------------------------------
 
+void ResourceManager::addFont(
+            const std::string& id,
+            resource_group::ResourceGroup resourceGroup,
+            const std::string& filePath )
+{
+    // create the font group if we need to
+    createGroup( FONT );
+    // insert into the map
+    m_resources[FONT].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr( new FontResource(
+                resourceGroup,
+                &m_freeType,
+                filePath
+            ) )
+        )
+    );
+}
 
 void ResourceManager::addShader(
         const std::string&                  id,
@@ -175,7 +235,7 @@ void ResourceManager::addShader(
 {
     // create the shaders group if we need to
     createGroup( SHADER );
-    // insert in to the map
+    // insert into the map
     m_resources[SHADER].insert(
         std::make_pair(
             id,
@@ -594,6 +654,48 @@ void ResourceManager::addTextureMaterialSprite(
     addMaterial( id, resourceGroup, shader, colour, id, materialFlags );
     // sprite
     addSprite( id, resourceGroup, layer, id, size, texSize, texOffset );
+}
+
+void ResourceManager::addText(
+    const std::string& id,
+    resource_group::ResourceGroup resourceGroup,
+    int layer,
+    const std::string& material,
+    const std::string& font,
+    const std::string& str,
+    float size )
+{
+    // create text group if we need to
+    createGroup( TEXT );
+    // insert in to the map
+    m_resources[TEXT].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr( new TextResource(
+                resourceGroup,
+                layer,
+                material,
+                font,
+                str,
+                size
+            ) )
+        )
+    );
+}
+
+void ResourceManager::addMaterialText(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const glm::vec4&                    colour,
+          int                           layer,
+    const std::string&                  font,
+    const std::string&                  str,
+          float                         size,
+          unsigned                      materialFlags )
+{
+    addMaterial( id, resourceGroup, shader, colour, materialFlags );
+    addText( id, resourceGroup, layer, id, font, str, size );
 }
 
 void ResourceManager::addSound(

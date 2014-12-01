@@ -1,6 +1,8 @@
 #ifndef OMICRON_RESOURCE_RESOURCEMANAGER_H_
 #   define OMICRON_RESOURCE_RESOURCEMANAGER_H_
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <map>
 #include <memory>
 
@@ -8,6 +10,8 @@
 
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"
+#include "src/omicron/component/renderable/Text.hpp"
+#include "src/omicron/resource/type/FontResource.hpp"
 #include "src/omicron/resource/type/GeometryResource.hpp"
 #include "src/omicron/resource/type/MaterialResource.hpp"
 #include "src/omicron/resource/type/MeshResource.hpp"
@@ -15,6 +19,7 @@
 #include "src/omicron/resource/type/ShaderResource.hpp"
 #include "src/omicron/resource/type/SoundResource.hpp"
 #include "src/omicron/resource/type/SpriteResource.hpp"
+#include "src/omicron/resource/type/TextResource.hpp"
 #include "src/omicron/resource/type/TextureResource.hpp"
 #include "src/override/ResourceGroups.hpp"
 
@@ -46,12 +51,14 @@ private:
 
     //! the types of resources
     enum ResourceType {
+        FONT,
         SHADER,
         TEXTURE,
         MATERIAL,
         GEOMETRY,
         MESH,
         SPRITE,
+        TEXT,
         SOUND
     };
 
@@ -61,6 +68,9 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** #Hidden
+    Initialises the resource manager */
+    static void init();
 
     //------------------------------LOAD FUNCTIONS------------------------------
 
@@ -74,6 +84,10 @@ public:
 
     //------------------------------GET FUNCTIONS-------------------------------
 
+    /** Gets the font with the given identifier if it exists
+    @param id the identifier of the font
+    @return the requested font */
+    static Font* getFont( const std::string& id );
 
     /** Gets the shader with the given identifier if it exists
     @param id the identifier of the shader
@@ -113,11 +127,30 @@ public:
                               const std::string& componentId,
                                     Transform*   transform );
 
+    /** Gets the text with the give identifier if it exists
+    @oaram id the identifier of the text
+    @param componentId the component identifier to use for the text
+    @oaram transform the transform to use for the text
+    @return the requested text */
+    static Text* getText(
+            const std::string& id,
+            const std::string& componentId,
+            Transform* transform );
+
     /** Gets the id of the sound with the given identifier if it exists
     @param id the identifier of the sound */
     static unsigned getSound( const std::string& id );
 
     //------------------------------ADD FUNCTIONS-------------------------------
+
+    /** Adds a font to the resource map
+    @param id the identifier of the font
+    @param resourceGroup the resource group of the font
+    @param filePath the file path to the font */
+    static void addFont(
+            const std::string& id,
+            resource_group::ResourceGroup resourceGroup,
+            const std::string& filePath );
 
     /** Adds a shader to the resource map
     @param id the identifier of the shader resource
@@ -501,6 +534,45 @@ public:
               unsigned                      textureFlags = 0,
               unsigned                      materialFlags = 0 );
 
+    /** Adds a text object to the resource map
+    @param id the identifier of the resource
+    @param resourceGroup the resource group of the resource
+    @param layer the layer of the text
+    @param material the resource identifier of the material to use for the text
+    @param font the resource identifier of the font to use
+    @param str the initial string of the text
+    @param sizr the initial size of the text */
+    static void addText(
+        const std::string& id,
+        resource_group::ResourceGroup resourceGroup,
+        int layer,
+        const std::string& material,
+        const std::string& font,
+        const std::string& str,
+        float size );
+
+    /** Adds a texture, material, and text into the resource map, all with the
+    same id. The text will use the created material
+    @param id the identifier of the resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader to use for the material
+    @param colour the colour of the material
+    @param layer the layer of the text
+    @param font the resource idenitifer of the font to use
+    @param str the initial string of the text
+    @param size the initial size of the text
+    @param materialFlags the flags of the material */
+    static void addMaterialText(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const glm::vec4&                    colour,
+              int                           layer,
+        const std::string&                  font,
+        const std::string&                  str,
+              float                         size,
+              unsigned                      materialFlags = 0 );
+
     /** Adds a sound to the resource map
     @param id the identifier of the resource
     @param resourceGroup the resource group of the sound
@@ -520,6 +592,9 @@ private:
 
     // the map of all resources
     static t_ResourceMap m_resources;
+
+    // the free type font library object
+    static FT_Library m_freeType;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

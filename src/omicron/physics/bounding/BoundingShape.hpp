@@ -15,8 +15,8 @@ namespace bounding {
 //! the bounding shape types
 enum Type {
     CIRCLE,
-    RECTANGLE
-    // TODO: more types
+    RECTANGLE,
+    SPHERE
 };
 
 } // namespace bounding

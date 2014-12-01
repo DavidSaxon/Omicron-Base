@@ -36,8 +36,8 @@ void SpriteResource::load()
     }
 }
 
-void SpriteResource::release() {
-
+void SpriteResource::release()
+{
     if ( m_loaded )
     {
         // likewise they don't need to be delete

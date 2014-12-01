@@ -166,8 +166,17 @@ bool CollisionDetect::checkCollision( BoundingShape* a, BoundingShape* b )
             dynamic_cast<BoundingRect*>( b )
         );
     }
+    else if ( a->getType() == bounding::SPHERE &&
+              b->getType() == bounding::SPHERE )
+    {
+        return checkSphereSphere(
+            dynamic_cast<BoundingSphere*>( a ),
+            dynamic_cast<BoundingSphere*>( b )
+        );
+    }
 
     std::cout << "ERROR: unrecognised collision type" << std::endl;
+    return false;
 }
 
 bool CollisionDetect::checkCircleCircle( BoundingCircle* a, BoundingCircle* b )
@@ -205,5 +214,15 @@ bool CollisionDetect::checkRectRect( BoundingRect* a, BoundingRect* b )
         a2y > b1y;
 }
 
+bool CollisionDetect::checkSphereSphere( BoundingSphere* a, BoundingSphere* b )
+{
+    // TODO: scaling
+    glm::vec3 aPos = a->getTransform()->translation + a->getOffset();
+    glm::vec3 bPos = b->getTransform()->translation + b->getOffset();
+    // check if circles are colliding
+    float distance = glm::distance( aPos, bPos );
+
+    return distance <= a->getRadius() + b->getRadius();
+}
 
 } // namespace omi

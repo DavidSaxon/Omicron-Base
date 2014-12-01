@@ -20,11 +20,13 @@
 #include "src/omicron/component/physics/CollisionDetector.hpp"
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"
+#include "src/omicron/component/renderable/Text.hpp"
 #include "src/omicron/component/updatable/audio/Music.hpp"
 
 // some other useful things
 #include "src/omicron/physics/bounding/BoundingCircle.hpp"
 #include "src/omicron/physics/bounding/BoundingRect.hpp"
+#include "src/omicron/physics/bounding/BoundingSphere.hpp"
 
 namespace omi {
 

@@ -13,6 +13,7 @@
 
 #include "src/omicron/rendering/object_data/Geometry.hpp"
 #include "src/omicron/rendering/shading/Animation.hpp"
+#include "src/omicron/rendering/shading/Font.hpp"
 #include "src/omicron/rendering/shading/Material.hpp"
 #include "src/omicron/rendering/shading/Shader.hpp"
 #include "src/omicron/rendering/shading/Texture.hpp"
@@ -27,6 +28,15 @@ namespace loader {
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
+
+//---------------------------------FONT LOADERS---------------------------------
+
+/** Loads a front from a file
+@param the free font library object
+@param filePath the file path to the font */
+Font* loadFontFromFile(
+    FT_Library* freeType,
+    const std::string& filePath );
 
 //--------------------------------SHADER LOADERS--------------------------------
 

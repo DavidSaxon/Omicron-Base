@@ -11,6 +11,7 @@ class CollisionDetector;
 #include "src/omicron/entity/Entity.hpp"
 #include "src/omicron/physics/bounding/BoundingCircle.hpp"
 #include "src/omicron/physics/bounding/BoundingRect.hpp"
+#include "src/omicron/physics/bounding/BoundingSphere.hpp"
 
 namespace omi {
 
@@ -96,6 +97,9 @@ private:
 
     /** @return if the two bounding rectangles are colliding */
     static bool checkRectRect( BoundingRect* a, BoundingRect* b );
+
+    /** @return if the two bounding spheres are colliding */
+    static bool checkSphereSphere( BoundingSphere* a, BoundingSphere* b );
 };
 
 } // namespace omi
