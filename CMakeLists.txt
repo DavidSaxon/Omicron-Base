@@ -26,6 +26,7 @@ set(SRCS
     src/omicron/physics/collision_detect/CollisionDetect.cpp
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
+    src/omicron/rendering/lighting/ShadowMap.cpp
     src/omicron/rendering/render_texture/FinalRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowBlurHorRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowBlurVertRenderTexture.cpp

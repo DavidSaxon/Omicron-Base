@@ -72,15 +72,18 @@ public:
     Render this component
     @param camera the camera used to render this
     @param pointLights the list of point lights to use to render this */
-    void render( Camera* camera, const LightData& lightData );
+    virtual void render( Camera* camera, const LightData& lightData );
+
+    /** Render this component for the shadow pass */
+    virtual void renderShadow( Camera* camera );
 
     /** #Hidden
     Render this component for the glow pass */
-    void renderGlow( Camera* camera );
+    virtual void renderGlow( Camera* camera );
 
     /** #Hidden
     Render this component for colour picking */
-    void renderSelectable(
+    virtual void renderSelectable(
             Camera* camera,
             unsigned char red,
             unsigned char green,

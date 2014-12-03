@@ -13,6 +13,7 @@
 #include "src/omicron/component/light/SpotLight.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/input/Input.hpp"
+#include "src/omicron/rendering/lighting/ShadowMap.hpp"
 #include "src/omicron/rendering/render_texture/FinalRenderTexture.hpp"
 #include "src/omicron/rendering/render_texture/GlowBlurHorRenderTexture.hpp"
 #include "src/omicron/rendering/render_texture/GlowBlurVertRenderTexture.hpp"
@@ -112,6 +113,9 @@ private:
     std::vector<Renderable*> m_renderables;
     // the list of lights
     std::vector<Light*> m_lights;
+
+    // shadow map
+    ShadowMap m_shadowMap;
 
     // glow render textures
     GlowFirstPassRenderTexture m_glowFirstPassRenTex;

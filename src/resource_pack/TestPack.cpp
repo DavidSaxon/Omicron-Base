@@ -114,8 +114,9 @@ void buildTestPack()
         glm::vec4( 1.0f, 0.0f, 0.0f, 1.0f ),
         2,
         "test_font_1",
-        "Fuck",
-        48
+        "Hello World",
+        0.25f,
+        omi::material::SHADELESS
     );
 }
 

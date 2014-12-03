@@ -37,14 +37,14 @@ void GlowCube::init()
         omi::ResourceManager::getMesh( "glow_cube", "", m_transform );
     m_mesh->getMaterial().colour = m_colour;
     m_mesh->getMaterial().glow =
-        new omi::Glow( glm::vec3( m_colour + 0.2f ), 1.0f,
+        new omi::Glow( glm::vec3( m_colour + 0.7f ), 1.0f,
         omi::ResourceManager::getTexture( "glow_cube" ) );
     m_components.add( m_mesh );
 
     // add light
     m_light = new omi::PointLight(
         "", m_transform, 1.0f,
-        glm::vec3( m_colour ), 0.05f, 0.3f, 0.025f
+        glm::vec3( m_colour ), 0.05f, 0.2f, 0.000001f
     );
     m_components.add( m_light );
 }
@@ -81,7 +81,7 @@ void GlowCube::update()
 
     // update the cube's colour
     m_mesh->getMaterial().colour = m_colour;
-    m_mesh->getMaterial().glow->setColour( glm::vec3( m_colour + 0.2f ) );
+    m_mesh->getMaterial().glow->setColour( glm::vec3( m_colour + 0.7f ) );
     m_light->setColour( glm::vec3( m_colour ) );
 
     // apply light flicker
@@ -89,7 +89,7 @@ void GlowCube::update()
     {
         m_flickerCounter -= 1.0f;
         float flicker = static_cast<float>( rand() % 1000 ) / 4000.0f;
-        m_mesh->getMaterial().glow->setBrightness( 0.5f + ( flicker / 3.0f ) );
+        m_mesh->getMaterial().glow->setBrightness( 0.7f + ( flicker / 3.0f ) );
         flicker += 0.75f;
         m_light->setPower( flicker );
     }

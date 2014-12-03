@@ -12,7 +12,7 @@ void TestEnvironment::init()
     //         glm::vec3( 1.0f, 0.5f, 0.0f ),
     //         glm::vec3(),
     //         glm::vec3( 1.0f, 1.0f, 1.0f )
-    //     );
+    // );
     // m_components.add( t_0 );
     // m_components.add( new omi::DirectionalLight(
     //     "", t_0, 0.8f, glm::vec3( 1.0f, 1.0f, 1.0f )
@@ -36,7 +36,7 @@ void TestEnvironment::init()
     );
     m_components.add( t_2 );
     m_components.add( new omi::PointLight(
-        "", t_2, 1.0f, glm::vec3( 0.75f, 0.5f, 0.9f ), 0.05f, 0.8f, 0.025f
+        "", t_2, 1.0f, glm::vec3( 0.75f, 0.5f, 0.9f ), 0.05f, 0.3f, 0.0001f
     ) );
     // spot lights
     // omi::Transform* t_3 = new omi::Transform(
@@ -94,10 +94,10 @@ void TestEnvironment::init()
     // guiTest->gui = true;
     // m_components.add( guiTest );
 
-    omi::Text* textTest =
-            omi::ResourceManager::getText( "test_text_1", "", NULL );
-    textTest->gui = true;
-    m_components.add( textTest );
+    // omi::Text* textTest =
+    //         omi::ResourceManager::getText( "test_text_1", "", NULL );
+    // textTest->gui = true;
+    // m_components.add( textTest );
 
     // m_components.add(
     //         omi::ResourceManager::getMesh( "lounge_floor", "", NULL ) );

@@ -42,6 +42,13 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** #Override */
+    virtual void render( Camera* camera, const LightData& lightData );
+
+    // TODO: font selectable
+
+    // TODO: font glow
+
     //---------------------------------GETTERS----------------------------------
 
     /** @return the font being used to render the text */
@@ -91,6 +98,8 @@ private:
     // the size of the text
     float m_size;
 
+    // the current character to render
+    char m_char;
     // the texture to use for rendering the font to
     GLuint m_texture;
 };

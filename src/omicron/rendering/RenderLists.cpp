@@ -121,6 +121,10 @@ void RenderLists::render( Camera* camera )
     // clear for normal rendering
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    //-------------------------------SHADOW PASS--------------------------------
+
+    // TODO
+
     //------------------------------VISIBLE PASSES------------------------------
 
     // calculate light data
@@ -133,9 +137,33 @@ void RenderLists::render( Camera* camera )
         buildLightData( camera, lightData );
     }
 
+
+    // TODO: NO MAIN LIGHT NO SHADOWS
+
+    // TODO: need to clear shadow texture if no main light
+
+    // TODO: shadow camera based on light...
+
+    // TODO: move up
+    m_shadowMap.bind();
+
+    // // TODO: use render shadow function instread
+    for ( t_RenderableMap::iterator it = renderLayers.begin();
+          it != renderLayers.end(); ++it )
+    {
+        // iterate over the renderables in this layer and render them
+        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+              itr != it->second.end(); ++itr)
+        {
+            ( *itr )->renderShadow( camera );
+        }
+    }
+
+    m_shadowMap.unbind();
+
     //--------------------------------GLOW PASS---------------------------------
 
-    // // bind the first pass glow render texture
+    // bind the first pass glow render texture
     m_glowFirstPassRenTex.bind();
 
     // iterate over the layers
@@ -200,6 +228,9 @@ void RenderLists::render( Camera* camera )
 
     //-----------------------------------GUI------------------------------------
 
+    // disable depth testing
+    glDisable( GL_DEPTH_TEST );
+
     for ( t_RenderableMap::iterator it = guiLayers.begin();
           it != guiLayers.end(); ++it )
     {
@@ -209,6 +240,12 @@ void RenderLists::render( Camera* camera )
         {
             ( *itr )->render( &guiCamera, lightData );
         }
+    }
+
+    // revert depth testing
+    if ( renderSettings.getDepthTest() )
+    {
+        glEnable( GL_DEPTH_TEST );
     }
 }
 
@@ -390,6 +427,9 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
         lightData.rotations.push_back( rot.x );
         lightData.rotations.push_back( rot.y );
         lightData.rotations.push_back( rot.z );
+
+        // shadow map
+        lightData.shadowMap = m_shadowMap.getTexture();
     }
 }
 

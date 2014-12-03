@@ -13,6 +13,8 @@ uniform vec4 u_colour;
 uniform int u_hasTexture;
 // the texture
 uniform sampler2D u_texture;
+// is true to invert texture colour
+uniform int u_invertTexCol;
 
 // shininess
 uniform float u_shininess;
@@ -21,6 +23,10 @@ uniform vec3 u_specularColour;
 
 // if the material is shadeless
 uniform int u_shadeless;
+
+// the shadow map
+uniform sampler2D u_shadowMap;
+
 //the ambient light
 uniform vec3 u_ambientLight;
 
@@ -59,6 +65,12 @@ void main() {
 
     //apply texturing
     vec4 textureColour = texture2D( u_texture, v_texCoord );
+    if ( u_invertTexCol != 0 )
+    {
+        vec4 invertCol = vec4( 1.0, 1.0, 1.0, 1.0 ) - textureColour;
+        invertCol.a = textureColour.a;
+        textureColour = invertCol;
+    }
     if ( u_hasTexture != 0 )
     {
         material *= textureColour;
@@ -72,6 +84,13 @@ void main() {
     }
     else
     {
+        // apply shadows
+        //TODO:
+        // if ( texture2D( u_shadowMap, v_texCoord ).x < 0.9999999 )
+        // {
+        //     material = vec4( 1.0, 0.0, 0.0, 1.0 );
+        // }
+
         // the light value
         vec3 light = u_ambientLight;
 

@@ -115,7 +115,7 @@ void Renderer::init() {
     glBlendEquation( GL_FUNC_ADD );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glCullFace(GL_BACK);
-    glClearDepth(1.0f);
+    glClearDepth( 1.0f );
     glEnable(GL_TEXTURE_2D);
     glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 

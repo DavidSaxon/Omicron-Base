@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include <time.h>
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
@@ -63,7 +62,7 @@ protected:
     // the depth buffer
     GLuint m_depthRenderBuffer;
 
-    // the ids of the texture to render to
+    // the id of the texture to render to
     GLuint m_texture;
 
     // the path to the shaders

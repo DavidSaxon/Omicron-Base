@@ -18,7 +18,9 @@ Text::Text(
     Renderable( id, layer, transform, material ),
     m_font    ( font ),
     m_str     ( str ),
-    m_size    ( size )
+    m_size    ( size ),
+    m_char    ( ' ' ),
+    m_texture ( 0 )
 {
     // create the texture
     glGenTextures( 1, &m_texture );
@@ -32,6 +34,96 @@ Text::Text(
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+void Text::render( Camera* camera, const LightData& lightData )
+{
+    // TODO: this might need to be done elsewhere since glow passes will be
+    // behind
+    // update the material
+    m_material.update();
+
+    // only render if visible and there is a camera
+    if ( !visible || !m_material.isVisible() || camera == NULL)
+    {
+        return;
+    }
+
+    applyTransformations();
+    calculateMatrices( camera );
+
+    // get the window dimension we will use for text sizing
+    float unitDim = displaySettings.getSize().y;
+    if ( displaySettings.getSize().y > displaySettings.getSize().x )
+    {
+        unitDim = displaySettings.getSize().x;
+    }
+
+    // set font size
+    FT_Set_Pixel_Sizes(
+            *m_font,
+            0,
+            static_cast<FT_UInt>( unitDim * m_size )
+    );
+
+    // TODO: alignment
+
+    // the position of the cursor
+    float cursorPosX = 0.0f;
+    float cursorPosY = 0.0f;
+    // iterate over each letter and render
+    for ( unsigned i = 0; i < m_str.length(); ++i )
+    {
+        // set the current character
+        m_char = m_str[ i ];
+        setShader( lightData );
+
+        // get the positioning data in pixels
+        float left   = cursorPosX + (*m_font)->glyph->bitmap_left;
+        float top    = cursorPosY + (*m_font)->glyph->bitmap_top;
+        float width  = static_cast<float>( (*m_font)->glyph->bitmap.width );
+        float height = static_cast<float>( (*m_font)->glyph->bitmap.rows );
+        // convert to world space co-ordinates
+        left  =  left / unitDim;
+        top   =  top / unitDim;
+        width =  width / unitDim;
+        height = height / unitDim;
+
+        // draw geometry
+        glBegin( GL_TRIANGLES );
+
+            glTexCoord2f( 1.0f, 0.0f );
+            glNormal3f( 0.0f, 0.0f, 1.0f );
+            glVertex3f( left + width, top, 0.0f );
+
+            glTexCoord2f( 0.0f, 1.0f );
+            glNormal3f( 0.0f, 0.0f, 1.0f );
+            glVertex3f( left, top - height, 0.0f );
+
+            glTexCoord2f( 1.0f, 1.0f );
+            glNormal3f( 0.0f, 0.0f, 1.0f );
+            glVertex3f( left + width, top - height, 0.0f );
+
+            glTexCoord2f( 0.0f, 1.0f );
+            glNormal3f( 0.0f, 0.0f, 1.0f );
+            glVertex3f( left, top - height, 0.0f );
+
+            glTexCoord2f( 1.0f, 0.0f );
+            glNormal3f( 0.0f, 0.0f, 1.0f );
+            glVertex3f( left + width, top, 0.0f );
+
+            glTexCoord2f( 0.0f, 0.0f );
+            glNormal3f( 0.0f, 0.0f, 1.0f );
+            glVertex3f( left, top, 0.0f );
+
+        glEnd();
+
+        // move the cursor
+        cursorPosX += static_cast<float>( (*m_font)->glyph->advance.x >> 6 );
+        cursorPosY += static_cast<float>( (*m_font)->glyph->advance.y >> 6 );
+    }
+
+    unsetShader();
+}
 
 //-----------------------------------GETTERS------------------------------------
 
@@ -104,12 +196,12 @@ void Text::setShader( const LightData& lightData )
         m_material.colour.a
     );
 
-    // TODO: loop that shit
     // font texture
+    glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
     glBindTexture( GL_TEXTURE_2D, m_texture );
+    glUniform1i( glGetUniformLocation( program, "u_invertTexCol" ), 1 );
     // load character
-    FT_Set_Pixel_Sizes( *m_font, 0, 48 );
-    FT_Load_Char( *m_font, 'F', FT_LOAD_RENDER );
+    FT_Load_Char( *m_font, m_char, FT_LOAD_RENDER );
     glTexImage2D(
           GL_TEXTURE_2D,
           0,

@@ -55,6 +55,75 @@ void Renderable::render( Camera* camera, const LightData& lightData )
     unsetShader();
 }
 
+void Renderable::renderShadow( Camera* camera )
+{
+    // TODO: check if this projects shadows
+
+    // only render if visible and there is a camera
+    if ( !visible || !m_material.isVisible() || camera == NULL)
+    {
+        return;
+    }
+
+    applyTransformations();
+    calculateMatrices( camera );
+
+    // TODO: get from shadow shaders
+    // get the OpenGL program
+    GLuint program = m_material.shader.getProgram();
+    // use the shader
+    glUseProgram( program );
+
+    // TODO: only shadow matrix
+    // pass in the matrices to the shader
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelMatrix" ),
+        1, GL_FALSE, &m_modelMatrix[0][0] );
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_viewMatrix" ),
+        1, GL_FALSE, &m_viewMatrix[0][0] );
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelViewMatrix" ),
+        1, GL_FALSE, &m_modelViewMatrix[0][0] );
+    glUniformMatrix3fv(
+        glGetUniformLocation( program, "u_normalMatrix" ),
+        1, GL_FALSE, &m_normalMatrix[0][0] );
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
+        1, GL_FALSE, &m_modelViewProjectionMatrix[0][0] );
+
+    // NOPE
+    // pass in colour to the shader
+    glUniform4f(
+        glGetUniformLocation( program, "u_colour" ),
+        m_material.colour.r,
+        m_material.colour.g,
+        m_material.colour.b,
+        m_material.colour.a
+    );
+
+    // NO, NOT RIGHT NOW
+    // texture
+    if ( m_material.texture != NULL )
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
+        glBindTexture( GL_TEXTURE_2D, m_material.texture->getId() );
+    }
+    else
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
+        glBindTexture( GL_TEXTURE_2D, 0 );
+    }
+    glUniform1i( glGetUniformLocation( program, "u_invertTexCol" ), 0 );
+
+    // NOT NEEDED
+    // material is not affected by light
+    glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 1 );
+
+    draw();
+    unsetShader();
+}
+
 void Renderable::renderGlow( Camera* camera )
 {
     // only render if visible and there is a camera
@@ -278,6 +347,8 @@ void Renderable::setShader( const LightData& lightData )
     );
 
     // texture
+    glActiveTexture( GL_TEXTURE0 );
+    glUniform1i( glGetUniformLocation( program, "u_texture" ), 0 );
     if ( m_material.texture != NULL )
     {
         glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
@@ -288,6 +359,8 @@ void Renderable::setShader( const LightData& lightData )
         glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
         glBindTexture( GL_TEXTURE_2D, 0 );
     }
+    // don't invert texture colours
+    glUniform1i( glGetUniformLocation( program, "u_invertTexCol" ), 0 );
 
     // lighting
     if ( m_material.isShadeless() )
@@ -299,6 +372,12 @@ void Renderable::setShader( const LightData& lightData )
     {
         // material is affected by light
         glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 0 );
+
+        // pass in the shadow map
+        glActiveTexture( GL_TEXTURE1 );
+        glUniform1i( glGetUniformLocation( program, "u_shadowMap" ), 1 );
+        glBindTexture( GL_TEXTURE_2D, lightData.shadowMap );
+        glActiveTexture( GL_TEXTURE0 );
 
         // pass in ambient light
         glm::vec3 ambientLight =

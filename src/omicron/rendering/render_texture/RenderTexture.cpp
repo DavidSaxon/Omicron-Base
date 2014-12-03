@@ -20,9 +20,6 @@ RenderTexture::RenderTexture(
 {
     // initialise
     init();
-
-    // REMOVE ME
-    srand( static_cast<unsigned>( time( NULL ) ) );
 }
 
 //------------------------------------------------------------------------------
@@ -39,14 +36,14 @@ void RenderTexture::bind()
 
     // clear background
     glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     // bind the frame buffer
     glBindFramebuffer( GL_FRAMEBUFFER, m_frameBuffer );
     // bind the depth buffer
     glBindRenderbuffer( GL_RENDERBUFFER, m_depthRenderBuffer );
     // clear the render buffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     // set the view port to the size of the render texture
     glViewport(
         0,
