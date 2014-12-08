@@ -125,6 +125,11 @@ void Renderer::init() {
     // create the render lists
     m_renderLists = std::unique_ptr<RenderLists>(new RenderLists());
 
+    // load the shadpw shader for renderables
+    Renderable::shadowShader = loader::loadShaderFromFiles(
+        "res/gfx/shader/omicron/shadow_vertex.glsl",
+        "res/gfx/shader/omicron/shadow_fragment.glsl"
+    );
     // load the glow shader for renderables
     Renderable::glowShader = loader::loadShaderFromFiles(
         "res/gfx/shader/omicron/glow_vertex.glsl",

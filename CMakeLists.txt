@@ -76,6 +76,7 @@ set(SRCS
     src/entities/test/Monkey.cpp
     src/entities/test/TestEnvironment.cpp
     src/entities/test/TestPlayer.cpp
+    src/entities/test/TestSun.cpp
 
 )
 

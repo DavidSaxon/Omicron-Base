@@ -26,7 +26,8 @@ namespace cam {
 enum Mode {
 
     PERSPECTIVE,
-    ORTHOGRAPHIC
+    ORTHOGRAPHIC,
+    SHADOW
 };
 
 } // namespace cam

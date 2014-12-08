@@ -24,6 +24,8 @@ uniform vec3 u_specularColour;
 // if the material is shadeless
 uniform int u_shadeless;
 
+// if we're using shadowing
+uniform int u_shadowing;
 // the shadow map
 uniform sampler2D u_shadowMap;
 
@@ -51,6 +53,8 @@ varying vec2 v_texCoord;
 varying vec3 v_normal;
 // the eye position
 varying vec3 v_eyePos;
+// the shadow co-ordinates
+varying vec4 v_shadowCoord;
 
 //------------------------------------------------------------------------------
 //                                 MAIN FUNCTION
@@ -84,12 +88,15 @@ void main() {
     }
     else
     {
-        // apply shadows
-        //TODO:
-        // if ( texture2D( u_shadowMap, v_texCoord ).x < 0.9999999 )
-        // {
-        //     material = vec4( 1.0, 0.0, 0.0, 1.0 );
-        // }
+        // TODO: only perform for caster light
+        // calculate shadowing
+        float visibility = 1.0;
+        float bias = 0.0001;
+        if ( texture2D( u_shadowMap, v_shadowCoord.xy ).x <
+             v_shadowCoord.z - bias )
+        {
+            visibility = 0.5;
+        }
 
         // the light value
         vec3 light = u_ambientLight;
@@ -99,7 +106,6 @@ void main() {
 
         for ( int i = 0; i < u_lightCount; ++i )
         {
-            // calculate the half vector
 
             // directional light
             if ( u_lightType[i] == 0 )
@@ -188,6 +194,7 @@ void main() {
             }
         }
 
-        gl_FragColor = material * vec4( light, 1.0 );
+        vec4 visiblityVec = vec4( visibility, visibility, visibility, 1.0 );
+        gl_FragColor = material * visiblityVec * vec4( light, 1.0 );
     }
 }

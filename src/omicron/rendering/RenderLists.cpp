@@ -123,7 +123,57 @@ void RenderLists::render( Camera* camera )
 
     //-------------------------------SHADOW PASS--------------------------------
 
-    // TODO
+    // find the first light that has shadow casting on (only have support for
+    // one shadow light right now )
+    bool shadowing = false;
+    Light* shadowCaster = NULL;
+    for ( std::vector<Light*>::iterator it = m_lights.begin();
+          it != m_lights.end(); ++it )
+    {
+        if ( (*it)->getCastShadows() )
+        {
+            shadowing = true;
+            shadowCaster = *it;
+            break;
+        }
+    }
+
+    // TODO: check global shadowing
+
+    Camera* shadowCamera = NULL;
+    if ( shadowing )
+    {
+        // create a camera to use for shadowing
+        shadowCamera = new Camera(
+            "",
+            omi::cam::SHADOW,
+            shadowCaster->getTransform()
+        );
+        shadowCamera->apply();
+
+        // render all faces
+        glDisable( GL_CULL_FACE );
+
+        // render
+        m_shadowMap.bind();
+        for ( t_RenderableMap::iterator it = renderLayers.begin();
+              it != renderLayers.end(); ++it )
+        {
+            // iterate over the renderables in this layer and render them
+            for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+                  itr != it->second.end(); ++itr)
+            {
+                ( *itr )->renderShadow( shadowCamera );
+            }
+        }
+        m_shadowMap.unbind();
+
+        // turn back on back-face culling
+        if ( renderSettings.getBackFaceCulling() )
+        {
+            glEnable( GL_CULL_FACE );
+        }
+    }
 
     //------------------------------VISIBLE PASSES------------------------------
 
@@ -136,30 +186,6 @@ void RenderLists::render( Camera* camera )
         // build lighting data
         buildLightData( camera, lightData );
     }
-
-
-    // TODO: NO MAIN LIGHT NO SHADOWS
-
-    // TODO: need to clear shadow texture if no main light
-
-    // TODO: shadow camera based on light...
-
-    // TODO: move up
-    m_shadowMap.bind();
-
-    // // TODO: use render shadow function instread
-    for ( t_RenderableMap::iterator it = renderLayers.begin();
-          it != renderLayers.end(); ++it )
-    {
-        // iterate over the renderables in this layer and render them
-        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
-              itr != it->second.end(); ++itr)
-        {
-            ( *itr )->renderShadow( camera );
-        }
-    }
-
-    m_shadowMap.unbind();
 
     //--------------------------------GLOW PASS---------------------------------
 
@@ -210,7 +236,7 @@ void RenderLists::render( Camera* camera )
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
               itr != it->second.end(); ++itr)
         {
-            ( *itr )->render( camera, lightData );
+            ( *itr )->render( camera, shadowCamera, lightData );
         }
     }
 
@@ -238,7 +264,7 @@ void RenderLists::render( Camera* camera )
         for ( std::vector<Renderable*>::iterator itr = it->second.begin();
               itr != it->second.end(); ++itr)
         {
-            ( *itr )->render( &guiCamera, lightData );
+            ( *itr )->render( &guiCamera, shadowCamera, lightData );
         }
     }
 

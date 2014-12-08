@@ -38,14 +38,14 @@ bool LogicManager::execute() {
     fpsManager.update();
 
     // execute the current scene
-    if (m_scene->execute()) {
-
+    if ( m_scene->execute() )
+    {
         // get the next scene
         m_scene = std::unique_ptr<Scene>(m_scene->nextScene());
         // clear the components of this scene
         //if the scene we get is null we're done
-        if (!m_scene) {
-
+        if (!m_scene)
+        {
             exit(0);
         }
         m_sceneInit = true;

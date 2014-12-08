@@ -6,8 +6,21 @@ namespace omi {
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
+Shader Renderable::shadowShader;
 Shader Renderable::glowShader;
 Shader Renderable::selectionShader;
+
+namespace {
+
+// the bias matrix for calculating the shadow matrix
+static const glm::mat4 BIAS_MATRIX(
+        0.5f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.5f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.5f, 0.0f,
+        0.5f, 0.5f, 0.5f, 1.0f
+);
+
+} // namespace omi
 
 //------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
@@ -34,7 +47,10 @@ Renderable::Renderable(
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Renderable::render( Camera* camera, const LightData& lightData )
+void Renderable::render(
+        Camera* camera,
+        Camera* shadowCamera,
+        const LightData& lightData )
 {
     // TODO: this might need to be done elsewhere since glow passes will be
     // behind
@@ -50,7 +66,7 @@ void Renderable::render( Camera* camera, const LightData& lightData )
     applyTransformations();
 
     calculateMatrices( camera );
-    setShader( lightData );
+    setShader( lightData, shadowCamera );
     draw();
     unsetShader();
 }
@@ -68,57 +84,15 @@ void Renderable::renderShadow( Camera* camera )
     applyTransformations();
     calculateMatrices( camera );
 
-    // TODO: get from shadow shaders
     // get the OpenGL program
-    GLuint program = m_material.shader.getProgram();
+    GLuint program = shadowShader.getProgram();
     // use the shader
     glUseProgram( program );
 
-    // TODO: only shadow matrix
-    // pass in the matrices to the shader
-    glUniformMatrix4fv(
-        glGetUniformLocation( program, "u_modelMatrix" ),
-        1, GL_FALSE, &m_modelMatrix[0][0] );
-    glUniformMatrix4fv(
-        glGetUniformLocation( program, "u_viewMatrix" ),
-        1, GL_FALSE, &m_viewMatrix[0][0] );
-    glUniformMatrix4fv(
-        glGetUniformLocation( program, "u_modelViewMatrix" ),
-        1, GL_FALSE, &m_modelViewMatrix[0][0] );
-    glUniformMatrix3fv(
-        glGetUniformLocation( program, "u_normalMatrix" ),
-        1, GL_FALSE, &m_normalMatrix[0][0] );
+    // pass in the matrix to the shader
     glUniformMatrix4fv(
         glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
         1, GL_FALSE, &m_modelViewProjectionMatrix[0][0] );
-
-    // NOPE
-    // pass in colour to the shader
-    glUniform4f(
-        glGetUniformLocation( program, "u_colour" ),
-        m_material.colour.r,
-        m_material.colour.g,
-        m_material.colour.b,
-        m_material.colour.a
-    );
-
-    // NO, NOT RIGHT NOW
-    // texture
-    if ( m_material.texture != NULL )
-    {
-        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
-        glBindTexture( GL_TEXTURE_2D, m_material.texture->getId() );
-    }
-    else
-    {
-        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
-        glBindTexture( GL_TEXTURE_2D, 0 );
-    }
-    glUniform1i( glGetUniformLocation( program, "u_invertTexCol" ), 0 );
-
-    // NOT NEEDED
-    // material is not affected by light
-    glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 1 );
 
     draw();
     unsetShader();
@@ -313,7 +287,7 @@ void Renderable::calculateMatrices( Camera* camera )
         m_modelMatrix;
 }
 
-void Renderable::setShader( const LightData& lightData )
+void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
 {
     // get the OpenGL program
     GLuint program = m_material.shader.getProgram();
@@ -373,11 +347,31 @@ void Renderable::setShader( const LightData& lightData )
         // material is affected by light
         glUniform1i( glGetUniformLocation( program, "u_shadeless" ), 0 );
 
-        // pass in the shadow map
-        glActiveTexture( GL_TEXTURE1 );
-        glUniform1i( glGetUniformLocation( program, "u_shadowMap" ), 1 );
-        glBindTexture( GL_TEXTURE_2D, lightData.shadowMap );
-        glActiveTexture( GL_TEXTURE0 );
+        // shadowing
+        if ( shadowCamera != NULL )
+        {
+            glUniform1i( glGetUniformLocation( program, "u_shadowing" ), 1 );
+
+            // calculate and pass in shadow
+            glm::mat4 shadowMatrix =
+                shadowCamera->getProjectionMatrix() *
+                shadowCamera->getViewMatrix() *
+                m_modelMatrix;
+            shadowMatrix = BIAS_MATRIX * shadowMatrix;
+            glUniformMatrix4fv(
+                glGetUniformLocation( program, "u_shadowMatrix" ),
+                1, GL_FALSE, &shadowMatrix[0][0] );
+
+            // pass in the shadow map
+            glActiveTexture( GL_TEXTURE1 );
+            glUniform1i( glGetUniformLocation( program, "u_shadowMap" ), 1 );
+            glBindTexture( GL_TEXTURE_2D, lightData.shadowMap );
+            glActiveTexture( GL_TEXTURE0 );
+        }
+        else
+        {
+            glUniform1i( glGetUniformLocation( program, "u_shadowing" ), 0 );
+        }
 
         // pass in ambient light
         glm::vec3 ambientLight =

@@ -67,6 +67,9 @@ public:
     /** @return the colour of the light */
     const glm::vec3& getColour() const;
 
+    /** @return if this light casts shadows */
+    const bool getCastShadows() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param transform the new transform of the light */
@@ -77,6 +80,9 @@ public:
 
     /** @param colour the new colour of the light */
     void setColour( const glm::vec3& colour );
+
+    /** @param castShadows whether or not this light casts shadows */
+    void setCastShadow( bool castShadows );
 
 protected:
 
@@ -90,6 +96,8 @@ protected:
     float m_power;
     // the colour of the light
     glm::vec3 m_colour;
+    // whether this light casts shadows or not
+    bool m_castShadows;
 };
 
 } // namespace omi

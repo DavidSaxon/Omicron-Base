@@ -3,6 +3,17 @@
 namespace omi {
 
 //------------------------------------------------------------------------------
+//                                   CONSTANTS
+//------------------------------------------------------------------------------
+
+namespace {
+
+static const float SHADOW_CAM_SIZE = 5.0f;
+static const float SHADOW_RANGE    = 100.0f;
+
+} // namespace anonymous
+
+//------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
@@ -78,6 +89,7 @@ void Camera::apply()
     // projection matrix
     float aspectRatio =
         renderSettings.getResolution().x / renderSettings.getResolution().y;
+    // perspective camera
     if ( m_mode == cam::PERSPECTIVE )
     {
         m_projectionMatrix =
@@ -88,10 +100,33 @@ void Camera::apply()
                 m_farClip
             );
     }
-    else
+    // orthographic camera
+    else if ( m_mode == cam::ORTHOGRAPHIC )
     {
         m_projectionMatrix = glm::ortho(
-            -aspectRatio, aspectRatio, -1.0f, 1.0f, m_nearClip, m_farClip );
+                -aspectRatio, aspectRatio, -1.0f, 1.0f, m_nearClip, m_farClip );
+    }
+    // shadow camera
+    else
+    {
+        // TODO: smaller size??
+        // TODO: clipping? -farClip to farClip?
+        // set up projection matrix
+        m_projectionMatrix = glm::ortho(
+            -SHADOW_CAM_SIZE,
+             SHADOW_CAM_SIZE,
+            -SHADOW_CAM_SIZE,
+             SHADOW_CAM_SIZE,
+            -SHADOW_RANGE,
+             SHADOW_RANGE );
+        // set up view matrix
+        m_viewMatrix = glm::lookAt(
+            m_transform->translation,
+            glm::vec3( 0, 0, 0 ),
+            glm::vec3( 0, 1, 0 )
+        );
+        // don't continue processing
+        return;
     }
 
     // view matrix

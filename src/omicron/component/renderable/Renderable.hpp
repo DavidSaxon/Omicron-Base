@@ -27,6 +27,8 @@ public:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // shadow shaders for renderables
+    static Shader shadowShader;
     // glow shaders for the renderables
     static Shader glowShader;
     // the selection shader for renderables
@@ -71,8 +73,12 @@ public:
     /** #Hidden
     Render this component
     @param camera the camera used to render this
+    @param shadowCamera the camera used for rendering shadows
     @param pointLights the list of point lights to use to render this */
-    virtual void render( Camera* camera, const LightData& lightData );
+    virtual void render(
+            Camera* camera,
+            Camera* shadowCamera,
+            const LightData& lightData );
 
     /** Render this component for the shadow pass */
     virtual void renderShadow( Camera* camera );
@@ -147,7 +153,7 @@ protected:
     void calculateMatrices( Camera* camera );
 
     /** Sets up the shader for rendering and passes in all data */
-    virtual void setShader( const LightData& lightData );
+    virtual void setShader( const LightData& lightData, Camera* shadowCamera );
 
     /** Cleans up the shader */
     virtual void unsetShader();

@@ -12,10 +12,11 @@ Light::Light(
               float           power,
         const glm::vec3&      colour )
     :
-    Component  ( id ),
-    m_transform( transform ),
-    m_power ( power ),
-    m_colour   ( colour )
+    Component    ( id ),
+    m_transform  ( transform ),
+    m_power      ( power ),
+    m_colour     ( colour ),
+    m_castShadows( false )
 {
 }
 
@@ -50,6 +51,11 @@ const glm::vec3& Light::getColour() const
     return m_colour;
 }
 
+const bool Light::getCastShadows() const
+{
+    return m_castShadows;
+}
+
 //-----------------------------------SETTERS------------------------------------
 
 void Light::setTransform( omi::Transform* transform )
@@ -66,5 +72,11 @@ void Light::setColour( const glm::vec3& colour )
 {
     m_colour = colour;
 }
+
+void Light::setCastShadow( bool castShadows )
+{
+    m_castShadows = castShadows;
+}
+
 
 } // namespace omi

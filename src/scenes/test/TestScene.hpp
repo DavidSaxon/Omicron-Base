@@ -9,6 +9,7 @@
 #include "src/entities/test/Monkey.hpp"
 #include "src/entities/test/TestEnvironment.hpp"
 #include "src/entities/test/TestPlayer.hpp"
+#include "src/entities/test/TestSun.hpp"
 
 /***************************************\
 | Testing scene for the Omicron Engine. |
