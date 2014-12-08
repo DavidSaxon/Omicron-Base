@@ -29,6 +29,7 @@ private:
     //--------------------------------------------------------------------------
 
     omi::Transform* m_transform;
+    omi::Transform* m_lightT;
     float m_move;
 };
 

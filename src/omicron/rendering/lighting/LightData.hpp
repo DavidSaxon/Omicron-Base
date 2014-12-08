@@ -30,7 +30,11 @@ struct LightData {
     // the arcs of the lights
     std::vector<float> arcs;
     // the shadow map
-    GLuint shadowMap;};
+    GLuint shadowMap;
+    // the index of the light casting shadows
+    int shadowCaster;
+
+};
 
 } // namespace omi
 

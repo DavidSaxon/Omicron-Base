@@ -36,6 +36,8 @@ public:
 
     //! is true if this component will be rendered
     bool visible;
+    //! is true if this component will cast a shadow
+    bool castShadow;
     //! is true if this should be rendered as a GUI element
     bool gui;
     //! is true if the this renderable should render for selecting

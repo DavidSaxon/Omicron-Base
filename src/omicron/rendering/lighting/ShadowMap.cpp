@@ -9,7 +9,7 @@ namespace omi {
 ShadowMap::ShadowMap( float resScale ) :
     m_frameBuffer ( 0 ),
     m_texture     ( 0 ),
-    m_resScale    ( resScale )
+    m_resScale    ( 4.0f )
 {
     // initialise
     init();
@@ -22,7 +22,8 @@ ShadowMap::ShadowMap( float resScale ) :
 void ShadowMap::bind()
 {
     // if the resolution has changed rebuild the render texture
-    if ( m_resolution != renderSettings.getResolution() )
+    if ( m_resolution != renderSettings.getResolution() ||
+         renderSettings.getShadowMapResolutionScale() != m_resScale )
     {
         init();
     }
@@ -64,6 +65,7 @@ void ShadowMap::init()
 {
     // store the resolution
     m_resolution = renderSettings.getResolution();
+    m_resScale   = renderSettings.getShadowMapResolutionScale();
 
     // generate the frame buffer
     glGenFramebuffers( 1, &m_frameBuffer );

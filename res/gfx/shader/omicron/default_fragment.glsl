@@ -24,10 +24,10 @@ uniform vec3 u_specularColour;
 // if the material is shadeless
 uniform int u_shadeless;
 
-// if we're using shadowing
-uniform int u_shadowing;
 // the shadow map
 uniform sampler2D u_shadowMap;
+// the light casting shadows
+uniform int u_shadowCaster;
 
 //the ambient light
 uniform vec3 u_ambientLight;
@@ -55,6 +55,13 @@ varying vec3 v_normal;
 varying vec3 v_eyePos;
 // the shadow co-ordinates
 varying vec4 v_shadowCoord;
+
+vec2 poissonDisk[4] = vec2[](
+    vec2( -0.94201624, -0.39906216 ),
+    vec2( 0.94558609, -0.76890725 ),
+    vec2( -0.094184101, -0.92938870 ),
+    vec2( 0.34495938, 0.29387760 )
+);
 
 //------------------------------------------------------------------------------
 //                                 MAIN FUNCTION
@@ -88,16 +95,6 @@ void main() {
     }
     else
     {
-        // TODO: only perform for caster light
-        // calculate shadowing
-        float visibility = 1.0;
-        float bias = 0.0001;
-        if ( texture2D( u_shadowMap, v_shadowCoord.xy ).x <
-             v_shadowCoord.z - bias )
-        {
-            visibility = 0.5;
-        }
-
         // the light value
         vec3 light = u_ambientLight;
 
@@ -106,6 +103,33 @@ void main() {
 
         for ( int i = 0; i < u_lightCount; ++i )
         {
+
+            // calculate shadowing
+            float visibility = 1.0;
+            if ( i == u_shadowCaster )
+            {
+                float shadowCosThetha = dot( N, normalize( u_lightPos[i] ) );
+                shadowCosThetha = clamp( shadowCosThetha, 0.0, 1.0 );
+                float bias = 0.000025 * tan( acos( shadowCosThetha ) );
+                bias = clamp( bias, 0.0, 0.01 );
+
+                // for ( int s = 0; s < 4; ++s )
+                // {
+                //     if ( texture2D( u_shadowMap, v_shadowCoord.xy + ( poissonDisk[s] / 1600.0 ) ).x <
+                //          v_shadowCoord.z - bias )
+                //     {
+                //         visibility -= 0.2;
+                //     }
+                // }
+                if ( texture2D( u_shadowMap, v_shadowCoord.xy ).x <
+                     v_shadowCoord.z - bias )
+                {
+                    visibility = 0.5;
+                }
+
+
+            }
+            vec3 visiblityVec = vec3( visibility, visibility, visibility );
 
             // directional light
             if ( u_lightType[i] == 0 )
@@ -117,14 +141,14 @@ void main() {
                 if ( cosThetha > 0.0 )
                 {
                     // compute and add diffuse colour
-                    light += u_lightColour[i] * cosThetha;
+                    light += u_lightColour[i] * cosThetha * visiblityVec;
                     // compute half vector
                     vec3 H =
                         normalize( normalize( v_eyePos ) + u_lightPos[i] );
                     // compute specular
                     float cosAlpha = max( dot( N, H ), 0.0 );
                     light += u_specularColour * u_lightColour[i] *
-                            pow( cosAlpha, u_shininess );
+                             pow( cosAlpha, u_shininess ) * visiblityVec;
                 }
             }
             // point light
@@ -144,7 +168,8 @@ void main() {
                         ( u_lightAttenuation[i].y * distance ) +
                         ( u_lightAttenuation[i].z * distance * distance ) );
                     // apply diffuse
-                    light += attenuation * u_lightColour[i] * cosThetha;
+                    light += attenuation * u_lightColour[i] *
+                             cosThetha * visiblityVec;
                     // compute half vector
                     vec3 H =
                         normalize( normalize( v_eyePos ) +
@@ -152,7 +177,7 @@ void main() {
                     // compute specular
                     float cosAlpha = max( dot ( N, H ), 0.0 );
                     light += attenuation * u_specularColour * u_lightColour[i] *
-                            pow( cosAlpha, u_shininess );
+                            pow( cosAlpha, u_shininess ) * visiblityVec;
                 }
             }
             // spot light
@@ -179,7 +204,8 @@ void main() {
                             ( u_lightAttenuation[i].y * distance ) +
                             ( u_lightAttenuation[i].z * distance * distance ) );
                         // apply diffuse
-                        light += attenuation * u_lightColour[i] * cosThetha;
+                        light += attenuation * u_lightColour[i] *
+                                 cosThetha * visiblityVec;
                         // compute half vector
                         vec3 H =
                             normalize( normalize( v_eyePos ) +
@@ -188,13 +214,12 @@ void main() {
                         float cosAlpha = max( dot ( N, H ), 0.0 );
                         light += attenuation * u_specularColour *
                                 u_lightColour[i] *
-                                pow( cosAlpha, u_shininess );
+                                pow( cosAlpha, u_shininess ) * visiblityVec;
                     }
                 }
             }
         }
 
-        vec4 visiblityVec = vec4( visibility, visibility, visibility, 1.0 );
-        gl_FragColor = material * visiblityVec * vec4( light, 1.0 );
+        gl_FragColor = material * vec4( light, 1.0 );
     }
 }

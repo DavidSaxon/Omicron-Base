@@ -50,8 +50,8 @@ void buildTestPack()
         "default_shader",
         glm::vec4( 1.0f, 1.0f, 1.0f, 1.0f ),
         "res/gfx/geometry/test/light_bulb_1.obj",
-        1
-        // omi::material::SHADELESS
+        1,
+        omi::material::SHADELESS
     );
     omi::ResourceManager::addTextureMaterialGeometryMesh(
         "test_tunnel_light_socket_1", resource_group::TEST,
@@ -79,8 +79,8 @@ void buildTestPack()
         "default_shader",
         "res/gfx/texture/test/glow_cube.png",
         "res/gfx/geometry/test/glow_cube.obj",
-        2, 0
-        // omi::material::SHADELESS
+        2, 0,
+        omi::material::SHADELESS
     );
 
     omi::ResourceManager::addTextureMaterialGeometryMesh(

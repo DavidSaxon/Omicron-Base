@@ -121,6 +121,9 @@ public:
     /** @return the far clipping plane of the camera */
     float getFarClippingPlane() const;
 
+    /** @return the transform used for offsetting the camera in shadow mode */
+    const Transform* getShadowOffset() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param the new mode of the camera */
@@ -138,6 +141,10 @@ public:
     /** @param farClip the new far clipping plane of the camera */
     void setFarClip( float farClip );
 
+    /** @param shadowOffset the transform used for offsetting the camera in
+    shadow mode */
+    void setShadowOffset( Transform* shadowOffset );
+
 private:
 
     //--------------------------------------------------------------------------
@@ -148,6 +155,8 @@ private:
     cam::Mode m_mode;
     // the transform of the camera
     Transform* m_transform;
+    // the transform used for offsetting in shadow mode
+    Transform* m_shadowOffset;
 
     // the projection matrix
     glm::mat4 m_projectionMatrix;

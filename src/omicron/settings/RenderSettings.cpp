@@ -7,14 +7,17 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 RenderSettings::RenderSettings() :
-    m_change         ( true ),
-    m_depthTest      ( true ),
-    m_backFaceCulling( true ),
-    m_clearColour    ( 0.0f, 0.0f, 0.0f, 1.0f ),
-    m_resolution     ( 1920, 1080 ),
-    m_ambientStrength( 0.5f ),
-    m_ambientColour  ( 1.0f, 1.0f, 1.0f ),
-    m_filmGrain      ( 0.0f )
+    m_change                  ( true ),
+    m_depthTest               ( true ),
+    m_backFaceCulling         ( true ),
+    m_clearColour             ( 0.0f, 0.0f, 0.0f, 1.0f ),
+    m_resolution              ( 1920, 1080 ),
+    m_ambientStrength         ( 0.5f ),
+    m_ambientColour           ( 1.0f, 1.0f, 1.0f ),
+    m_shadows                 ( false ),
+    m_shadowFrustumSize       ( 20.0f ),
+    m_shadowMapResolutionScale( 4.0f ),
+    m_filmGrain               ( 0.0f )
 {
 }
 
@@ -52,6 +55,21 @@ float RenderSettings::getAmbientStrength() const
 const glm::vec3& RenderSettings::getAmbientColour() const
 {
     return m_ambientColour;
+}
+
+bool RenderSettings::getShadows() const
+{
+    return m_shadows;
+}
+
+float RenderSettings::getShadowFrustumSize() const
+{
+    return m_shadowFrustumSize;
+}
+
+float RenderSettings::getShadowMapResolutionScale() const
+{
+    return m_shadowMapResolutionScale;
 }
 
 float RenderSettings::getFilmGrain() const
@@ -96,6 +114,22 @@ void RenderSettings::setAmbientColour( const glm::vec3& colour )
 {
     m_change = true;
     m_ambientColour = colour;
+}
+
+void RenderSettings::setShadows( bool shadows )
+{
+    m_change = true;
+    m_shadows = shadows;
+}
+
+void RenderSettings::setShadowFrustumSize( float frustumSize )
+{
+    m_shadowFrustumSize = frustumSize;
+}
+
+void RenderSettings::setShadowMapResolutionScale( float scale )
+{
+    m_shadowMapResolutionScale = scale;
 }
 
 void RenderSettings::setFilmGrain( float filmGrain )

@@ -10,7 +10,7 @@ omi::Scene* init() {
     // display settings
     omi::displaySettings.setSize( glm::vec2( 960, 540 ) );
     omi::displaySettings.setPos( glm::vec2( 250, 330 ) );
-    omi::displaySettings.setTitle( "The Reverie" );
+    omi::displaySettings.setTitle( "Reverie" );
     omi::displaySettings.setFullscreen( true );
     omi::displaySettings.setVsync( true );
 
@@ -19,6 +19,9 @@ omi::Scene* init() {
     omi::renderSettings.setBackFaceCulling( true );
     omi::renderSettings.setClearColour( glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
     omi::renderSettings.setResolution( glm::vec2( 1920, 1080 ) );
+    omi::renderSettings.setShadows( true );
+    omi::renderSettings.setShadowFrustumSize( 40.0f );
+    omi::renderSettings.setShadowMapResolutionScale( 4.0f );
 
     //audio settings
     omi::audioSettings.setSoundDisabled( true );

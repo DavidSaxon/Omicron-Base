@@ -121,27 +121,40 @@ void RenderLists::render( Camera* camera )
     // clear for normal rendering
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //-------------------------------SHADOW PASS--------------------------------
+    //-------------------------CAMERA AND LIGHT SET UP--------------------------
 
     // find the first light that has shadow casting on (only have support for
     // one shadow light right now )
     bool shadowing = false;
     Light* shadowCaster = NULL;
-    for ( std::vector<Light*>::iterator it = m_lights.begin();
-          it != m_lights.end(); ++it )
+    if ( renderSettings.getShadows() )
     {
-        if ( (*it)->getCastShadows() )
+        for ( std::vector<Light*>::iterator it = m_lights.begin();
+              it != m_lights.end(); ++it )
         {
-            shadowing = true;
-            shadowCaster = *it;
-            break;
+            if ( (*it)->getCastShadows() )
+            {
+                shadowing = true;
+                shadowCaster = *it;
+                break;
+            }
         }
     }
 
-    // TODO: check global shadowing
+    // calculate light data
+    LightData lightData;
+    // apply the camera
+    if ( camera != NULL )
+    {
+        camera->apply();
+        // build lighting data
+        buildLightData( camera, shadowCaster, lightData );
+    }
+
+    //-------------------------------SHADOW PASS--------------------------------
 
     Camera* shadowCamera = NULL;
-    if ( shadowing )
+    if ( shadowing && camera != NULL )
     {
         // create a camera to use for shadowing
         shadowCamera = new Camera(
@@ -149,8 +162,16 @@ void RenderLists::render( Camera* camera )
             omi::cam::SHADOW,
             shadowCaster->getTransform()
         );
+        Transform* offset = new Transform(
+                "",
+                glm::vec3( 30.0f, 3.0f, 3.0f ),
+                glm::vec3( 0.0f, 0.0f, 0.0f ),
+                glm::vec3( 1.0f, 1.0f, 1.0f )
+        );
+        shadowCamera->setShadowOffset( camera->getTransform() );
         shadowCamera->apply();
 
+        // TODO: uncomment
         // render all faces
         glDisable( GL_CULL_FACE );
 
@@ -173,19 +194,10 @@ void RenderLists::render( Camera* camera )
         {
             glEnable( GL_CULL_FACE );
         }
+
     }
 
     //------------------------------VISIBLE PASSES------------------------------
-
-    // calculate light data
-    LightData lightData;
-    // apply the camera
-    if ( camera != NULL )
-    {
-        camera->apply();
-        // build lighting data
-        buildLightData( camera, lightData );
-    }
 
     //--------------------------------GLOW PASS---------------------------------
 
@@ -367,8 +379,12 @@ void RenderLists::renderSelectable(
     }
 }
 
-void RenderLists::buildLightData( Camera* camera, LightData& lightData )
+void RenderLists::buildLightData(
+        Camera* camera,
+        Light* shadowCaster,
+        LightData& lightData )
 {
+    unsigned i = 0;
     for ( std::vector<Light*>::iterator it = m_lights.begin();
           it != m_lights.end(); ++it )
     {
@@ -456,6 +472,13 @@ void RenderLists::buildLightData( Camera* camera, LightData& lightData )
 
         // shadow map
         lightData.shadowMap = m_shadowMap.getTexture();
+        // shadow caster
+        if ( *it == shadowCaster )
+        {
+            lightData.shadowCaster = i;
+        }
+
+        ++i;
     }
 }
 

@@ -142,7 +142,10 @@ private:
             unsigned char& blue );
 
     /** Builds light data */
-    void buildLightData( Camera* camera, LightData& lightData );
+    void buildLightData(
+            Camera* camera,
+            Light* shadowCaster,
+            LightData& lightData );
 
 };
 

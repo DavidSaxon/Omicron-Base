@@ -61,6 +61,15 @@ public:
     /** @return the colour of the ambient light */
     const glm::vec3& getAmbientColour() const;
 
+    /** @return whether shadows are enabled */
+    bool getShadows() const;
+
+    /** @return the shadow frustum size */
+    float getShadowFrustumSize() const;
+
+    /** @return the resolution scale of the shadow map */
+    float getShadowMapResolutionScale() const;
+
     /** @return the amount of film grain */
     float getFilmGrain() const;
 
@@ -83,6 +92,15 @@ public:
 
     /** @param colour the new colour of ambient light */
     void setAmbientColour( const glm::vec3& colour );
+
+    /** @param shadows sets whether shadows are on or not */
+    void setShadows( bool shadows );
+
+    /** @param frustumSize the size of the shadow frustum */
+    void setShadowFrustumSize( float frustumSize );
+
+    /** @param scale the scale of shadow map's resolution */
+    void setShadowMapResolutionScale( float scale );
 
     /**@param filmGrain the amount of film grain to be applied to the final
               output */
@@ -111,6 +129,13 @@ private:
     float m_ambientStrength;
     // the colour of ambient light
     glm::vec3 m_ambientColour;
+
+    // whether shadows are enabled or not
+    bool m_shadows;
+    // the size of the shadow frustum
+    float m_shadowFrustumSize;
+    // the resolution of the shadow map
+    float m_shadowMapResolutionScale;
 
     // the amount of film grain to be applied to the final output
     float m_filmGrain;

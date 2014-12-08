@@ -34,6 +34,7 @@ Renderable::Renderable(
     :
     Component  ( id ),
     visible    ( true ),
+    castShadow ( true ),
     gui        ( false ),
     selectable ( false ),
     selected   ( false ),
@@ -76,7 +77,7 @@ void Renderable::renderShadow( Camera* camera )
     // TODO: check if this projects shadows
 
     // only render if visible and there is a camera
-    if ( !visible || !m_material.isVisible() || camera == NULL)
+    if ( !visible || !m_material.isVisible() || camera == NULL || !castShadow )
     {
         return;
     }
@@ -350,8 +351,6 @@ void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
         // shadowing
         if ( shadowCamera != NULL )
         {
-            glUniform1i( glGetUniformLocation( program, "u_shadowing" ), 1 );
-
             // calculate and pass in shadow
             glm::mat4 shadowMatrix =
                 shadowCamera->getProjectionMatrix() *
@@ -367,6 +366,12 @@ void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
             glUniform1i( glGetUniformLocation( program, "u_shadowMap" ), 1 );
             glBindTexture( GL_TEXTURE_2D, lightData.shadowMap );
             glActiveTexture( GL_TEXTURE0 );
+
+            // pass in the shadow caster
+            glUniform1i(
+                    glGetUniformLocation( program, "u_shadowCaster" ),
+                    lightData.shadowCaster
+            );
         }
         else
         {

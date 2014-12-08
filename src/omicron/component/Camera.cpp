@@ -8,8 +8,7 @@ namespace omi {
 
 namespace {
 
-static const float SHADOW_CAM_SIZE = 5.0f;
-static const float SHADOW_RANGE    = 100.0f;
+static const float SHADOW_RANGE    = 250.0f;
 
 } // namespace anonymous
 
@@ -21,12 +20,13 @@ Camera::Camera( const std::string& id,
                      cam::Mode    mode,
                      Transform*   transform )
     :
-    Component  ( id ),
-    m_mode     ( mode ),
-    m_transform( transform ),
-    m_fov      ( 60.0f ),
-    m_nearClip ( 0.001f ),
-    m_farClip  ( 1000.0f )
+    Component     ( id ),
+    m_mode        ( mode ),
+    m_transform   ( transform ),
+    m_shadowOffset( NULL ),
+    m_fov         ( 60.0f ),
+    m_nearClip    ( 0.001f ),
+    m_farClip     ( 1000.0f )
 {
 }
 
@@ -35,12 +35,13 @@ Camera::Camera( const std::string& id,
                       Transform*   transform,
                       float        fov )
     :
-    Component  ( id ),
-    m_mode     ( mode ),
-    m_transform( transform ),
-    m_fov      ( fov ),
-    m_nearClip ( 0.001f ),
-    m_farClip  ( 1000.0f )
+    Component     ( id ),
+    m_mode        ( mode ),
+    m_transform   ( transform ),
+    m_shadowOffset( NULL ),
+    m_fov         ( fov ),
+    m_nearClip    ( 0.001f ),
+    m_farClip     ( 1000.0f )
 {
 }
 
@@ -50,12 +51,13 @@ Camera::Camera( const std::string& id,
                       float        nearClip,
                       float        farClip )
     :
-    Component  ( id ),
-    m_mode     ( mode ),
-    m_transform( transform ),
-    m_fov      ( 60.0f ),
-    m_nearClip ( nearClip ),
-    m_farClip  ( farClip )
+    Component     ( id ),
+    m_mode        ( mode ),
+    m_transform   ( transform ),
+    m_shadowOffset( NULL ),
+    m_fov         ( 60.0f ),
+    m_nearClip    ( nearClip ),
+    m_farClip     ( farClip )
 {
 }
 
@@ -66,12 +68,13 @@ Camera::Camera( const std::string& id,
                       float        nearClip,
                       float        farClip )
     :
-    Component  ( id ),
-    m_mode     ( mode ),
-    m_transform( transform ),
-    m_fov      ( fov ),
-    m_nearClip ( nearClip ),
-    m_farClip  ( farClip )
+    Component     ( id ),
+    m_mode        ( mode ),
+    m_transform   ( transform ),
+    m_shadowOffset( NULL ),
+    m_fov         ( fov ),
+    m_nearClip    ( nearClip ),
+    m_farClip     ( farClip )
 {
 }
 
@@ -109,14 +112,13 @@ void Camera::apply()
     // shadow camera
     else
     {
-        // TODO: smaller size??
-        // TODO: clipping? -farClip to farClip?
         // set up projection matrix
+        float camSize = renderSettings.getShadowFrustumSize();
         m_projectionMatrix = glm::ortho(
-            -SHADOW_CAM_SIZE,
-             SHADOW_CAM_SIZE,
-            -SHADOW_CAM_SIZE,
-             SHADOW_CAM_SIZE,
+            -camSize,
+             camSize,
+            -camSize,
+             camSize,
             -SHADOW_RANGE,
              SHADOW_RANGE );
         // set up view matrix
@@ -125,6 +127,16 @@ void Camera::apply()
             glm::vec3( 0, 0, 0 ),
             glm::vec3( 0, 1, 0 )
         );
+
+        if ( m_shadowOffset == NULL )
+        {
+            return;
+        }
+
+        // apply shadow offset
+        glm::vec3 translation( m_shadowOffset->computeTranslation() );
+        m_viewMatrix *= glm::translate( -translation );
+
         // don't continue processing
         return;
     }
@@ -144,8 +156,8 @@ void Camera::apply()
 
     // get the computed transformations
     glm::vec3 translation( m_transform->computeTranslation() );
-    glm::vec3 rotation(m_transform->computeRotation());
-    glm::vec3 scale(m_transform->computeScale());
+    glm::vec3 rotation(    m_transform->computeRotation() );
+    glm::vec3 scale(       m_transform->computeScale() );
 
     // scale
     m_viewMatrix *= glm::scale( scale );
@@ -203,6 +215,11 @@ float Camera::getFarClippingPlane() const
     return m_farClip;
 }
 
+const Transform* Camera::getShadowOffset() const
+{
+    return m_shadowOffset;
+}
+
 //-----------------------------------SETTERS------------------------------------
 
 void Camera::setMode( cam::Mode mode )
@@ -228,6 +245,11 @@ void Camera::setNearClip( float nearClip )
 void Camera::setFarClip( float farClip )
 {
     m_farClip = farClip;
+}
+
+void Camera::setShadowOffset( Transform* shadowOffset )
+{
+    m_shadowOffset = shadowOffset;
 }
 
 } // namespace omi

@@ -36,17 +36,17 @@ void GlowCube::init()
     m_mesh =
         omi::ResourceManager::getMesh( "glow_cube", "", m_transform );
     m_mesh->getMaterial().colour = m_colour;
-    // m_mesh->getMaterial().glow =
-    //     new omi::Glow( glm::vec3( m_colour + 0.7f ), 1.0f,
-    //     omi::ResourceManager::getTexture( "glow_cube" ) );
+    m_mesh->getMaterial().glow =
+        new omi::Glow( glm::vec3( m_colour + 0.4f ), 1.0f,
+        omi::ResourceManager::getTexture( "glow_cube" ) );
     m_components.add( m_mesh );
 
     // add light
-    // m_light = new omi::PointLight(
-    //     "", m_transform, 1.0f,
-    //     glm::vec3( m_colour ), 0.05f, 0.2f, 0.000001f
-    // );
-    // m_components.add( m_light );
+    m_light = new omi::PointLight(
+        "", m_transform, 1.0f,
+        glm::vec3( m_colour ), 0.05f, 0.2f, 0.000001f
+    );
+    m_components.add( m_light );
 }
 
 void GlowCube::update()
@@ -81,22 +81,22 @@ void GlowCube::update()
 
     // update the cube's colour
     m_mesh->getMaterial().colour = m_colour;
-    // m_mesh->getMaterial().glow->setColour( glm::vec3( m_colour + 0.7f ) );
-    // m_light->setColour( glm::vec3( m_colour ) );
+    m_mesh->getMaterial().glow->setColour( glm::vec3( m_colour + 0.4f ) );
+    m_light->setColour( glm::vec3( m_colour ) );
 
     // apply light flicker
-    // if ( m_flickerCounter > 1.0f )
-    // {
-    //     m_flickerCounter -= 1.0f;
-    //     float flicker = static_cast<float>( rand() % 1000 ) / 4000.0f;
-    //     m_mesh->getMaterial().glow->setBrightness( 0.7f + ( flicker / 3.0f ) );
-    //     flicker += 0.75f;
-    //     m_light->setPower( flicker );
-    // }
-    // else
-    // {
-    //     m_flickerCounter += 0.25f * omi::fpsManager.getTimeScale();
-    // }
+    if ( m_flickerCounter > 1.0f )
+    {
+        m_flickerCounter -= 1.0f;
+        float flicker = static_cast<float>( rand() % 1000 ) / 4000.0f;
+        m_mesh->getMaterial().glow->setBrightness( 0.7f + ( flicker / 3.0f ) );
+        flicker += 0.75f;
+        m_light->setPower( flicker );
+    }
+    else
+    {
+        m_flickerCounter += 0.25f * omi::fpsManager.getTimeScale();
+    }
 
 }
 
