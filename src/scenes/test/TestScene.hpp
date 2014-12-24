@@ -6,8 +6,10 @@
 
 #include "src/entities/test/GlowCube.hpp"
 #include "src/entities/test/Human.hpp"
+#include "src/entities/test/MapCube.hpp"
 #include "src/entities/test/Monkey.hpp"
 #include "src/entities/test/TestEnvironment.hpp"
+#include "src/entities/test/TestEvil.hpp"
 #include "src/entities/test/TestPlayer.hpp"
 #include "src/entities/test/TestSun.hpp"
 
@@ -29,7 +31,6 @@ public:
 
     /** #Override */
     virtual omi::Scene* nextScene();
-
 };
 
 #endif

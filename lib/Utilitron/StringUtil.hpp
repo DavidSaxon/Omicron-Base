@@ -62,11 +62,28 @@ inline void concatenateBack(std::string& a, const std::string& b) {
 }
 
 /** Checks if a given string begins with a string
-@param a the string to check if it begin with the other string
-@param b the suffix to check for in the first string */
+@param a the string to check if it begins with the other string
+@param b the suffix to check for in the first string
+@return if the first string begins with the second string */
 inline bool beginsWith(const std::string& a, const std::string& b) {
 
     return a.compare(0, b.length(), b) == 0;
+}
+
+/** Checks if a given string with another string
+@param a the string to check if it ends with the other string
+@param b the string to check if the string ends with
+@return if the first string ends with the second string */
+inline bool endsWith( const std::string& a, const std::string& b )
+{
+    if ( a.length() > b.length() )
+    {
+        return a.compare( a.length() - b.length(), b.length(), b ) == 0;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /** Splits a string into a vector by a given delimiter
@@ -85,12 +102,12 @@ inline std::vector<std::string>& split(
     while (std::getline(ss, item, delimiter)) {
 
         if (item.length() > 0) {
-        
+
             elements.push_back(item);
         }
     }
 
-    return elements; 
+    return elements;
 }
 
 /** Generates a string containing a string repeated a given amount of times

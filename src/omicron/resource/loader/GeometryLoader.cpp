@@ -157,6 +157,20 @@ Geometry* geoFromWavefront(const std::string& filePath) {
     return new Geometry(sortedVertices, sortedUV, sortedNormals);
 }
 
+void geoFromKeyFrameWavefront(
+        const std::string& path,
+        const std::string& name,
+        std::vector<Geometry*>& geo )
+{
+    // find the key file first
+    std::string keyFile = path;
+    if ( !util::str::endsWith( keyFile, "/" ) )
+    {
+        keyFile += "/";
+    }
+
+}
+
 } // namespace loader
 
 } // namespace omi

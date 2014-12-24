@@ -6,6 +6,10 @@
 
 #include "lib/glm/glm.hpp"
 
+#include "src/omicron/rendering/shading/Texture.hpp"
+
+namespace omi {
+
 /**********************************************************************\
 | The specular property defines the existence and behavior of material |
 | specularity.                                                         |
@@ -22,8 +26,9 @@ public:
                      of the specular highlights. Where a smaller number means a
                      larger highlight and a larger number means a smaller
                      highlight
-    @param colour the colour of the specular highlights */
-    Specular( float shininess, const glm::vec3& colour );
+    @param colour the colour of the specular highlights
+    @param map the texture to use for specular mapping */
+    Specular( float shininess, const glm::vec3& colour, Texture* map = NULL );
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -37,6 +42,9 @@ public:
     /** @return the colour of the material's specular highlights */
     const glm::vec3& getColour() const;
 
+    /** @return the texture being used for specular mapping */
+    const Texture* getMap() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param shininess the new shininess of the material */
@@ -44,6 +52,9 @@ public:
 
     /** @param colour the new colour of the material's specular highlights */
     void setColour( const glm::vec3& colour );
+
+    /** @param map the new texture to use for specular mapping */
+    void setMap( const Texture* map );
 
 private:
 
@@ -53,6 +64,9 @@ private:
 
     float m_shininess;
     glm::vec3 m_colour;
+    const Texture* m_map;
 };
+
+} // namespace omi
 
 #endif

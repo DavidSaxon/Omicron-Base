@@ -20,6 +20,10 @@ uniform int u_invertTexCol;
 uniform float u_shininess;
 // specular colour
 uniform vec3 u_specularColour;
+// if there is a specular map
+uniform int u_hasSpecMap;
+// the specular map
+uniform sampler2D u_specMap;
 
 // if the material is shadeless
 uniform int u_shadeless;
@@ -112,22 +116,11 @@ void main() {
                 shadowCosThetha = clamp( shadowCosThetha, 0.0, 1.0 );
                 float bias = 0.000025 * tan( acos( shadowCosThetha ) );
                 bias = clamp( bias, 0.0, 0.01 );
-
-                // for ( int s = 0; s < 4; ++s )
-                // {
-                //     if ( texture2D( u_shadowMap, v_shadowCoord.xy + ( poissonDisk[s] / 1600.0 ) ).x <
-                //          v_shadowCoord.z - bias )
-                //     {
-                //         visibility -= 0.2;
-                //     }
-                // }
                 if ( texture2D( u_shadowMap, v_shadowCoord.xy ).x <
                      v_shadowCoord.z - bias )
                 {
                     visibility = 0.5;
                 }
-
-
             }
             vec3 visiblityVec = vec3( visibility, visibility, visibility );
 
@@ -144,11 +137,17 @@ void main() {
                     light += u_lightColour[i] * cosThetha * visiblityVec;
                     // compute half vector
                     vec3 H =
-                        normalize( normalize( v_eyePos ) + u_lightPos[i] );
+                        normalize( normalize( v_eyePos ) +
+                                   normalize( u_lightPos[i] ) );
                     // compute specular
                     float cosAlpha = max( dot( N, H ), 0.0 );
-                    light += u_specularColour * u_lightColour[i] *
-                             pow( cosAlpha, u_shininess ) * visiblityVec;
+                    vec3 specular = u_specularColour * u_lightColour[i] *
+                            pow( cosAlpha, u_shininess ) * visiblityVec;
+                    if ( u_hasSpecMap > 0 )
+                    {
+                        specular *= texture2D( u_specMap, v_texCoord ).rgb;
+                    }
+                    light += specular;
                 }
             }
             // point light
@@ -176,8 +175,14 @@ void main() {
                                    normalize( lightDir ) );
                     // compute specular
                     float cosAlpha = max( dot ( N, H ), 0.0 );
-                    light += attenuation * u_specularColour * u_lightColour[i] *
-                            pow( cosAlpha, u_shininess ) * visiblityVec;
+                    vec3 specular = attenuation * u_specularColour *
+                                     u_lightColour[i] *
+                                    pow( cosAlpha, u_shininess ) * visiblityVec;
+                    if ( u_hasSpecMap > 0 )
+                    {
+                        specular *= texture2D( u_specMap, v_texCoord ).rgb;
+                    }
+                    light += specular;
                 }
             }
             // spot light
@@ -212,9 +217,13 @@ void main() {
                                         normalize( lightDir ) );
                         // compute specular
                         float cosAlpha = max( dot ( N, H ), 0.0 );
-                        light += attenuation * u_specularColour *
+                        vec3 specular = attenuation * u_specularColour *
                                 u_lightColour[i] *
                                 pow( cosAlpha, u_shininess ) * visiblityVec;
+                        {
+                            specular *= texture2D( u_specMap, v_texCoord ).rgb;
+                        }
+                        light += specular;
                     }
                 }
             }

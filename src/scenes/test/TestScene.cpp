@@ -22,9 +22,11 @@ void TestScene::init()
     addEntity( new TestPlayer() );
     addEntity( new TestEnvironment() );
     addEntity( new TestSun() );
-    addEntity( new Human() );
+    // addEntity( new Human() );
     addEntity( new Monkey() );
     addEntity( new GlowCube() );
+    // addEntity( new MapCube() );
+    addEntity( new TestEvil() );
 }
 
 bool TestScene::update()

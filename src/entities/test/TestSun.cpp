@@ -19,14 +19,14 @@ void TestSun::init()
     // transform
     m_transform = new omi::Transform(
             "",
-            glm::vec3( 0.0f, 0.5f, 0.0f ),
+            glm::vec3( 1.0f, 0.5f, 0.0f ),
             glm::vec3(),
             glm::vec3( 4.0f, 4.0f, 4.0f )
     );
     m_components.add( m_transform );
     m_lightT = new omi::Transform(
             "",
-            glm::vec3( 0.0f, 0.5f, 0.0f ),
+            glm::vec3( 1.0f, 0.5f, 0.0f ),
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
     );

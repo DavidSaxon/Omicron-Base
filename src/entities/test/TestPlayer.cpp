@@ -72,8 +72,10 @@ void TestPlayer::update()
     }
 
     // check for collisions
-    if ( !m_collisionChecker->forwardCheck( move, "block" ) )
-    {
-        m_camT->translation += move;
-    }
+    m_camT->translation +=
+            m_collisionChecker->forwardBestCheck( move, "block" );
+    // if ( !m_collisionChecker->forwardCheck( move, "block" ) )
+    // {
+    //     m_camT->translation += move;
+    // }
 }

@@ -73,8 +73,10 @@ set(SRCS
 
     src/entities/test/GlowCube.cpp
     src/entities/test/Human.cpp
+    src/entities/test/MapCube.cpp
     src/entities/test/Monkey.cpp
     src/entities/test/TestEnvironment.cpp
+    src/entities/test/TestEvil.cpp
     src/entities/test/TestPlayer.cpp
     src/entities/test/TestSun.cpp
 

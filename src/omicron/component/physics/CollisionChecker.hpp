@@ -6,6 +6,7 @@
 #include "src/omicron/component/physics/Physics.hpp"
 #include "src/omicron/physics/bounding/BoundingShape.hpp"
 #include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
+#include "src/omicron/utilities/VectorUtil.hpp"
 
 namespace omi {
 
@@ -57,7 +58,13 @@ public:
     @return whether this bounding is colliding at the position */
     bool forwardCheck( const glm::vec3& move, const std::string& group );
 
-    // TODO: forward best
+    /** Finds the best new position based on the given collision group
+    @param move the vector to move the bounding by
+    @param group the group to check collisions against
+    @return the best position for the bounding */
+    glm::vec3 forwardBestCheck(
+            const glm::vec3& move,
+            const std::string& group );
 
 private:
 

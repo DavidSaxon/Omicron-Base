@@ -48,14 +48,14 @@ void TestEnvironment::init()
     omi::Mesh* pipeMesh =
             omi::ResourceManager::getMesh( "test_tunnel_pipe_1", "", NULL );
     pipeMesh->getMaterial().specular =
-        new Specular( 64.0f, glm::vec3( 0.5f, 0.5f, 0.5f ) );
+        new omi::Specular( 64.0f, glm::vec3( 0.5f, 0.5f, 0.5f ) );
     m_components.add( pipeMesh );
 
     omi::Mesh* pipeHolderMesh =
             omi::ResourceManager::getMesh(
                 "test_tunnel_pipe_holder_1", "", NULL );
     pipeHolderMesh->getMaterial().specular =
-        new Specular( 12.0f, glm::vec3( 0.3f, 0.3f, 0.3f ) );
+        new omi::Specular( 12.0f, glm::vec3( 0.3f, 0.3f, 0.3f ) );
     m_components.add( pipeHolderMesh );
 
     omi::Mesh* lightBulbMesh =
@@ -69,14 +69,18 @@ void TestEnvironment::init()
             omi::ResourceManager::getMesh(
                 "test_tunnel_light_socket_1", "", NULL );
     lightSocketMesh->getMaterial().specular =
-        new Specular( 64.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
+        new omi::Specular( 64.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
     m_components.add( lightSocketMesh );
 
     omi::Mesh* floorMesh =
             omi::ResourceManager::getMesh(
                 "test_floor_1", "", NULL );
     floorMesh->getMaterial().specular =
-        new Specular( 128.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
+        new omi::Specular(
+            128.0f,
+            glm::vec3( 1.0f, 1.0f, 1.0f ),
+            omi::ResourceManager::getTexture( "floor_1_spec_map" )
+    );
     m_components.add( floorMesh );
 
     // omi::Sprite* guiTest =

@@ -443,6 +443,18 @@ void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
     {
         shininess = specular->getShininess();
         specularColour = specular->getColour();
+        if ( specular->getMap() != NULL )
+        {
+            glActiveTexture( GL_TEXTURE2 );
+            glUniform1i( glGetUniformLocation( program, "u_hasSpecMap" ), 1 );
+            glUniform1i( glGetUniformLocation( program, "u_specMap" ), 2 );
+            glBindTexture( GL_TEXTURE_2D, specular->getMap()->getId() );
+            glActiveTexture( GL_TEXTURE0 );
+        }
+        else
+        {
+            glUniform1i( glGetUniformLocation( program, "u_hasSpecMap" ), 0 );
+        }
     }
     glUniform1f(
         glGetUniformLocation( program, "u_shininess" ),

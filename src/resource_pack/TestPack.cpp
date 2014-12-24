@@ -24,6 +24,10 @@ void buildTestPack()
         "res/gfx/geometry/test/floor_1.obj",
         1
     );
+    omi::ResourceManager::addTexture(
+        "floor_1_spec_map", resource_group::TEST,
+        "res/gfx/texture/test/floor_1_spec_map.png"
+    );
     omi::ResourceManager::addTextureMaterialGeometryMesh(
         "test_tunnel_1", resource_group::TEST,
         "default_shader",
@@ -98,6 +102,18 @@ void buildTestPack()
         1
     );
 
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "map_test", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/chesterfield.png",
+        "res/gfx/geometry/test/glow_cube.obj",
+        1
+    );
+    omi::ResourceManager::addTexture(
+        "test_specular_map", resource_group::TEST,
+        "res/gfx/texture/test/chesterfield_specular_map.png"
+    );
+
     omi::ResourceManager::addMaterialGeometryMesh(
         "test_sun_geo", resource_group::TEST,
         "default_shader",
@@ -115,6 +131,14 @@ void buildTestPack()
         glm::vec2( 1.0f, 1.0f ),
         glm::vec2( 0.0f, 0.0f ),
         0, omi::material::SHADELESS
+    );
+
+    omi::ResourceManager::addTextureMaterialGeometryMesh(
+        "test_evil", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/evil.png",
+        "res/gfx/geometry/test/evil.obj",
+        1
     );
 
     omi::ResourceManager::addMaterialText(

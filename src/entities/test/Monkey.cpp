@@ -16,7 +16,7 @@ void Monkey::init()
     omi::Mesh* mesh =
         omi::ResourceManager::getMesh( "test_monkey", "", m_transform );
     mesh->getMaterial().specular =
-        new Specular( 128.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
+        new omi::Specular( 128.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
     m_components.add( mesh );
 }
 

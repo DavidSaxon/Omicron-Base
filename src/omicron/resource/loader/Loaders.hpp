@@ -76,6 +76,15 @@ Texture* animationFromImage(
 @return the loaded geometry data */
 Geometry* geoFromWavefront(const std::string& filePath);
 
+/** Loads a list of geometry from a key frame set of wavefront files
+@param path the path to keyframe folder
+@param name the name to find the animation file via
+@param geo the list of loaded geometries */
+void geoFromKeyFrameWavefront(
+        const std::string& path,
+        const std::string& name,
+        std::vector<Geometry*>& geo );
+
 } // namespace loader
 
 } // namespace omi
