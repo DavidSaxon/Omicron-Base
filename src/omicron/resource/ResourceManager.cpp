@@ -155,6 +155,26 @@ Mesh* ResourceManager::getMesh( const std::string& id,
             m_resources[MESH][id].get() )->get( componentId, transform );
 }
 
+KeyFrameMesh* ResourceManager::getKeyFrameMesh( const std::string& id,
+                                                const std::string& componentId,
+                                                Transform* transform )
+{
+    // create the mesh group if we need to
+    createGroup( KEY_FRAME_MESH );
+    // check if the mesh is in the map
+    if ( m_resources[KEY_FRAME_MESH].find( id ) ==
+         m_resources[KEY_FRAME_MESH].end() )
+    {
+        std::cout << "unable to find key frame mesh in resource manager"
+                  << std::endl;
+        // TODO: throw an exception
+    }
+    // cast the resource and return
+    return dynamic_cast<KeyFrameMeshResource*>(
+            m_resources[KEY_FRAME_MESH][id].get() )->
+            get( componentId, transform );
+}
+
 Sprite* ResourceManager::getSprite( const std::string& id,
                                     const std::string& componentId,
                                           Transform*   transform )
@@ -516,6 +536,114 @@ void ResourceManager::addTextureMaterialGeometryMesh(
     addGeometry( id, resourceGroup, geometryPath );
     // mesh
     addMesh( id, resourceGroup, layer, id, id );
+}
+
+void ResourceManager::addKeyFrameMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+          int                           layer,
+    const std::string&                  material,
+    const std::string&                  filePath )
+{
+    // create the key frame mesh group if we need to
+    createGroup( KEY_FRAME_MESH );
+    // insert in to the map
+    m_resources[KEY_FRAME_MESH].insert(
+        std::make_pair(
+            id,
+            t_ResourcePtr( new KeyFrameMeshResource(
+                resourceGroup,
+                layer,
+                material,
+                filePath
+            ))
+        )
+    );
+}
+
+void ResourceManager::addMatrialKeyFrameMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const glm::vec4&                    colour,
+          int                           layer,
+    const std::string&                  keyFramePath,
+          unsigned                      materialFlags )
+{
+    addMaterial( id, resourceGroup, shader, colour, materialFlags );
+    addKeyFrameMesh( id, resourceGroup, layer, id, keyFramePath );
+}
+
+void ResourceManager::addTextureMatrialKeyFrameMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const std::string&                  texturePath,
+          int                           layer,
+    const std::string&                  keyFramePath,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
+    addTexture( id, resourceGroup, texturePath, textureFlags );
+    addMaterial( id, resourceGroup, shader, id, materialFlags );
+    addKeyFrameMesh( id, resourceGroup, layer, id, keyFramePath );
+}
+
+void ResourceManager::addTextureMatrialKeyFrameMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const std::string&                  texturePath,
+          unsigned                      frameRate,
+          bool                          repeat,
+          unsigned                      begin,
+          unsigned                      end,
+          int                           layer,
+    const std::string&                  keyFramePath,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
+    addTexture( id, resourceGroup, texturePath, frameRate,
+                repeat, begin, end, textureFlags );
+    addMaterial( id, resourceGroup, shader, id, materialFlags );
+    addKeyFrameMesh( id, resourceGroup, layer, id, keyFramePath );
+}
+
+void ResourceManager::addTextureMatrialKeyFrameMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const std::string&                  texturePath,
+    const glm::vec4&                    colour,
+          int                           layer,
+    const std::string&                  keyFramePath,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
+    addTexture( id, resourceGroup, texturePath, textureFlags );
+    addMaterial( id, resourceGroup, shader, colour, id, materialFlags );
+    addKeyFrameMesh( id, resourceGroup, layer, id, keyFramePath );
+}
+
+void ResourceManager::addTextureMatrialKeyFrameMesh(
+    const std::string&                  id,
+          resource_group::ResourceGroup resourceGroup,
+    const std::string&                  shader,
+    const std::string&                  texturePath,
+          unsigned                      frameRate,
+          bool                          repeat,
+          unsigned                      begin,
+          unsigned                      end,
+    const glm::vec4&                    colour,
+          int                           layer,
+    const std::string&                  keyFramePath,
+          unsigned                      textureFlags,
+          unsigned                      materialFlags )
+{
+    addTexture( id, resourceGroup, texturePath, frameRate,
+                repeat, begin, end, textureFlags );
+    addMaterial( id, resourceGroup, shader, colour, id, materialFlags );
+    addKeyFrameMesh( id, resourceGroup, layer, id, keyFramePath );
 }
 
 void ResourceManager::addSprite(

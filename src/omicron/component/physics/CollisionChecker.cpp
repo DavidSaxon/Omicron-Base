@@ -111,7 +111,6 @@ glm::vec3 CollisionChecker::forwardBestCheck(
         float angle = vecutil::angleBetween(
                 rect1->getTransform()->translation.xz(),
                 rect2->getTransform()->translation.xz() );
-        std::cout << "angle: " << angle << std::endl;
 
         // apply shift movement
         if ( angle > 45.0f && angle <= 135.0f )

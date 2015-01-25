@@ -140,6 +140,10 @@ void buildTestPack()
         "res/gfx/geometry/test/evil.obj",
         1
     );
+    omi::ResourceManager::addTexture(
+        "test_evil_glow", resource_group::TEST,
+        "res/gfx/texture/test/evil_glow.png"
+    );
 
     omi::ResourceManager::addMaterialText(
         "test_text_1", resource_group::TEST,
@@ -150,6 +154,15 @@ void buildTestPack()
         "Hello World",
         0.25f,
         omi::material::SHADELESS
+    );
+
+    omi::ResourceManager::addTextureMatrialKeyFrameMesh(
+        "test_evil_key", resource_group::TEST,
+        "default_shader",
+        "res/gfx/texture/test/evil.png",
+        1,
+        "res/gfx/geometry/test/evil/evil.key"
+
     );
 }
 

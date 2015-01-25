@@ -12,6 +12,7 @@ set(SRCS
     src/omicron/component/physics/CollisionChecker.cpp
     src/omicron/component/physics/CollisionDetector.cpp
     src/omicron/component/Camera.cpp
+    src/omicron/component/renderable/KeyFrameMesh.cpp
     src/omicron/component/renderable/Mesh.cpp
     src/omicron/component/renderable/Renderable.cpp
     src/omicron/component/renderable/Sprite.cpp
@@ -45,6 +46,7 @@ set(SRCS
     src/omicron/resource/loader/TextureLoader.cpp
     src/omicron/resource/type/FontResource.cpp
     src/omicron/resource/type/GeometryResource.cpp
+    src/omicron/resource/type/KeyFrameMeshResource.cpp
     src/omicron/resource/type/MaterialResource.cpp
     src/omicron/resource/type/MeshResource.cpp
     src/omicron/resource/type/ShaderResource.cpp

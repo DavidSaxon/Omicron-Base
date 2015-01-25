@@ -160,7 +160,7 @@ Geometry* geoFromWavefront(const std::string& filePath) {
 void geoFromKeyFrameWavefront(
         const std::string& path,
         const std::string& name,
-        std::vector<Geometry*>& geo )
+        std::vector<std::string, std::vector<Geometry*>>& geo )
 {
     // find the key file first
     std::string keyFile = path;
@@ -168,7 +168,23 @@ void geoFromKeyFrameWavefront(
     {
         keyFile += "/";
     }
+    keyFile += name + ".key";
 
+    // open the file
+    std::ifstream file( keyFile.c_str() );
+
+    // iterate over the file
+    while ( file.good() ) {
+
+        // get the current line as a string
+        char lineBuffer[1024];
+        file.getline( lineBuffer, 1024 );
+        std::string line( lineBuffer );
+
+        std::cout << "key line: " << line << std::endl;
+    }
+
+    // TODO:
 }
 
 } // namespace loader

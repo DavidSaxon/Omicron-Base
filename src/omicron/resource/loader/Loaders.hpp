@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <iostream>
 #include <IL/il.h>
+#include <map>
 #include <SFML/OpenGL.hpp>
 #include <sstream>
 
@@ -79,11 +80,11 @@ Geometry* geoFromWavefront(const std::string& filePath);
 /** Loads a list of geometry from a key frame set of wavefront files
 @param path the path to keyframe folder
 @param name the name to find the animation file via
-@param geo the list of loaded geometries */
+@param a map from animation names to their respective lists of geometry */
 void geoFromKeyFrameWavefront(
         const std::string& path,
         const std::string& name,
-        std::vector<Geometry*>& geo );
+        std::vector<std::string, std::vector<Geometry*>>& geo );
 
 } // namespace loader
 

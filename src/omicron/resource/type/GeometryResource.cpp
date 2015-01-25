@@ -10,8 +10,8 @@ GeometryResource::GeometryResource(
               resource_group::ResourceGroup resourceGroup,
         const std::string&                  filePath)
     :
-    Resource  (resourceGroup),
-    m_filePath(filePath) {
+    Resource  ( resourceGroup ),
+    m_filePath( filePath ) {
 }
 
 //------------------------------------------------------------------------------

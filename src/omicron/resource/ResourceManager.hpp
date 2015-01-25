@@ -8,11 +8,13 @@
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/component/renderable/KeyFrameMesh.hpp"
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"
 #include "src/omicron/component/renderable/Text.hpp"
 #include "src/omicron/resource/type/FontResource.hpp"
 #include "src/omicron/resource/type/GeometryResource.hpp"
+#include "src/omicron/resource/type/KeyFrameMeshResource.hpp"
 #include "src/omicron/resource/type/MaterialResource.hpp"
 #include "src/omicron/resource/type/MeshResource.hpp"
 #include "src/omicron/resource/type/Resource.hpp"
@@ -57,6 +59,7 @@ private:
         MATERIAL,
         GEOMETRY,
         MESH,
+        KEY_FRAME_MESH,
         SPRITE,
         TEXT,
         SOUND
@@ -117,6 +120,15 @@ public:
     static Mesh* getMesh( const std::string& id,
                           const std::string& componentId,
                                 Transform*   transform );
+
+    /** Gets the key frame mesh with the given identifier if it exists
+    @param id the identifier of the key frame mesh
+    @param componentId the component identifier to use for the key frame mesh
+    @param transform the transform to use for the key frame mesh
+    @return the requested key frame mesh */
+    static KeyFrameMesh* getKeyFrameMesh( const std::string& id,
+                                          const std::string& componentId,
+                                                Transform* transform );
 
     /** Gets the sprite with the given identifier if it exists
     @param id the identifier of the sprite
@@ -293,7 +305,7 @@ public:
         const std::string&                  texturePath,
         const std::string&                  geometryPath,
               int                           layer,
-              unsigned                      textureFlags = 0,
+              unsigned                      textureFlags  = 0,
               unsigned                      materialFlags = 0 );
 
     /** Adds an animated texture, material, geometry, and mesh into the resource
@@ -322,7 +334,7 @@ public:
               unsigned                      end,
         const std::string&                  geometryPath,
               int                           layer,
-              unsigned                      textureFlags = 0,
+              unsigned                      textureFlags  = 0,
               unsigned                      materialFlags = 0 );
 
     /** Adds a texture, material, geometry, and mesh into the resource map all
@@ -345,7 +357,7 @@ public:
         const std::string&                  texturePath,
         const std::string&                  geometryPath,
               int                           layer,
-              unsigned                      textureFlags = 0,
+              unsigned                      textureFlags  = 0,
               unsigned                      materialFlags = 0 );
 
     /** Adds an animated texture, material, geometry, and mesh into the resource
@@ -356,6 +368,10 @@ public:
     @param shader the resource id of the shader of the material
     @param colour the colour of the material
     @param texturePath the path to the image file to load the texture from
+    @param frameRate the playback speed of the animation
+    @param repeat if the animation should repeat
+    @param begin the beginning frame if the animation
+    @param end the ending frame of the animation
     @param geometryPath the path to file to read geometry from
     @param layer the rendering layer of the mesh
     @param textureFlags the flags for the texture
@@ -372,7 +388,142 @@ public:
               unsigned                      end,
         const std::string&                  geometryPath,
               int                           layer,
-              unsigned                      textureFlags = 0,
+              unsigned                      textureFlags  = 0,
+              unsigned                      materialFlags = 0 );
+
+    /** Adds a key frame mesh to the resource map
+    @param id the identifier of the key frame mesh resource
+    @param resourceGroup the resource group of the key frame mesh
+    @param layer the layer of the key frame mesh
+    @param material the resource id of the key frame meshes' material
+    @param filePath the path to the key frame file */
+    static void addKeyFrameMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+              int                           layer,
+        const std::string&                  material,
+        const std::string&                  filePath );
+
+    /** Adds a material and a key frame mesh into the resource map all with the
+    same resource id. The mesh will use the material
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param colour the colour of the material
+    @param layer the rendering layer of the key frame mesh
+    @param keyFramePath the path to the key frame file
+    @param materialFlags the flags of the material */
+    static void addMatrialKeyFrameMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const glm::vec4&                    colour,
+              int                           layer,
+        const std::string&                  keyFramePath,
+              unsigned                      materialFlags = 0 );
+
+    /** Adds a texture, material, and a key frame mesh into the resource map all
+    with the same resource id. The mesh will use the material, and the material
+    will use the texture
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param texturePath the path to the image file to load the texture from
+    @param layer the rendering layer of the key frame mesh
+    @param keyFramePath the path to the key frame file
+    @param textureFlags the flags for the texture
+    @param materialFlags the flags of the material */
+    static void addTextureMatrialKeyFrameMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texturePath,
+              int                           layer,
+        const std::string&                  keyFramePath,
+              unsigned                      textureFlags  = 0,
+              unsigned                      materialFlags = 0 );
+
+    /** Adds an animated texture, material, and a key frame mesh into the
+    resource map all with the same resource id. The mesh will use the material,
+    and the material will use the texture
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param texturePath the path to the image file to load the texture from
+    @param frameRate the playback speed of the animation
+    @param repeat if the animation should repeat
+    @param begin the beginning frame if the animation
+    @param end the ending frame of the animation
+    @param layer the rendering layer of the key frame mesh
+    @param keyFramePath the path to the key frame file
+    @param textureFlags the flags for the texture
+    @param materialFlags the flags of the material */
+    static void addTextureMatrialKeyFrameMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texturePath,
+              unsigned                      frameRate,
+              bool                          repeat,
+              unsigned                      begin,
+              unsigned                      end,
+              int                           layer,
+        const std::string&                  keyFramePath,
+              unsigned                      textureFlags  = 0,
+              unsigned                      materialFlags = 0 );
+
+    /** Adds a texture, material, and a key frame mesh into the resource map all
+    with the same resource id. The mesh will use the material, and the material
+    will use the texture
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param texturePath the path to the image file to load the texture from
+    @param colour the colour of the material
+    @param layer the rendering layer of the key frame mesh
+    @param keyFramePath the path to the key frame file
+    @param textureFlags the flags for the texture
+    @param materialFlags the flags of the material */
+    static void addTextureMatrialKeyFrameMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texturePath,
+        const glm::vec4&                    colour,
+              int                           layer,
+        const std::string&                  keyFramePath,
+              unsigned                      textureFlags  = 0,
+              unsigned                      materialFlags = 0 );
+
+    /** Adds an animated texture, material, and a key frame mesh into the
+    resource map all with the same resource id. The mesh will use the material,
+    and the material will use the texture
+    @parm id the identifier of the created resources
+    @param resourceGroup the resource group of the resources
+    @param shader the resource id of the shader of the material
+    @param texturePath the path to the image file to load the texture from
+    @param frameRate the playback speed of the animation
+    @param repeat if the animation should repeat
+    @param begin the beginning frame if the animation
+    @param end the ending frame of the animation
+    @param colour the colour of the material
+    @param layer the rendering layer of the key frame mesh
+    @param keyFramePath the path to the key frame file
+    @param textureFlags the flags for the texture
+    @param materialFlags the flags of the material */
+    static void addTextureMatrialKeyFrameMesh(
+        const std::string&                  id,
+              resource_group::ResourceGroup resourceGroup,
+        const std::string&                  shader,
+        const std::string&                  texturePath,
+              unsigned                      frameRate,
+              bool                          repeat,
+              unsigned                      begin,
+              unsigned                      end,
+        const glm::vec4&                    colour,
+              int                           layer,
+        const std::string&                  keyFramePath,
+              unsigned                      textureFlags  = 0,
               unsigned                      materialFlags = 0 );
 
     /** Adds a sprite to the resource map
