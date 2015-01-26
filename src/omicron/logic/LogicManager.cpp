@@ -40,13 +40,19 @@ bool LogicManager::execute() {
     // execute the current scene
     if ( m_scene->execute() )
     {
+        std::cout << "LOGIC EXIT BEGIN" << std::endl;
+
         // get the next scene
         m_scene = std::unique_ptr<Scene>(m_scene->nextScene());
+
+        std::cout << "LOGIC EXIT POST NEXT SCENE" << std::endl;
+
         // clear the components of this scene
         //if the scene we get is null we're done
         if (!m_scene)
         {
-            exit(0);
+            std::cout << "EXIT DOG" << std::endl;
+            exit( 0 );
         }
         m_sceneInit = true;
         return true;

@@ -1,23 +1,26 @@
 #include "TestEvil.hpp"
 
+//------------------------------------------------------------------------------
+//                            PUBLIC MEMBER FUNCTIONS
+//------------------------------------------------------------------------------
+
 void TestEvil::init()
 {
-    omi::Transform* transform = new omi::Transform(
+    m_transform = new omi::Transform(
             "",
-            glm::vec3( 0.0f, 0.0f, -5.0f ),
+            glm::vec3( 0.0f, 0.0f, -15.0f ),
             glm::vec3(),
             glm::vec3( 1.0f, 1.0f, 1.0f )
     );
-    m_components.add( transform );
+    m_components.add( m_transform );
 
-    omi::Mesh* mesh =
-        omi::ResourceManager::getMesh( "test_evil", "", transform );
-    mesh->getMaterial().glow =
-        new omi::Glow( glm::vec3( 1.0f, 1.0f, 1.0f ), 1.0f,
-        omi::ResourceManager::getTexture( "test_evil_glow" ) );
+    omi::KeyFrameMesh* mesh = omi::ResourceManager::getKeyFrameMesh(
+                                            "test_evil_key", "", m_transform );
     m_components.add( mesh );
 }
 
 void TestEvil::update()
 {
+    // move
+    m_transform->translation.z += 0.0225f * omi::fpsManager.getTimeScale();
 }

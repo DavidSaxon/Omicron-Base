@@ -52,7 +52,6 @@ Mesh* MeshResource::get(const std::string& id, Transform* transform) const {
     if (!m_loaded) {
 
         std::cout << "attempted to get unloaded mesh" << std::endl;
-
         //TODO: throw an exception
     }
 

@@ -78,13 +78,11 @@ Texture* animationFromImage(
 Geometry* geoFromWavefront(const std::string& filePath);
 
 /** Loads a list of geometry from a key frame set of wavefront files
-@param path the path to keyframe folder
-@param name the name to find the animation file via
-@param a map from animation names to their respective lists of geometry */
+@param path the path to keyframe file
+@param geoMap a map from animation names to their respective lists of geometry */
 void geoFromKeyFrameWavefront(
         const std::string& path,
-        const std::string& name,
-        std::vector<std::string, std::vector<Geometry*>>& geo );
+        std::map<std::string, std::vector<Geometry*>>& geoMap );
 
 } // namespace loader
 

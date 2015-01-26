@@ -49,6 +49,10 @@ private:
     // the list of geometry key frames used to make up the mesh
     std::map<std::string, std::vector<Geometry*>> m_geometry;
 
+    // interpolation timer
+    float m_timer;
+    // the current frame this is on
+    unsigned m_frame;
 };
 
 } // namespace omi

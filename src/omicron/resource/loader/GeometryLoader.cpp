@@ -159,20 +159,20 @@ Geometry* geoFromWavefront(const std::string& filePath) {
 
 void geoFromKeyFrameWavefront(
         const std::string& path,
-        const std::string& name,
-        std::vector<std::string, std::vector<Geometry*>>& geo )
+        std::map<std::string, std::vector<Geometry*>>& geoMap )
 {
-    // find the key file first
-    std::string keyFile = path;
-    if ( !util::str::endsWith( keyFile, "/" ) )
+    // remove the key file from to get the parent path
+    std::string parentPath = "";
+    int ultimateSlash = path.find_last_of( "/" );
+    if (  ultimateSlash != std::string::npos )
     {
-        keyFile += "/";
+        parentPath = path.substr( 0, ultimateSlash + 1 );
     }
-    keyFile += name + ".key";
 
     // open the file
-    std::ifstream file( keyFile.c_str() );
+    std::ifstream file( path.c_str() );
 
+    bool inAnimationBlock = false;
     // iterate over the file
     while ( file.good() ) {
 
@@ -181,7 +181,64 @@ void geoFromKeyFrameWavefront(
         file.getline( lineBuffer, 1024 );
         std::string line( lineBuffer );
 
-        std::cout << "key line: " << line << std::endl;
+        // TODO: get default animation
+
+        // check for animation block begin
+        if ( line.compare( "animations begin:" ) == 0 )
+        {
+            inAnimationBlock = true;
+        }
+        // check for animation block end
+        else if ( line.compare( "animations end" ) == 0 )
+        {
+            inAnimationBlock = false;
+        }
+        // get animation
+        else if ( inAnimationBlock )
+        {
+            // don't do anything if there is no line here
+            if ( line.length() ==0 )
+            {
+                continue;
+            }
+
+            // split by spaces
+            std::vector<std::string> elements;
+            util::str::split( line, ' ', elements );
+
+            // get the name of the animation
+            std::string aniName = elements[0];
+
+            // build file path to the geometry
+            std::string geoPath = parentPath + aniName + "/";
+
+            // load geometries into list
+            std::vector<Geometry*> geoList;
+            for ( unsigned i = 1; i < elements.size(); ++i )
+            {
+                std::stringstream ss;
+                ss << geoPath << i << ".obj";
+                geoList.push_back( geoFromWavefront( ss.str() ) );
+            }
+
+            // add animation to map
+            geoMap.insert( std::make_pair( aniName, geoList ) );
+
+            // TODO: case where there are no transitions
+
+            // TODO: store transition data
+
+        }
+        // unknown line
+        else
+        {
+            std::cout << "--------" << std::endl;
+            std::cout << "error unknown line in key file:" << std::endl;
+            std::cout << path << std::endl;
+            std::cout << "--------" << std::endl;
+            std::cout << line << std::endl;
+            std::cout << "--------" << std::endl;
+        }
     }
 
     // TODO:

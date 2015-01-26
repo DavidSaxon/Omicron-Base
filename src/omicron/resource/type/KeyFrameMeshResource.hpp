@@ -55,6 +55,10 @@ private:
     //                                 VARIABLES
     //--------------------------------------------------------------------------
 
+    // the layer of the mesh
+    int m_layer;
+    // the id of the material to use
+    std::string m_material;
     // the file path to load the key frame mesh from
     std::string m_filePath;
 
