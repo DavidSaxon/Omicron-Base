@@ -26,7 +26,7 @@ void KeyFrameMeshResource::load()
 {
     if ( !m_loaded )
     {
-        loader::geoFromKeyFrameWavefront( m_filePath, m_geoMap );
+        loader::geoFromKeyFrameWavefront( m_filePath, m_geoMap, m_frameMap );
         m_loaded = true;
     }
 }
@@ -47,7 +47,7 @@ KeyFrameMesh* KeyFrameMeshResource::get(
 
     return new KeyFrameMesh(
         id, m_layer, transform, m_geoMap,
-        ResourceManager::getMaterial(m_material)
+        ResourceManager::getMaterial( m_material )
     );
 }
 

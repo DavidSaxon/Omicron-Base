@@ -23,6 +23,15 @@ RenderLists::RenderLists()
 
 void RenderLists::render( Camera* camera )
 {
+    //----------------------------RENDERABLES UPDATE----------------------------
+
+    // iterate over all renderables and update them
+    for ( std::vector<Renderable*>::iterator renderable = m_renderables.begin();
+          renderable != m_renderables.end(); ++ renderable )
+    {
+        ( *renderable )->update();
+    }
+
     //------------------------------LAYER SORTING-------------------------------
 
     // iterate over all renderables and group them into a map by layer and

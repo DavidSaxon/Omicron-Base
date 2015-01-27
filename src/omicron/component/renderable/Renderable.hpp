@@ -72,6 +72,10 @@ public:
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
+    /** Updates the renderable, is only called once per cycle, unlike render
+    calls */
+    virtual void update();
+
     /** #Hidden
     Render this component
     @param camera the camera used to render this

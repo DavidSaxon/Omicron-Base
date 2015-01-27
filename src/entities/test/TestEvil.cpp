@@ -22,5 +22,5 @@ void TestEvil::init()
 void TestEvil::update()
 {
     // move
-    m_transform->translation.z += 0.0225f * omi::fpsManager.getTimeScale();
+    m_transform->translation.z += 0.0204f * omi::fpsManager.getTimeScale();
 }

@@ -48,23 +48,24 @@ Renderable::Renderable(
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
+void Renderable::update()
+{
+    // update the material
+    m_material.update();
+
+    applyTransformations();
+}
+
 void Renderable::render(
         Camera* camera,
         Camera* shadowCamera,
         const LightData& lightData )
 {
-    // TODO: this might need to be done elsewhere since glow passes will be
-    // behind
-    // update the material
-    m_material.update();
-
     // only render if visible and there is a camera
     if ( !visible || !m_material.isVisible() || camera == NULL)
     {
         return;
     }
-
-    applyTransformations();
 
     calculateMatrices( camera );
     setShader( lightData, shadowCamera );
@@ -82,7 +83,6 @@ void Renderable::renderShadow( Camera* camera )
         return;
     }
 
-    applyTransformations();
     calculateMatrices( camera );
 
     // get the OpenGL program
@@ -107,7 +107,6 @@ void Renderable::renderGlow( Camera* camera )
         return;
     }
 
-    applyTransformations();
     calculateMatrices( camera );
 
     // get the OpenGL program
@@ -169,8 +168,6 @@ void Renderable::renderSelectable(
         return;
     }
 
-    //set up
-    applyTransformations();
     calculateMatrices( camera );
 
     // shader shit

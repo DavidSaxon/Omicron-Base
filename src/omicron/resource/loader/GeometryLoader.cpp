@@ -159,7 +159,8 @@ Geometry* geoFromWavefront(const std::string& filePath) {
 
 void geoFromKeyFrameWavefront(
         const std::string& path,
-        std::map<std::string, std::vector<Geometry*>>& geoMap )
+        std::map<std::string, std::vector<Geometry*>>& geoMap,
+        std::map<std::string, std::vector<unsigned>>&  frameMap )
 {
     // remove the key file from to get the parent path
     std::string parentPath = "";

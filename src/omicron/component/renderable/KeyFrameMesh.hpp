@@ -32,13 +32,21 @@ public:
             std::map<std::string, std::vector<Geometry*>> geometry,
             Material material );
 
+    //--------------------------------------------------------------------------
+    //                          PUBLIC MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /** #Override */
+    virtual void update();
+
 protected:
 
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    void draw();
+    /** #Override */
+    virtual void draw();
 
 private:
 
@@ -48,6 +56,10 @@ private:
 
     // the list of geometry key frames used to make up the mesh
     std::map<std::string, std::vector<Geometry*>> m_geometry;
+
+    // the two geometries this is interpolating between
+    Geometry* m_geo1;
+    Geometry* m_geo2;
 
     // interpolation timer
     float m_timer;

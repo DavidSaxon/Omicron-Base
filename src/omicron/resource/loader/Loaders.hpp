@@ -79,10 +79,12 @@ Geometry* geoFromWavefront(const std::string& filePath);
 
 /** Loads a list of geometry from a key frame set of wavefront files
 @param path the path to keyframe file
-@param geoMap a map from animation names to their respective lists of geometry */
+@param geoMap a map from animation names to their respective lists of geometry
+@param frameMap a map from animation to number of frames between each key */
 void geoFromKeyFrameWavefront(
         const std::string& path,
-        std::map<std::string, std::vector<Geometry*>>& geoMap );
+        std::map<std::string, std::vector<Geometry*>>& geoMap,
+        std::map<std::string, std::vector<unsigned>>&  frameMap );
 
 } // namespace loader
 
