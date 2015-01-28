@@ -35,6 +35,9 @@ extern FPSManager fpsManager;
 // the scale of the current camera
 extern glm::vec3 camScale;
 
+// is true if the game has focus
+extern bool omi_hasFocus;
+
 } // namespace omi
 
 #endif

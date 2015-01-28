@@ -213,17 +213,22 @@ void geoFromKeyFrameWavefront(
             // build file path to the geometry
             std::string geoPath = parentPath + aniName + "/";
 
-            // load geometries into list
+            // iterate over elements
             std::vector<Geometry*> geoList;
+            std::vector<unsigned> frameList;
             for ( unsigned i = 1; i < elements.size(); ++i )
             {
+                // load geometry
                 std::stringstream ss;
                 ss << geoPath << i << ".obj";
                 geoList.push_back( geoFromWavefront( ss.str() ) );
+                // store frame number
+                frameList.push_back( atoi( elements[i].c_str() ) );
             }
 
-            // add animation to map
+            // add animation to maps
             geoMap.insert( std::make_pair( aniName, geoList ) );
+            frameMap.insert( std::make_pair( aniName, frameList ) );
 
             // TODO: case where there are no transitions
 

@@ -37,7 +37,7 @@ void TestSun::init()
     light =  new omi::DirectionalLight(
         "", m_lightT, 0.8f, glm::vec3( 1.0f, 1.0f, 1.0f )
     );
-    // light->setCastShadow( true );
+    light->setCastShadow( true );
     m_components.add( light );
 
     // add the geo

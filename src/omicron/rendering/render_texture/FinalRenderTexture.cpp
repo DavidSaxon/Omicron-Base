@@ -22,6 +22,7 @@ void FinalRenderTexture::shaderParameters( GLuint program )
 {
     // calculate a random number for the shader to use and pass in
     float randMul = static_cast<float>( rand() % 1000 ) / 100.0f;
+    randMul += 1.0f;
     glUniform1f(
         glGetUniformLocation( program, "u_randMul" ), randMul );
     // pass in film grain amount

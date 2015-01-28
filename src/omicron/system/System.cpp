@@ -130,7 +130,7 @@ void execute() {
     }
 
     // lock the mouse if enabled
-    if (systemSettings.isCursorLocked()) {
+    if (systemSettings.isCursorLocked() && omi_hasFocus ) {
 
         sf::Mouse::setPosition(sf::Vector2i(
             static_cast<int>(systemSettings.getCursorLockedPos().x),

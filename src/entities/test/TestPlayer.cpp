@@ -40,12 +40,17 @@ void TestPlayer::init()
 void TestPlayer::update()
 {
     // look
-    m_camT->rotation.x +=
-        ( omi::displaySettings.getCentre().y - omi::input::getMousePos().y ) *
-        LOOK_SPEED * omi::fpsManager.getTimeScale();
-    m_camT->rotation.y +=
-        ( omi::displaySettings.getCentre().x - omi::input::getMousePos().x ) *
-        LOOK_SPEED * omi::fpsManager.getTimeScale();
+    if ( omi::omi_hasFocus )
+    {
+        m_camT->rotation.x +=
+            ( omi::displaySettings.getCentre().y -
+                    omi::input::getMousePos().y ) *
+            LOOK_SPEED * omi::fpsManager.getTimeScale();
+        m_camT->rotation.y +=
+            ( omi::displaySettings.getCentre().x -
+                    omi::input::getMousePos().x ) *
+            LOOK_SPEED * omi::fpsManager.getTimeScale();
+    }
 
     // calculate the amount to move
     glm::vec3 move;

@@ -22,7 +22,8 @@ varying vec2 v_texCoord;
 // generates a pseudo random number
 float rand( vec2 co )
 {
-    return fract( sin( dot( co.xy, vec2( 12.9898, 78.233 ) ) ) * 43758.5453 * u_randMul );
+    return fract( sin( dot( co.xy, vec2( 12.9898, 78.233 ) ) )
+                                    * 43758.5453 * u_randMul );
 }
 
 //------------------------------------------------------------------------------

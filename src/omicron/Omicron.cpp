@@ -15,4 +15,6 @@ FPSManager fpsManager;
 
 glm::vec3 camScale;
 
+bool omi_hasFocus = true;
+
 } // namespace omi

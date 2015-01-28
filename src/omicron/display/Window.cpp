@@ -13,7 +13,7 @@ Window::Window() :
     unsigned flags = sf::Style::Default;
     if ( displaySettings.getFullscreen() )
     {
-        flags = sf::Style::Fullscreen;
+        flags = sf::Style::None;
     }
 
     // set up for openGL
@@ -86,7 +86,14 @@ void Window::update()
         // TODO: full screen... tricky problem
     }
     // set cursor visibility
-    m_window->setMouseCursorVisible( m_cursorVisble );
+    if ( omi_hasFocus )
+    {
+        m_window->setMouseCursorVisible( m_cursorVisble );
+    }
+    else
+    {
+        m_window->setMouseCursorVisible( true );
+    }
 
     // check events
     sf::Event event;
@@ -105,6 +112,15 @@ void Window::update()
         {
             mouseWheel = true;
             input::setMouseScroll( event.mouseWheel.delta );
+        }
+        // focus lost
+        if ( event.type == sf::Event::LostFocus )
+        {
+            omi_hasFocus = false;
+        }
+        if ( event.type == sf::Event::GainedFocus )
+        {
+            omi_hasFocus = true;
         }
     }
     // there has been no mouse scrolling

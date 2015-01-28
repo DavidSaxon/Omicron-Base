@@ -46,7 +46,7 @@ KeyFrameMesh* KeyFrameMeshResource::get(
     }
 
     return new KeyFrameMesh(
-        id, m_layer, transform, m_geoMap,
+        id, m_layer, transform, m_geoMap, m_frameMap,
         ResourceManager::getMaterial( m_material )
     );
 }
