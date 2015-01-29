@@ -10,7 +10,7 @@ omi::Scene* init() {
     // display settings
     omi::displaySettings.setSize( glm::vec2( 960, 540 ) );
     omi::displaySettings.setPos( glm::vec2( 250, 330 ) );
-    omi::displaySettings.setTitle( "Reverie" );
+    omi::displaySettings.setTitle( "Omicron Test" );
     omi::displaySettings.setFullscreen( true );
     omi::displaySettings.setVsync( true );
 

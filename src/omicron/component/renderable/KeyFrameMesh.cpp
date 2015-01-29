@@ -12,17 +12,21 @@ KeyFrameMesh::KeyFrameMesh(
         Transform* transform,
         std::map<std::string, std::vector<Geometry*>> geometry,
         std::map<std::string, std::vector<unsigned>> frames,
+        const std::string& defaultAni,
         Material material ) :
-    Renderable( id, layer, transform, material ),
-    m_geometry( geometry ),
-    m_frameMap( frames ),
-    m_geo1    ( NULL ),
-    m_geo2    ( NULL ),
-    m_currAni ( "walk" ),
-    m_frame   ( 0.0f ),
-    m_key     ( 0 ),
-    m_r1      ( 1.0f ),
-    m_r2      ( 0.0f )
+    Renderable  ( id, layer, transform, material ),
+    m_geometry  ( geometry ),
+    m_frameMap  ( frames ),
+    m_defaultAni( defaultAni ),
+    m_geo1      ( NULL ),
+    m_geo2      ( NULL ),
+    m_currAni   ( defaultAni ),
+    m_prevAni   ( "" ),
+    m_transition( -1 ),
+    m_frame     ( 0.0f ),
+    m_key       ( 0 ),
+    m_r1        ( 1.0f ),
+    m_r2        ( 0.0f )
 {
 }
 
@@ -38,21 +42,55 @@ void KeyFrameMesh::update()
     // get the current number if keys
     unsigned length = m_geometry[ m_currAni ].size();
 
+    // get the current frame count
+    float frameCount = static_cast<float>( m_frameMap[ m_currAni ][ m_key ] );
+
+    // if we are in a transition use transition values
+    if ( m_transition >= 0 )
+    {
+        length = 1;
+        frameCount = static_cast<float>( m_transition );
+    }
+
     // increase the frame
     m_frame += omi::fpsManager.getTimeScale();
-    while ( m_frame > static_cast<float>( m_frameMap[ m_currAni ][ m_key ] ) )
+    if ( m_frame > frameCount )
     {
-        m_frame -= static_cast<float>( m_frameMap[ m_currAni ][ m_key ] );
+        m_frame -= frameCount;
         m_key = ( m_key + 1 ) % length;
+
+        // remove any transitions
+        if ( m_transition >= 0 )
+        {
+            m_transition = -1;
+            m_prevAni = "";
+            m_key = 0;
+        }
     }
 
     // get the geometries are interpolating between
     m_geo1 = m_geometry[ m_currAni ][ m_key ];
-    m_geo2 = m_geometry[ m_currAni ][ ( m_key + 1 ) % length ];
+    if ( m_transition >= 0 )
+    {
+        m_geo1 = m_geometry[ m_prevAni ][ m_key ];
+        m_geo2 = m_geometry[ m_currAni ][ 0 ];
+    }
+    else
+    {
+        m_geo1 = m_geometry[ m_currAni ][ m_key ];
+        m_geo2 = m_geometry[ m_currAni ][ ( m_key + 1 ) % length ];
+    }
 
     // calculate ratio
-    m_r2 = m_frame / static_cast<float>( m_frameMap[ m_currAni ][ m_key ] );
+    m_r2 = m_frame / frameCount;
     m_r1 = 1.0f - m_r2;
+}
+
+void KeyFrameMesh::transition( const std::string animation, unsigned frames )
+{
+    m_prevAni = m_currAni;
+    m_currAni = animation;
+    m_transition = static_cast<int>( frames );
 }
 
 //------------------------------------------------------------------------------

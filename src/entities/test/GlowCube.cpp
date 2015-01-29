@@ -85,18 +85,18 @@ void GlowCube::update()
     m_light->setColour( glm::vec3( m_colour ) );
 
     // apply light flicker
-    if ( m_flickerCounter > 1.0f )
-    {
-        m_flickerCounter -= 1.0f;
-        float flicker = static_cast<float>( rand() % 1000 ) / 4000.0f;
-        m_mesh->getMaterial().glow->setBrightness( 0.7f + ( flicker / 3.0f ) );
-        flicker += 0.75f;
-        m_light->setPower( flicker );
-    }
-    else
-    {
-        m_flickerCounter += 0.25f * omi::fpsManager.getTimeScale();
-    }
+    // if ( m_flickerCounter > 1.0f )
+    // {
+    //     m_flickerCounter -= 1.0f;
+    //     float flicker = static_cast<float>( rand() % 1000 ) / 4000.0f;
+    //     m_mesh->getMaterial().glow->setBrightness( 0.7f + ( flicker / 3.0f ) );
+    //     flicker += 0.75f;
+    //     m_light->setPower( flicker );
+    // }
+    // else
+    // {
+    //     m_flickerCounter += 0.25f * omi::fpsManager.getTimeScale();
+    // }
 
 }
 

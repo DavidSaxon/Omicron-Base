@@ -66,6 +66,8 @@ private:
     std::map<std::string, std::vector<Geometry*>> m_geoMap;
     // a map from animation names to the frames between each key
     std::map<std::string, std::vector<unsigned>> m_frameMap;
+    // the name of the default animation
+    std::string m_defaultAni;
 };
 
 } // namespace omi

@@ -160,7 +160,8 @@ Geometry* geoFromWavefront(const std::string& filePath) {
 void geoFromKeyFrameWavefront(
         const std::string& path,
         std::map<std::string, std::vector<Geometry*>>& geoMap,
-        std::map<std::string, std::vector<unsigned>>&  frameMap )
+        std::map<std::string, std::vector<unsigned>>&  frameMap,
+        std::string& defaultAni )
 {
     // remove the key file from to get the parent path
     std::string parentPath = "";
@@ -182,10 +183,14 @@ void geoFromKeyFrameWavefront(
         file.getline( lineBuffer, 1024 );
         std::string line( lineBuffer );
 
-        // TODO: get default animation
-
+        // get default animation
+        if ( util::str::beginsWith( line, "default:" ) )
+        {
+            // remove the default prefix
+            defaultAni = line.substr( 9, line.length() );
+        }
         // check for animation block begin
-        if ( line.compare( "animations begin:" ) == 0 )
+        else if ( line.compare( "animations begin:" ) == 0 )
         {
             inAnimationBlock = true;
         }
