@@ -51,6 +51,12 @@ public:
     /** @return if the key frame is currently transitioning */
     bool isTransitioning();
 
+    /** @return the current animation speed */
+    float getSpeed() const;
+
+    /** Sets the animation speed */
+    void setSpeed( float speed );
+
 protected:
 
     //--------------------------------------------------------------------------
@@ -79,6 +85,9 @@ private:
     Geometry* m_geo2;
     // the geometry we are transitioning to
     Geometry* m_transGeo;
+
+    // the animation speed
+    float m_speed;
 
     // the current animation
     std::string m_currAni;

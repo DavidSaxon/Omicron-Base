@@ -21,6 +21,7 @@ KeyFrameMesh::KeyFrameMesh(
     m_geo1      ( NULL ),
     m_geo2      ( NULL ),
     m_transGeo  ( NULL ),
+    m_speed     ( 1.0f ),
     m_currAni   ( defaultAni ),
     m_nextAni   ( defaultAni ),
     m_transition( -1 ),
@@ -69,6 +70,16 @@ void KeyFrameMesh::transition( const std::string animation, unsigned frames )
 bool KeyFrameMesh::isTransitioning()
 {
     return m_transition >= 0;
+}
+
+float KeyFrameMesh::getSpeed() const
+{
+    return m_speed;
+}
+
+void KeyFrameMesh::setSpeed( float speed )
+{
+    m_speed = speed;
 }
 
 //------------------------------------------------------------------------------
@@ -138,7 +149,7 @@ void KeyFrameMesh::normalUpdate()
     float frameCount = static_cast<float>( m_frameMap[ m_currAni ][ m_key ] );
 
     // increase the frame
-    m_frame += omi::fpsManager.getTimeScale();
+    m_frame += m_speed * omi::fpsManager.getTimeScale();
     if ( m_frame > frameCount )
     {
         m_frame -= frameCount;
@@ -156,7 +167,7 @@ void KeyFrameMesh::transitionUpdate()
     float frameCount = static_cast<float>( m_transition );
 
     // increase the transition frame
-    m_transFrame += omi::fpsManager.getTimeScale();
+    m_transFrame += m_speed * omi::fpsManager.getTimeScale();
     if ( m_transFrame > frameCount )
     {
         // clean up the transition

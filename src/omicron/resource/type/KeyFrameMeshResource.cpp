@@ -38,23 +38,23 @@ void KeyFrameMeshResource::load()
 
 void KeyFrameMeshResource::release()
 {
-    // if ( m_loaded )
-    // {
-    //     for ( std::map<std::string, std::vector<Geometry*>>::iterator it
-    //           = m_geoMap.begin(); it != m_geoMap.end(); ++it )
-    //     {
-    //         while ( !it->second.empty() )
-    //         {
-    //             delete it->second.back();
-    //             it->second.pop_back();
-    //         }
-    //     }
-    //     m_geoMap.clear();
-    //     m_frameMap.clear();
-    //     m_defaultAni = "";
+    if ( m_loaded )
+    {
+        for ( std::map<std::string, std::vector<Geometry*>>::iterator it
+              = m_geoMap.begin(); it != m_geoMap.end(); ++it )
+        {
+            while ( !it->second.empty() )
+            {
+                delete it->second.back();
+                it->second.pop_back();
+            }
+        }
+        m_geoMap.clear();
+        m_frameMap.clear();
+        m_defaultAni = "";
 
-    //     m_loaded = false;
-    // }
+        m_loaded = false;
+    }
 }
 
 KeyFrameMesh* KeyFrameMeshResource::get(
