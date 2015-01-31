@@ -7,6 +7,7 @@
 void TestEvil::init()
 {
     m_transTimer = 0.0f;
+    m_trans = false;
     m_walk = false;
 
     m_transform = new omi::Transform(
@@ -24,14 +25,18 @@ void TestEvil::init()
 
 void TestEvil::update()
 {
-    if ( !m_walk )
+    if ( !m_walk && !m_trans )
     {
         m_transTimer += 0.0025f * omi::fpsManager.getTimeScale();
         if ( m_transTimer > 1.0f )
         {
-            m_walk = true;
-            m_mesh->transition( "walk", 42 );
+            m_trans = true;
+            m_mesh->transition( "walk", 26 );
         }
+    }
+    else if ( !m_walk && m_trans && !m_mesh->isTransitioning() )
+    {
+        m_walk = true;
     }
     else
     {

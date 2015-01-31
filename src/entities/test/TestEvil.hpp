@@ -26,6 +26,7 @@ private:
     omi::KeyFrameMesh* m_mesh;
 
     float m_transTimer;
+    bool m_trans;
     bool m_walk;
 };
 

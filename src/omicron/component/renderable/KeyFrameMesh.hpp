@@ -48,6 +48,9 @@ public:
     amount of frames */
     void transition( const std::string animation, unsigned frames );
 
+    /** @return if the key frame is currently transitioning */
+    bool isTransitioning();
+
 protected:
 
     //--------------------------------------------------------------------------
@@ -71,24 +74,42 @@ private:
     // the default animation of the key frame mesh
     std::string m_defaultAni;
 
-    // the two geometries this is interpolating between
+    // the geometries we are interpolating between
     Geometry* m_geo1;
     Geometry* m_geo2;
+    // the geometry we are transitioning to
+    Geometry* m_transGeo;
 
     // the current animation
     std::string m_currAni;
-    // the previous animation if we are transitioning
-    std::string m_prevAni;
+    // the animation we're transition to
+    std::string m_nextAni;
     // the frame length of the current transition
     int m_transition;
     // the current frame the animation is in
     float m_frame;
     // the current key of the animation
     unsigned m_key;
+    // the current transition frame
+    float m_transFrame;
 
     // the ratio between each key
     float m_r1;
     float m_r2;
+
+    // the ration between transition keys
+    float m_tr1;
+    float m_tr2;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    //-----------------------------UPDATE FUNCTIONS-----------------------------
+
+    void normalUpdate();
+
+    void transitionUpdate();
 };
 
 } // namespace omi

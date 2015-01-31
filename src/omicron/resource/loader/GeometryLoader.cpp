@@ -241,7 +241,7 @@ void geoFromKeyFrameWavefront(
 
         }
         // unknown line
-        else
+        else if ( line.length() > 0 )
         {
             std::cout << "--------" << std::endl;
             std::cout << "error unknown line in key file:" << std::endl;

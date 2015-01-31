@@ -4,6 +4,7 @@
 #define GLM_FORCE_RADIANS
 #define GLM_SWIZZLE
 
+#include <iostream>
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 

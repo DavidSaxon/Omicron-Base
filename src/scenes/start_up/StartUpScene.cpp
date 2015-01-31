@@ -9,7 +9,8 @@ void StartUpScene::init() {
     // apply settings
     omi::systemSettings.setCursorHidden( true );
     omi::renderSettings.setDepthTest(false);
-    omi::renderSettings.setResolution( omi::displaySettings.getSize() );
+    // TODO: figure out why this was here
+    // omi::renderSettings.setResolution( omi::displaySettings.getSize() );
 
     // load the need resources
     omi::ResourceManager::load(resource_group::ALL);
