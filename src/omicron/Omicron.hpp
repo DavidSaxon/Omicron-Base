@@ -4,6 +4,9 @@
 #define GLM_FORCE_RADIANS
 #define GLM_SWIZZLE
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 #include "lib/glm/glm.hpp"
 
 #include "src/omicron/logic/FPSManager.hpp"
@@ -31,6 +34,12 @@ extern AudioSettings audioSettings;
 
 // the fps manager
 extern FPSManager fpsManager;
+
+// the font library
+extern FT_Library freeTypeLib;
+
+// is true while Omicron is running
+extern bool omi_running;
 
 // the scale of the current camera
 extern glm::vec3 camScale;

@@ -47,7 +47,8 @@ bool LogicManager::execute() {
         //if the scene we get is null we're done
         if (!m_scene)
         {
-            exit( 0 );
+            omi_running = false;
+            return true;
         }
         m_sceneInit = true;
         return true;

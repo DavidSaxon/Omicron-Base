@@ -52,6 +52,8 @@ uniform vec3 u_lightAttenuation[8];
 uniform vec2 u_lightArc[8];
 // the lights that are inversed
 uniform int u_lightInverse[8];
+// the lights that are ignored
+uniform int u_lightIgnore[8];
 
 //the texture coords
 varying vec2 v_texCoord;
@@ -126,8 +128,13 @@ void main() {
             }
             vec3 visiblityVec = vec3( visibility, visibility, visibility );
 
+            // ignore this light
+            if ( u_lightIgnore[i] != 0 )
+            {
+                // do nothing
+            }
             // directional light
-            if ( u_lightType[i] == 0 )
+            else if ( u_lightType[i] == 0 )
             {
                 // compute the light position
                 vec3 lightDir = normalize( u_lightPos[i] );

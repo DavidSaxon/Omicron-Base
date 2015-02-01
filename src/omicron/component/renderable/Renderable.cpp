@@ -205,6 +205,11 @@ void Renderable::renderSelectable(
     glBindTexture( GL_TEXTURE_2D, 0 );
 }
 
+void Renderable::ignoreLight( const std::string& lightId )
+{
+    m_ignoreLights.push_back( lightId );
+}
+
 //-----------------------------------GETTERS------------------------------------
 
 component::Type Renderable::getType() const
@@ -432,6 +437,30 @@ void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
                 glGetUniformLocation( program, "u_lightInverse" ),
                 lightData.types.size(),
                 &lightData.inverses[0]
+            );
+
+            // form a list of the lights this mesh is ignoring
+            std::vector<int> ignore;
+            for ( std::vector<std::string>::const_iterator it =
+                  lightData.names.begin();
+                  it != lightData.names.end(); ++it )
+            {
+                if ( std::find(
+                        m_ignoreLights.begin(),
+                        m_ignoreLights.end(),
+                        *it ) != m_ignoreLights.end() )
+                {
+                    ignore.push_back( 1 );
+                }
+                else
+                {
+                    ignore.push_back( 0 );
+                }
+            }
+            glUniform1iv(
+                glGetUniformLocation( program, "u_lightIgnore" ),
+                lightData.types.size(),
+                &ignore[0]
             );
         }
     }

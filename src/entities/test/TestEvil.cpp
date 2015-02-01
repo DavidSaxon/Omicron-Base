@@ -20,6 +20,7 @@ void TestEvil::init()
 
     m_mesh = omi::ResourceManager::getKeyFrameMesh(
             "test_evil_key", "", m_transform );
+    // m_mesh->ignoreLight( "purple_point" );
     m_components.add( m_mesh );
 }
 

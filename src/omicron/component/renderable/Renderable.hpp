@@ -1,6 +1,7 @@
 #ifndef OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 #   define OMICRON_COMPONENT_RENDERABLE_RENDERABLE_H_
 
+#include <algorithm>
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
@@ -101,6 +102,10 @@ public:
             unsigned char green,
             unsigned char blue );
 
+
+    /** Tells the renderable to ignore the given light */
+    void ignoreLight( const std::string& lightId );
+
     //---------------------------------GETTERS----------------------------------
 
     /** #Override */
@@ -146,6 +151,8 @@ protected:
     glm::mat3 m_normalMatrix;
     // the combined model, view, and projection matrix
     glm::mat4 m_modelViewProjectionMatrix;
+
+    std::vector<std::string> m_ignoreLights;
 
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS

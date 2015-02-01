@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "src/omicron/Omicron.hpp"
 #include "src/omicron/display/Window.hpp"
 #include "src/omicron/input/Input.hpp"
 #include "src/omicron/logic/LogicManager.hpp"
@@ -127,6 +128,7 @@ void execute() {
         // clear components
         renderer->clear();
         CollisionDetect::clear();
+        return;
     }
 
     // lock the mouse if enabled
@@ -201,11 +203,10 @@ int main(int argc, char** argv) {
     omi::init();
 
     // begin
-    while ( true )
+    while ( omi::omi_running )
     {
         omi::execute();
     }
 
-    // will never be reached
     return 0;
 }

@@ -4,6 +4,8 @@
 #define GLM_FORCE_RADIANS
 #define GLM_SWIZZLE
 
+#include <iostream>
+
 #include "lib/glm/glm.hpp"
 
 #include "src/omicron/rendering/shading/Shader.hpp"

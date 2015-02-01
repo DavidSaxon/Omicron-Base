@@ -1,13 +1,12 @@
 #ifndef OMICRON_RESOURCE_RESOURCEMANAGER_H_
 #   define OMICRON_RESOURCE_RESOURCEMANAGER_H_
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include <map>
 #include <memory>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
+#include "src/omicron/Omicron.hpp"
 #include "src/omicron/component/renderable/KeyFrameMesh.hpp"
 #include "src/omicron/component/renderable/Mesh.hpp"
 #include "src/omicron/component/renderable/Sprite.hpp"
@@ -743,9 +742,6 @@ private:
 
     // the map of all resources
     static t_ResourceMap m_resources;
-
-    // the free type font library object
-    static FT_Library m_freeType;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS

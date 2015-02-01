@@ -13,6 +13,10 @@ AudioSettings audioSettings;
 
 FPSManager fpsManager;
 
+FT_Library freeTypeLib;
+
+bool omi_running = true;
+
 glm::vec3 camScale;
 
 bool omi_hasFocus = true;

@@ -416,6 +416,7 @@ void RenderLists::buildLightData(
         glm::vec3 rot( 0.0f, 0.0f, -1.0f );
         rot = glm::vec3( rotMat * glm::vec4( rot, 0.0f ) );
         // add generic data
+        lightData.names.push_back( light->getId() );
         lightData.types.push_back(
             static_cast<int>( light->getLightType() ) );
         lightData.colours.push_back( light->getValue().r );

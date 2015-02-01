@@ -6,6 +6,7 @@
 
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
+#include <string>
 #include <vector>
 
 #include "lib/glm/glm.hpp"
@@ -17,6 +18,8 @@ namespace omi {
 | Structure that contains packed data for all lights. |
 \*****************************************************/
 struct LightData {
+    // the name of the light
+    std::vector<std::string> names;
     // the light type
     std::vector<int> types;
     // the positions of the lights in eye space

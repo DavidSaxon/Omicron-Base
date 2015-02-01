@@ -7,7 +7,6 @@ namespace omi {
 //------------------------------------------------------------------------------
 
 t_ResourceMap ResourceManager::m_resources;
-FT_Library ResourceManager::m_freeType;
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
@@ -15,8 +14,9 @@ FT_Library ResourceManager::m_freeType;
 
 void ResourceManager::init()
 {
+
     // initialise free type
-    if ( FT_Init_FreeType( &m_freeType ) )
+    if ( FT_Init_FreeType( &freeTypeLib ) )
     {
         // TODO: throw exception
         std::cout << "Free Type initialisation failed" << std::endl;
@@ -240,7 +240,7 @@ void ResourceManager::addFont(
             id,
             t_ResourcePtr( new FontResource(
                 resourceGroup,
-                &m_freeType,
+                &freeTypeLib,
                 filePath
             ) )
         )
