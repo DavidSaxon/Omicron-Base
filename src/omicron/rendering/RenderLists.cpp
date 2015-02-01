@@ -479,6 +479,9 @@ void RenderLists::buildLightData(
         lightData.rotations.push_back( rot.y );
         lightData.rotations.push_back( rot.z );
 
+        // inverse
+        lightData.inverses.push_back( light->isInversed() );
+
         // shadow map
         lightData.shadowMap = m_shadowMap.getTexture();
         // shadow caster

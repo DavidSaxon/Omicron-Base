@@ -25,9 +25,12 @@ void TestEnvironment::init()
             glm::vec3( 1.0f, 1.0f, 1.0f )
     );
     m_components.add( t_2 );
-    m_components.add( new omi::PointLight(
-        "", t_2, 1.0f, glm::vec3( 0.75f, 0.5f, 0.9f ), 0.05f, 0.3f, 0.0001f
-    ) );
+    // omi::PointLight* l1 = new omi::PointLight(
+    //      "", t_2, 1.0f, glm::vec3( 0.75f, 0.5f, 0.9f ), 0.05f, 0.3f, 0.0001f );
+    omi::PointLight* l1 = new omi::PointLight(
+         "", t_2, 1.0f, glm::vec3( 1.0f, 1.0f, 1.0f ), 0.05f, 0.3f, 0.0001f );
+    l1->setInverse( true );
+    m_components.add( l1 );
     // spot lights
     // omi::Transform* t_3 = new omi::Transform(
     //         "",

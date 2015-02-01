@@ -70,6 +70,9 @@ public:
     /** @return if this light casts shadows */
     const bool getCastShadows() const;
 
+    /** @return if this light is inversed or not */
+    const bool isInversed() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param transform the new transform of the light */
@@ -83,6 +86,9 @@ public:
 
     /** @param castShadows whether or not this light casts shadows */
     void setCastShadow( bool castShadows );
+
+    /** Sets whether this light is inversed or not */
+    void setInverse( bool inverse );
 
 protected:
 
@@ -98,6 +104,8 @@ protected:
     glm::vec3 m_colour;
     // whether this light casts shadows or not
     bool m_castShadows;
+    // whether this light is inversed or not
+    bool m_inverse;
 };
 
 } // namespace omi

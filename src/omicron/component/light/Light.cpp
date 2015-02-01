@@ -16,7 +16,8 @@ Light::Light(
     m_transform  ( transform ),
     m_power      ( power ),
     m_colour     ( colour ),
-    m_castShadows( false )
+    m_castShadows( false ),
+    m_inverse    ( false )
 {
 }
 
@@ -56,6 +57,11 @@ const bool Light::getCastShadows() const
     return m_castShadows;
 }
 
+const bool Light::isInversed() const
+{
+    return m_inverse;
+}
+
 //-----------------------------------SETTERS------------------------------------
 
 void Light::setTransform( omi::Transform* transform )
@@ -78,5 +84,9 @@ void Light::setCastShadow( bool castShadows )
     m_castShadows = castShadows;
 }
 
+void Light::setInverse( bool inverse )
+{
+    m_inverse = inverse;
+}
 
 } // namespace omi

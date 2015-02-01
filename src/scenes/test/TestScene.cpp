@@ -26,7 +26,7 @@ void TestScene::init()
     addEntity( new Monkey() );
     addEntity( new GlowCube() );
     // addEntity( new MapCube() );
-    addEntity( new TestEvil() );
+    // addEntity( new TestEvil() );
 }
 
 bool TestScene::update()

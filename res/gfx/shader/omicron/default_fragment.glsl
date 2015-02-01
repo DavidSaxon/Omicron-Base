@@ -50,6 +50,8 @@ uniform vec3 u_lightColour[8];
 uniform vec3 u_lightAttenuation[8];
 // the light arcs
 uniform vec2 u_lightArc[8];
+// the lights that are inversed
+uniform int u_lightInverse[8];
 
 //the texture coords
 varying vec2 v_texCoord;
@@ -167,8 +169,16 @@ void main() {
                         ( u_lightAttenuation[i].y * distance ) +
                         ( u_lightAttenuation[i].z * distance * distance ) );
                     // apply diffuse
-                    light += attenuation * u_lightColour[i] *
-                             cosThetha * visiblityVec;
+                    if ( u_lightInverse[i] == 1 )
+                    {
+                        light -= attenuation * u_lightColour[i] *
+                                 cosThetha * visiblityVec;
+                    }
+                    else
+                    {
+                        light += attenuation * u_lightColour[i] *
+                                 cosThetha * visiblityVec;
+                    }
                     // compute half vector
                     vec3 H =
                         normalize( normalize( v_eyePos ) +
@@ -182,7 +192,11 @@ void main() {
                     {
                         specular *= texture2D( u_specMap, v_texCoord ).rgb;
                     }
-                    light += specular;
+
+                    if ( u_lightInverse[i] != 1 )
+                    {
+                        light += specular;
+                    }
                 }
             }
             // spot light

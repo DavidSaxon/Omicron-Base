@@ -427,6 +427,12 @@ void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
                 lightData.types.size(),
                 &lightData.arcs[0]
             );
+            // the inverse states of light
+            glUniform1iv(
+                glGetUniformLocation( program, "u_lightInverse" ),
+                lightData.types.size(),
+                &lightData.inverses[0]
+            );
         }
     }
 

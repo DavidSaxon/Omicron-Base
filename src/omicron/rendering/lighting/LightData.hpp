@@ -29,6 +29,8 @@ struct LightData {
     std::vector<float> attenuations;
     // the arcs of the lights
     std::vector<float> arcs;
+    // the inverse states of the light
+    std::vector<int> inverses;
     // the shadow map
     GLuint shadowMap;
     // the index of the light casting shadows
