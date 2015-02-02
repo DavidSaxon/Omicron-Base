@@ -102,7 +102,6 @@ public:
             unsigned char green,
             unsigned char blue );
 
-
     /** Tells the renderable to ignore the given light */
     void ignoreLight( const std::string& lightId );
 
@@ -120,6 +119,9 @@ public:
     /** @return the material used for this renderable */
     Material& getMaterial();
 
+    /** @return if this renderable is visible by the camera */
+    bool getVisCam() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param layer the new render layer of renderable */
@@ -127,6 +129,10 @@ public:
 
     /** @param transform the new transform of the renderable */
     void setTransform( Transform* transform );
+
+    /** #Hidden
+    Sets whether this renderable is visible by the camera or not */
+    void setVisCam( bool vis );
 
 protected:
 
@@ -153,6 +159,9 @@ protected:
     glm::mat4 m_modelViewProjectionMatrix;
 
     std::vector<std::string> m_ignoreLights;
+
+    // is true if the renderable is visible by the current camera
+    bool m_visCam;
 
     //--------------------------------------------------------------------------
     //                         PROTECTED MEMBER FUNCTIONS

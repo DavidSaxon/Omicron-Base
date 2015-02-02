@@ -141,6 +141,16 @@ private:
             unsigned char& green,
             unsigned char& blue );
 
+
+    /** Renders an element for visibility checking */
+    void renderVisibilty(
+            Renderable* renderable,
+            Camera* camera,
+            std::map<std::string, Renderable*>& colourMap,
+            unsigned char& red,
+            unsigned char& green,
+            unsigned char& blue );
+
     /** Builds light data */
     void buildLightData(
             Camera* camera,

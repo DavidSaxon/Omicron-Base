@@ -40,7 +40,8 @@ Renderable::Renderable(
     selected   ( false ),
     m_layer    ( layer ),
     m_transform( transform ),
-    m_material ( material )
+    m_material ( material ),
+    m_visCam   ( false )
 {
 }
 
@@ -232,6 +233,11 @@ Material& Renderable::getMaterial()
     return m_material;
 }
 
+bool Renderable::getVisCam() const
+{
+    return m_visCam;
+}
+
 //-----------------------------------SETTERS------------------------------------
 
 void Renderable::setLayer( int layer )
@@ -242,6 +248,11 @@ void Renderable::setLayer( int layer )
 void Renderable::setTransform( Transform* transform )
 {
     m_transform = transform;
+}
+
+void Renderable::setVisCam( bool vis )
+{
+    m_visCam = vis;
 }
 
 //------------------------------------------------------------------------------

@@ -14,7 +14,6 @@ t_ResourceMap ResourceManager::m_resources;
 
 void ResourceManager::init()
 {
-
     // initialise free type
     if ( FT_Init_FreeType( &freeTypeLib ) )
     {

@@ -72,6 +72,10 @@ void RenderLists::render( Camera* camera )
     {
         camera->apply();
     }
+
+
+    {
+
     // the colour values to render with
     unsigned char red   = 0;
     unsigned char green = 0;
@@ -130,6 +134,8 @@ void RenderLists::render( Camera* camera )
     // clear for normal rendering
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    }
+
     //-------------------------CAMERA AND LIGHT SET UP--------------------------
 
     // find the first light that has shadow casting on (only have support for
@@ -159,6 +165,71 @@ void RenderLists::render( Camera* camera )
         // build lighting data
         buildLightData( camera, shadowCaster, lightData );
     }
+
+    //-----------------------------VISIBILITY PASS------------------------------
+
+    // TODO: should be able to turn visible checking on and off
+
+    // {
+
+    // // the colour values to render with
+    // unsigned char red   = 55;
+    // unsigned char green = 150;
+    // unsigned char blue  = 55;
+    // // a mapping from colour to renderables
+    // std::map<std::string, Renderable*> colourMap;
+    // // render selectable renderables
+    // for ( t_RenderableMap::iterator it = renderLayers.begin();
+    //       it != renderLayers.end(); ++it )
+    // {
+    //     for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+    //           itr != it->second.end(); ++itr)
+    //     {
+    //         renderVisibilty( *itr, camera, colourMap, red, green, blue );
+    //         // set the visibility to false
+    //         ( *itr )->setVisCam( false );
+    //     }
+    // }
+
+    // // get colour of the pixel the mouse is at
+    // GLint viewport[4];
+    // GLubyte pixel[3];
+    // glGetIntegerv( GL_VIEWPORT, viewport );
+
+    // std::cout << "viewport: " << viewport[0] << " : " << viewport[1] << " : "
+    //           << viewport[2] << " : " << viewport[3] << std::endl;
+
+    // // go over each pixel in the view port and mark if the renderable is visible
+    // for ( GLint x = viewport[ 0 ]; x < viewport[ 2 ]; ++x )
+    // {
+    //     for ( GLint y = viewport[ 1 ]; y < viewport[ 3 ]; ++y )
+    //     {
+
+    //         // TODO: should be able to get all pixels in one go instead
+
+    //         // get the pixel value at this location
+    //         glReadPixels(
+    //                 x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, ( void* ) pixel );
+
+    //         // build the colour at the pixel
+    //         std::stringstream ss;
+    //         ss << static_cast<unsigned>( pixel[0] )   << ":";
+    //         ss << static_cast<unsigned>( pixel[1] )   << ":";
+    //         ss << static_cast<unsigned>( pixel[2] );
+
+    //         // check if there is a renderable with this colour
+    //         if ( colourMap.find( ss.str() ) != colourMap.end() )
+    //         {
+    //             // tell the renderable that it is visible
+    //             colourMap[ ss.str() ]->setVisCam( true );
+    //         }
+    //     }
+    // }
+
+    // // clear for normal rendering
+    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // }
 
     //-------------------------------SHADOW PASS--------------------------------
 
@@ -247,7 +318,7 @@ void RenderLists::render( Camera* camera )
     // bind final pass render texture
     m_finalRenTex.bind();
 
-    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // iterate over the layers
     for ( t_RenderableMap::iterator it = renderLayers.begin();
@@ -386,6 +457,38 @@ void RenderLists::renderSelectable(
         renderable->renderSelectable(
             camera, red, green, blue );
     }
+}
+
+void RenderLists::renderVisibilty(
+        Renderable* renderable,
+        Camera* camera,
+        std::map<std::string, Renderable*>& colourMap,
+        unsigned char& red,
+        unsigned char& green,
+        unsigned char& blue )
+{
+    // increment visibility colour
+    ++red;
+    if ( red == 255 )
+    {
+        red = 0;
+        ++green;
+        if ( green == 255 )
+        {
+            green = 0;
+            ++blue;
+            // TODO: if blue is 255 flip shit
+        }
+    }
+
+    // assign to map and render
+    std::stringstream ss;
+    ss << static_cast<unsigned>( red )   << ":";
+    ss << static_cast<unsigned>( green ) << ":";
+    ss << static_cast<unsigned>( blue );
+    colourMap.insert( std::make_pair( ss.str(), renderable ) );
+    renderable->renderSelectable(
+        camera, red, green, blue );
 }
 
 void RenderLists::buildLightData(

@@ -44,4 +44,15 @@ void TestEvil::update()
         // move
         m_transform->translation.z += 0.022f * omi::fpsManager.getTimeScale();
     }
+
+    // check if this is visible
+    if ( m_mesh->getVisCam() )
+    {
+        std::cout << "I see dead people" << std::endl;
+    }
+    else
+    {
+        std::cout << "no" << std::endl;
+    }
+
 }
