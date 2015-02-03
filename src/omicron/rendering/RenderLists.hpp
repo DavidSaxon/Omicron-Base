@@ -128,6 +128,9 @@ private:
     // the depth sorter
     RenderableDepthSorter depthSorter;
 
+    // the pixel buffer for visibility checking
+    std::vector<GLubyte> m_visCheckBuffer;
+
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
@@ -146,7 +149,7 @@ private:
     void renderVisibilty(
             Renderable* renderable,
             Camera* camera,
-            std::map<std::string, Renderable*>& colourMap,
+            std::map<unsigned, Renderable*>& colourMap,
             unsigned char& red,
             unsigned char& green,
             unsigned char& blue );

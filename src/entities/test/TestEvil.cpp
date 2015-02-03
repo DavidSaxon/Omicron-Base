@@ -48,11 +48,11 @@ void TestEvil::update()
     // check if this is visible
     if ( m_mesh->getVisCam() )
     {
-        std::cout << "I see dead people" << std::endl;
+        // std::cout << "I see dead people" << std::endl;
     }
     else
     {
-        std::cout << "no" << std::endl;
+        // std::cout << "no" << std::endl;
     }
 
 }

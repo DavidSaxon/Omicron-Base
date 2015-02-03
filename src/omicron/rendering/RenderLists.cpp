@@ -170,66 +170,69 @@ void RenderLists::render( Camera* camera )
 
     // TODO: should be able to turn visible checking on and off
 
-    // {
+    {
 
-    // // the colour values to render with
-    // unsigned char red   = 55;
-    // unsigned char green = 150;
-    // unsigned char blue  = 55;
-    // // a mapping from colour to renderables
-    // std::map<std::string, Renderable*> colourMap;
-    // // render selectable renderables
-    // for ( t_RenderableMap::iterator it = renderLayers.begin();
-    //       it != renderLayers.end(); ++it )
-    // {
-    //     for ( std::vector<Renderable*>::iterator itr = it->second.begin();
-    //           itr != it->second.end(); ++itr)
-    //     {
-    //         renderVisibilty( *itr, camera, colourMap, red, green, blue );
-    //         // set the visibility to false
-    //         ( *itr )->setVisCam( false );
-    //     }
-    // }
+    // the colour values to render with
+    unsigned char red   = 55;
+    unsigned char green = 150;
+    unsigned char blue  = 55;
+    // a mapping from colour to renderables
+    std::map<unsigned, Renderable*> colourMap;
+    // render selectable renderables
+    for ( t_RenderableMap::iterator it = renderLayers.begin();
+          it != renderLayers.end(); ++it )
+    {
+        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+              itr != it->second.end(); ++itr)
+        {
+            renderVisibilty( *itr, camera, colourMap, red, green, blue );
+            // set the visibility to false
+            ( *itr )->setVisCam( false );
+        }
+    }
 
-    // // get colour of the pixel the mouse is at
-    // GLint viewport[4];
-    // GLubyte pixel[3];
-    // glGetIntegerv( GL_VIEWPORT, viewport );
+    // TODO: render at a lower resolution?, could use vis check camera
+    // TODO: or could render to texture and read the texture and read texture
+    // even better might be to check texture in the next frame, might be need
+    // work for scene changes
 
-    // std::cout << "viewport: " << viewport[0] << " : " << viewport[1] << " : "
-    //           << viewport[2] << " : " << viewport[3] << std::endl;
+    // get colour of the pixel the mouse is at
+    GLint viewport[4];
+    glGetIntegerv( GL_VIEWPORT, viewport );
 
-    // // go over each pixel in the view port and mark if the renderable is visible
-    // for ( GLint x = viewport[ 0 ]; x < viewport[ 2 ]; ++x )
-    // {
-    //     for ( GLint y = viewport[ 1 ]; y < viewport[ 3 ]; ++y )
-    //     {
+    unsigned bufferSize = viewport[ 2 ] * viewport[ 3 ] * 3;
+    // check the size of the buffer we're creating pixels in
+    if ( m_visCheckBuffer.size() < bufferSize )
+    {
+        m_visCheckBuffer.resize( bufferSize );
+    }
 
-    //         // TODO: should be able to get all pixels in one go instead
+    // TODO: time this shit
+    // get the view-port pixels
+    glReadPixels( viewport[ 0 ], viewport[ 1 ], viewport[ 2 ], viewport[ 3 ],
+                  GL_RGB, GL_UNSIGNED_BYTE, ( void* ) &m_visCheckBuffer[ 0 ] );
 
-    //         // get the pixel value at this location
-    //         glReadPixels(
-    //                 x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, ( void* ) pixel );
+    // TODO: this could be threaded??, pick up results at end of render
+    // go over pixels to mark the visible renderables
+    for ( unsigned i = 0; i < bufferSize; i += 300 )
+    {
+        // build the colour key
+        unsigned colour = static_cast<unsigned>( m_visCheckBuffer[ i ] );
+        colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 1 ] ) << 8;
+        colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 2] ) << 16;
 
-    //         // build the colour at the pixel
-    //         std::stringstream ss;
-    //         ss << static_cast<unsigned>( pixel[0] )   << ":";
-    //         ss << static_cast<unsigned>( pixel[1] )   << ":";
-    //         ss << static_cast<unsigned>( pixel[2] );
+        // check if there is a renderable with this colour
+        if ( colourMap.find( colour ) != colourMap.end() )
+        {
+            // tell the renderable that it is visible
+            colourMap[ colour ]->setVisCam( true );
+        }
+    }
 
-    //         // check if there is a renderable with this colour
-    //         if ( colourMap.find( ss.str() ) != colourMap.end() )
-    //         {
-    //             // tell the renderable that it is visible
-    //             colourMap[ ss.str() ]->setVisCam( true );
-    //         }
-    //     }
-    // }
+    // clear for normal rendering
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // // clear for normal rendering
-    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // }
+    }
 
     //-------------------------------SHADOW PASS--------------------------------
 
@@ -462,7 +465,7 @@ void RenderLists::renderSelectable(
 void RenderLists::renderVisibilty(
         Renderable* renderable,
         Camera* camera,
-        std::map<std::string, Renderable*>& colourMap,
+        std::map<unsigned, Renderable*>& colourMap,
         unsigned char& red,
         unsigned char& green,
         unsigned char& blue )
@@ -481,12 +484,12 @@ void RenderLists::renderVisibilty(
         }
     }
 
-    // assign to map and render
-    std::stringstream ss;
-    ss << static_cast<unsigned>( red )   << ":";
-    ss << static_cast<unsigned>( green ) << ":";
-    ss << static_cast<unsigned>( blue );
-    colourMap.insert( std::make_pair( ss.str(), renderable ) );
+    // create the id for the colour
+    unsigned colour = static_cast<unsigned>( red );
+    colour         |= static_cast<unsigned>( green ) << 8;
+    colour         |= static_cast<unsigned>( blue ) << 16;
+
+    colourMap.insert( std::make_pair( colour, renderable ) );
     renderable->renderSelectable(
         camera, red, green, blue );
 }
