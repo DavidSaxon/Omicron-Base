@@ -139,7 +139,7 @@ private:
     void renderSelectable(
             Renderable* renderable,
             Camera* camera,
-            std::map<std::string, Renderable*>& colourMap,
+            std::map<unsigned, Renderable*>& colourMap,
             unsigned char& red,
             unsigned char& green,
             unsigned char& blue );

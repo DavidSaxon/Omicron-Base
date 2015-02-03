@@ -81,7 +81,7 @@ void RenderLists::render( Camera* camera )
     unsigned char green = 0;
     unsigned char blue  = 0;
     // a mapping from colour to renderables
-    std::map<std::string, Renderable*> colourMap;
+    std::map<unsigned, Renderable*> colourMap;
     // render selectable renderables
     for ( t_RenderableMap::iterator it = renderLayers.begin();
           it != renderLayers.end(); ++it )
@@ -116,19 +116,20 @@ void RenderLists::render( Camera* camera )
                   1, 1, GL_RGB, GL_UNSIGNED_BYTE, ( void* ) pixel);
 
     // clear the select state of the renderables
-    for ( std::map<std::string, Renderable*>::iterator it = colourMap.begin();
+    for ( std::map<unsigned, Renderable*>::iterator it = colourMap.begin();
           it != colourMap.end(); ++it )
     {
         it->second->selected = false;
     }
+
+    // build the colour key
+    unsigned colour = static_cast<unsigned>( pixel[ 0 ] );
+    colour |= static_cast<unsigned>( pixel[ 1 ] ) << 8;
+    colour |= static_cast<unsigned>( pixel[ 2 ] ) << 16;
     // if a renderable has been selected set it's state
-    std::stringstream ss;
-    ss << static_cast<unsigned>( pixel[0] )   << ":";
-    ss << static_cast<unsigned>( pixel[1] )   << ":";
-    ss << static_cast<unsigned>( pixel[2] );
-    if ( colourMap.find( ss.str() ) != colourMap.end() )
+    if ( colourMap.find( colour ) != colourMap.end() )
     {
-        colourMap[ss.str()]->selected = true;
+        colourMap[ colour ]->selected = true;
     }
 
     // clear for normal rendering
@@ -429,7 +430,7 @@ void RenderLists::removeLight( Light* light )
 void RenderLists::renderSelectable(
         Renderable* renderable,
         Camera* camera,
-        std::map<std::string, Renderable*>& colourMap,
+        std::map<unsigned, Renderable*>& colourMap,
         unsigned char& red,
         unsigned char& green,
         unsigned char& blue )
@@ -451,14 +452,13 @@ void RenderLists::renderSelectable(
             }
         }
 
-        // assign to map and render
-        std::stringstream ss;
-        ss << static_cast<unsigned>( red )   << ":";
-        ss << static_cast<unsigned>( green ) << ":";
-        ss << static_cast<unsigned>( blue );
-        colourMap.insert( std::make_pair( ss.str(), renderable ) );
-        renderable->renderSelectable(
-            camera, red, green, blue );
+        // create the id for the colour
+        unsigned colour = static_cast<unsigned>( red );
+        colour         |= static_cast<unsigned>( green ) << 8;
+        colour         |= static_cast<unsigned>( blue ) << 16;
+
+        colourMap.insert( std::make_pair( colour, renderable ) );
+        renderable->renderSelectable( camera, red, green, blue );
     }
 }
 
@@ -490,8 +490,7 @@ void RenderLists::renderVisibilty(
     colour         |= static_cast<unsigned>( blue ) << 16;
 
     colourMap.insert( std::make_pair( colour, renderable ) );
-    renderable->renderSelectable(
-        camera, red, green, blue );
+    renderable->renderSelectable( camera, red, green, blue );
 }
 
 void RenderLists::buildLightData(
