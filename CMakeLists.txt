@@ -34,6 +34,7 @@ set(SRCS
     src/omicron/rendering/render_texture/GlowCollateRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowFirstPassRenderTexture.cpp
     src/omicron/rendering/render_texture/RenderTexture.cpp
+    src/omicron/rendering/render_texture/VisCheckRenderTexture.cpp
     src/omicron/rendering/shading/Animation.cpp
     src/omicron/rendering/shading/Material.cpp
     src/omicron/rendering/shading/Shader.cpp

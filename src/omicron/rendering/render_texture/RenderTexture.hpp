@@ -51,6 +51,12 @@ public:
     /** Renders this texture to a quad in front of the screen */
     void render();
 
+    /** @return the OpenGL texture id */
+    GLuint getTextureId() const;
+
+    /** @return the resolution of the texture ( width and height ) */
+    const glm::vec2& getResolution() const;
+
 protected:
 
     //--------------------------------------------------------------------------

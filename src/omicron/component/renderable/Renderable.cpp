@@ -165,7 +165,6 @@ void Renderable::renderSelectable(
     // don't bother rendering if there is no camera
     if ( camera == NULL )
     {
-
         return;
     }
 

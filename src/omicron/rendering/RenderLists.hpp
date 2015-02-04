@@ -19,6 +19,7 @@
 #include "src/omicron/rendering/render_texture/GlowBlurVertRenderTexture.hpp"
 #include "src/omicron/rendering/render_texture/GlowCollateRenderTexture.hpp"
 #include "src/omicron/rendering/render_texture/GlowFirstPassRenderTexture.hpp"
+#include "src/omicron/rendering/render_texture/VisCheckRenderTexture.hpp"
 
 
 namespace omi {
@@ -117,6 +118,8 @@ private:
     // shadow map
     ShadowMap m_shadowMap;
 
+    // visibility checking render texture
+    VisCheckRenderTexture m_visCheckRenTex;
     // glow render textures
     GlowFirstPassRenderTexture m_glowFirstPassRenTex;
     GlowBlurHorRenderTexture m_glowBlurHorRenTex;

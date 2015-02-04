@@ -173,10 +173,16 @@ void RenderLists::render( Camera* camera )
 
     {
 
+    util::int64 t = util::time::getCurrentTime();
+
+    // bind the visibility check render texture
+    m_visCheckRenTex.bind();
+
+    // TODO: MOVE BACK TO ZEROS
     // the colour values to render with
-    unsigned char red   = 55;
-    unsigned char green = 150;
-    unsigned char blue  = 55;
+    unsigned char red   = 0;
+    unsigned char green = 0;
+    unsigned char blue  = 0;
     // a mapping from colour to renderables
     std::map<unsigned, Renderable*> colourMap;
     // render selectable renderables
@@ -192,30 +198,36 @@ void RenderLists::render( Camera* camera )
         }
     }
 
-    // TODO: render at a lower resolution?, could use vis check camera
-    // TODO: or could render to texture and read the texture and read texture
-    // even better might be to check texture in the next frame, might be need
-    // work for scene changes
+    m_visCheckRenTex.unbind();
 
-    // get colour of the pixel the mouse is at
-    GLint viewport[4];
-    glGetIntegerv( GL_VIEWPORT, viewport );
+    std::cout << "render time: " << ( util::time::getCurrentTime() - t ) << std::endl;
 
-    unsigned bufferSize = viewport[ 2 ] * viewport[ 3 ] * 3;
+    t = util::time::getCurrentTime();
+
     // check the size of the buffer we're creating pixels in
+    unsigned bufferSize = static_cast<unsigned>(
+            3 *
+            m_visCheckRenTex.getResolution().x *
+            m_visCheckRenTex.getResolution().y
+    );
     if ( m_visCheckBuffer.size() < bufferSize )
     {
         m_visCheckBuffer.resize( bufferSize );
     }
 
-    // TODO: time this shit
-    // get the view-port pixels
-    glReadPixels( viewport[ 0 ], viewport[ 1 ], viewport[ 2 ], viewport[ 3 ],
-                  GL_RGB, GL_UNSIGNED_BYTE, ( void* ) &m_visCheckBuffer[ 0 ] );
+    // get the texture pixels
+    glBindTexture( GL_TEXTURE_2D, m_visCheckRenTex.getTextureId() );
+    glGetTexImage(
+            GL_TEXTURE_2D,
+            0,
+            GL_RGB,
+            GL_UNSIGNED_BYTE,
+            ( GLvoid* ) &m_visCheckBuffer[ 0 ]
+    );
 
-    // TODO: this could be threaded??, pick up results at end of render
+    // // TODO: this could be threaded??, pick up results at end of render
     // go over pixels to mark the visible renderables
-    for ( unsigned i = 0; i < bufferSize; i += 300 )
+    for ( unsigned i = 0; i < bufferSize; ++i )
     {
         // build the colour key
         unsigned colour = static_cast<unsigned>( m_visCheckBuffer[ i ] );
@@ -230,7 +242,10 @@ void RenderLists::render( Camera* camera )
         }
     }
 
+    std::cout << "check time: " << ( util::time::getCurrentTime() - t ) << std::endl;
+
     // clear for normal rendering
+    glBindTexture( GL_TEXTURE_2D, 0 );
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     }

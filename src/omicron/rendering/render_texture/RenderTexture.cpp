@@ -142,8 +142,18 @@ void RenderTexture::render()
     glBindTexture( GL_TEXTURE_2D, 0 );
 }
 
-//------------------------------------------------------------------------------
-//                           PROTECTED MEMBER FUNCTIONS
+GLuint RenderTexture::getTextureId() const
+{
+    return m_texture;
+}
+
+const glm::vec2& RenderTexture::getResolution() const
+{
+    return m_resolution;
+}
+
+//-----------------------------------------------------------------------------
+//                           PROTECTED MEMBER- FUNCTIONS
 //------------------------------------------------------------------------------
 
 void RenderTexture::init()
