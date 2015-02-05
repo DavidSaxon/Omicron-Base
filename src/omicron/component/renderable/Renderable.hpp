@@ -102,6 +102,14 @@ public:
             unsigned char green,
             unsigned char blue );
 
+    /** #Hidden
+    Render this component for visibility checking */
+    virtual void renderVisCheck(
+            Camera* camera,
+            unsigned char red,
+            unsigned char green,
+            unsigned char blue );
+
     /** Tells the renderable to ignore the given light */
     void ignoreLight( const std::string& lightId );
 
@@ -119,6 +127,12 @@ public:
     /** @return the material used for this renderable */
     Material& getMaterial();
 
+    /** @return if this renderable should be visibility checked */
+    bool getDoVisCheck() const;
+
+    /** @return if this renderable should only do vis check */
+    bool getOnlyVisCheck() const;
+
     /** @return if this renderable is visible by the camera */
     bool getVisCam() const;
 
@@ -129,6 +143,13 @@ public:
 
     /** @param transform the new transform of the renderable */
     void setTransform( Transform* transform );
+
+    /** Sets whether this renderable should perform visibility checking */
+    void setDoVisCheck( bool state );
+
+    /** Sets whether this renderable should only show in the visibility checking
+    stage */
+    void setOnlyVisCheck( bool state );
 
     /** #Hidden
     Sets whether this renderable is visible by the camera or not */
@@ -159,6 +180,12 @@ protected:
     glm::mat4 m_modelViewProjectionMatrix;
 
     std::vector<std::string> m_ignoreLights;
+
+    // is true if this renderable will perform visibility checking
+    bool m_doVisCheck;
+    // is true if this renderable will not show in rendering stages but will
+    // still be considered in visibility checking
+    bool m_onlyVisCheck;
 
     // is true if the renderable is visible by the current camera
     bool m_visCam;

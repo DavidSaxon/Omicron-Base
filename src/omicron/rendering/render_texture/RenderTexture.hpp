@@ -55,7 +55,7 @@ public:
     GLuint getTextureId() const;
 
     /** @return the resolution of the texture ( width and height ) */
-    const glm::vec2& getResolution() const;
+    glm::vec2 getResolution() const;
 
 protected:
 

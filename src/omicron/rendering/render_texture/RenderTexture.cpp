@@ -147,9 +147,9 @@ GLuint RenderTexture::getTextureId() const
     return m_texture;
 }
 
-const glm::vec2& RenderTexture::getResolution() const
+glm::vec2 RenderTexture::getResolution() const
 {
-    return m_resolution;
+    return m_resolution * m_resScale;
 }
 
 //-----------------------------------------------------------------------------

@@ -23,6 +23,8 @@ omi::Scene* init() {
     omi::renderSettings.setShadows( true );
     omi::renderSettings.setShadowFrustumSize( 40.0f );
     omi::renderSettings.setShadowMapResolutionScale( 4.0f );
+    omi::renderSettings.setColourPicking( true );
+    omi::renderSettings.setVisibilityChecking( true );
 
     //audio settings
     omi::audioSettings.setSoundDisabled( true );

@@ -73,68 +73,73 @@ void RenderLists::render( Camera* camera )
         camera->apply();
     }
 
-
+    if ( renderSettings.getColourPicking() )
     {
-
-    // the colour values to render with
-    unsigned char red   = 0;
-    unsigned char green = 0;
-    unsigned char blue  = 0;
-    // a mapping from colour to renderables
-    std::map<unsigned, Renderable*> colourMap;
-    // render selectable renderables
-    for ( t_RenderableMap::iterator it = renderLayers.begin();
-          it != renderLayers.end(); ++it )
-    {
-        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
-              itr != it->second.end(); ++itr)
+        // the colour values to render with
+        unsigned char red   = 0;
+        unsigned char green = 0;
+        unsigned char blue  = 0;
+        // a mapping from colour to renderables
+        std::map<unsigned, Renderable*> colourMap;
+        // render selectable renderables
+        for ( t_RenderableMap::iterator it = renderLayers.begin();
+              it != renderLayers.end(); ++it )
         {
-            renderSelectable( *itr, camera, colourMap, red, green, blue );
+            for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+                  itr != it->second.end(); ++itr)
+            {
+                renderSelectable( *itr, camera, colourMap, red, green, blue );
+            }
         }
-    }
-    for ( t_RenderableMap::iterator it = guiLayers.begin();
-          it != guiLayers.end(); ++it )
-    {
-        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
-              itr != it->second.end(); ++itr)
+        for ( t_RenderableMap::iterator it = guiLayers.begin();
+              it != guiLayers.end(); ++it )
         {
-            renderSelectable( *itr, &guiCamera, colourMap, red, green, blue );
+            for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+                  itr != it->second.end(); ++itr)
+            {
+                renderSelectable(
+                        *itr,
+                        &guiCamera,
+                        colourMap,
+                        red,
+                        green,
+                        blue
+                );
+            }
         }
-    }
 
-    // get colour of the pixel the mouse is at
-    GLint viewport[4];
-    GLubyte pixel[3];
-    glGetIntegerv( GL_VIEWPORT, viewport );
-    glm::vec2 mousePos = input::getMousePos() - displaySettings.getPos();
-    if ( !displaySettings.getFullscreen() )
-    {
-        mousePos.y += 30;
-    }
-    glReadPixels( static_cast<GLint>( mousePos.x ),
-                  viewport[3] - static_cast<GLint>( mousePos.y ),
-                  1, 1, GL_RGB, GL_UNSIGNED_BYTE, ( void* ) pixel);
+        // get colour of the pixel the mouse is at
+        GLint viewport[4];
+        GLubyte pixel[3];
+        glGetIntegerv( GL_VIEWPORT, viewport );
+        glm::vec2 mousePos = input::getMousePos() - displaySettings.getPos();
+        if ( !displaySettings.getFullscreen() )
+        {
+            mousePos.y += 30;
+        }
+        glReadPixels( static_cast<GLint>( mousePos.x ),
+                      viewport[3] - static_cast<GLint>( mousePos.y ),
+                      1, 1, GL_RGB, GL_UNSIGNED_BYTE, ( void* ) pixel);
 
-    // clear the select state of the renderables
-    for ( std::map<unsigned, Renderable*>::iterator it = colourMap.begin();
-          it != colourMap.end(); ++it )
-    {
-        it->second->selected = false;
-    }
+        // clear the select state of the renderables
+        for ( std::map<unsigned, Renderable*>::iterator it = colourMap.begin();
+              it != colourMap.end(); ++it )
+        {
+            it->second->selected = false;
+        }
 
-    // build the colour key
-    unsigned colour = static_cast<unsigned>( pixel[ 0 ] );
-    colour |= static_cast<unsigned>( pixel[ 1 ] ) << 8;
-    colour |= static_cast<unsigned>( pixel[ 2 ] ) << 16;
-    // if a renderable has been selected set it's state
-    if ( colourMap.find( colour ) != colourMap.end() )
-    {
-        colourMap[ colour ]->selected = true;
-    }
+        // build the colour key
+        unsigned colour = static_cast<unsigned>( pixel[ 0 ] );
+        colour |= static_cast<unsigned>( pixel[ 1 ] ) << 8;
+        colour |= static_cast<unsigned>( pixel[ 2 ] ) << 16;
+        // if a renderable has been selected set it's state
+        if ( colourMap.find( colour ) != colourMap.end() )
+        {
+            colourMap[ colour ]->selected = true;
+        }
 
-    // clear for normal rendering
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        // clear for normal rendering
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     //-------------------------CAMERA AND LIGHT SET UP--------------------------
@@ -169,85 +174,75 @@ void RenderLists::render( Camera* camera )
 
     //-----------------------------VISIBILITY PASS------------------------------
 
-    // TODO: should be able to turn visible checking on and off
-
+    if ( renderSettings.getVisibilityChecking() )
     {
+        // bind the visibility check render texture
+        m_visCheckRenTex.bind();
 
-    util::int64 t = util::time::getCurrentTime();
-
-    // bind the visibility check render texture
-    m_visCheckRenTex.bind();
-
-    // TODO: MOVE BACK TO ZEROS
-    // the colour values to render with
-    unsigned char red   = 0;
-    unsigned char green = 0;
-    unsigned char blue  = 0;
-    // a mapping from colour to renderables
-    std::map<unsigned, Renderable*> colourMap;
-    // render selectable renderables
-    for ( t_RenderableMap::iterator it = renderLayers.begin();
-          it != renderLayers.end(); ++it )
-    {
-        for ( std::vector<Renderable*>::iterator itr = it->second.begin();
-              itr != it->second.end(); ++itr)
+        // TODO: MOVE BACK TO ZEROS
+        // the colour values to render with
+        unsigned char red   = 125;
+        unsigned char green = 125;
+        unsigned char blue  = 125;
+        // a mapping from colour to renderables
+        std::map<unsigned, Renderable*> colourMap;
+        // render selectable renderables
+        for ( t_RenderableMap::iterator it = renderLayers.begin();
+              it != renderLayers.end(); ++it )
         {
-            renderVisibilty( *itr, camera, colourMap, red, green, blue );
-            // set the visibility to false
-            ( *itr )->setVisCam( false );
+            for ( std::vector<Renderable*>::iterator itr = it->second.begin();
+                  itr != it->second.end(); ++itr)
+            {
+                renderVisibilty( *itr, camera, colourMap, red, green, blue );
+                // set the visibility to false
+                ( *itr )->setVisCam( false );
+            }
         }
-    }
 
-    m_visCheckRenTex.unbind();
+        m_visCheckRenTex.unbind();
 
-    std::cout << "render time: " << ( util::time::getCurrentTime() - t ) << std::endl;
+        // check the size of the buffer we're creating pixels in
+        unsigned bufferSize = static_cast<unsigned>(
+                3 *
+                m_visCheckRenTex.getResolution().x *
+                m_visCheckRenTex.getResolution().y
+        );
 
-    t = util::time::getCurrentTime();
-
-    // check the size of the buffer we're creating pixels in
-    unsigned bufferSize = static_cast<unsigned>(
-            3 *
-            m_visCheckRenTex.getResolution().x *
-            m_visCheckRenTex.getResolution().y
-    );
-    if ( m_visCheckBuffer.size() < bufferSize )
-    {
-        m_visCheckBuffer.resize( bufferSize );
-    }
-
-    // get the texture pixels
-    glBindTexture( GL_TEXTURE_2D, m_visCheckRenTex.getTextureId() );
-    glGetTexImage(
-            GL_TEXTURE_2D,
-            0,
-            GL_RGB,
-            GL_UNSIGNED_BYTE,
-            ( GLvoid* ) &m_visCheckBuffer[ 0 ]
-    );
-
-    // // TODO: this could be threaded??, pick up results at end of render
-    // go over pixels to mark the visible renderables
-    for ( unsigned i = 0; i < bufferSize; ++i )
-    {
-        // build the colour key
-        unsigned colour = static_cast<unsigned>( m_visCheckBuffer[ i ] );
-        colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 1 ] ) << 8;
-        colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 2] ) << 16;
-
-        // check if there is a renderable with this colour
-        if ( colourMap.find( colour ) != colourMap.end() )
+        if ( m_visCheckBuffer.size() < bufferSize )
         {
-            // tell the renderable that it is visible
-            colourMap[ colour ]->setVisCam( true );
+            m_visCheckBuffer.resize( bufferSize );
         }
-    }
 
-    std::cout << "check time: " << ( util::time::getCurrentTime() - t ) << std::endl;
+        // get the texture pixels
+        glBindTexture( GL_TEXTURE_2D, m_visCheckRenTex.getTextureId() );
+        glGetTexImage(
+                GL_TEXTURE_2D,
+                0,
+                GL_RGB,
+                GL_UNSIGNED_BYTE,
+                ( GLvoid* ) &m_visCheckBuffer[ 0 ]
+        );
 
-    // clear for normal rendering
-    glBindTexture( GL_TEXTURE_2D, 0 );
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // // TODO: this could be threaded??, pick up results at end of render
+        // go over pixels to mark the visible renderables
+        for ( unsigned i = 0; i < bufferSize; ++i )
+        {
+            // build the colour key
+            unsigned colour = static_cast<unsigned>( m_visCheckBuffer[ i ] );
+            colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 1 ] ) << 8;
+            colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 2] ) << 16;
 
+            // check if there is a renderable with this colour
+            if ( colourMap.find( colour ) != colourMap.end() )
+            {
+                // tell the renderable that it is visible
+                colourMap[ colour ]->setVisCam( true );
+            }
+        }
+
+        // clear for normal rendering
+        glBindTexture( GL_TEXTURE_2D, 0 );
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     //-------------------------------SHADOW PASS--------------------------------
@@ -505,7 +500,7 @@ void RenderLists::renderVisibilty(
     colour         |= static_cast<unsigned>( blue ) << 16;
 
     colourMap.insert( std::make_pair( colour, renderable ) );
-    renderable->renderSelectable( camera, red, green, blue );
+    renderable->renderVisCheck( camera, red, green, blue );
 }
 
 void RenderLists::buildLightData(

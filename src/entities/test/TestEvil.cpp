@@ -21,7 +21,14 @@ void TestEvil::init()
     m_mesh = omi::ResourceManager::getKeyFrameMesh(
             "test_evil_key", "", m_transform );
     // m_mesh->ignoreLight( "purple_point" );
+    m_mesh->setDoVisCheck( false );
     m_components.add( m_mesh );
+
+    m_visMesh =
+            omi::ResourceManager::getMesh( "test_evil_vis", "", m_transform );
+    m_visMesh->setDoVisCheck( true );
+    m_visMesh->setOnlyVisCheck( true );
+    m_components.add( m_visMesh );
 }
 
 void TestEvil::update()
@@ -46,7 +53,7 @@ void TestEvil::update()
     }
 
     // check if this is visible
-    if ( m_mesh->getVisCam() )
+    if ( m_visMesh->getVisCam() )
     {
         std::cout << "I see dead people" << std::endl;
     }

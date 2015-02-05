@@ -24,6 +24,7 @@ private:
 
     omi::Transform* m_transform;
     omi::KeyFrameMesh* m_mesh;
+    omi::Mesh* m_visMesh;
 
     float m_transTimer;
     bool m_trans;

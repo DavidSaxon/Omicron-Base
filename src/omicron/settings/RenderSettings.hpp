@@ -71,6 +71,12 @@ public:
     /** @return the resolution scale of the shadow map */
     float getShadowMapResolutionScale() const;
 
+    /** @return whether colour picking is used or not */
+    bool getColourPicking() const;
+
+    /** @return if render able visibility checking is on */
+    bool getVisibilityChecking() const;
+
     /** @return the amount of film grain */
     float getFilmGrain() const;
 
@@ -102,6 +108,12 @@ public:
 
     /** @param scale the scale of shadow map's resolution */
     void setShadowMapResolutionScale( float scale );
+
+    /** @param the state of colour picking */
+    void setColourPicking( bool state );
+
+    /** @param the state of visibility checking */
+    void setVisibilityChecking( bool state );
 
     /**@param filmGrain the amount of film grain to be applied to the final
               output */
@@ -137,6 +149,11 @@ private:
     float m_shadowFrustumSize;
     // the resolution of the shadow map
     float m_shadowMapResolutionScale;
+
+    // whether Omicron will do colour picking for selection
+    bool m_colourPicking;
+    // whether Omicron should check if renderables are visible or not
+    bool m_visibiltyChecking;
 
     // the amount of film grain to be applied to the final output
     float m_filmGrain;

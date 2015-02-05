@@ -32,16 +32,18 @@ Renderable::Renderable(
               Transform*   transform,
         const Material     material )
     :
-    Component  ( id ),
-    visible    ( true ),
-    castShadow ( true ),
-    gui        ( false ),
-    selectable ( false ),
-    selected   ( false ),
-    m_layer    ( layer ),
-    m_transform( transform ),
-    m_material ( material ),
-    m_visCam   ( false )
+    Component     ( id ),
+    visible       ( true ),
+    castShadow    ( true ),
+    gui           ( false ),
+    selectable    ( false ),
+    selected      ( false ),
+    m_layer       ( layer ),
+    m_transform   ( transform ),
+    m_material    ( material ),
+    m_doVisCheck  ( true ),
+    m_onlyVisCheck( false ),
+    m_visCam      ( false )
 {
 }
 
@@ -63,7 +65,10 @@ void Renderable::render(
         const LightData& lightData )
 {
     // only render if visible and there is a camera
-    if ( !visible || !m_material.isVisible() || camera == NULL)
+    if ( !visible                ||
+         !m_material.isVisible() ||
+         m_onlyVisCheck          ||
+         camera == NULL )
     {
         return;
     }
@@ -79,7 +84,11 @@ void Renderable::renderShadow( Camera* camera )
     // TODO: check if this projects shadows
 
     // only render if visible and there is a camera
-    if ( !visible || !m_material.isVisible() || camera == NULL || !castShadow )
+    if ( !visible                ||
+         !m_material.isVisible() ||
+         m_onlyVisCheck          ||
+         camera == NULL          ||
+         !castShadow )
     {
         return;
     }
@@ -103,7 +112,10 @@ void Renderable::renderShadow( Camera* camera )
 void Renderable::renderGlow( Camera* camera )
 {
     // only render if visible and there is a camera
-    if ( !visible || !m_material.isVisible() || camera == NULL)
+    if ( !visible                ||
+         !m_material.isVisible() ||
+         m_onlyVisCheck          ||
+         camera == NULL )
     {
         return;
     }
@@ -163,7 +175,62 @@ void Renderable::renderSelectable(
         unsigned char blue )
 {
     // don't bother rendering if there is no camera
-    if ( camera == NULL )
+    if ( camera == NULL          ||
+         !visible                ||
+         !m_material.isVisible() ||
+         m_onlyVisCheck )
+    {
+        return;
+    }
+
+    calculateMatrices( camera );
+
+    // shader shit
+    GLuint program = selectionShader.getProgram();
+    glUseProgram( program );
+    // matrix
+    glUniformMatrix4fv(
+        glGetUniformLocation( program, "u_modelViewProjectionMatrix" ),
+        1, GL_FALSE, &m_modelViewProjectionMatrix[0][0] );
+    // colour
+    glUniform4f(
+        glGetUniformLocation( program, "u_colour" ),
+        static_cast<float>( red )   / 255.0f,
+        static_cast<float>( green ) / 255.0f,
+        static_cast<float>( blue )  / 255.0f,
+        1.0f
+    );
+    // texture
+    if ( m_material.texture != NULL )
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 1 );
+        glBindTexture( GL_TEXTURE_2D, m_material.texture->getId() );
+    }
+    else
+    {
+        glUniform1i( glGetUniformLocation( program, "u_hasTexture" ), 0 );
+        glBindTexture( GL_TEXTURE_2D, 0 );
+    }
+
+    // draw
+    draw();
+
+    // clean up
+    glUseProgram( 0 );
+    glBindTexture( GL_TEXTURE_2D, 0 );
+}
+
+void Renderable::renderVisCheck(
+        Camera* camera,
+        unsigned char red,
+        unsigned char green,
+        unsigned char blue )
+{
+    // don't bother rendering if there is no camera
+    if ( camera == NULL          ||
+         !visible                ||
+         !m_material.isVisible() ||
+         !m_doVisCheck )
     {
         return;
     }
@@ -232,6 +299,16 @@ Material& Renderable::getMaterial()
     return m_material;
 }
 
+bool Renderable::getDoVisCheck() const
+{
+    return m_doVisCheck;
+}
+
+bool Renderable::getOnlyVisCheck() const
+{
+    return m_onlyVisCheck;
+}
+
 bool Renderable::getVisCam() const
 {
     return m_visCam;
@@ -247,6 +324,16 @@ void Renderable::setLayer( int layer )
 void Renderable::setTransform( Transform* transform )
 {
     m_transform = transform;
+}
+
+void Renderable::setDoVisCheck( bool state )
+{
+    m_doVisCheck = state;
+}
+
+void Renderable::setOnlyVisCheck( bool state )
+{
+    m_onlyVisCheck = state;
 }
 
 void Renderable::setVisCam( bool vis )

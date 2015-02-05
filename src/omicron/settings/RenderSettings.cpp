@@ -17,6 +17,8 @@ RenderSettings::RenderSettings() :
     m_shadows                 ( false ),
     m_shadowFrustumSize       ( 20.0f ),
     m_shadowMapResolutionScale( 4.0f ),
+    m_colourPicking           ( true ),
+    m_visibiltyChecking       ( false ),
     m_filmGrain               ( 0.0f )
 {
 }
@@ -72,6 +74,16 @@ float RenderSettings::getShadowMapResolutionScale() const
     return m_shadowMapResolutionScale;
 }
 
+bool RenderSettings::getColourPicking() const
+{
+    return m_colourPicking;
+}
+
+bool RenderSettings::getVisibilityChecking() const
+{
+    return m_visibiltyChecking;
+}
+
 float RenderSettings::getFilmGrain() const
 {
     return m_filmGrain;
@@ -124,16 +136,31 @@ void RenderSettings::setShadows( bool shadows )
 
 void RenderSettings::setShadowFrustumSize( float frustumSize )
 {
+    m_change = true;
     m_shadowFrustumSize = frustumSize;
 }
 
 void RenderSettings::setShadowMapResolutionScale( float scale )
 {
+    m_change = true;
     m_shadowMapResolutionScale = scale;
+}
+
+void RenderSettings::setColourPicking( bool state )
+{
+    m_change = true;
+    m_colourPicking = state;
+}
+
+void RenderSettings::setVisibilityChecking( bool state )
+{
+    m_change = true;
+    m_visibiltyChecking = state;
 }
 
 void RenderSettings::setFilmGrain( float filmGrain )
 {
+    m_change = true;
     m_filmGrain = filmGrain;
 }
 

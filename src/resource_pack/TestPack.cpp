@@ -162,7 +162,22 @@ void buildTestPack()
         "res/gfx/texture/test/evil.png",
         1,
         "res/gfx/geometry/test/evil/evil.key"
+    );
 
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "test_evil_vis", resource_group::TEST,
+        "default_shader",
+        glm::vec4( 1.0f, 0.0f, 0.0f, 1.0f ),
+        "res/gfx/geometry/test/evil_vis.obj",
+        1
+    );
+
+    omi::ResourceManager::addMaterialGeometryMesh(
+        "test_monkey", resource_group::TEST,
+        "default_shader",
+        glm::vec4( 1.0f, 0.0f, 0.0f, 1.0f ),
+        "res/gfx/geometry/test/monkey.obj",
+        2
     );
 }
 
