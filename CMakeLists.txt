@@ -80,6 +80,7 @@ set(SRCS
     src/entities/test/Monkey.cpp
     src/entities/test/TestEnvironment.cpp
     src/entities/test/TestEvil.cpp
+    src/entities/test/TestFps.cpp
     src/entities/test/TestPlayer.cpp
     src/entities/test/TestSun.cpp
 

@@ -35,7 +35,10 @@ Text::Text(
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void Text::render( Camera* camera, const LightData& lightData )
+void Text::render(
+        Camera* camera,
+        Camera* shadowCamera,
+        const LightData& lightData )
 {
     // TODO: this might need to be done elsewhere since glow passes will be
     // behind

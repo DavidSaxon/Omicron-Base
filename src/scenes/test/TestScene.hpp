@@ -10,6 +10,7 @@
 #include "src/entities/test/Monkey.hpp"
 #include "src/entities/test/TestEnvironment.hpp"
 #include "src/entities/test/TestEvil.hpp"
+#include "src/entities/test/TestFps.hpp"
 #include "src/entities/test/TestPlayer.hpp"
 #include "src/entities/test/TestSun.hpp"
 

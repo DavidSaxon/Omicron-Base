@@ -43,7 +43,10 @@ public:
     //--------------------------------------------------------------------------
 
     /** #Override */
-    virtual void render( Camera* camera, const LightData& lightData );
+    virtual void render(
+            Camera* camera,
+            Camera* shadowCamera,
+            const LightData& lightData );
 
     // TODO: font selectable
 

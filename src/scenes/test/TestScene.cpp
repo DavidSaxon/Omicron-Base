@@ -19,6 +19,7 @@ void TestScene::init()
     omi::renderSettings.setFilmGrain( 0.075f );
 
     // add entities
+    addEntity( new TestFps() );
     addEntity( new TestPlayer() );
     addEntity( new TestEnvironment() );
     addEntity( new TestSun() );
