@@ -27,6 +27,7 @@ set(SRCS
     src/omicron/physics/collision_detect/CollisionDetect.cpp
     src/omicron/rendering/Renderer.cpp
     src/omicron/rendering/RenderLists.cpp
+    src/omicron/rendering/VisibilityCheckThread.cpp
     src/omicron/rendering/lighting/ShadowMap.cpp
     src/omicron/rendering/render_texture/FinalRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowBlurHorRenderTexture.cpp
@@ -86,19 +87,26 @@ set(SRCS
 
 )
 
+find_package(Boost)
+
 set(BASEPATH "${CMAKE_SOURCE_DIR}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++0x -DGL_GLEXT_PROTOTYPES")
 
-find_package(Freetype REQUIRED)
-include_directories("${BASEPATH}" ${INCLUDE_DIRECTORIES} ${FREETYPE_INCLUDE_DIRS})
+add_definitions(-DBOOST_TEST_DYN_LINK)
 
-link_directories(${LINK_DIRECTORIES})
+find_package(Freetype REQUIRED)
+include_directories("${BASEPATH}" ${INCLUDE_DIRECTORIES} ${FREETYPE_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+
+link_directories(${LINK_DIRECTORIES} ${Boost_LIBRARY_DIRS})
 
 add_executable(TestRun ${SRCS})
 
 target_link_libraries(TestRun
 
+    ${Boost_LIBRARIES}
+    -lboost_system
+    -lboost_thread
     -lGL
     -lGLU
     -lGLEW

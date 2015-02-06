@@ -174,8 +174,11 @@ void RenderLists::render( Camera* camera )
 
     //-----------------------------VISIBILITY PASS------------------------------
 
-    if ( renderSettings.getVisibilityChecking() )
+    if ( renderSettings.getVisibilityChecking() && vis_check::ready )
     {
+        // REMOVE ME
+        std::cout << "DO VIS CHECK" << std::endl;
+
         // bind the visibility check render texture
         m_visCheckRenTex.bind();
 
@@ -185,7 +188,7 @@ void RenderLists::render( Camera* camera )
         unsigned char green = 125;
         unsigned char blue  = 125;
         // a mapping from colour to renderables
-        std::map<unsigned, Renderable*> colourMap;
+        m_visColourMap.clear();
         // render selectable renderables
         for ( t_RenderableMap::iterator it = renderLayers.begin();
               it != renderLayers.end(); ++it )
@@ -193,7 +196,7 @@ void RenderLists::render( Camera* camera )
             for ( std::vector<Renderable*>::iterator itr = it->second.begin();
                   itr != it->second.end(); ++itr)
             {
-                renderVisibilty( *itr, camera, colourMap, red, green, blue );
+                renderVisibilty( *itr, camera, m_visColourMap, red, green, blue );
                 // set the visibility to false
                 ( *itr )->setVisCam( false );
             }
@@ -223,22 +226,12 @@ void RenderLists::render( Camera* camera )
                 ( GLvoid* ) &m_visCheckBuffer[ 0 ]
         );
 
-        // // TODO: this could be threaded??, pick up results at end of render
-        // go over pixels to mark the visible renderables
-        for ( unsigned i = 0; i < bufferSize; ++i )
-        {
-            // build the colour key
-            unsigned colour = static_cast<unsigned>( m_visCheckBuffer[ i ] );
-            colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 1 ] ) << 8;
-            colour |= static_cast<unsigned>( m_visCheckBuffer[ i + 2] ) << 16;
-
-            // check if there is a renderable with this colour
-            if ( colourMap.find( colour ) != colourMap.end() )
-            {
-                // tell the renderable that it is visible
-                colourMap[ colour ]->setVisCam( true );
-            }
-        }
+        // TODO unique pointer
+        // check the pixel buffer off in another thread
+        vis_check::buffer = &m_visCheckBuffer;
+        m_visCheckThread = std::unique_ptr<boost::thread>(
+                new boost::thread( vis_check::sortVisible ) );
+        // boost::thread worker( vis_check::sortVisible() )
 
         // clear for normal rendering
         glBindTexture( GL_TEXTURE_2D, 0 );
@@ -378,6 +371,27 @@ void RenderLists::render( Camera* camera )
     if ( renderSettings.getDepthTest() )
     {
         glEnable( GL_DEPTH_TEST );
+    }
+
+    //---------------------------VISIBLE THREAD JOIN----------------------------
+
+    // check if the visibility thread is done
+    if ( !renderSettings.getVisibilityChecking() || !vis_check::ready )
+    {
+        return;
+    }
+
+    m_visCheckThread->join();
+
+    // go over each colour and tell the renderable that's visible
+    for ( std::set<unsigned>::iterator it = vis_check::visibleSet.begin();
+          it != vis_check::visibleSet.end(); ++it )
+    {
+        if ( m_visColourMap.find( *it ) != m_visColourMap.end() )
+        {
+            // tell the renderable that it is visible
+            m_visColourMap[ *it ]->setVisCam( true );
+        }
     }
 }
 

@@ -3,8 +3,10 @@
 
 #include <algorithm>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <vector>
+#include <boost/thread.hpp>
 
 #include "lib/Utilitron/MacroUtil.hpp"
 
@@ -13,6 +15,7 @@
 #include "src/omicron/component/light/SpotLight.hpp"
 #include "src/omicron/component/renderable/Renderable.hpp"
 #include "src/omicron/input/Input.hpp"
+#include "src/omicron/rendering/VisibilityCheckThread.hpp"
 #include "src/omicron/rendering/lighting/ShadowMap.hpp"
 #include "src/omicron/rendering/render_texture/FinalRenderTexture.hpp"
 #include "src/omicron/rendering/render_texture/GlowBlurHorRenderTexture.hpp"
@@ -131,8 +134,12 @@ private:
     // the depth sorter
     RenderableDepthSorter depthSorter;
 
+    // the thread for visibility checking
+    std::unique_ptr<boost::thread> m_visCheckThread;
     // the pixel buffer for visibility checking
     std::vector<GLubyte> m_visCheckBuffer;
+    // the visibility checking colour map
+    std::map<unsigned, Renderable*> m_visColourMap;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
