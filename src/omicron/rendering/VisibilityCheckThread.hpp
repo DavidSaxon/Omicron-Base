@@ -4,6 +4,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include <boost/thread/mutex.hpp>
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
@@ -16,6 +17,9 @@ namespace vis_check {
 //------------------------------------------------------------------------------
 //                                   VARIABLES
 //------------------------------------------------------------------------------
+
+// the mutex to ensure thread safety
+extern boost::mutex mutex;
 
 // if the function is available to run
 extern bool ready;

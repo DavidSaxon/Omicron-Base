@@ -8,6 +8,7 @@ namespace vis_check {
 //                                   VARIABLES
 //------------------------------------------------------------------------------
 
+boost::mutex mutex;
 bool ready = true;
 bool sort = false;
 std::vector<GLubyte>* buffer = NULL;
@@ -17,17 +18,33 @@ void sortVisible()
 {
     while ( true )
     {
-        if ( sort )
+        // lock and get the state of the sort variable
+        bool safe_sort = false;
         {
-            ready = false;
-            sort = false;
-            visibleSet.clear();
-            if ( buffer == NULL )
+            boost::unique_lock<boost::mutex> lock( mutex );
+            safe_sort = sort;
+        }
+
+        // check if we need sort the buffer
+        if ( safe_sort )
+        {
+            // lock and update fields
             {
-                ready = true;
-                return;
+                boost::unique_lock<boost::mutex> lock( mutex );
+                // exit if we've been given no data
+                if ( buffer == NULL || buffer->empty() )
+                {
+                    return;
+                }
+
+                ready = false;
+                sort = false;
             }
 
+            // clear any previous work
+            visibleSet.clear();
+
+            // sort the buffer
             for ( unsigned i = 0; i < buffer->size(); ++i )
             {
                 // build the colour key
@@ -39,7 +56,11 @@ void sortVisible()
                 visibleSet.insert( colour );
             }
 
-            ready = true;
+            // lock and update fields
+            {
+                boost::unique_lock<boost::mutex> lock( mutex );
+                ready = true;
+            }
         }
         else
         {
