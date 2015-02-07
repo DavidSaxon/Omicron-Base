@@ -177,7 +177,9 @@ void RenderLists::render( Camera* camera )
 
     if ( renderSettings.getVisibilityChecking() && vis_check::ready )
     {
-        std::cout << "VIS CHECK!!!!!!!!!!!!!!!!!" << std::endl;
+        std::cout << "VIS CHECK" << std::endl;
+
+        util::time::sleep( 500 );
 
         // bind the visibility check render texture
         m_visCheckRenTex.bind();
@@ -378,6 +380,8 @@ void RenderLists::render( Camera* camera )
         return;
     }
 
+    std::cout << "JOIN" << std::endl;
+
     // go over each colour and tell the renderable that's visible
     for ( std::set<unsigned>::iterator it = vis_check::visibleSet.begin();
           it != vis_check::visibleSet.end(); ++it )
@@ -389,7 +393,7 @@ void RenderLists::render( Camera* camera )
         }
     }
 
-    vis_check::buffer = NULL;
+    // vis_check::buffer = NULL;
 }
 
 void RenderLists::clear()
