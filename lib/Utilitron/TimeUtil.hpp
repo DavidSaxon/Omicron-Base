@@ -6,6 +6,12 @@
 
 #include "lib/Utilitron/TypeUtil.hpp"
 
+#ifdef OS_WINDOWS
+#   include <windows.h>
+#else
+#   include <unistd.h>
+#endif
+
 namespace util {
 
 /************************************\
@@ -19,10 +25,22 @@ namespace time {
 
 //! the number of milliseconds in a second
 static const float MS_IN_SEC = 1000.0f;
+//! the number of microseconds in a millisecond
+static const float US_IN_MS  = 1000.0f;
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
+
+/** Causes this thread to sleep for the given number of milliseconds */
+inline void sleep( unsigned ms )
+{
+#ifdef OS_WINDOWS
+    Sleep( ms );
+#else
+    usleep( ms * static_cast<unsigned>( US_IN_MS ) );
+#endif
+}
 
 /** @return the time passed since the first of January 1970 */
 inline boost::posix_time::ptime getEpoch() {

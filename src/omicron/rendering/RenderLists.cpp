@@ -13,7 +13,8 @@ static const unsigned MAX_LIGHTS = 8;
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-RenderLists::RenderLists()
+RenderLists::RenderLists() :
+    m_visCheckThread( new boost::thread( vis_check::sortVisible ) )
 {
 }
 
@@ -176,8 +177,7 @@ void RenderLists::render( Camera* camera )
 
     if ( renderSettings.getVisibilityChecking() && vis_check::ready )
     {
-        // REMOVE ME
-        std::cout << "DO VIS CHECK" << std::endl;
+        std::cout << "VIS CHECK!!!!!!!!!!!!!!!!!" << std::endl;
 
         // bind the visibility check render texture
         m_visCheckRenTex.bind();
@@ -226,12 +226,9 @@ void RenderLists::render( Camera* camera )
                 ( GLvoid* ) &m_visCheckBuffer[ 0 ]
         );
 
-        // TODO unique pointer
         // check the pixel buffer off in another thread
         vis_check::buffer = &m_visCheckBuffer;
-        m_visCheckThread = std::unique_ptr<boost::thread>(
-                new boost::thread( vis_check::sortVisible ) );
-        // boost::thread worker( vis_check::sortVisible() )
+        vis_check::sort = true;
 
         // clear for normal rendering
         glBindTexture( GL_TEXTURE_2D, 0 );
@@ -381,8 +378,6 @@ void RenderLists::render( Camera* camera )
         return;
     }
 
-    m_visCheckThread->join();
-
     // go over each colour and tell the renderable that's visible
     for ( std::set<unsigned>::iterator it = vis_check::visibleSet.begin();
           it != vis_check::visibleSet.end(); ++it )
@@ -393,6 +388,8 @@ void RenderLists::render( Camera* camera )
             m_visColourMap[ *it ]->setVisCam( true );
         }
     }
+
+    vis_check::buffer = NULL;
 }
 
 void RenderLists::clear()

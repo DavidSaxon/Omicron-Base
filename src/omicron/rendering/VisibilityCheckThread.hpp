@@ -7,6 +7,8 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
+#include "lib/Utilitron/TimeUtil.hpp"
+
 namespace omi {
 
 namespace vis_check {
@@ -17,6 +19,8 @@ namespace vis_check {
 
 // if the function is available to run
 extern bool ready;
+// set to run sorting
+extern bool sort;
 // a pointer to the buffer to sort
 extern std::vector<GLubyte>* buffer;
 // the set of colour keys of renderables that are visible
