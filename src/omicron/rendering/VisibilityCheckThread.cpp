@@ -16,7 +16,7 @@ std::set<unsigned> visibleSet;
 
 void sortVisible()
 {
-    SetThreadPriority( GetCurrentThread(), THREAD_PRIORITY_NORMAL );
+    util::thread::setCurrentPriority( 0 );
 
     while ( true )
     {

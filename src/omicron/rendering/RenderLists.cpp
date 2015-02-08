@@ -25,7 +25,8 @@ RenderLists::RenderLists()
 
 void RenderLists::render( Camera* camera )
 {
-    SetThreadPriority( GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL );
+    // sure that the thread that is rendering is high priority
+    util::thread::setCurrentPriority( 15 );
 
     //----------------------------RENDERABLES UPDATE----------------------------
 
