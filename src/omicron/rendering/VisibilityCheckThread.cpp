@@ -16,6 +16,8 @@ std::set<unsigned> visibleSet;
 
 void sortVisible()
 {
+    SetThreadPriority( GetCurrentThread(), THREAD_PRIORITY_NORMAL );
+
     while ( true )
     {
         // lock and get the state of the sort variable

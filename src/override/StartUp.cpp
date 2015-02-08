@@ -7,6 +7,9 @@ namespace start_up {
 
 omi::Scene* init() {
 
+    // system settings
+    omi::systemSettings.enableForcedLag( true );
+
     // display settings
     omi::displaySettings.setSize( glm::vec2( 960, 540 ) );
     omi::displaySettings.setPos( glm::vec2( 250, 330 ) );

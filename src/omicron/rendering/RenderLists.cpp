@@ -13,7 +13,8 @@ static const unsigned MAX_LIGHTS = 8;
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-RenderLists::RenderLists() :
+RenderLists::RenderLists()
+    :
     m_visCheckThread( new boost::thread( vis_check::sortVisible ) )
 {
 }
@@ -24,6 +25,8 @@ RenderLists::RenderLists() :
 
 void RenderLists::render( Camera* camera )
 {
+    SetThreadPriority( GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL );
+
     //----------------------------RENDERABLES UPDATE----------------------------
 
     // iterate over all renderables and update them
@@ -183,8 +186,6 @@ void RenderLists::render( Camera* camera )
         // only do visibilty checking if the thread is available
         if ( vis_check::ready )
         {
-            std::cout << "VIS CHECK" << std::endl;
-
             // bind the visibility check render texture
             m_visCheckRenTex.bind();
 
@@ -209,8 +210,6 @@ void RenderLists::render( Camera* camera )
                             green,
                             blue
                     );
-                    // set the visibility to false
-                    ( *itr )->setVisCam( false );
                 }
             }
 
@@ -385,16 +384,32 @@ void RenderLists::render( Camera* camera )
 
     //---------------------------VISIBLE THREAD JOIN----------------------------
 
-    // lock so we have access to the vis checking thread
-    boost::unique_lock<boost::mutex> lock( vis_check::mutex );
-
-    // check if the visibility thread is done
-    if ( !renderSettings.getVisibilityChecking() || !vis_check::ready )
+    if ( !renderSettings.getVisibilityChecking() )
     {
         return;
     }
 
-    std::cout << "JOIN" << std::endl;
+    // TODO: MOVE THIS UP
+
+    // lock so we have access to the vis checking thread
+    boost::unique_lock<boost::mutex> lock( vis_check::mutex );
+
+    // check if the visibility thread is done
+    if ( !vis_check::ready )
+    {
+        return;
+    }
+
+    // clear the visibility on renderables
+    for ( t_RenderableMap::iterator it = renderLayers.begin();
+          it != renderLayers.end(); ++it )
+    {
+        for ( std::vector<Renderable*>::iterator itr =
+              it->second.begin(); itr != it->second.end(); ++itr )
+        {
+            ( *itr )->setVisCam( false );
+        }
+    }
 
     // go over each colour and tell the renderable that's visible
     for ( std::set<unsigned>::iterator it = vis_check::visibleSet.begin();

@@ -52,6 +52,18 @@ public:
     /** @return the position the mouse is locked */
     const glm::vec2& getCursorLockedPos() const;
 
+    /** @return of enforced lag is enabled */
+    bool isEnforcedLagEnabled() const;
+
+    /** @return the first enforced lag interval */
+    unsigned getEnforcedLag1() const;
+
+    /** @return the second enforced lag interval */
+    unsigned getEnforcedLag2() const;
+
+    /** @return the third enforced lag interval */
+    unsigned getEnforcedLag3() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** Sets if the cursor should be hidden */
@@ -63,6 +75,18 @@ public:
     /** Sets the position the cursor should be locked to if locking is
     enabled */
     void setCursorLockPosition( const glm::vec2& pos );
+
+    /** sets whether enforced lag is enabled */
+    void enableForcedLag( bool state );
+
+    /** sets the first enforced lag interval */
+    void setEnforcedLag1( unsigned interval );
+
+    /** sets the second enforced lag interval */
+    void setEnforcedLag2( unsigned interval );
+
+    /** sets the third enforced lag interval */
+    void setEnforcedLag3( unsigned interval );
 
 private:
 
@@ -79,6 +103,13 @@ private:
     bool m_cursorLocked;
     // the position to lock the cursor to if locking is enabled
     glm::vec2 m_cursorLockPos;
+
+    // if turned on f9-10 will cause the game to lag at different ms intervals
+    bool m_enableEnforcedLag;
+    // the 3 different enforced lag intervals
+    unsigned m_enforcedLag1;
+    unsigned m_enforcedLag2;
+    unsigned m_enforcedLag3;
 };
 
 } // namespace omi

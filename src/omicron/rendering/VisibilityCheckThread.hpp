@@ -8,6 +8,8 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 
+#include <windows.h>
+
 #include "lib/Utilitron/TimeUtil.hpp"
 
 namespace omi {
