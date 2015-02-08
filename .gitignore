@@ -1,0 +1,15 @@
+Omicron-Base.exe
+Omicron-Base.vcxproj
+Omicron-Base.vcxproj.filters
+Omicron-Base.vcxproj.user
+CMakeCache.txt
+Makefile
+TestRun
+cmake_install.cmake
+CmakeFiles
+Release
+Debug
+TODO.txt
+Omicron-Base.exr
+Omicron-Base.pdb
+Fonts.txt
