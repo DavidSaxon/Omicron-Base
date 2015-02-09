@@ -1,5 +1,7 @@
 #include "Loaders.hpp"
 
+#include "src/omicron/resource/loader/GeoThread.hpp"
+
 namespace omi {
 
 namespace loader {
@@ -171,6 +173,9 @@ void geoFromKeyFrameWavefront(
         parentPath = path.substr( 0, ultimateSlash + 1 );
     }
 
+    // this is a list of all threads we're using to load
+    std::vector< std::unique_ptr<boost::thread> > loadingThreads;
+
     // open the file
     std::ifstream file( path.c_str() );
 
@@ -226,7 +231,24 @@ void geoFromKeyFrameWavefront(
                 // load geometry
                 std::stringstream ss;
                 ss << geoPath << i << ".obj";
-                geoList.push_back( geoFromWavefront( ss.str() ) );
+
+                // create the Geometry object
+                Geometry* geo = new Geometry();
+                geoList.push_back( geo );
+                // create a thread
+                loadingThreads.push_back(
+                    std::unique_ptr<boost::thread>(
+                        new boost::thread(
+                            geo_thread::concurrentLoadGeo,
+                            ss.str(),
+                            geo
+                        )
+                    )
+                );
+
+                // TODI : REMOVE ME??
+                // geoList.push_back( geoFromWavefront( ss.str() ) );
+
                 // store frame number
                 frameList.push_back( atoi( elements[i].c_str() ) );
             }
@@ -236,9 +258,6 @@ void geoFromKeyFrameWavefront(
             frameMap.insert( std::make_pair( aniName, frameList ) );
 
             // TODO: case where there are no transitions
-
-            // TODO: store transition data
-
         }
         // unknown line
         else if ( line.length() > 0 )
@@ -252,7 +271,11 @@ void geoFromKeyFrameWavefront(
         }
     }
 
-    // TODO:
+    // wait for all loading threads to finish
+    for ( unsigned i = 0; i < loadingThreads.size(); ++i )
+    {
+        loadingThreads[i]->join();
+    }
 }
 
 } // namespace loader

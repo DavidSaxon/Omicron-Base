@@ -37,6 +37,11 @@ public:
     //                                CONSTRUCTORS
     //--------------------------------------------------------------------------
 
+    /** Creates new empty geometry */
+    Geometry()
+    {
+    }
+
     /** Creates a new collection of geometry data using the given data
     @param a_vertices the vertices of the geometry
     @param a_uv the UV coordinates of the geometry
@@ -69,6 +74,8 @@ public:
         vertices = other.vertices;
         uv       = other.uv;
         normals  = other.normals;
+
+        return *this;
     }
 };
 

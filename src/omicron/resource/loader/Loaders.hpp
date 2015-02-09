@@ -1,11 +1,13 @@
 #ifndef OMICRON_RESOURCE_LOADER_LOADERS_H_
 #   define OMICRON_RESOURCE_LOADER_LOADERS_H_
 
+#include <boost/thread.hpp>
 #include <fstream>
 #include <GL/glew.h>
 #include <iostream>
 #include <IL/il.h>
 #include <map>
+#include <memory>
 #include <SFML/OpenGL.hpp>
 #include <sstream>
 

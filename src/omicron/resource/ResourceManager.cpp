@@ -26,6 +26,9 @@ void ResourceManager::init()
 
 void ResourceManager::load (resource_group::ResourceGroup resourceGroup )
 {
+    // REMOVE ME
+    util::int64 t = util::time::getCurrentTime();
+
     for ( unsigned i = 0; i < m_resources.size(); ++i )
     {
         for ( t_ResourceGroup::iterator it =  m_resources[i].begin();
@@ -40,6 +43,9 @@ void ResourceManager::load (resource_group::ResourceGroup resourceGroup )
             }
         }
     }
+
+    // REMOVE ME
+    std::cout << "LOAD TIME: " << util::time::getCurrentTime() - t << std::endl;
 }
 
 void ResourceManager::release(resource_group::ResourceGroup resourceGroup) {
