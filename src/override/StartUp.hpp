@@ -2,6 +2,7 @@
 #   define OMICRON_OVERRIDE_STARTUP_H_
 
 #include "src/omicron/Omicron.hpp"
+#include "src/omicron/resource/ResourceServer.hpp"
 #include "src/omicron/scene/Scene.hpp"
 
 #include "src/scenes/start_up/StartUpScene.hpp"

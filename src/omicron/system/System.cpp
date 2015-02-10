@@ -16,6 +16,7 @@
 #include "src/omicron/logic/LogicManager.hpp"
 #include "src/omicron/physics/collision_detect/CollisionDetect.hpp"
 #include "src/omicron/rendering/Renderer.hpp"
+#include "src/omicron/resource/ResourceServer.hpp"
 #include "src/omicron/scene/Scene.hpp"
 #include "src/override/StartUp.hpp"
 #include "src/resource_pack/Packs.hpp"
@@ -193,6 +194,9 @@ void init() {
 
     // create the renderer
     renderer = std::unique_ptr<Renderer>(new Renderer());
+
+    // initialise the resource server
+    ResourceServer::init();
 
     // initialise the resource manager
     ResourceManager::init();

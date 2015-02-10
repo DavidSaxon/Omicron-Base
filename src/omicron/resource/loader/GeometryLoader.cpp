@@ -1,5 +1,6 @@
 #include "Loaders.hpp"
 
+#include "src/omicron/resource/ResourceServer.hpp"
 #include "src/omicron/resource/loader/GeoThread.hpp"
 
 namespace omi {
@@ -23,6 +24,13 @@ Geometry* geoFromWavefront(const std::string& filePath) {
 
     // open the file
     std::ifstream file(filePath.c_str());
+
+    // open the file using the resource server
+    VirtualFile vFile;
+    ResourceServer::get( filePath, vFile );
+
+    // iterate over the file
+    // TODO:
 
     // iterate over the file
     while (file.good()) {
@@ -232,22 +240,22 @@ void geoFromKeyFrameWavefront(
                 std::stringstream ss;
                 ss << geoPath << i << ".obj";
 
-                // create the Geometry object
-                Geometry* geo = new Geometry();
-                geoList.push_back( geo );
-                // create a thread
-                loadingThreads.push_back(
-                    std::unique_ptr<boost::thread>(
-                        new boost::thread(
-                            geo_thread::concurrentLoadGeo,
-                            ss.str(),
-                            geo
-                        )
-                    )
-                );
+                // // create the Geometry object
+                // Geometry* geo = new Geometry();
+                // geoList.push_back( geo );
+                // // create a thread
+                // loadingThreads.push_back(
+                //     std::unique_ptr<boost::thread>(
+                //         new boost::thread(
+                //             geo_thread::concurrentLoadGeo,
+                //             ss.str(),
+                //             geo
+                //         )
+                //     )
+                // );
 
-                // TODI : REMOVE ME??
-                // geoList.push_back( geoFromWavefront( ss.str() ) );
+                // TODO : REMOVE ME??
+                geoList.push_back( geoFromWavefront( ss.str() ) );
 
                 // store frame number
                 frameList.push_back( atoi( elements[i].c_str() ) );

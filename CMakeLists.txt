@@ -42,6 +42,9 @@ set(SRCS
     src/omicron/rendering/shading/Texture.cpp
     src/omicron/rendering/shading/material_property/Glow.cpp
     src/omicron/rendering/shading/material_property/Specular.cpp
+    src/omicron/resource/ResourceManager.cpp
+    src/omicron/resource/ResourceServer.cpp
+    src/omicron/resource/VirtualFile.cpp
     src/omicron/resource/loader/FontLoader.cpp
     src/omicron/resource/loader/GeometryLoader.cpp
     src/omicron/resource/loader/ShaderLoader.cpp
@@ -56,7 +59,6 @@ set(SRCS
     src/omicron/resource/type/SoundResource.cpp
     src/omicron/resource/type/TextResource.cpp
     src/omicron/resource/type/TextureResource.cpp
-    src/omicron/resource/ResourceManager.cpp
     src/omicron/scene/Scene.cpp
     src/omicron/settings/AudioSettings.cpp
     src/omicron/settings/DisplaySettings.cpp
