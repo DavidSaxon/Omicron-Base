@@ -22,6 +22,8 @@ namespace vis_check {
 // the mutex to ensure thread safety
 extern boost::mutex mutex;
 
+// true to kill the thread
+extern bool kill;
 // if the function is available to run
 extern bool ready;
 // set to run sorting

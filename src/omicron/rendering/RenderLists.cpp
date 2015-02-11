@@ -20,6 +20,19 @@ RenderLists::RenderLists()
 }
 
 //------------------------------------------------------------------------------
+//                                   DESTRUCTOR
+//------------------------------------------------------------------------------
+
+RenderLists::~RenderLists()
+{
+    // make sure we kill the visibility checking thread
+    {
+        boost::unique_lock<boost::mutex> lock( vis_check::mutex );
+        vis_check::kill = true;
+    }
+}
+
+//------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 

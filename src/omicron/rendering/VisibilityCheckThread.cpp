@@ -9,6 +9,7 @@ namespace vis_check {
 //------------------------------------------------------------------------------
 
 boost::mutex mutex;
+bool kill = false;
 bool ready = true;
 bool sort = false;
 std::vector<GLubyte>* buffer = NULL;
@@ -18,7 +19,7 @@ void sortVisible()
 {
     util::thread::setCurrentPriority( 0 );
 
-    while ( true )
+    while ( !kill )
     {
         // lock and get the state of the sort variable
         bool safe_sort = false;
