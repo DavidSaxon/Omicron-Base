@@ -22,23 +22,16 @@ Geometry* geoFromWavefront(const std::string& filePath) {
     t_UVArray     sortedUV;
     t_NormalArray sortedNormals;
 
-    // open the file
-    std::ifstream file(filePath.c_str());
-
     // open the file using the resource server
-    VirtualFile vFile;
-    ResourceServer::get( filePath, vFile );
+    VirtualFile file;
+    ResourceServer::get( filePath, file );
 
     // iterate over the file
-    // TODO:
-
-    // iterate over the file
-    while (file.good()) {
-
-        // get the current line as a string
-        char lineBuffer[1024];
-        file.getline(lineBuffer, 1024);
-        std::string line(lineBuffer);
+    while ( file.hasNextLine() )
+    {
+        // get the current line
+        std::string line;
+        file.nextLine( line );
 
         // split the line
         std::vector<std::string> elements;
@@ -240,22 +233,22 @@ void geoFromKeyFrameWavefront(
                 std::stringstream ss;
                 ss << geoPath << i << ".obj";
 
-                // // create the Geometry object
-                // Geometry* geo = new Geometry();
-                // geoList.push_back( geo );
-                // // create a thread
-                // loadingThreads.push_back(
-                //     std::unique_ptr<boost::thread>(
-                //         new boost::thread(
-                //             geo_thread::concurrentLoadGeo,
-                //             ss.str(),
-                //             geo
-                //         )
-                //     )
-                // );
+                // create the Geometry object
+                Geometry* geo = new Geometry();
+                geoList.push_back( geo );
+                // create a thread
+                loadingThreads.push_back(
+                    std::unique_ptr<boost::thread>(
+                        new boost::thread(
+                            geo_thread::concurrentLoadGeo,
+                            ss.str(),
+                            geo
+                        )
+                    )
+                );
 
                 // TODO : REMOVE ME??
-                geoList.push_back( geoFromWavefront( ss.str() ) );
+                // geoList.push_back( geoFromWavefront( ss.str() ) );
 
                 // store frame number
                 frameList.push_back( atoi( elements[i].c_str() ) );

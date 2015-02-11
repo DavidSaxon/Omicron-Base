@@ -1,6 +1,7 @@
 #ifndef OMICRON_RESOURCE_VIRTUALFILE_HPP_
 #   define OMICRON_RESOURCE_VIRTUALFILE_HPP_
 
+#include <iostream>
 #include <string>
 
 #include "lib/Utilitron/MacroUtil.hpp"
@@ -61,10 +62,8 @@ private:
     // the current cursor position
     unsigned m_cursor;
 
-    // // if the first line has been found
-    // bool m_foundFirstLine;
-    // // the next line in the file
-    // std::string
+    // is true if there is another line in the file
+    bool m_hasNextLine;
 };
 
 } // namespace omi

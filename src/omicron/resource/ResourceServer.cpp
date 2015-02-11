@@ -55,7 +55,7 @@ void ResourceServer::readFromDisk( const std::string& path, VirtualFile& file )
     rewind( f );
 
     // allocate a char array to store the file data in
-    char* buffer = ( char* ) malloc( sizeof( char ) * size );
+    char* buffer = ( char* ) malloc( sizeof( char ) * ( size + 1 ) );
     if ( buffer == NULL )
     {
         std::cout << "Resource server failed to allocate memory for file "
@@ -74,6 +74,8 @@ void ResourceServer::readFromDisk( const std::string& path, VirtualFile& file )
         // TODO: throw an exception
         return;
     }
+    // make sure it's null terminated
+    buffer[ size ] = '\0';
 
     // close the file
     fclose( f );
