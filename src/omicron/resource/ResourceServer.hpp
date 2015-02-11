@@ -3,7 +3,9 @@
 
 #define _CRT_SECURE_NO_DEPRECATE
 
+#include <fstream>
 #include <iostream>
+#include <map>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -44,9 +46,17 @@ private:
     // is true to load files from the resource library
     static bool m_loadFromLibrary;
 
+    // a mapping from file names to their start location in the resource lib
+    static std::map<std::string, unsigned long> m_libStarts;
+    // a mapping from file names to their ending location in the resource lib
+    static std::map<std::string, unsigned long> m_libEnds;
+
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    /** Reads the given file from the resource library */
+    static void readFromLibrary( const std::string& path, VirtualFile& file );
 
     /** Reads the given file from its literal path */
     static void readFromDisk( const std::string& path, VirtualFile& file );

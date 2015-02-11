@@ -1,69 +1,69 @@
-0 res/sound/fx/start_up/omicron_intro.ogg
-88213 res/gfx/texture/test/wall_1.png
-2955386 res/gfx/texture/test/evil.png
-6376436 res/gfx/texture/test/glow_cube.png
-6541992 res/gfx/texture/test/wall_lounge.png
-7219842 res/gfx/texture/test/floor_1.png
-8173316 res/gfx/texture/test/human.png
-12578606 res/gfx/texture/test/chesterfield_normal_map.png
-15140745 res/gfx/texture/test/carpet_lounge.png
-22938447 res/gfx/texture/test/light_socket_1.png
-23085130 res/gfx/texture/test/chesterfield_specular_map.png
-24543508 res/gfx/texture/test/pipe_holder_1.png
-24553801 res/gfx/texture/test/floor_1_spec_map.png
-25253453 res/gfx/texture/test/pipe_1.png
-25278237 res/gfx/texture/test/skybox.png
-26176373 res/gfx/texture/test/chesterfield.png
-28280835 res/gfx/texture/test/evil_glow.png
-28308250 res/gfx/texture/start_up/omicron/logo_text_bottom.png
-28324065 res/gfx/texture/start_up/omicron/logo_glow.png
-28444310 res/gfx/texture/start_up/omicron/logo_flare_long.png
-28456159 res/gfx/texture/start_up/omicron/logo_text_top.png
-28471778 res/gfx/texture/start_up/omicron/logo_powered_by.png
-28481187 res/gfx/texture/start_up/omicron/logo_flare_centre.png
-28730586 res/gfx/fonts/test/ClearSans-Italic.ttf
-29013387 res/gfx/fonts/test/ClearSans-MediumItalic.ttf
-29329180 res/gfx/fonts/test/ClearSans-Light.ttf
-29601905 res/gfx/fonts/test/ClearSans-BoldItalic.ttf
-29889366 res/gfx/fonts/test/ClearSans-Bold.ttf
-30159159 res/gfx/fonts/test/ClearSans-Thin.ttf
-30431464 res/gfx/fonts/test/ClearSans-Regular.ttf
-30735981 res/gfx/fonts/test/ClearSans-Medium.ttf
-31049290 res/gfx/geometry/test/glow_cube.obj
-31050157 res/gfx/geometry/test/skybox.obj
-31051482 res/gfx/geometry/test/lounge_floor.obj
-31051853 res/gfx/geometry/test/human.obj
-32231065 res/gfx/geometry/test/light_bulb_1.obj
-32392411 res/gfx/geometry/test/floor_1.obj
-32392787 res/gfx/geometry/test/evil.obj
-34825848 res/gfx/geometry/test/light_socket_1.obj
-34843871 res/gfx/geometry/test/tunnel_pipe_1.obj
-34848589 res/gfx/geometry/test/evil_vis.obj
-34849314 res/gfx/geometry/test/monkey.obj
-35883529 res/gfx/geometry/test/tunnel_pipe_holder_1.obj
-35896911 res/gfx/geometry/test/lounge_wall.obj
-35897763 res/gfx/geometry/test/tunnel_1.obj
-35902343 res/gfx/geometry/test/evil/evil.key
-35902423 res/gfx/geometry/test/evil/breath/2.obj
-38336467 res/gfx/geometry/test/evil/breath/1.obj
-40771255 res/gfx/geometry/test/evil/walk/3.obj
-43209396 res/gfx/geometry/test/evil/walk/4.obj
-45645344 res/gfx/geometry/test/evil/walk/2.obj
-48082114 res/gfx/geometry/test/evil/walk/1.obj
-50520183 res/gfx/geometry/test/evil/turn_right/2.obj
-52963979 res/gfx/geometry/test/evil/turn_right/1.obj
-55399044 res/gfx/shader/omicron/shadow_vertex.glsl
-55399249 res/gfx/shader/omicron/render_texture_vertex.glsl
-55400151 res/gfx/shader/omicron/glow_collate_render_texture_fragment.glsl
-55400852 res/gfx/shader/omicron/render_texture_fragment.glsl
-55401498 res/gfx/shader/omicron/glow_first_pass_render_texture_fragment.glsl
-55402358 res/gfx/shader/omicron/glow_blur_vert_render_texture_fragment.glsl
-55408174 res/gfx/shader/omicron/final_render_texture_fragment.glsl
-55409566 res/gfx/shader/omicron/glow_fragment.glsl
-55410038 res/gfx/shader/omicron/selection_fragment.glsl
-55410487 res/gfx/shader/omicron/default_fragment.glsl
-55419526 res/gfx/shader/omicron/glow_vertex.glsl
-55419790 res/gfx/shader/omicron/glow_blur_hor_render_texture_fragment.glsl
-55425608 res/gfx/shader/omicron/shadow_fragment.glsl
-55425692 res/gfx/shader/omicron/selection_vertex.glsl
-55425956 res/gfx/shader/omicron/default_vertex.glsl
+0 88212 res/sound/fx/start_up/omicron_intro.ogg
+88213 2955385 res/gfx/texture/test/wall_1.png
+2955386 6376435 res/gfx/texture/test/evil.png
+6376436 6541991 res/gfx/texture/test/glow_cube.png
+6541992 7219841 res/gfx/texture/test/wall_lounge.png
+7219842 8173315 res/gfx/texture/test/floor_1.png
+8173316 12578605 res/gfx/texture/test/human.png
+12578606 15140744 res/gfx/texture/test/chesterfield_normal_map.png
+15140745 22938446 res/gfx/texture/test/carpet_lounge.png
+22938447 23085129 res/gfx/texture/test/light_socket_1.png
+23085130 24543507 res/gfx/texture/test/chesterfield_specular_map.png
+24543508 24553800 res/gfx/texture/test/pipe_holder_1.png
+24553801 25253452 res/gfx/texture/test/floor_1_spec_map.png
+25253453 25278236 res/gfx/texture/test/pipe_1.png
+25278237 26176372 res/gfx/texture/test/skybox.png
+26176373 28280834 res/gfx/texture/test/chesterfield.png
+28280835 28308249 res/gfx/texture/test/evil_glow.png
+28308250 28324064 res/gfx/texture/start_up/omicron/logo_text_bottom.png
+28324065 28444309 res/gfx/texture/start_up/omicron/logo_glow.png
+28444310 28456158 res/gfx/texture/start_up/omicron/logo_flare_long.png
+28456159 28471777 res/gfx/texture/start_up/omicron/logo_text_top.png
+28471778 28481186 res/gfx/texture/start_up/omicron/logo_powered_by.png
+28481187 28730585 res/gfx/texture/start_up/omicron/logo_flare_centre.png
+28730586 29013386 res/gfx/fonts/test/ClearSans-Italic.ttf
+29013387 29329179 res/gfx/fonts/test/ClearSans-MediumItalic.ttf
+29329180 29601904 res/gfx/fonts/test/ClearSans-Light.ttf
+29601905 29889365 res/gfx/fonts/test/ClearSans-BoldItalic.ttf
+29889366 30159158 res/gfx/fonts/test/ClearSans-Bold.ttf
+30159159 30431463 res/gfx/fonts/test/ClearSans-Thin.ttf
+30431464 30735980 res/gfx/fonts/test/ClearSans-Regular.ttf
+30735981 31049289 res/gfx/fonts/test/ClearSans-Medium.ttf
+31049290 31050156 res/gfx/geometry/test/glow_cube.obj
+31050157 31051481 res/gfx/geometry/test/skybox.obj
+31051482 31051852 res/gfx/geometry/test/lounge_floor.obj
+31051853 32231064 res/gfx/geometry/test/human.obj
+32231065 32392410 res/gfx/geometry/test/light_bulb_1.obj
+32392411 32392786 res/gfx/geometry/test/floor_1.obj
+32392787 34825847 res/gfx/geometry/test/evil.obj
+34825848 34843870 res/gfx/geometry/test/light_socket_1.obj
+34843871 34848588 res/gfx/geometry/test/tunnel_pipe_1.obj
+34848589 34849313 res/gfx/geometry/test/evil_vis.obj
+34849314 35883528 res/gfx/geometry/test/monkey.obj
+35883529 35896910 res/gfx/geometry/test/tunnel_pipe_holder_1.obj
+35896911 35897762 res/gfx/geometry/test/lounge_wall.obj
+35897763 35902342 res/gfx/geometry/test/tunnel_1.obj
+35902343 35902422 res/gfx/geometry/test/evil/evil.key
+35902423 38336466 res/gfx/geometry/test/evil/breath/2.obj
+38336467 40771254 res/gfx/geometry/test/evil/breath/1.obj
+40771255 43209395 res/gfx/geometry/test/evil/walk/3.obj
+43209396 45645343 res/gfx/geometry/test/evil/walk/4.obj
+45645344 48082113 res/gfx/geometry/test/evil/walk/2.obj
+48082114 50520182 res/gfx/geometry/test/evil/walk/1.obj
+50520183 52963978 res/gfx/geometry/test/evil/turn_right/2.obj
+52963979 55399043 res/gfx/geometry/test/evil/turn_right/1.obj
+55399044 55399248 res/gfx/shader/omicron/shadow_vertex.glsl
+55399249 55400150 res/gfx/shader/omicron/render_texture_vertex.glsl
+55400151 55400851 res/gfx/shader/omicron/glow_collate_render_texture_fragment.glsl
+55400852 55401497 res/gfx/shader/omicron/render_texture_fragment.glsl
+55401498 55402357 res/gfx/shader/omicron/glow_first_pass_render_texture_fragment.glsl
+55402358 55408173 res/gfx/shader/omicron/glow_blur_vert_render_texture_fragment.glsl
+55408174 55409565 res/gfx/shader/omicron/final_render_texture_fragment.glsl
+55409566 55410037 res/gfx/shader/omicron/glow_fragment.glsl
+55410038 55410486 res/gfx/shader/omicron/selection_fragment.glsl
+55410487 55419525 res/gfx/shader/omicron/default_fragment.glsl
+55419526 55419789 res/gfx/shader/omicron/glow_vertex.glsl
+55419790 55425607 res/gfx/shader/omicron/glow_blur_hor_render_texture_fragment.glsl
+55425608 55425691 res/gfx/shader/omicron/shadow_fragment.glsl
+55425692 55425955 res/gfx/shader/omicron/selection_vertex.glsl
+55425956 55427617 res/gfx/shader/omicron/default_vertex.glsl

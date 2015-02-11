@@ -9,7 +9,7 @@ omi::Scene* init() {
 
     // TODO: should be true for final release
     // resources
-    omi::ResourceServer::loadFromLibrary( false );
+    omi::ResourceServer::loadFromLibrary( true );
 
     // system settings
     omi::systemSettings.enableForcedLag( true );
