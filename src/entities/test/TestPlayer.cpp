@@ -13,6 +13,8 @@ static const float MOVE_SPEED = 0.15f;
 
 void TestPlayer::init()
 {
+    m_fDown = false;
+
     // create the camera
     m_camT = new omi::Transform(
             "",
@@ -35,6 +37,13 @@ void TestPlayer::init()
     //     "", m_camT, 1.0f, glm::vec3( 1.0f, 1.0f, 1.0f ),
     //     0.0f, 0.4f, 0.025f, 40.0f, 30.0f
     // ) );
+
+    // music
+    omi::Music* music = new omi::Music(
+            "", "res/sound/music/test/imminent_war.ogg", 1.0f, true
+    );
+    m_components.add( music );
+    music->play();
 }
 
 void TestPlayer::update()
@@ -74,6 +83,23 @@ void TestPlayer::update()
     {
         move.z = -util::math::sind( m_camT->rotation.y ) * moveSpeed;
         move.x =  util::math::cosd( m_camT->rotation.y ) * moveSpeed;
+    }
+
+    // play sound
+    if ( omi::input::isKeyPressed( omi::input::key::F ) )
+    {
+        // play sound
+        if ( !m_fDown )
+        {
+            omi::SoundPool::play(
+                omi::ResourceManager::getSound( "explosion_1" ), false, 1.0f );
+            omi::renderSettings.setShadows( !omi::renderSettings.getShadows() );
+            m_fDown = true;
+        }
+    }
+    else
+    {
+        m_fDown = false;
     }
 
     // check for collisions

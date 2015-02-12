@@ -9,6 +9,7 @@ namespace omi {
 VirtualFile::VirtualFile()
     :
     m_data       ( NULL ),
+    m_size       ( 0 ),
     m_cursor     ( 0 ),
     m_hasNextLine( false)
 {
@@ -29,9 +30,10 @@ VirtualFile::~VirtualFile()
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-void VirtualFile::setData( char* data )
+void VirtualFile::setData( char* data, unsigned long size )
 {
     m_data = data;
+    m_size = size;
     m_cursor = 0;
 
     if ( m_data[0] != '\0' )
@@ -43,6 +45,11 @@ void VirtualFile::setData( char* data )
 char* VirtualFile::getData()
 {
     return m_data;
+}
+
+unsigned long VirtualFile::getSize() const
+{
+    return m_size;
 }
 
 void VirtualFile::rewind()

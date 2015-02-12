@@ -304,7 +304,12 @@ void RenderLists::render( Camera* camera )
         {
             glEnable( GL_CULL_FACE );
         }
-
+    }
+    else
+    {
+        m_shadowMap.bind();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        m_shadowMap.unbind();
     }
 
     //------------------------------VISIBLE PASSES------------------------------

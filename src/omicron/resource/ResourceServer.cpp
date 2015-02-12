@@ -114,7 +114,7 @@ void ResourceServer::readFromLibrary( const std::string& path, VirtualFile& file
     fclose( f );
 
     // pass on to the virtual file
-    file.setData( buffer );
+    file.setData( buffer, size );
 }
 
 void ResourceServer::readFromDisk( const std::string& path, VirtualFile& file )
@@ -161,7 +161,7 @@ void ResourceServer::readFromDisk( const std::string& path, VirtualFile& file )
     fclose( f );
 
     // pass on to the virtual file
-    file.setData( buffer );
+    file.setData( buffer, size + 1 );
 }
 
 } // namespace omi

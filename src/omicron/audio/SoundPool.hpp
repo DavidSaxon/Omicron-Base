@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "src/omicron/Omicron.hpp"
+#include "src/omicron/resource/ResourceServer.hpp"
 
 namespace omi {
 
@@ -44,9 +45,12 @@ private:
             m_instance   (0),
             m_numInstance(instances) {
 
-            // load the data into the buffer
-            if (!m_buffer.loadFromFile(filePath.c_str())) {
+            // open the file using the resource server
+            VirtualFile file;
+            ResourceServer::get( filePath, file );
 
+            if ( !m_buffer.loadFromMemory( file.getData(), file.getSize() ) )
+            {
                 std::cout << "loading sound failed" << std::endl;
             }
 
@@ -73,7 +77,7 @@ private:
 
         /** Plays the next instance of the sound
         @param loop whether the sound should loop or not
-        @param volume the volume to play the sound at 
+        @param volume the volume to play the sound at
         @return the instance of the sound being played */
         inline unsigned playNext(bool loop, float volume) {
 

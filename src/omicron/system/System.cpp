@@ -181,7 +181,10 @@ void execute() {
 void init() {
 
     // seed random number generators
-    srand(static_cast<unsigned>(time(NULL)));
+    srand( static_cast<unsigned>( time ( NULL ) ) );
+
+    // initialise the resource server
+    ResourceServer::init();
 
     // run the start up script and get the first scene from it
     Scene* initScene = start_up::init();
@@ -194,9 +197,6 @@ void init() {
 
     // create the renderer
     renderer = std::unique_ptr<Renderer>(new Renderer());
-
-    // initialise the resource server
-    ResourceServer::init();
 
     // initialise the resource manager
     ResourceManager::init();

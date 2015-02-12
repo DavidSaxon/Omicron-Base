@@ -1,11 +1,19 @@
 #include "Loaders.hpp"
 
+#include "src/omicron/resource/ResourceServer.hpp"
+
 namespace omi {
 
 namespace loader {
 
 GLuint loadTexture( const std::string& filePath, bool clamp, bool showPixels )
 {
+
+    // open the file using the resource server
+    VirtualFile file;
+    ResourceServer::get( filePath, file );
+
+    // TODO: need to get file type
 
     //--------------------------LOAD IMAGE USING DEVIL--------------------------
 
@@ -22,7 +30,12 @@ GLuint loadTexture( const std::string& filePath, bool clamp, bool showPixels )
     ilOriginFunc( IL_ORIGIN_LOWER_LEFT );
 
     //load the image
-    ILboolean success = ilLoadImage( ( ILstring ) filePath.c_str() );
+    // ILboolean success = ilLoadImage( ( ILstring ) filePath.c_str() );
+    ILboolean success = ilLoadL(
+            IL_PNG,
+            static_cast<void*>( file.getData() ),
+            file.getSize()
+    );
 
     // check that the image loaded successfully
     if( !success )

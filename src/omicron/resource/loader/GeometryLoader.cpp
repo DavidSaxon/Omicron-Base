@@ -157,7 +157,7 @@ Geometry* geoFromWavefront(const std::string& filePath) {
         }
     }
 
-    return new Geometry(sortedVertices, sortedUV, sortedNormals);
+    return new Geometry( sortedVertices, sortedUV, sortedNormals );
 }
 
 void geoFromKeyFrameWavefront(
@@ -177,17 +177,17 @@ void geoFromKeyFrameWavefront(
     // this is a list of all threads we're using to load
     std::vector< std::unique_ptr<boost::thread> > loadingThreads;
 
-    // open the file
-    std::ifstream file( path.c_str() );
+    // open the file using the resource server
+    VirtualFile file;
+    ResourceServer::get( path, file );
 
     bool inAnimationBlock = false;
     // iterate over the file
-    while ( file.good() ) {
-
-        // get the current line as a string
-        char lineBuffer[1024];
-        file.getline( lineBuffer, 1024 );
-        std::string line( lineBuffer );
+    while ( file.hasNextLine() )
+    {
+        // get the current line
+        std::string line;
+        file.nextLine( line );
 
         // get default animation
         if ( util::str::beginsWith( line, "default:" ) )

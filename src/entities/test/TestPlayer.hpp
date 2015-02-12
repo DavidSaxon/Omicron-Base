@@ -27,6 +27,8 @@ private:
     omi::Transform* m_camT;
     // the collision checker of the player
     omi::CollisionChecker* m_collisionChecker;
+
+    bool m_fDown;
 };
 
 #endif

@@ -1,5 +1,7 @@
 #include "Music.hpp"
 
+#include "src/omicron/resource/ResourceServer.hpp"
+
 namespace omi {
 
 //------------------------------------------------------------------------------
@@ -12,10 +14,22 @@ Music::Music(const std::string& id,
                    bool loop) :
     Updatable(id),
     m_volume (volume),
-    m_loop   (loop) {
+    m_loop   (loop)
+{
 
-    if (!m_music.openFromFile(filePath)) {
+    // open the file using the resource server
+    VirtualFile file;
+    ResourceServer::get( filePath, file );
 
+    // reallocate the buffer so sfml music has ownership
+    char* fileBuffer = ( char* ) malloc( sizeof( char ) * ( file.getSize() ) );
+    for ( unsigned i = 0; i < file.getSize(); ++i )
+    {
+        fileBuffer[ i ] = file.getData()[ i ];
+    }
+
+    if ( !m_music.openFromMemory( fileBuffer, file.getSize() ) )
+    {
         // TODO: throw an exception??
         std::cout << "music failed to load" << std::endl;
     }

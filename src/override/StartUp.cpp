@@ -27,15 +27,15 @@ omi::Scene* init() {
     omi::renderSettings.setClearColour( glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
     omi::renderSettings.setResolution( glm::vec2( 1920, 1080 ) );
     // omi::renderSettings.setResolution( glm::vec2( 960, 540 ) );
-    omi::renderSettings.setShadows( true );
+    omi::renderSettings.setShadows( false );
     omi::renderSettings.setShadowFrustumSize( 40.0f );
     omi::renderSettings.setShadowMapResolutionScale( 4.0f );
     omi::renderSettings.setColourPicking( true );
     omi::renderSettings.setVisibilityChecking( true );
 
     //audio settings
-    omi::audioSettings.setSoundDisabled( true );
-    omi::audioSettings.setMusicDisabled( true );
+    omi::audioSettings.setSoundDisabled( false );
+    omi::audioSettings.setMusicDisabled( false );
     omi::audioSettings.setSoundVolume( 1.0f );
     omi::audioSettings.setMusicVolume( 1.0f );
 

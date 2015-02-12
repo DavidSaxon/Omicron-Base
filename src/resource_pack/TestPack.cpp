@@ -179,6 +179,11 @@ void buildTestPack()
         "res/gfx/geometry/test/monkey.obj",
         2
     );
+
+    omi::ResourceManager::addSound(
+        "explosion_1", resource_group::TEST,
+        "res/sound/fx/test/expolsion_1.ogg", 1
+    );
 }
 
 } // namespace pack

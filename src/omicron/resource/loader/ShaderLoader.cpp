@@ -1,5 +1,7 @@
 #include "Loaders.hpp"
 
+#include "src/omicron/resource/ResourceServer.hpp"
+
 namespace omi {
 
 namespace loader {
@@ -13,15 +15,15 @@ Shader loadShaderFromFiles(
     GLuint vertexShader   = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-    // read the files into char strings
-    std::string vertexContents;
-    util::file::fileToString(vertexPath, vertexContents);
+    // get the files as character strings from the server
+    VirtualFile vertexFile;
+    ResourceServer::get( vertexPath, vertexFile );
     const GLchar* vertexSource =
-        reinterpret_cast<const GLchar*>(vertexContents.c_str());
-    std::string fragmentContents;
-    util::file::fileToString(fragmentPath, fragmentContents);
+            reinterpret_cast<const GLchar*>( vertexFile.getData() );
+    VirtualFile fragFile;
+    ResourceServer::get( fragmentPath, fragFile );
     const GLchar* fragmentSource =
-        reinterpret_cast<const GLchar*>(fragmentContents.c_str());
+            reinterpret_cast<const GLchar*>( fragFile.getData() );
 
     // load shader source code into OpenGL
     glShaderSource(vertexShader,   1, &vertexSource,   NULL);

@@ -37,10 +37,13 @@ public:
     //--------------------------------------------------------------------------
 
     /** Sets the data of the virtual file and sets the cursor at index 0 */
-    void setData( char* data );
+    void setData( char* data, unsigned long size );
 
     /** @returns the data of the file */
     char* getData();
+
+    /** @returns the size of the file */
+    unsigned long getSize() const;
 
     /** Resets the cursor to the start of the file */
     void rewind();
@@ -59,6 +62,8 @@ private:
 
     // the data of the file
     char* m_data;
+    // the data size
+    unsigned long m_size;
     // the current cursor position
     unsigned m_cursor;
 
