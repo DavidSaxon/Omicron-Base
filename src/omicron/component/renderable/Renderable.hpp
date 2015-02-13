@@ -202,7 +202,10 @@ protected:
     void calculateMatrices( Camera* camera );
 
     /** Sets up the shader for rendering and passes in all data */
-    virtual void setShader( const LightData& lightData, Camera* shadowCamera );
+    virtual void setShader(
+            const LightData& lightData,
+            Camera* camera,
+            Camera* shadowCamera );
 
     /** Cleans up the shader */
     virtual void unsetShader();

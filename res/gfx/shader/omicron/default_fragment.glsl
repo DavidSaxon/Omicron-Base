@@ -33,6 +33,9 @@ uniform sampler2D u_shadowMap;
 // the light casting shadows
 uniform int u_shadowCaster;
 
+// the exposure of the camera
+uniform float u_exposure;
+
 //the ambient light
 uniform vec3 u_ambientLight;
 
@@ -250,6 +253,12 @@ void main() {
             }
         }
 
-        gl_FragColor = material * vec4( light, 1.0 );
+        vec4 finalColour = material * vec4( light, 1.0 );
+        finalColour = vec4(
+            1.0 - exp( -u_exposure * finalColour.rgb ),
+            finalColour.a
+        );
+        gl_FragColor = finalColour;
+
     }
 }

@@ -74,7 +74,7 @@ void Renderable::render(
     }
 
     calculateMatrices( camera );
-    setShader( lightData, shadowCamera );
+    setShader( lightData, camera, shadowCamera );
     draw();
     unsetShader();
 }
@@ -387,7 +387,10 @@ void Renderable::calculateMatrices( Camera* camera )
         m_modelMatrix;
 }
 
-void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
+void Renderable::setShader(
+        const LightData& lightData,
+        Camera* camera,
+        Camera* shadowCamera )
 {
     // get the OpenGL program
     GLuint program = m_material.shader.getProgram();
@@ -435,6 +438,12 @@ void Renderable::setShader( const LightData& lightData, Camera* shadowCamera )
     }
     // don't invert texture colours
     glUniform1i( glGetUniformLocation( program, "u_invertTexCol" ), 0 );
+
+    // pass in camera exposure
+    glUniform1f(
+        glGetUniformLocation( program, "u_exposure" ),
+        camera->getExposure()
+    );
 
     // lighting
     if ( m_material.isShadeless() )

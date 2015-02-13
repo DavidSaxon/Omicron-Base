@@ -124,6 +124,9 @@ public:
     /** @return the transform used for offsetting the camera in shadow mode */
     const Transform* getShadowOffset() const;
 
+    /** @return the exposure of the camera */
+    float getExposure() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param the new mode of the camera */
@@ -144,6 +147,9 @@ public:
     /** @param shadowOffset the transform used for offsetting the camera in
     shadow mode */
     void setShadowOffset( Transform* shadowOffset );
+
+    /** Sets the exposure value of this camera */
+    void setExposure( float exposure );
 
 private:
 
@@ -170,6 +176,9 @@ private:
     float m_nearClip;
     // the far clipping plane
     float m_farClip;
+
+    // the exposure of the camera (i.e. how much light it lets in)
+    float m_exposure;
 };
 
  } // namespace omi

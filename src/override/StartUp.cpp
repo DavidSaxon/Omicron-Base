@@ -9,10 +9,10 @@ omi::Scene* init() {
 
     // TODO: should be true for final release
     // resources
-    omi::ResourceServer::loadFromLibrary( true );
+    omi::ResourceServer::loadFromLibrary( false );
 
     // system settings
-    omi::systemSettings.enableForcedLag( true );
+    omi::systemSettings.enableForcedLag( false );
 
     // display settings
     omi::displaySettings.setSize( glm::vec2( 960, 540 ) );
@@ -34,8 +34,8 @@ omi::Scene* init() {
     omi::renderSettings.setVisibilityChecking( true );
 
     //audio settings
-    omi::audioSettings.setSoundDisabled( false );
-    omi::audioSettings.setMusicDisabled( false );
+    omi::audioSettings.setSoundDisabled( true );
+    omi::audioSettings.setMusicDisabled( true );
     omi::audioSettings.setSoundVolume( 1.0f );
     omi::audioSettings.setMusicVolume( 1.0f );
 

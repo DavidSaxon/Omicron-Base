@@ -23,8 +23,9 @@ void TestPlayer::init()
             glm::vec3( 1.0f, 1.0f, 1.0f )
         );
     m_components.add( m_camT );
-    m_components.add(
-        new omi::Camera( "", omi::cam::PERSPECTIVE, m_camT ) );
+    omi::Camera* camera = new omi::Camera( "", omi::cam::PERSPECTIVE, m_camT );
+    camera->setExposure( 0.85f );
+    m_components.add( camera );
 
     // create collision checker
     m_collisionChecker = new omi::CollisionChecker( "" );

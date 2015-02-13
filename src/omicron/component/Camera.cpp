@@ -26,7 +26,8 @@ Camera::Camera( const std::string& id,
     m_shadowOffset( NULL ),
     m_fov         ( 60.0f ),
     m_nearClip    ( 0.001f ),
-    m_farClip     ( 1000.0f )
+    m_farClip     ( 1000.0f ),
+    m_exposure    ( 1.0f )
 {
 }
 
@@ -41,7 +42,8 @@ Camera::Camera( const std::string& id,
     m_shadowOffset( NULL ),
     m_fov         ( fov ),
     m_nearClip    ( 0.001f ),
-    m_farClip     ( 1000.0f )
+    m_farClip     ( 1000.0f ),
+    m_exposure    ( 1.0f )
 {
 }
 
@@ -57,7 +59,8 @@ Camera::Camera( const std::string& id,
     m_shadowOffset( NULL ),
     m_fov         ( 60.0f ),
     m_nearClip    ( nearClip ),
-    m_farClip     ( farClip )
+    m_farClip     ( farClip ),
+    m_exposure    ( 1.0f )
 {
 }
 
@@ -74,7 +77,8 @@ Camera::Camera( const std::string& id,
     m_shadowOffset( NULL ),
     m_fov         ( fov ),
     m_nearClip    ( nearClip ),
-    m_farClip     ( farClip )
+    m_farClip     ( farClip ),
+    m_exposure    ( 1.0f )
 {
 }
 
@@ -220,6 +224,11 @@ const Transform* Camera::getShadowOffset() const
     return m_shadowOffset;
 }
 
+float Camera::getExposure() const
+{
+    return m_exposure;
+}
+
 //-----------------------------------SETTERS------------------------------------
 
 void Camera::setMode( cam::Mode mode )
@@ -250,6 +259,11 @@ void Camera::setFarClip( float farClip )
 void Camera::setShadowOffset( Transform* shadowOffset )
 {
     m_shadowOffset = shadowOffset;
+}
+
+void Camera::setExposure( float exposure )
+{
+    m_exposure = exposure;
 }
 
 } // namespace omi
