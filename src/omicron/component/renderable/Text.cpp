@@ -71,7 +71,7 @@ void Text::render(
             static_cast<FT_UInt>( unitDim * m_size )
     );
 
-    // TODO: alignment
+    calculateOffset();
 
     // the position of the cursor
     float cursorPosX = 0.0f;
@@ -99,27 +99,28 @@ void Text::render(
 
             glTexCoord2f( 1.0f, 0.0f );
             glNormal3f( 0.0f, 0.0f, 1.0f );
-            glVertex3f( left + width, top, 0.0f );
+            glVertex3f( m_offset.x + left + width, m_offset.y + top, 0.0f );
 
             glTexCoord2f( 0.0f, 1.0f );
             glNormal3f( 0.0f, 0.0f, 1.0f );
-            glVertex3f( left, top - height, 0.0f );
+            glVertex3f( m_offset.x + left, m_offset.y + top - height, 0.0f );
 
             glTexCoord2f( 1.0f, 1.0f );
             glNormal3f( 0.0f, 0.0f, 1.0f );
-            glVertex3f( left + width, top - height, 0.0f );
+            glVertex3f( m_offset.x + left + width,
+                        m_offset.y + top - height, 0.0f );
 
             glTexCoord2f( 0.0f, 1.0f );
             glNormal3f( 0.0f, 0.0f, 1.0f );
-            glVertex3f( left, top - height, 0.0f );
+            glVertex3f( m_offset.x + left, m_offset.y + top - height, 0.0f );
 
             glTexCoord2f( 1.0f, 0.0f );
             glNormal3f( 0.0f, 0.0f, 1.0f );
-            glVertex3f( left + width, top, 0.0f );
+            glVertex3f( m_offset.x + left + width, m_offset.y + top, 0.0f );
 
             glTexCoord2f( 0.0f, 0.0f );
             glNormal3f( 0.0f, 0.0f, 1.0f );
-            glVertex3f( left, top, 0.0f );
+            glVertex3f( m_offset.x + left, m_offset.y + top, 0.0f );
 
         glEnd();
 
@@ -232,7 +233,7 @@ void Text::setShader( const LightData& lightData )
           GL_ALPHA,
           GL_UNSIGNED_BYTE,
           (*m_font)->glyph->bitmap.buffer
-        );
+    );
 
     // TODO: this can be moved into a common function
     //--------------------------------------------------------------------------
@@ -325,40 +326,72 @@ void Text::setShader( const LightData& lightData )
     );
 }
 
+// NOT USED
 void Text::draw()
 {
     glBegin(GL_TRIANGLES);
 
         glTexCoord2f( 1.0f, 1.0f );
         glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f(  1.0f,  1.0f, 0.0f );
+        glVertex3f(  m_offset.x + 1.0f, m_offset.y + 1.0f, 0.0f );
 
         glTexCoord2f( 0.0f, 1.0f );
         glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f( -1.0f,  1.0f, 0.0f );
+        glVertex3f( m_offset.x - 1.0f, m_offset.y +  1.0f, 0.0f );
 
         glTexCoord2f( 1.0f, 0.0f );
         glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f(  1.0f, -1.0f, 0.0f );
+        glVertex3f(  m_offset.x + 1.0f, m_offset.y - 1.0f, 0.0f );
 
         glTexCoord2f( 0.0f, 0.0f );
         glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f( -1.0f, -1.0f, 0.0f );
+        glVertex3f( m_offset.x - 1.0f, m_offset.y - 1.0f, 0.0f );
 
         glTexCoord2f( 1.0f, 0.0f );
         glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f(  1.0f, -1.0f, 0.0f );
+        glVertex3f(  m_offset.x + 1.0f, m_offset.y - 1.0f, 0.0f );
 
         glTexCoord2f( 0.0f, 1.0f );
         glNormal3f(  0.0f,      0.0f,     1.0f );
-        glVertex3f( -1.0f,  1.0f, 0.0f );
+        glVertex3f( m_offset.x - 1.0f,  m_offset.y + 1.0f, 0.0f );
 
     glEnd();
 }
 
 void Text::calculateOffset()
 {
+    if ( !m_centred )
+    {
+        m_offset = glm::vec2( 0.0f, 0.0f );
+        return;
+    }
 
+    // get the window dimension we will use for text sizing
+    float unitDim = displaySettings.getSize().y;
+    if ( displaySettings.getSize().y > displaySettings.getSize().x )
+    {
+        unitDim = displaySettings.getSize().x;
+    }
+
+    // calculate the length of the text
+    float length = 0.0f;
+    for ( unsigned i = 0; i < m_str.length() - 1; ++i )
+    {
+        char c = m_str[ i ];
+
+        // load character
+        FT_Load_Char( *m_font, m_char, FT_LOAD_RENDER );
+
+        length += static_cast<float>( (*m_font)->glyph->bitmap.width );
+        length += static_cast<float>( (*m_font)->glyph->advance.x >> 6 );
+    }
+
+    // calculate offset
+    length /= unitDim;
+    m_offset.x = -( length / 4.0f );
+    m_offset.y = static_cast<float>( (*m_font)->glyph->bitmap.rows ) / unitDim;
+    m_offset.y /= 2.0f;
+    m_offset.y = -m_offset.y;
 }
 
 } // namespace omi

@@ -111,6 +111,8 @@ private:
     float m_size;
     // is true if the text is centred
     bool m_centred;
+    // the offset of the text
+    glm::vec2 m_offset;
 
 
     // the current character to render
