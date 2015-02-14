@@ -63,6 +63,9 @@ public:
     /** @return the size of the font */
     float getSize() const;
 
+    /** @return if the text is centred */
+    bool getCentred() const;
+
     //---------------------------------SETTERS----------------------------------
 
     /** @param font the new font to use for rendering the text */
@@ -73,6 +76,9 @@ public:
 
     /** @param size the new size of the font */
     void setSize( float size );
+
+    /** set whether the text will be centered */
+    void setCentred( bool state );
 
 protected:
 
@@ -88,6 +94,9 @@ protected:
     /** #Override */
     void draw();
 
+    /** Calculate the offset of the text */
+    void calculateOffset();
+
 private:
 
     //--------------------------------------------------------------------------
@@ -100,6 +109,9 @@ private:
     std::string m_str;
     // the size of the text
     float m_size;
+    // is true if the text is centred
+    bool m_centred;
+
 
     // the current character to render
     char m_char;

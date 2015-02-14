@@ -114,7 +114,6 @@ void main() {
 
         for ( int i = 0; i < u_lightCount; ++i )
         {
-
             // calculate shadowing
             float visibility = 1.0;
             if ( i == u_shadowCaster )

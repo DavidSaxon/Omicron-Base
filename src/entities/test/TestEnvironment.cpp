@@ -98,10 +98,10 @@ void TestEnvironment::init()
     // guiTest->gui = true;
     // m_components.add( guiTest );
 
-    // omi::Text* textTest =
-    //         omi::ResourceManager::getText( "test_text_1", "", NULL );
-    // textTest->gui = true;
-    // m_components.add( textTest );
+    omi::Text* textTest =
+            omi::ResourceManager::getText( "test_text_1", "", NULL );
+    textTest->gui = true;
+    m_components.add( textTest );
 
     // m_components.add(
     //         omi::ResourceManager::getMesh( "lounge_floor", "", NULL ) );

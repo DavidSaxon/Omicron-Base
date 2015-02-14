@@ -19,6 +19,7 @@ Text::Text(
     m_font    ( font ),
     m_str     ( str ),
     m_size    ( size ),
+    m_centred ( false ),
     m_char    ( ' ' ),
     m_texture ( 0 )
 {
@@ -29,6 +30,8 @@ Text::Text(
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP_TO_EDGE );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    calculateOffset();
 }
 
 //------------------------------------------------------------------------------
@@ -145,21 +148,35 @@ float Text::getSize() const
     return m_size;
 }
 
+bool Text::getCentred() const
+{
+    return m_centred;
+}
+
 //-----------------------------------SETTERS------------------------------------
 
 void Text::setFont( Font* font )
 {
     m_font = font;
+    calculateOffset();
 }
 
 void Text::setString( const std::string& str )
 {
     m_str = str;
+    calculateOffset();
 }
 
 void Text::setSize( float size )
 {
     m_size = size;
+    calculateOffset();
+}
+
+void Text::setCentred( bool state )
+{
+    m_centred = state;
+    calculateOffset();
 }
 
 //------------------------------------------------------------------------------
@@ -337,6 +354,11 @@ void Text::draw()
         glVertex3f( -1.0f,  1.0f, 0.0f );
 
     glEnd();
+}
+
+void Text::calculateOffset()
+{
+
 }
 
 } // namespace omi
