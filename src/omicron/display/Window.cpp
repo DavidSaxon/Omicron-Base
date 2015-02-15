@@ -13,7 +13,8 @@ Window::Window() :
     unsigned flags = sf::Style::Default;
     if ( displaySettings.getFullscreen() )
     {
-        flags = sf::Style::None;
+        // flags = sf::Style::None;
+        flags = sf::Style::Fullscreen;
     }
 
     // set up for openGL
