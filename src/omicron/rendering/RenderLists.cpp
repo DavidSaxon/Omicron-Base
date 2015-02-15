@@ -14,8 +14,9 @@ static const unsigned MAX_LIGHTS = 8;
 //------------------------------------------------------------------------------
 
 RenderLists::RenderLists()
-    :
-    m_visCheckThread( new boost::thread( vis_check::sortVisible ) )
+    // FIXME: VIS THREADING
+    // :
+    // m_visCheckThread( new boost::thread( vis_check::sortVisible ) )
 {
 }
 
@@ -25,11 +26,12 @@ RenderLists::RenderLists()
 
 RenderLists::~RenderLists()
 {
-    // make sure we kill the visibility checking thread
-    {
-        boost::unique_lock<boost::mutex> lock( vis_check::mutex );
-        vis_check::kill = true;
-    }
+    // FIXME: VIS THREADING
+    // // make sure we kill the visibility checking thread
+    // {
+    //     boost::unique_lock<boost::mutex> lock( vis_check::mutex );
+    //     vis_check::kill = true;
+    // }
 }
 
 //------------------------------------------------------------------------------
@@ -192,74 +194,75 @@ void RenderLists::render( Camera* camera )
 
     //-----------------------------VISIBILITY PASS------------------------------
 
-    if ( renderSettings.getVisibilityChecking() )
-    {
-        // lock so we have access to the vis checking thread
-        boost::unique_lock<boost::mutex> lock( vis_check::mutex );
+    // FIXME: VIS THREADING
+    // if ( renderSettings.getVisibilityChecking() )
+    // {
+    //     // lock so we have access to the vis checking thread
+    //     boost::unique_lock<boost::mutex> lock( vis_check::mutex );
 
-        // only do visibilty checking if the thread is available
-        if ( vis_check::ready )
-        {
-            // bind the visibility check render texture
-            m_visCheckRenTex.bind();
+    //     // only do visibilty checking if the thread is available
+    //     if ( vis_check::ready )
+    //     {
+    //         // bind the visibility check render texture
+    //         m_visCheckRenTex.bind();
 
-            // the colour values to render with
-            unsigned char red   = 0;
-            unsigned char green = 0;
-            unsigned char blue  = 0;
-            // a mapping from colour to renderables
-            m_visColourMap.clear();
-            // render selectable renderables
-            for ( t_RenderableMap::iterator it = renderLayers.begin();
-                  it != renderLayers.end(); ++it )
-            {
-                for ( std::vector<Renderable*>::iterator itr =
-                      it->second.begin(); itr != it->second.end(); ++itr )
-                {
-                    renderVisibilty(
-                            *itr,
-                            camera,
-                            m_visColourMap,
-                            red,
-                            green,
-                            blue
-                    );
-                }
-            }
+    //         // the colour values to render with
+    //         unsigned char red   = 0;
+    //         unsigned char green = 0;
+    //         unsigned char blue  = 0;
+    //         // a mapping from colour to renderables
+    //         m_visColourMap.clear();
+    //         // render selectable renderables
+    //         for ( t_RenderableMap::iterator it = renderLayers.begin();
+    //               it != renderLayers.end(); ++it )
+    //         {
+    //             for ( std::vector<Renderable*>::iterator itr =
+    //                   it->second.begin(); itr != it->second.end(); ++itr )
+    //             {
+    //                 renderVisibilty(
+    //                         *itr,
+    //                         camera,
+    //                         m_visColourMap,
+    //                         red,
+    //                         green,
+    //                         blue
+    //                 );
+    //             }
+    //         }
 
-            m_visCheckRenTex.unbind();
+    //         m_visCheckRenTex.unbind();
 
-            // check the size of the buffer we're creating pixels in
-            unsigned bufferSize = static_cast<unsigned>(
-                    3 *
-                    m_visCheckRenTex.getResolution().x *
-                    m_visCheckRenTex.getResolution().y
-            );
+    //         // check the size of the buffer we're creating pixels in
+    //         unsigned bufferSize = static_cast<unsigned>(
+    //                 3 *
+    //                 m_visCheckRenTex.getResolution().x *
+    //                 m_visCheckRenTex.getResolution().y
+    //         );
 
-            if ( m_visCheckBuffer.size() < bufferSize )
-            {
-                m_visCheckBuffer.resize( bufferSize );
-            }
+    //         if ( m_visCheckBuffer.size() < bufferSize )
+    //         {
+    //             m_visCheckBuffer.resize( bufferSize );
+    //         }
 
-            // get the texture pixels
-            glBindTexture( GL_TEXTURE_2D, m_visCheckRenTex.getTextureId() );
-            glGetTexImage(
-                    GL_TEXTURE_2D,
-                    0,
-                    GL_RGB,
-                    GL_UNSIGNED_BYTE,
-                    ( GLvoid* ) &m_visCheckBuffer[ 0 ]
-            );
+    //         // get the texture pixels
+    //         glBindTexture( GL_TEXTURE_2D, m_visCheckRenTex.getTextureId() );
+    //         glGetTexImage(
+    //                 GL_TEXTURE_2D,
+    //                 0,
+    //                 GL_RGB,
+    //                 GL_UNSIGNED_BYTE,
+    //                 ( GLvoid* ) &m_visCheckBuffer[ 0 ]
+    //         );
 
-            // check the pixel buffer off in another thread
-            vis_check::buffer = &m_visCheckBuffer;
-            vis_check::sort = true;
+    //         // check the pixel buffer off in another thread
+    //         vis_check::buffer = &m_visCheckBuffer;
+    //         vis_check::sort = true;
 
-            // clear for normal rendering
-            glBindTexture( GL_TEXTURE_2D, 0 );
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        }
-    }
+    //         // clear for normal rendering
+    //         glBindTexture( GL_TEXTURE_2D, 0 );
+    //         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //     }
+    // }
 
     //-------------------------------SHADOW PASS--------------------------------
 
@@ -403,45 +406,47 @@ void RenderLists::render( Camera* camera )
 
     //---------------------------VISIBLE THREAD JOIN----------------------------
 
-    if ( !renderSettings.getVisibilityChecking() )
-    {
-        return;
-    }
+    // FIXME: VIS THREADING
 
-    // TODO: MOVE THIS UP
+    // if ( !renderSettings.getVisibilityChecking() )
+    // {
+    //     return;
+    // }
 
-    // lock so we have access to the vis checking thread
-    boost::unique_lock<boost::mutex> lock( vis_check::mutex );
+    // // TODO: MOVE THIS UP
 
-    // check if the visibility thread is done
-    if ( !vis_check::ready )
-    {
-        return;
-    }
+    // // lock so we have access to the vis checking thread
+    // boost::unique_lock<boost::mutex> lock( vis_check::mutex );
 
-    // clear the visibility on renderables
-    for ( t_RenderableMap::iterator it = renderLayers.begin();
-          it != renderLayers.end(); ++it )
-    {
-        for ( std::vector<Renderable*>::iterator itr =
-              it->second.begin(); itr != it->second.end(); ++itr )
-        {
-            ( *itr )->setVisCam( false );
-        }
-    }
+    // // check if the visibility thread is done
+    // if ( !vis_check::ready )
+    // {
+    //     return;
+    // }
 
-    // go over each colour and tell the renderable that's visible
-    for ( std::set<unsigned>::iterator it = vis_check::visibleSet.begin();
-          it != vis_check::visibleSet.end(); ++it )
-    {
-        if ( m_visColourMap.find( *it ) != m_visColourMap.end() )
-        {
-            // tell the renderable that it is visible
-            m_visColourMap[ *it ]->setVisCam( true );
-        }
-    }
+    // // clear the visibility on renderables
+    // for ( t_RenderableMap::iterator it = renderLayers.begin();
+    //       it != renderLayers.end(); ++it )
+    // {
+    //     for ( std::vector<Renderable*>::iterator itr =
+    //           it->second.begin(); itr != it->second.end(); ++itr )
+    //     {
+    //         ( *itr )->setVisCam( false );
+    //     }
+    // }
 
-    // vis_check::buffer = NULL;
+    // // go over each colour and tell the renderable that's visible
+    // for ( std::set<unsigned>::iterator it = vis_check::visibleSet.begin();
+    //       it != vis_check::visibleSet.end(); ++it )
+    // {
+    //     if ( m_visColourMap.find( *it ) != m_visColourMap.end() )
+    //     {
+    //         // tell the renderable that it is visible
+    //         m_visColourMap[ *it ]->setVisCam( true );
+    //     }
+    // }
+
+    // // vis_check::buffer = NULL;
 }
 
 void RenderLists::clear()
