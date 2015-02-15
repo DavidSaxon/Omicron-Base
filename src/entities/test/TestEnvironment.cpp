@@ -101,7 +101,8 @@ void TestEnvironment::init()
     // omi::Text* textTest =
     //         omi::ResourceManager::getText( "test_text_1", "", NULL );
     // textTest->gui = true;
-    // textTest->setCentred( true );
+    // textTest->setHorCentred( true );
+    // textTest->setVertCentred( true );
     // m_components.add( textTest );
 
     // m_components.add(
@@ -113,4 +114,3 @@ void TestEnvironment::init()
 void TestEnvironment::update()
 {
 }
-

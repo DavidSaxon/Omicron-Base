@@ -63,8 +63,11 @@ public:
     /** @return the size of the font */
     float getSize() const;
 
-    /** @return if the text is centred */
-    bool getCentred() const;
+    /** @return if the text is horizontally centered */
+    bool getHorCentred() const;
+
+    /** @return if the text if vertically centered */
+    bool getVertCentred() const;
 
     //---------------------------------SETTERS----------------------------------
 
@@ -77,8 +80,11 @@ public:
     /** @param size the new size of the font */
     void setSize( float size );
 
-    /** set whether the text will be centered */
-    void setCentred( bool state );
+    /** set whether the text will be horizontally centered */
+    void setHorCentred( bool state );
+
+    /** Sets whether the text will be vertically centered */
+    void setVertCentred( bool state );
 
 protected:
 
@@ -109,8 +115,10 @@ private:
     std::string m_str;
     // the size of the text
     float m_size;
-    // is true if the text is centred
-    bool m_centred;
+    // is true if the text is horizontally centered
+    bool m_horCentred;
+    // is true if the text is vertically centered
+    bool m_vertCentred;
     // the offset of the text
     glm::vec2 m_offset;
 

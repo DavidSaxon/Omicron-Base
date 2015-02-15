@@ -15,13 +15,14 @@ Text::Text(
         const std::string& str,
         float size )
     :
-    Renderable( id, layer, transform, material ),
-    m_font    ( font ),
-    m_str     ( str ),
-    m_size    ( size ),
-    m_centred ( false ),
-    m_char    ( ' ' ),
-    m_texture ( 0 )
+    Renderable   ( id, layer, transform, material ),
+    m_font       ( font ),
+    m_str        ( str ),
+    m_size       ( size ),
+    m_horCentred ( false ),
+    m_vertCentred( false ),
+    m_char       ( ' ' ),
+    m_texture    ( 0 )
 {
     // create the texture
     glGenTextures( 1, &m_texture );
@@ -149,9 +150,14 @@ float Text::getSize() const
     return m_size;
 }
 
-bool Text::getCentred() const
+bool Text::getHorCentred() const
 {
-    return m_centred;
+    return m_horCentred;
+}
+
+bool Text::getVertCentred() const
+{
+    return m_vertCentred;
 }
 
 //-----------------------------------SETTERS------------------------------------
@@ -174,9 +180,15 @@ void Text::setSize( float size )
     calculateOffset();
 }
 
-void Text::setCentred( bool state )
+void Text::setHorCentred( bool state )
 {
-    m_centred = state;
+    m_horCentred = state;
+    calculateOffset();
+}
+
+void Text::setVertCentred( bool state )
+{
+    m_vertCentred = state;
     calculateOffset();
 }
 
@@ -360,11 +372,8 @@ void Text::draw()
 
 void Text::calculateOffset()
 {
-    if ( !m_centred )
-    {
-        m_offset = glm::vec2( 0.0f, 0.0f );
-        return;
-    }
+    // clear the offset
+    m_offset = glm::vec2( 0.0f, 0.0f );
 
     // get the window dimension we will use for text sizing
     float unitDim = displaySettings.getSize().y;
@@ -373,25 +382,35 @@ void Text::calculateOffset()
         unitDim = displaySettings.getSize().x;
     }
 
-    // calculate the length of the text
-    float length = 0.0f;
-    for ( unsigned i = 0; i < m_str.length() - 1; ++i )
+    // horizontal centering
+    if ( m_horCentred )
     {
-        char c = m_str[ i ];
+        // calculate the length of the text
+        float length = 0.0f;
+        for ( unsigned i = 0; i < m_str.length() - 1; ++i )
+        {
+            char c = m_str[ i ];
 
-        // load character
-        FT_Load_Char( *m_font, m_char, FT_LOAD_RENDER );
+            // load character
+            FT_Load_Char( *m_font, m_char, FT_LOAD_RENDER );
 
-        length += static_cast<float>( (*m_font)->glyph->bitmap.width );
-        length += static_cast<float>( (*m_font)->glyph->advance.x >> 6 );
+            length += static_cast<float>( (*m_font)->glyph->bitmap.width );
+            length += static_cast<float>( (*m_font)->glyph->advance.x >> 6 );
+        }
+
+        // calculate offset
+        length /= unitDim;
+        m_offset.x = -( length / 4.0f );
     }
 
-    // calculate offset
-    length /= unitDim;
-    m_offset.x = -( length / 4.0f );
-    m_offset.y = static_cast<float>( (*m_font)->glyph->bitmap.rows ) / unitDim;
-    m_offset.y /= 2.0f;
-    m_offset.y = -m_offset.y;
+    // vertical centering
+    if ( m_vertCentred )
+    {
+        m_offset.y = static_cast<float>(
+                (*m_font)->glyph->bitmap.rows ) / unitDim;
+        m_offset.y /= 2.0f;
+        m_offset.y = -m_offset.y;
+    }
 }
 
 } // namespace omi
