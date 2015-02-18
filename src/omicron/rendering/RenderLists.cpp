@@ -452,6 +452,7 @@ void RenderLists::render( Camera* camera )
 void RenderLists::clear()
 {
     m_renderables.clear();
+    m_lights.clear();
 }
 
 void RenderLists::addRenderable( Renderable* renderable )
