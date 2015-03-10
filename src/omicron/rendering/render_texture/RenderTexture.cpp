@@ -44,6 +44,9 @@ void RenderTexture::bind()
     glBindFramebuffer( GL_FRAMEBUFFER, m_frameBuffer );
     // bind the depth buffer
     glBindRenderbuffer( GL_RENDERBUFFER, m_depthRenderBuffer );
+    // colour attachment
+    GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers( 1, drawBuffers );
     // clear the render buffer
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     // set the view port to the size of the render texture
@@ -110,6 +113,7 @@ void RenderTexture::render()
     // pass in custom shader parameters
     shaderParameters( program );
 
+    glActiveTexture( GL_TEXTURE0 );
     glBindTexture( GL_TEXTURE_2D, m_texture );
 
     // draw geometry
@@ -142,6 +146,11 @@ void RenderTexture::render()
     }
     glUseProgram( 0 );
     glBindTexture( GL_TEXTURE_2D, 0 );
+}
+
+void RenderTexture::reload()
+{
+    init();
 }
 
 GLuint RenderTexture::getTextureId() const
