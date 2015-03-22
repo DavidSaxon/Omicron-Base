@@ -1,5 +1,7 @@
 #include "TestScene.hpp"
 
+#include "src/entities/menu/PauseMenu.hpp"
+
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
@@ -21,6 +23,7 @@ void TestScene::init()
     // add entities
     addEntity( new TestFps() );
     addEntity( new TestPlayer() );
+    addEntity( new PauseMenu() );
     addEntity( new TestEnvironment() );
     addEntity( new TestSun() );
     // addEntity( new Human() );
@@ -33,7 +36,7 @@ void TestScene::init()
 bool TestScene::update()
 {
     // exit if the escape key has been pressed
-    if ( omi::input::isKeyPressed( omi::input::key::ESCAPE ) )
+    if ( omi::input::isKeyPressed( omi::input::key::F7 ) )
     {
         return true;
     }

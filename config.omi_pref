@@ -1,0 +1,10 @@
+resolution: 1920x1080
+fullscreen: on
+vsync: on
+gamma: 1
+shadows: high
+master: 1
+sound: 1
+music: 0.8
+look: 1
+move: wasd

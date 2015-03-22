@@ -55,11 +55,15 @@ void TestEnvironment::init()
     m_components.add(
             omi::ResourceManager::getMesh( "test_tunnel_1", "", NULL ) );
 
+    std::cout << "load attempt begin" << std::endl;
+
     omi::Mesh* pipeMesh =
             omi::ResourceManager::getMesh( "test_tunnel_pipe_1", "", NULL );
     pipeMesh->getMaterial().specular =
         new omi::Specular( 64.0f, glm::vec3( 0.5f, 0.5f, 0.5f ) );
     m_components.add( pipeMesh );
+
+    std::cout << "load attempt end" << std::endl;
 
     omi::Mesh* pipeHolderMesh =
             omi::ResourceManager::getMesh(

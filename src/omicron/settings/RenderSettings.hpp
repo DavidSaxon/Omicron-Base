@@ -56,6 +56,9 @@ public:
     /** @return the resolution being rendered to */
     const glm::vec2& getResolution() const;
 
+    /** @return gamma correction value */
+    float getGammaCorrection() const;
+
     /** @return the strength of the ambient light */
     float getAmbientStrength() const;
 
@@ -77,6 +80,9 @@ public:
     /** @return if render able visibility checking is on */
     bool getVisibilityChecking() const;
 
+    /** @return if the rendered layers should be blurred */
+    bool getBlur() const;
+
     /** @return the amount of film grain */
     float getFilmGrain() const;
 
@@ -94,6 +100,9 @@ public:
     /** @param resolution the new resolution to be rendered to */
     void setResolution( const glm::vec2& resolution );
 
+    /** @param gamma the new gamma correction value */
+    void setGammaCorrection( float gamma );
+
     /** @param strength the new strength of ambient light */
     void setAmbientStrength( float strength );
 
@@ -109,11 +118,14 @@ public:
     /** @param scale the scale of shadow map's resolution */
     void setShadowMapResolutionScale( float scale );
 
-    /** @param the state of colour picking */
+    /** @param state the state of colour picking */
     void setColourPicking( bool state );
 
-    /** @param the state of visibility checking */
+    /** @param state the state of visibility checking */
     void setVisibilityChecking( bool state );
+
+    /** @param state of blurring */
+    void setBlur( bool state );
 
     /**@param filmGrain the amount of film grain to be applied to the final
               output */
@@ -138,6 +150,9 @@ private:
     // the resolution being rendered to
     glm::vec2 m_resolution;
 
+    // the gamma correction value
+    float m_gammaCorrection;
+
     // the strength of ambient light
     float m_ambientStrength;
     // the colour of ambient light
@@ -154,6 +169,9 @@ private:
     bool m_colourPicking;
     // whether Omicron should check if renderables are visible or not
     bool m_visibiltyChecking;
+
+    // whether the rendered output should be blurred or not
+    bool m_blur;
 
     // the amount of film grain to be applied to the final output
     float m_filmGrain;

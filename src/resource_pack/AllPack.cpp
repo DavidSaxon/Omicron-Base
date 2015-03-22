@@ -13,6 +13,15 @@ void buildAllPack()
         "res/gfx/shader/omicron/default_vertex.glsl",
         "res/gfx/shader/omicron/default_fragment.glsl"
     );
+
+    //-----------------------------------FONT-----------------------------------
+
+    // default font
+    omi::ResourceManager::addFont(
+        "default_font",
+        resource_group::ALL,
+        "res/gfx/fonts/clear_sans.ttf"
+    );
 }
 
 } // namespace pack

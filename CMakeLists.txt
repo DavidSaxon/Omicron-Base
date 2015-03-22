@@ -29,11 +29,14 @@ set(SRCS
     src/omicron/rendering/RenderLists.cpp
     src/omicron/rendering/VisibilityCheckThread.cpp
     src/omicron/rendering/lighting/ShadowMap.cpp
+    src/omicron/rendering/render_texture/BlurHorRenderTexture.cpp
+    src/omicron/rendering/render_texture/BlurVertRenderTexture.cpp
     src/omicron/rendering/render_texture/FinalRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowBlurHorRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowBlurVertRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowCollateRenderTexture.cpp
     src/omicron/rendering/render_texture/GlowFirstPassRenderTexture.cpp
+    src/omicron/rendering/render_texture/GuiRenderTexture.cpp
     src/omicron/rendering/render_texture/RenderTexture.cpp
     src/omicron/rendering/render_texture/StdRenderTexture.cpp
     src/omicron/rendering/render_texture/VisCheckRenderTexture.cpp
@@ -68,15 +71,23 @@ set(SRCS
     src/omicron/system/System.cpp
     src/override/StartUp.cpp
 
+    src/data/Globals.cpp
+
+    src/functions/settings/ApplySettings.cpp
+    src/functions/settings/Config.cpp
+
     src/resource_pack/AllPack.cpp
+    src/resource_pack/DebugPack.cpp
+    src/resource_pack/MenuPack.cpp
     src/resource_pack/StartUpPack.cpp
     src/resource_pack/TestPack.cpp
 
     src/scenes/start_up/StartUpScene.cpp
+    src/scenes/test/TestScene.cpp
+
+    src/entities/debug/FPSCounter.cpp
 
     src/entities/start_up/OmicronLogo.cpp
-
-    src/scenes/test/TestScene.cpp
 
     src/entities/test/GlowCube.cpp
     src/entities/test/Human.cpp
@@ -88,6 +99,10 @@ set(SRCS
     src/entities/test/TestPlayer.cpp
     src/entities/test/TestSun.cpp
 
+    src/entities/menu/PauseMenu.cpp
+    src/entities/menu/setting_widget/EnumWidget.cpp
+    src/entities/menu/setting_widget/SettingWidget.cpp
+    src/entities/menu/setting_widget/SliderWidget.cpp
 )
 
 find_package(Boost)
