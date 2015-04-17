@@ -52,7 +52,9 @@ void TestSun::init()
 void TestSun::update()
 {
     // move the light
-    m_move -= 0.005f * omi::fpsManager.getTimeScale();
+    // m_move -= 0.005f * omi::fpsManager.getTimeScale();
+
+    m_move = -0.25f;
 
     m_transform->translation.x = sin( m_move ) * 60.0f;
     m_transform->translation.y = cos( m_move * 0.4f ) * 40.0f;

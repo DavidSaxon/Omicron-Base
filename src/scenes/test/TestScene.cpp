@@ -18,16 +18,16 @@ void TestScene::init()
     omi::renderSettings.setAmbientColour( glm::vec3( 1.0f, 1.0f, 1.0f ) );
 
     // effects
-    omi::renderSettings.setFilmGrain( 0.075f );
+    omi::renderSettings.setFilmGrain( 0.05f );
 
     // add entities
-    addEntity( new TestFps() );
+    // addEntity( new TestFps() );
     addEntity( new TestPlayer() );
     addEntity( new PauseMenu() );
     addEntity( new TestEnvironment() );
     addEntity( new TestSun() );
     // addEntity( new Human() );
-    addEntity( new Monkey() );
+    // addEntity( new Monkey() );
     addEntity( new GlowCube() );
     // addEntity( new MapCube() );
     addEntity( new TestEvil() );

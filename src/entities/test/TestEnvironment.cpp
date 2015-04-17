@@ -52,39 +52,39 @@ void TestEnvironment::init()
     // ) );
 
     // meshes
-    m_components.add(
-            omi::ResourceManager::getMesh( "test_tunnel_1", "", NULL ) );
+    // m_components.add(
+    //         omi::ResourceManager::getMesh( "test_tunnel_1", "", NULL ) );
 
-    std::cout << "load attempt begin" << std::endl;
+    // std::cout << "load attempt begin" << std::endl;
 
-    omi::Mesh* pipeMesh =
-            omi::ResourceManager::getMesh( "test_tunnel_pipe_1", "", NULL );
-    pipeMesh->getMaterial().specular =
-        new omi::Specular( 64.0f, glm::vec3( 0.5f, 0.5f, 0.5f ) );
-    m_components.add( pipeMesh );
+    // omi::Mesh* pipeMesh =
+    //         omi::ResourceManager::getMesh( "test_tunnel_pipe_1", "", NULL );
+    // pipeMesh->getMaterial().specular =
+    //     new omi::Specular( 64.0f, glm::vec3( 0.5f, 0.5f, 0.5f ) );
+    // m_components.add( pipeMesh );
 
-    std::cout << "load attempt end" << std::endl;
+    // std::cout << "load attempt end" << std::endl;
 
-    omi::Mesh* pipeHolderMesh =
-            omi::ResourceManager::getMesh(
-                "test_tunnel_pipe_holder_1", "", NULL );
-    pipeHolderMesh->getMaterial().specular =
-        new omi::Specular( 12.0f, glm::vec3( 0.3f, 0.3f, 0.3f ) );
-    m_components.add( pipeHolderMesh );
+    // omi::Mesh* pipeHolderMesh =
+    //         omi::ResourceManager::getMesh(
+    //             "test_tunnel_pipe_holder_1", "", NULL );
+    // pipeHolderMesh->getMaterial().specular =
+    //     new omi::Specular( 12.0f, glm::vec3( 0.3f, 0.3f, 0.3f ) );
+    // m_components.add( pipeHolderMesh );
 
-    omi::Mesh* lightBulbMesh =
-            omi::ResourceManager::getMesh(
-                "test_tunnel_light_bulb_1", "", NULL );
-    lightBulbMesh->getMaterial().glow =
-        new omi::Glow( glm::vec3( 0.5f, 0.25f, 1.0f ), 1.0f );
-    m_components.add( lightBulbMesh );
+    // omi::Mesh* lightBulbMesh =
+    //         omi::ResourceManager::getMesh(
+    //             "test_tunnel_light_bulb_1", "", NULL );
+    // lightBulbMesh->getMaterial().glow =
+    //     new omi::Glow( glm::vec3( 0.5f, 0.25f, 1.0f ), 1.0f );
+    // m_components.add( lightBulbMesh );
 
-    omi::Mesh* lightSocketMesh =
-            omi::ResourceManager::getMesh(
-                "test_tunnel_light_socket_1", "", NULL );
-    lightSocketMesh->getMaterial().specular =
-        new omi::Specular( 64.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
-    m_components.add( lightSocketMesh );
+    // omi::Mesh* lightSocketMesh =
+    //         omi::ResourceManager::getMesh(
+    //             "test_tunnel_light_socket_1", "", NULL );
+    // lightSocketMesh->getMaterial().specular =
+    //     new omi::Specular( 64.0f, glm::vec3( 1.0f, 1.0f, 1.0f ) );
+    // m_components.add( lightSocketMesh );
 
     omi::Mesh* floorMesh =
             omi::ResourceManager::getMesh(
