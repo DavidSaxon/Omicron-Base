@@ -111,10 +111,11 @@ glm::vec3 CollisionChecker::forwardBestCheck(
                     static_cast<BoundingRect*>( colliderBounding );
             BoundingRect* rect2 = static_cast<BoundingRect*>( *it );
 
-
             // calculate the best position
-            glm::vec3 temp_move( new_move );
+            glm::vec3 temp_move( 0.0f, 0.0f, 0.0f );
 
+            // TODO: bounding ALL?
+            // apply shift movement
             if ( rect2->getDirection() == bounding::UP )
             {
                 float minDis = ( rect1->getSize().y / 2.0f ) +
@@ -125,7 +126,7 @@ glm::vec3 CollisionChecker::forwardBestCheck(
                 dis -= new_move.z;
                 temp_move.z = minDis - dis;
 
-                if ( new_move.z <= 0.0f )
+                if ( new_move.z <= 0.0f && new_move.z - temp_move.z <= 0.0f )
                 {
                     new_move.z = new_move.z - temp_move.z;
                 }
@@ -139,7 +140,7 @@ glm::vec3 CollisionChecker::forwardBestCheck(
                 dis -= new_move.x;
                 temp_move.x = minDis - dis;
 
-                if ( new_move.x >= 0.0f )
+                if ( new_move.x >= 0.0f && new_move.x - temp_move.x >= -0.01f )
                 {
                     new_move.x = new_move.x - temp_move.x;
                 }
@@ -153,7 +154,7 @@ glm::vec3 CollisionChecker::forwardBestCheck(
                 dis -= new_move.z;
                 temp_move.z = minDis - dis;
 
-                if ( new_move.z >= 0.0f )
+                if ( new_move.z >= 0.0f && new_move.z - temp_move.z >= 0.0f )
                 {
                     new_move.z = new_move.z - temp_move.z;
                 }
@@ -168,7 +169,7 @@ glm::vec3 CollisionChecker::forwardBestCheck(
                 dis -= new_move.x;
                 temp_move.x = minDis - dis;
 
-                if ( new_move.x <= 0.0f )
+                if ( new_move.x <= 0.0f && new_move.x - temp_move.x <= 0.01f )
                 {
                     new_move.x = new_move.x - temp_move.x;
                 }
