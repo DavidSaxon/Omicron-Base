@@ -8,7 +8,7 @@ TestRun
 cmake_install.cmake
 CmakeFiles
 Release
-Debug
+./Debug/
 TODO.txt
 Omicron-Base.exr
 Omicron-Base.pdb
